@@ -10,6 +10,7 @@
 
 **Lo que sabemos (con fuente):**
 - Reputación muy alta en Google (4,9★ en el widget de la web). Las reseñas hablan de trato, calma, «como en casa», Rosa en persona y asesoramiento sincero (`../../00-nucleo-marca/investigacion/auditoria-web-actual.md`).
+- **Patio-jardín interior privado** al que dan las cabinas (cenador, más de 30 macetas) y cabina A con pared ciruela y cojín con el icono bordado (`../../02-imagen-y-manual/espacios/mapa-del-centro.md`, en origin/main). Es un argumento diferencial del pilar *Siente*: pocos centros del centro de Alicante tienen jardín. Solo se publican fotos propias (shot list R11, R12, F16-F19, S11, G06).
 - Activos diferenciales: más de 30 años de oficio de Rosa, especialidad histórica en drenaje linfático postquirúrgico y estética, terapias y medicina estética bajo el mismo techo, con supervisión médica del Dr. Roberth Bravo Pardo.
 - Competencia: SoKo está enfrente (Maisonnave 41) con poca presencia digital. Maeli es el referente educativo y médico, Garrigós el de marca personal y Dorsia el contra-referente por descuentos y urgencia (`../../00-nucleo-marca/investigacion/analisis-competencia.md`).
 
@@ -44,7 +45,7 @@
 |---|---|---|---|---|
 | **Cuídate** | Educación y autocuidado. Criterio experto de Rosa (piel, cuerpo, manos) y del médico (por qué la medicina estética empieza con una consulta). | Piel y frío; qué es un drenaje y para quién; cómo elegir un tratamiento facial; mitos; rutinas de casa | **40 %** | 20 % |
 | **Conecta** | Rosa y el equipo, la comunidad, reseñas reales con permiso y alianzas (cirujanos para el drenaje postquirúrgico). | Rosa en primera persona; un día en el centro; quién es quién; reseña de la semana; cómo coordinamos con tu cirujano | **35 %** | 40 % |
-| **Siente** | Rituales, ambiente, lo sensorial: texturas, sonido, luz, aroma, el momento de parar. | Ritual de invierno en planos de detalle; la cabina por dentro; bonos regalo como experiencia | **25 %** | 40 % |
+| **Siente** | Rituales, ambiente, lo sensorial: texturas, sonido, luz, aroma, el momento de parar. El patio-jardín como espacio propio. | Ritual de invierno en planos de detalle; de la cabina al jardín; la cabina por dentro; bonos regalo como experiencia | **25 %** | 40 % |
 
 **Reglas de los pilares**
 - Cada pieza tiene **un** pilar principal; se anota en el calendario.
@@ -141,9 +142,9 @@ Basadas en `../../00-nucleo-marca/cumplimiento-legal.md`. No es asesoramiento ju
 | Bonos regalo de estética, masajes, rituales y terapias de bienestar | Bonos, regalos, sorteos o descuentos de medicina estética. Tampoco de fisioterapia, osteopatía o acupuntura mientras no se confirme con el asesor si se consideran actos sanitarios [PENDIENTE] |
 | Recordar con calma fechas de compra o entrega de bonos | Urgencia o presión en actos médicos («últimas plazas», «solo hoy») |
 | Reseñas reales, con permiso escrito, sobre trato, estética y bienestar | Reseñas o testimonios sobre resultados de tratamientos médicos; reseñas inventadas o editadas |
-| Fotos reales del centro, el equipo y procesos, con consentimiento de quien aparece | Antes/después sin protocolo (consentimiento escrito, sin retoque, misma luz y encuadre, normativa autonómica comprobada). En diciembre: ninguno |
+| Fotos reales del centro, el equipo y procesos, con consentimiento de quien aparece | Fotos de terceros (p. ej. Google Maps) o imágenes generadas con IA presentadas como el centro. Antes/después sin protocolo (consentimiento escrito, sin retoque, misma luz y encuadre, normativa autonómica comprobada). En diciembre: ninguno |
 | Nombrar técnicas de estética y bienestar | Nombrar medicamentos de prescripción o sus marcas (p. ej. marcas de toxina botulínica) |
-| Lenguaje de bienestar en terapias: relajar, soltar tensión, sensación de ligereza | Claims de curación: «cura», «trata la ansiedad o la depresión», «elimina toxinas» |
+| Lenguaje de bienestar en terapias: relajar, soltar tensión, sensación de ligereza | Claims de curación: «cura», «trata la ansiedad o la depresión», «elimina toxinas»; propiedades de los aceites esenciales |
 | Autocuidado y diversidad de cuerpos y edades | Mensajes que generen inseguridad corporal («adiós a…», «arregla tus defectos») |
 | Derivar cualquier pregunta clínica a consulta, por privado | Diagnosticar o recomendar tratamientos en comentarios o mensajes directos |
 | Imágenes de menores solo si no aparecen identificables y con autorización de sus tutores; mejor evitarlas | Medicina estética dirigida a menores |
