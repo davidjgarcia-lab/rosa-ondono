@@ -44,3 +44,14 @@ Nuevos pendientes del cliente:
 - Accesos a Search Console, GBP y WordPress.
 
 ⚠️ No se localizan páginas de aviso legal, privacidad ni cookies en la web actual (404): hay que avisar al cliente ya.
+
+## Prototipo navegable (17/11/2026)
+- **Código:** `prototipo/` (ver `prototipo/LEEME.md`). Aplica el manual v2.1: #7D1F73, Jost + Cormorant, supergráfico e iconos.
+- **Base de datos:** proyecto Supabase `rosa-ondono-web` (eu-west-3).
+  - Catálogo de 62 tratamientos, de lectura pública.
+  - Solicitudes de reserva de solo inserción (RLS).
+- **Vista previa:** artefacto «Rosa Ondoño · Prototipo web» en Claude. Funciona con la copia local del catálogo; desde ahí la reserva no se envía.
+- **Pendiente:**
+  - QA (accesibilidad, legal).
+  - Validación del director de arte.
+  - Datos del cliente: precios, duraciones, colegiado, registro sanitario y retratos.

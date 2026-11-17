@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rosa Ondoño · Prototipo web</title>
+<meta name="description" content="Prototipo del rediseño web de Rosa Ondoño, centro de estética, terapias y medicina estética en Av. Maisonnave 38, Alicante.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/isotipo-color.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="css/estilos.css">
+<script src="js/config.js" defer></script>
+<script src="js/app.js" defer></script>
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<div class="aviso-prototipo" role="note">
+  <span><strong>Prototipo</strong> · borrador con el manual v2.1 · no introduzcas datos reales</span>
+  <span id="fuente-datos" class="fuente">Cargando catálogo…</span>
+</div>
+
+<header class="cabecera">
+  <div class="envoltura cabecera__fila">
+    <a class="cabecera__logo" href="#inicio" aria-label="Rosa Ondoño · inicio">
+      <img src="img/logo-horizontal.svg" alt="Rosa Ondoño" width="180" height="60">
+    </a>
+    <button class="boton-menu" type="button" aria-expanded="false" aria-controls="menu-principal">Menú</button>
+    <nav id="menu-principal" class="menu" aria-label="Principal">
+      <ul>
+        <li><a href="#cuidate" data-ruta="cuidate">Cuídate</a></li>
+        <li><a href="#conecta" data-ruta="conecta">Conecta</a></li>
+        <li><a href="#siente" data-ruta="siente">Siente</a></li>
+        <li><a href="#tratamientos" data-ruta="tratamientos">Tratamientos</a></li>
+        <li><a href="#medicina-estetica" data-ruta="medicina-estetica">Medicina estética</a></li>
+        <li><a href="#equipo" data-ruta="equipo">Rosa y el equipo</a></li>
+        <li><a href="#regala" data-ruta="regala">Regala</a></li>
+      </ul>
+    </nav>
+    <a class="boton boton--primario cabecera__reservar" href="#reservar">Reservar</a>
+  </div>
+</header>
+
+<main id="contenido" tabindex="-1">
+  <div class="envoltura cargando">Cargando…</div>
+</main>
+
+<footer class="pie">
+  <div class="envoltura pie__rejilla">
+    <div>
+      <img src="img/logo-horizontal-blanco.svg" alt="Rosa Ondoño" width="190" height="63" class="pie__logo">
+      <p class="lema lema--pie">Cuídate · Conecta · Siente</p>
+    </div>
+    <div>
+      <h2 class="pie__titulo">Visítanos</h2>
+      <p>Av. Maisonnave 38, Entlo. Izq.<br>03003 Alicante</p>
+      <p>Lunes a viernes 9:30–19:00 (verano)<br><span class="pendiente">Horario de invierno pendiente</span></p>
+    </div>
+    <div>
+      <h2 class="pie__titulo">Contacto</h2>
+      <p><a href="tel:+34965120300">965 120 300</a><br>WhatsApp <a href="https://wa.me/34691315622">691 315 622</a><br><a href="mailto:info@rosaondono.com">info@rosaondono.com</a></p>
+    </div>
+    <div>
+      <h2 class="pie__titulo">Legal</h2>
+      <p>Aviso legal · Privacidad · Cookies · Accesibilidad</p>
+      <p><span class="pendiente">Nº de registro sanitario pendiente</span></p>
+    </div>
+  </div>
+</footer>
+
+<div class="barra-movil">
+  <a class="boton boton--primario" href="#reservar">Reservar</a>
+  <a class="boton boton--secundario" href="https://wa.me/34691315622">WhatsApp</a>
+</div>
+</body>
+</html>
