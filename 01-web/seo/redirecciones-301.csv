@@ -1,0 +1,35 @@
+origen,destino,codigo,tipo,origen_en_sitemap,nota
+/,/,200,mantener,si,Home. Sin redirección. Reescribir title (sin duplicidades) y retirar «Resultados garantizados»
+/tratamientos-faciales/,/tratamientos/faciales/,301,1:1,si,Categoría técnica equivalente
+/tratamientos-corporales/,/tratamientos/corporales/,301,1:1,si,Categoría técnica equivalente
+/centro-belleza-alicante/,/tratamientos/belleza/,301,1:1,si,Contenía micropigmentación (incl. oncológica) y maquillaje; flores de Bach/onda corta/terapia manual pasan a sus fichas
+/depilacion-en-alicante/,/tratamientos/depilacion-laser/,301,1:1,si,Página monotemática de depilación láser (diodo + alejandrita) con FAQ: migrar FAQ a la ficha
+/clinica-estetica/,/medicina-estetica/,301,1:1,si,Hub médico; los 12 tratamientos pasan a fichas propias
+/masajes-alicante/,/tratamientos/masajes/,301,1:1,si,Categoría técnica equivalente
+/terapias-complementarias/,/tratamientos/terapias-complementarias/,301,1:1,si,Retirar «poder curativo» y claims de curación
+/sobre-mi/,/equipo/rosa-ondono/,301,1:1,si,Página de fundadora (Person)
+/blog/,/blog/,200,mantener,si,Sin redirección
+/contacto/,/contacto/,200,mantener,si,Sin redirección. Title sin emojis
+/mejores-tratamientos-corporales-alicante/,/tratamientos/corporales/,301,fusion,si,Post que canibaliza la categoría: fusionar contenido útil en la categoría
+/tratamientos-rejuvenecimiento-facial/,/cuidate/rejuvenecimiento-facial/,301,fusion,si,Post → programa. Retirar «resultados reales» del title
+/tratamientos-faciales-alicante/,/tratamientos/faciales/,301,fusion,si,Post «5 tratamientos» canibaliza la categoría
+/depilacion-laser-alejandrita/,/tratamientos/depilacion-laser/,301,fusion,si,Post canibaliza la ficha: fusionar como sección «Láser alejandrita»
+/masaje-terapeutico-beneficios-bienestar/,/blog/masaje-terapeutico-beneficios-bienestar/,301,blog,si,Artículo informacional: enlaza a /tratamientos/masaje-terapeutico/
+/las-7-emociones-medicina-china/,/blog/las-7-emociones-medicina-china/,301,blog,si,Revisar claims de salud
+/terapias-naturales-salud-integral-alicante/,/blog/terapias-naturales-salud-integral-alicante/,301,blog,si,Revisar claims de salud (lenguaje de bienestar)
+/combinacion-estetica-bienestar/,/blog/combinacion-estetica-bienestar/,301,blog,si,Title sin emojis
+/tendencias-en-tratamientos-esteticos/,/blog/tendencias-en-tratamientos-esteticos/,301,blog,si,
+/category/tratamientos-faciales/,/blog/tema/piel/,301,archivo,no,Archivo de categoría sin H1
+/category/tratamientos-corporales/,/blog/tema/cuerpo/,301,archivo,no,Archivo de categoría sin H1
+/category/masajes/,/blog/tema/bienestar/,301,archivo,no,Archivo de categoría sin H1
+/category/depilacion/,/blog/tema/piel/,301,archivo,no,No habrá tema «depilación» propio (1 artículo)
+/category/tendencias/,/blog/,301,archivo,no,
+/page/2/,/blog/,301,paginacion,no,Paginación de WordPress
+/blog/page/2/,/blog/,301,paginacion,no,Si el blog nuevo pagina con /blog/page/2/ mantener en lugar de redirigir
+/feed/,/blog/rss.xml,301,feed,no,
+/comments/feed/,,410,eliminar,no,Comentarios desactivados en la web nueva
+/author/admin/,/equipo/rosa-ondono/,301,autor,no,Hoy redirige a /; mejor a la autora real
+/wp-admin/,,404,eliminar,no,Sin WordPress en la web nueva (si se mantiene WP no aplica)
+/wp-login.php,,404,eliminar,no,Ídem
+/?p=*,,410,patron,no,IDs de post de WordPress: mapear los conocidos a su destino; el resto 410
+/wp-content/uploads/*,/{ruta-equivalente},301,patron,no,Solo imágenes con tráfico en Google Imágenes (ver Search Console). Resto 404

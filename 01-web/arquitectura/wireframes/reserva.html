@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe · Reserva · Rosa Ondoño (baja fidelidad)</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="wf.css">
+<script src="wf.js" defer></script>
+</head>
+<body>
+<div class="wf-bar"><div class="wrap"><span>WIREFRAME BAJA FIDELIDAD · Reserva (3 pasos + estados) · v0.1</span><a href="index.html">← Índice de wireframes</a></div></div>
+
+<header class="site-head">
+  <div class="wrap">
+    <span class="logo">[Logo]</span>
+    <div class="head-actions"><a class="btn ter" href="tel:+34965120300">¿Prefieres llamar? 965 120 300</a><a class="btn sec" href="#">WhatsApp</a></div>
+  </div>
+</header>
+<p class="wrap note"><span class="n">0</span>Cabecera simplificada (sin menú principal) para reducir las salidas del embudo. Llamada y WhatsApp se mantienen siempre como alternativa. URL: <code>/reservar?servicio={slug}</code>. Los pasos se muestran aquí apilados para revisarlos; en el producto final se ve un paso cada vez, con el botón «Atrás» que conserva los datos.</p>
+
+<main class="wrap" style="max-width:860px">
+  <h1>Reserva tu cita</h1>
+  <ol class="steps" aria-label="Progreso de la reserva">
+    <li aria-current="step">1. Servicio</li><li>2. Fecha y hora</li><li>3. Tus datos</li>
+  </ol>
+
+  <!-- PASO 1 -->
+  <section class="box" aria-labelledby="p1">
+    <h2 id="p1">1 · ¿Qué quieres reservar?</h2>
+    <p class="note"><span class="n">1</span>Si se llega desde una ficha, el servicio viene precargado y este paso se muestra contraído («Drenaje linfático postoperatorio · 60 min · desde [—] €», con el enlace «Cambiar»). Si se llega sin servicio, aparece un buscador y un listado por pilar.</p>
+    <div class="state"><b>Estado: servicio precargado</b>
+      <p><strong>Drenaje linfático postoperatorio</strong> · 60 min · desde [—] € <a href="#">Cambiar</a></p>
+    </div>
+    <div class="state"><b>Estado: sin servicio (entrada directa)</b>
+      <label for="busca">Busca un tratamiento</label><input id="busca" type="search" placeholder="Ej.: masaje, limpieza facial, depilación…">
+      <p><span class="chip">Valoración integral (recomendado si dudas)</span></p>
+      <details><summary>Cuídate</summary><p>[Listado de servicios reservables…]</p></details>
+      <details><summary>Conecta</summary><p>[…]</p></details>
+      <details><summary>Siente</summary><p>[…]</p></details>
+      <p class="muted">Los tratamientos de medicina estética requieren una <a href="#">consulta médica previa</a>, que sí se puede reservar aquí.</p>
+    </div>
+    <label for="dur">Duración / modalidad</label>
+    <select id="dur"><option>Sesión individual · 60 min</option><option>Bono [x] sesiones</option></select>
+    <label for="cod">¿Tienes una tarjeta regalo? <span class="muted">(opcional)</span></label><input id="cod" placeholder="Código de la tarjeta">
+    <p class="note"><span class="n">2</span>El código de la tarjeta regalo es el punto de entrada del receptor (recorrido R3). Validarlo aquí depende del sistema de reservas: ver la propuesta de stack.</p>
+    <p><button class="btn" type="button">Continuar</button></p>
+  </section>
+
+  <!-- PASO 2 -->
+  <section class="box" style="margin-top:20px" aria-labelledby="p2">
+    <h2 id="p2">2 · Elige día y hora</h2>
+    <label for="prof">Profesional</label>
+    <select id="prof"><option>Me da igual (más disponibilidad)</option><option>Rosa Ondoño</option><option>[Otro profesional]</option></select>
+    <p class="note"><span class="n">3</span>La semana se muestra en una lista de días navegable con teclado (no hace falta arrastrar). Los huecos son botones de 44 px como mínimo, con <code>aria-pressed</code>. Los no disponibles se marcan con tachado y texto, no solo con color.</p>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0"><button class="btn sec" type="button" aria-label="Semana anterior">←</button><strong>Semana del [lunes] al [viernes]</strong><button class="btn sec" type="button" aria-label="Semana siguiente">→</button></div>
+    <div class="grid g3">
+      <fieldset class="box"><legend>Lunes [dd/mm]</legend><div class="slots" style="display:flex;flex-wrap:wrap;gap:6px"><button class="slot" type="button" aria-pressed="false">10:00</button><button class="slot" type="button" disabled>11:00</button><button class="slot" type="button" aria-pressed="false">16:30</button></div></fieldset>
+      <fieldset class="box"><legend>Martes [dd/mm]</legend><div class="slots" style="display:flex;flex-wrap:wrap;gap:6px"><button class="slot" type="button" aria-pressed="true">9:30</button><button class="slot" type="button" aria-pressed="false">12:00</button></div></fieldset>
+      <fieldset class="box"><legend>Miércoles [dd/mm]</legend><p class="muted">Sin huecos</p></fieldset>
+    </div>
+    <div class="state" role="status"><b>Estado: cargando</b><p>Buscando huecos disponibles… [esqueleto de 3 columnas, sin spinner infinito; tiempo máximo de espera: 8 s]</p></div>
+    <div class="state"><b>Estado: semana sin disponibilidad</b><p>No quedan huecos esta semana. <button class="btn sec" type="button">Ver la siguiente semana</button> <button class="btn ter" type="button">Avísame si se libera un hueco</button></p></div>
+    <div class="state" role="alert"><b>Estado: error del sistema de reservas</b><p class="err">Ahora mismo no podemos mostrar la agenda. Puedes reservar por <a href="#">WhatsApp</a> o llamando al <a href="tel:+34965120300">965 120 300</a>. [Se registra el error para el programador.]</p></div>
+    <p><button class="btn sec" type="button">Atrás</button> <button class="btn" type="button">Continuar</button></p>
+  </section>
+
+  <!-- PASO 3 -->
+  <section class="box" style="margin-top:20px" aria-labelledby="p3">
+    <h2 id="p3">3 · Tus datos</h2>
+    <div class="state"><b>Resumen fijo</b><p>Drenaje linfático postoperatorio · Martes [dd/mm] 9:30 · 60 min · Rosa Ondoño · desde [—] € (pago en el centro)</p></div>
+    <form novalidate>
+      <div class="grid g2">
+        <div><label for="nom">Nombre y apellidos</label><input id="nom" autocomplete="name" required></div>
+        <div><label for="tel">Teléfono móvil</label><input id="tel" type="tel" autocomplete="tel" required aria-describedby="tel-err"><p id="tel-err" class="err">[Error en línea] Revisa el teléfono: faltan dígitos.</p></div>
+      </div>
+      <label for="em">Email</label><input id="em" type="email" autocomplete="email" required>
+      <label for="com">¿Algo que debamos saber? <span class="muted">(opcional)</span></label>
+      <textarea id="com" rows="3" aria-describedby="com-h"></textarea>
+      <p id="com-h" class="muted" style="font-size:13px">Por ejemplo: fecha de tu cirugía o indicaciones de tu cirujano.</p>
+      <p class="note"><span class="n">4</span>Campo libre con posibles datos de salud. Requiere una base jurídica y un consentimiento explícito específico (art. 9 del RGPD) y almacenamiento conforme en el sistema de reservas. Lo valida el qa con el asesor legal.</p>
+      <label class="check"><input type="checkbox" required> <span>He leído la <a href="#">política de privacidad</a> y acepto el tratamiento de mis datos para gestionar la cita.</span></label>
+      <label class="check"><input type="checkbox"> <span>Consiento el tratamiento de los datos de salud que indique en el comentario. <span class="muted">(Solo si los incluyes)</span></span></label>
+      <label class="check"><input type="checkbox"> <span>Quiero recibir novedades por email. <span class="muted">(Opcional; casilla sin marcar por defecto)</span></span></label>
+      <p class="muted" style="font-size:13px">Política de cancelación: [PENDIENTE: p. ej. avisar con 24 h]. Te enviaremos un recordatorio por email/SMS el día anterior.</p>
+      <p><button class="btn sec" type="button">Atrás</button> <button class="btn" type="button">Confirmar reserva</button></p>
+    </form>
+  </section>
+
+  <!-- ÉXITO -->
+  <section class="state" style="margin-top:20px" role="status" aria-labelledby="ok">
+    <b>Estado: reserva confirmada</b>
+    <h2 id="ok">¡Te esperamos!</h2>
+    <p>Martes [dd/mm] a las 9:30 · Drenaje linfático postoperatorio · con Rosa Ondoño</p>
+    <p>Av. Maisonnave 38, Entlo. Izq., 03003 Alicante</p>
+    <p><a class="btn sec" href="#">Añadir al calendario</a> <a class="btn sec" href="#">Cómo llegar</a> <a class="btn ter" href="#">Modificar o cancelar</a></p>
+    <p class="note"><span class="n">5</span>Email de confirmación + recordatorio 24 h. Evento de analítica <code>reserva_completada</code> solo con consentimiento de cookies. Sin pago obligatorio en la v1.</p>
+  </section>
+</main>
+
+<footer class="site-foot"><div class="wrap"><p>[Pie reducido: legales · NAP]</p></div></footer>
+</body>
+</html>

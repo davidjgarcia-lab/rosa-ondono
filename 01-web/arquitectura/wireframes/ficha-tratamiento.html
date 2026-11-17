@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe · Ficha de tratamiento · Rosa Ondoño (baja fidelidad)</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="wf.css">
+<script src="wf.js" defer></script>
+</head>
+<body>
+<div class="wf-bar"><div class="wrap"><span>WIREFRAME BAJA FIDELIDAD · Ficha de tratamiento (ejemplo: Drenaje linfático postoperatorio) · v0.1</span><a href="index.html">← Índice de wireframes</a></div></div>
+
+<header class="site-head">
+  <div class="wrap">
+    <span class="logo">[Logo]</span>
+    <nav class="mainnav" aria-label="Principal"><ul><li><a href="#">¿Qué necesitas? ▾</a></li><li><a href="#">Tratamientos ▾</a></li><li><a href="#">Medicina estética</a></li><li><a href="#">Rosa y el equipo</a></li><li><a href="#">Regala</a></li></ul></nav>
+    <div class="head-actions"><a class="btn sec hide-m" href="#">WhatsApp</a><a class="btn" href="reserva.html">Reservar</a><button class="btn sec burger" type="button" aria-label="Abrir menú">☰</button></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="crumbs" aria-label="Migas de pan"><ol><li><a href="home.html">Inicio</a></li><li><a href="#">Tratamientos</a></li><li><a href="#">Masajes</a></li><li aria-current="page">Drenaje linfático postoperatorio</li></ol></nav>
+  <p class="note"><span class="n">1</span>Migas de pan por técnica (BreadcrumbList). Una ficha = una URL: <code>/tratamientos/drenaje-linfatico-postoperatorio/</code>. Plantilla única para las unas 58 fichas; los campos salen del modelo de contenido (arquitectura §6).</p>
+
+  <!-- CABECERA DE FICHA -->
+  <section class="grid g2" style="align-items:start" aria-labelledby="h1">
+    <div>
+      <p><span class="chip">Conecta</span><span class="chip">Pre y postoperatorio</span></p>
+      <h1 id="h1">Drenaje linfático postoperatorio en Alicante</h1>
+      <p>[Lead 160–220 car., que también sirve de meta description] Acompañamos tu recuperación tras una cirugía estética con drenaje linfático manual, coordinado con las indicaciones de tu cirujano.</p>
+      <p class="note"><span class="n">2</span>«Datos clave» en formato escaneable: es lo que preguntan hoy por WhatsApp. Las sesiones siempre llevan el texto «orientativo».</p>
+      <table aria-label="Datos clave">
+        <tr><th scope="row">Duración</th><td>[60] min</td></tr>
+        <tr><th scope="row">Sesiones</th><td>[Orientativo: según la cirugía y la pauta de tu cirujano]</td></tr>
+        <tr><th scope="row">Precio</th><td>Desde [—] € · bonos disponibles</td></tr>
+        <tr><th scope="row">Lo realiza</th><td>Rosa Ondoño, especialista en drenaje postquirúrgico</td></tr>
+      </table>
+      <p style="margin-top:16px"><a class="btn" href="reserva.html">Reservar este tratamiento</a> <a class="btn sec" href="#">Consultar por WhatsApp</a></p>
+      <p class="note"><span class="n">3</span>CTA principal contextual: lleva a <code>/reservar?servicio=drenaje-linfatico-postoperatorio</code> con el servicio ya elegido. <strong>Variante médica:</strong> el CTA pasa a ser «Pedir consulta médica», el precio se muestra como «tras consulta», aparece la firma y el nº de colegiado del médico, y se añade el bloque de avisos (§7).</p>
+    </div>
+    <div class="img" style="min-height:380px">[Foto principal + alt descriptivo · sin antes/después]</div>
+  </section>
+
+  <!-- PARA QUIÉN -->
+  <section class="sec-pad grid g2" aria-labelledby="h-para">
+    <div class="box"><h2 id="h-para">Para quién es</h2><ul><li>[Personas en recuperación de liposucción, abdominoplastia, mamoplastia…]</li><li>[Preparación previa a la cirugía]</li><li>[Con autorización de su cirujano]</li></ul></div>
+    <div class="box"><h2>Cuándo no está indicado</h2><ul><li>[Contraindicaciones: infección activa, trombosis… · las valida un profesional sanitario]</li></ul><p class="muted">Si tienes dudas, consúltanos antes de reservar.</p></div>
+  </section>
+
+  <!-- CÓMO ES LA SESIÓN -->
+  <section class="sec-pad" aria-labelledby="h-ses">
+    <p class="note"><span class="n">4</span>Explicar el proceso paso a paso. Responde al «que te expliquen» de las reseñas y reduce el miedo.</p>
+    <h2 id="h-ses">Cómo es la sesión</h2>
+    <div class="grid g4">
+      <div class="box"><strong>1. Escucha</strong><p class="muted">[Revisamos el informe y las indicaciones de tu cirujano]</p></div>
+      <div class="box"><strong>2. Preparación</strong><p class="muted">[…]</p></div>
+      <div class="box"><strong>3. Drenaje manual</strong><p class="muted">[…]</p></div>
+      <div class="box"><strong>4. Pautas para casa</strong><p class="muted">[…]</p></div>
+    </div>
+  </section>
+
+  <!-- POR QUÉ CON ROSA -->
+  <section class="sec-pad box grid g2" aria-labelledby="h-quien" style="align-items:center">
+    <div class="img" style="min-height:220px">[Retrato Rosa]</div>
+    <div><p class="note"><span class="n">5</span>Profesional que lo realiza (relación Persona) y diferencial real, sin superlativos.</p>
+    <h2 id="h-quien">Quién te atiende</h2><p><strong>Rosa Ondoño</strong> · Más de 30 años de experiencia. Formada en drenaje linfático postquirúrgico. Ha trabajado con derivaciones de médicos de Alicante, Madrid y Barcelona.</p><a href="#">Conoce a Rosa →</a></div>
+  </section>
+
+  <!-- RESEÑAS -->
+  <section class="sec-pad" aria-labelledby="h-op"><h2 id="h-op">Opiniones sobre este tratamiento</h2><div class="grid g2"><blockquote class="box">«[Reseña que mencione el drenaje]» — [Nombre]</blockquote><blockquote class="box">«[Reseña]» — [Nombre]</blockquote></div></section>
+
+  <!-- FAQ -->
+  <section class="sec-pad" aria-labelledby="h-faq">
+    <p class="note"><span class="n">6</span>Mínimo 3 FAQ (FAQPage). Acordeón nativo &lt;details&gt;, accesible sin JS.</p>
+    <h2 id="h-faq">Preguntas frecuentes</h2>
+    <details><summary>¿Cuándo puedo empezar después de la operación?</summary><p>[Respuesta: según indicación de tu cirujano…]</p></details>
+    <details><summary>¿Cuántas sesiones voy a necesitar?</summary><p>[…]</p></details>
+    <details><summary>¿Duele?</summary><p>[…]</p></details>
+    <details><summary>¿Puedo combinarlo con presoterapia?</summary><p>[…]</p></details>
+  </section>
+
+  <!-- AVISO (variante médica) -->
+  <section class="state" aria-label="Variante médica">
+    <b>Bloque solo en fichas médicas (tipo = médico)</b>
+    <p class="note"><span class="n">7</span>Aviso fijo: «Tratamiento médico realizado por el Dr. Roberth Bravo Pardo, nº col. [PENDIENTE]. Requiere valoración médica previa. Los resultados varían según cada persona». Incluye el nº de registro sanitario del centro [PENDIENTE] y la fecha de la última revisión legal.</p>
+  </section>
+
+  <!-- RELACIONADOS -->
+  <section class="sec-pad" aria-labelledby="h-rel">
+    <h2 id="h-rel">También te puede interesar</h2>
+    <div class="grid g3"><article class="box"><div class="img">[img]</div><h3>Presoterapia</h3><a href="#">Ver →</a></article><article class="box"><div class="img">[img]</div><h3>Programa Pre y postoperatorio</h3><a href="#">Ver →</a></article><article class="box"><div class="img">[img]</div><h3>Artículo: qué hacer tras una liposucción</h3><a href="#">Leer →</a></article></div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="sec-pad box" style="text-align:center" aria-labelledby="h-cta">
+    <h2 id="h-cta">¿Te operas pronto o acabas de operarte?</h2>
+    <p>Cuéntanos tu caso y organizamos las sesiones contigo.</p>
+    <a class="btn" href="reserva.html">Reservar</a> <a class="btn sec" href="#">WhatsApp</a> <a class="btn ter" href="#">¿No sabes cuál elegir? Valoración integral</a>
+  </section>
+</main>
+
+<footer class="site-foot"><div class="wrap"><p>[Pie común: NAP · horario · legales · nº registro sanitario PENDIENTE]</p></div></footer>
+<div class="sticky-m"><a class="btn" href="reserva.html">Reservar</a><a class="btn sec" href="#">WhatsApp</a></div>
+</body>
+</html>

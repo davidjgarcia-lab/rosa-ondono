@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe · Home · Rosa Ondoño (baja fidelidad)</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="wf.css">
+<script src="wf.js" defer></script>
+</head>
+<body>
+<a href="#main" class="btn sec" style="position:absolute;left:-9999px" onfocus="this.style.left='8px'">Saltar al contenido</a>
+<div class="wf-bar"><div class="wrap"><span>WIREFRAME BAJA FIDELIDAD · Home · v0.1 · 17/11/2026 · sin estilo de marca</span><a href="index.html">← Índice de wireframes</a></div></div>
+
+<!-- CABECERA -->
+<header class="site-head">
+  <div class="wrap">
+    <span class="logo">[Logo: icono + Rosa Ondoño]</span>
+    <nav class="mainnav" aria-label="Principal">
+      <ul>
+        <li><a href="#mega">¿Qué necesitas? ▾</a></li>
+        <li><a href="#">Tratamientos ▾</a></li>
+        <li><a href="#">Medicina estética</a></li>
+        <li><a href="#">Rosa y el equipo</a></li>
+        <li><a href="#">Regala</a></li>
+      </ul>
+    </nav>
+    <div class="head-actions">
+      <a class="btn ter hide-m" href="tel:+34965120300">965 120 300</a>
+      <a class="btn sec hide-m" href="#">WhatsApp</a>
+      <a class="btn" href="reserva.html">Reservar</a>
+      <button class="btn sec burger" type="button" aria-label="Abrir menú">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+  <!-- Megamenú mostrado como estado -->
+  <div class="mega" id="mega">
+    <p class="note"><span class="n">1</span>Estado: megamenú «¿Qué necesitas?» abierto, mostrado aquí desplegado para revisión. Hay tres columnas, una por pilar, con sus programas. Se abre al pulsar, no al pasar el ratón, y es accesible por teclado.</p>
+    <div class="grid g4">
+      <div><h3>Cuídate</h3><ul><li>Rejuvenecimiento facial</li><li>Silueta y piernas ligeras</li><li>Belleza esencial</li><li>Medicina estética →</li></ul></div>
+      <div><h3>Conecta</h3><ul><li>Dolor y tensión</li><li>Pre y postoperatorio</li><li>Equilibrio emocional</li></ul></div>
+      <div><h3>Siente</h3><ul><li>Rituales y desconexión</li><li>Ritual en pareja</li><li>Regala una experiencia</li></ul></div>
+      <div class="box"><strong>¿No sabes por dónde empezar?</strong><p class="muted">Valoración integral: te escuchamos y te proponemos un plan.</p><a class="btn sec" href="#">Conocer la valoración</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="sec-pad" aria-labelledby="h-hero">
+  <div class="wrap grid g2" style="align-items:center">
+    <div>
+      <p class="note"><span class="n">2</span>Hero: lema + propuesta de valor + 2 CTA. Nada de «resultados garantizados». Titular definitivo: experto-marketing-comunicacion (manual).</p>
+      <p class="muted">Cuídate · Conecta · Siente</p>
+      <h1 id="h-hero">[Titular] Estética, manos expertas y medicina estética en el centro de Alicante</h1>
+      <p>[Subtítulo, 1–2 líneas] Más de 30 años cuidando de ti en Av. Maisonnave. Empezamos escuchándote.</p>
+      <p><a class="btn" href="#valoracion">Reservar valoración integral</a> <a class="btn sec" href="#necesidad">Ver tratamientos</a></p>
+      <p class="muted">★ 4,9 en Google · [nº reseñas] opiniones</p>
+    </div>
+    <div class="img" style="min-height:360px">[Foto: Rosa atendiendo, luz natural · plan del fotógrafo]</div>
+  </div>
+</section>
+
+<!-- POR NECESIDAD -->
+<section class="sec-pad box" id="necesidad" aria-labelledby="h-nec" style="border-left:0;border-right:0;border-radius:0">
+  <div class="wrap">
+    <p class="note"><span class="n">3</span>Entrada por necesidad: 3 pilares con 2–3 programas cada uno. Es el bloque principal de orientación (perfiles P1, P3, P4 y P5).</p>
+    <h2 id="h-nec">¿Qué te gustaría hoy?</h2>
+    <div class="grid g3">
+      <article class="box"><div class="img">[Imagen pilar]</div><h3>Cuídate</h3><p class="muted">Piel, cuerpo y medicina estética con criterio.</p><p><span class="chip">Rejuvenecimiento facial</span><span class="chip">Silueta</span><span class="chip">Depilación láser</span><span class="chip">Medicina estética</span></p><a href="#">Ver Cuídate →</a></article>
+      <article class="box"><div class="img">[Imagen pilar]</div><h3>Conecta</h3><p class="muted">Manos expertas para el dolor, la tensión y la recuperación.</p><p><span class="chip">Dolor y tensión</span><span class="chip">Pre y postoperatorio</span><span class="chip">Equilibrio emocional</span></p><a href="#">Ver Conecta →</a></article>
+      <article class="box"><div class="img">[Imagen pilar]</div><h3>Siente</h3><p class="muted">Rituales para parar y regalar.</p><p><span class="chip">Ritual en pareja</span><span class="chip">Circuito spa</span><span class="chip">Tarjeta regalo</span></p><a href="#">Ver Siente →</a></article>
+    </div>
+    <p style="margin-top:16px">¿Sabes lo que buscas? <a href="#">Ver todos los tratamientos por técnica →</a></p>
+  </div>
+</section>
+
+<!-- VALORACIÓN INTEGRAL -->
+<section class="sec-pad" id="valoracion" aria-labelledby="h-val">
+  <div class="wrap grid g2" style="align-items:center">
+    <div class="img" style="min-height:260px">[Foto: sesión de valoración]</div>
+    <div>
+      <p class="note"><span class="n">4</span>Puerta de entrada de marca (recorrido R2). Condiciones (gratuita o descontable): PENDIENTE del cliente.</p>
+      <h2 id="h-val">Empieza por una valoración integral</h2>
+      <ol><li>Nos cuentas qué te gustaría mejorar.</li><li>Analizamos piel, cuerpo y hábitos.</li><li>Te llevas un plan personalizado por escrito.</li></ol>
+      <p class="muted">[Duración] min · [Precio/condición PENDIENTE] · Sin compromiso</p>
+      <a class="btn" href="reserva.html">Reservar mi valoración</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRATAMIENTOS DESTACADOS -->
+<section class="sec-pad" aria-labelledby="h-dest">
+  <div class="wrap">
+    <p class="note"><span class="n">5</span>6 fichas más demandadas (prioridad 1 del keyword map). Las tarjetas muestran nombre, una línea, la duración y el precio «desde». Las médicas muestran «tras consulta».</p>
+    <h2 id="h-dest">Los más pedidos</h2>
+    <div class="grid g3">
+      <article class="box"><div class="img">[img]</div><h3>Depilación láser</h3><p class="muted">60 min · desde [—] €</p><a href="ficha-tratamiento.html">Ver tratamiento →</a></article>
+      <article class="box"><div class="img">[img]</div><h3>Drenaje linfático postoperatorio</h3><p class="muted">60 min · desde [—] €</p><a href="ficha-tratamiento.html">Ver tratamiento →</a></article>
+      <article class="box"><div class="img">[img]</div><h3>Limpieza facial profunda</h3><p class="muted">75 min · desde [—] €</p><a href="#">Ver tratamiento →</a></article>
+      <article class="box"><div class="img">[img]</div><h3>Masaje descontracturante</h3><p class="muted">50 min · desde [—] €</p><a href="#">Ver tratamiento →</a></article>
+      <article class="box"><div class="img">[img]</div><h3>Dermapen</h3><p class="muted">60 min · desde [—] €</p><a href="#">Ver tratamiento →</a></article>
+      <article class="box"><div class="img">[img]</div><h3>Aumento de labios <small>(médico)</small></h3><p class="muted">Precio tras consulta médica</p><a href="#">Ver tratamiento →</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPO / CONFIANZA -->
+<section class="sec-pad box" aria-labelledby="h-eq" style="border-left:0;border-right:0;border-radius:0">
+  <div class="wrap">
+    <p class="note"><span class="n">6</span>Rosa y el médico en primer plano (E-E-A-T, perfil P2). Nombre, foto y credenciales. Nº de colegiado: PENDIENTE.</p>
+    <h2 id="h-eq">Quién te cuida</h2>
+    <div class="grid g2">
+      <div class="grid g2"><div class="img" style="min-height:200px">[Retrato Rosa]</div><div><h3>Rosa Ondoño</h3><p class="muted">Fundadora · esteticista titulada · naturopatía y terapias manuales · más de 30 años</p><p>[Cita breve en primera persona]</p><a href="#">Conoce a Rosa →</a></div></div>
+      <div class="grid g2"><div class="img" style="min-height:200px">[Retrato médico]</div><div><h3>Dr. Roberth Bravo Pardo</h3><p class="muted">Médico estético y nutricionista · Nº col. [PENDIENTE]</p><p>[Cita breve]</p><a href="#">Medicina estética →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEÑAS -->
+<section class="sec-pad" aria-labelledby="h-res">
+  <div class="wrap">
+    <p class="note"><span class="n">7</span>Reseñas reales de Google (texto + nombre + fecha), sin widget pesado de terceros: se cargan en estático o con caché. Reseñas que hablen de trato, calma y «como en casa».</p>
+    <h2 id="h-res">Lo que dicen de nosotras · ★ 4,9</h2>
+    <div class="grid g3"><blockquote class="box">«[Reseña 1]» — [Nombre], [fecha]</blockquote><blockquote class="box">«[Reseña 2]» — [Nombre], [fecha]</blockquote><blockquote class="box">«[Reseña 3]» — [Nombre], [fecha]</blockquote></div>
+    <p><a href="#">Ver todas en Google →</a></p>
+  </div>
+</section>
+
+<!-- REGALO (estacional) -->
+<section class="sec-pad" aria-labelledby="h-reg">
+  <div class="wrap box grid g2" style="align-items:center">
+    <div><p class="note"><span class="n">8</span>Bloque estacional activable desde el CMS (Navidad, Día de la Madre, San Valentín). Recorrido R3.</p>
+    <h2 id="h-reg">Regala un momento para cuidarse</h2><p>Elige una experiencia o un importe. La recibes al instante por email.</p><a class="btn" href="#">Regalar</a> <a class="btn ter" href="#">Condiciones</a></div>
+    <div class="img" style="min-height:200px">[Tarjeta regalo]</div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="sec-pad" aria-labelledby="h-blog">
+  <div class="wrap">
+    <p class="note"><span class="n">9</span>3 últimos artículos firmados (autor visible).</p>
+    <h2 id="h-blog">Aprende a cuidarte</h2>
+    <div class="grid g3"><article class="box"><div class="img">[img]</div><h3>[Título]</h3><p class="muted">Por Rosa Ondoño · [fecha]</p></article><article class="box"><div class="img">[img]</div><h3>[Título]</h3><p class="muted">Por Dr. Bravo Pardo · [fecha]</p></article><article class="box"><div class="img">[img]</div><h3>[Título]</h3><p class="muted">Por Rosa Ondoño · [fecha]</p></article></div>
+  </div>
+</section>
+
+<!-- UBICACIÓN -->
+<section class="sec-pad" aria-labelledby="h-ub">
+  <div class="wrap grid g2">
+    <div><p class="note"><span class="n">10</span>NAP + horario + estado «Abierto ahora». Mapa con carga diferida, tras el consentimiento si es de Google.</p>
+    <h2 id="h-ub">Te esperamos en el centro de Alicante</h2>
+    <p>Av. Maisonnave 38, Entlo. Izq.<br>03003 Alicante</p>
+    <p>L–V 9:30–19:00 (verano) · Invierno: [PENDIENTE]</p>
+    <p><a class="btn sec" href="#">Cómo llegar</a> <a class="btn ter" href="tel:+34965120300">965 120 300</a></p></div>
+    <div class="img" style="min-height:240px">[Mapa]</div>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap grid g4">
+    <div><span class="logo">[Logo]</span><p>Cuídate · Conecta · Siente</p></div>
+    <div><strong>Contacto</strong><p>Av. Maisonnave 38, Entlo. Izq., 03003 Alicante<br>965 120 300 · 691 315 622<br>info@rosaondono.com</p></div>
+    <div><strong>Explora</strong><p>Cuídate · Conecta · Siente<br>Tratamientos · Medicina estética<br>Tarjeta regalo · Blog</p></div>
+    <div><strong>Legal</strong><p>Aviso legal · Privacidad · Cookies · Accesibilidad<br>Nº registro sanitario: [PENDIENTE]</p></div>
+  </div>
+</footer>
+<div class="sticky-m"><a class="btn" href="reserva.html">Reservar</a><a class="btn sec" href="#">WhatsApp</a></div>
+</body>
+</html>
