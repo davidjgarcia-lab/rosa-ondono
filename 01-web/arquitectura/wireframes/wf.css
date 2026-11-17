@@ -60,4 +60,9 @@ input,select,textarea{width:100%;min-height:44px;border:1px solid var(--g4);bord
 .wf-legend{background:var(--g0);border:1px solid var(--g3);padding:10px 14px;font-size:13px;margin:16px 0}
 @media(max-width:480px){.site-head .wrap{gap:8px}.logo{white-space:normal;font-size:13px;padding:6px 8px}.head-actions{gap:6px}.head-actions .btn{padding:0 12px}}
 .mainnav a{white-space:nowrap}.head-actions .btn{white-space:nowrap}
-@media(max-width:1240px){.head-actions .btn.ter.hide-m{display:none}.mainnav ul{gap:14px}}
+@media(max-width:1400px){.head-actions .btn.ter.hide-m{display:none}.mainnav ul{gap:14px}}
+@media(max-width:1180px){.head-actions .btn.sec.hide-m{display:none}}
+/* Fotos reales del centro (recorrido 360°) en escala de grises para mantener la baja fidelidad */
+.photo{margin:0;border:1px solid var(--g3);border-radius:var(--r);overflow:hidden;background:var(--g2)}
+.photo img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:16/9;filter:grayscale(1) contrast(.95)}
+.photo figcaption{font-size:12px;color:var(--g5);padding:4px 8px;background:var(--g0)}

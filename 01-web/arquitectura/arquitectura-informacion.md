@@ -220,7 +220,16 @@ Leyenda: ★ prioridad SEO alta · ⚕️ médica · ⚠️ revisar quién la re
 | Imagen principal + alt | imagen | ✔ | estilo del fotógrafo (manual) |
 | Revisión legal | fecha + responsable | ✔ en médico | lo bloquea el flujo de publicación |
 
-## 7. Enlazado interno
+## 7. Imágenes del centro (actualización 17/11/2026)
+- **Fotos disponibles:** `assets/fotografia/recorrido-360/`, con derechos del centro confirmados. Para cabeceras se usan las versiones `_16x9-web`.
+- **Uso provisional:** sirven hasta la sesión de fotos, que es la recomendada para cabeceras grandes.
+- **Decisión del cliente:** la web **no asigna un uso concreto a ninguna cabina**. En consecuencia:
+  - en pies de foto, `alt` y textos, las cabinas se describen solo como espacio («una de nuestras cabinas»);
+  - no se usan como imagen de una ficha, un programa ni un pilar;
+  - la página `/el-centro/` y la galería de la home pueden mostrarlas sin etiqueta de uso.
+- **Foto descartada para la web:** `09-patio-puerta-icono`, porque se ven el aviso y la sirena de la alarma.
+
+## 8. Enlazado interno
 - **Ficha →** su programa, su categoría, 3 fichas relacionadas, el profesional, la valoración integral y la reserva.
 - **Programa →** sus fichas, el pilar, la valoración integral y los artículos del blog del tema.
 - **Blog →** como mínimo 1 ficha y 1 programa en contexto. Cada artículo lleva autor con su página de equipo. Los temas médicos los firma o revisa el médico.

@@ -11,7 +11,7 @@ Salen de los recorridos y de la arquitectura:
 |---|---|---|
 | R1 | Unas 58 fichas con modelo de contenido estructurado, editables por el centro sin depender de la agencia | Arquitectura §6 |
 | R2 | Reserva online en ≤ 3 pasos, con **servicio precargado desde cada ficha** (deep link por servicio) | Recorrido R1 |
-| R3 | Agenda con **profesionales + recursos** (cabinas, láser, aparatología) para evitar solapes | Operativa del centro |
+| R3 | Agenda con **profesionales + recursos** (cabinas, láser, aparatología) para evitar solapes. Es configuración **interna** del software; la web pública no muestra ni asigna usos a las cabinas (decisión del cliente) | Operativa del centro |
 | R4 | Bonos de sesiones y **tarjetas regalo vendibles online**, canjeables en la reserva | Recorrido R3 |
 | R5 | Datos de salud (postoperatorio, médico): RGPD art. 9, servidores en la UE, contrato de encargado del tratamiento, consentimientos informados firmados | `cumplimiento-legal.md` |
 | R6 | Medicina estética: solo se reserva la **consulta médica**; ficha clínica separada | Cumplimiento |
