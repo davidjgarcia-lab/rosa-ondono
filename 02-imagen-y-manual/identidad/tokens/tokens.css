@@ -1,0 +1,23 @@
+:root {
+  /* Color corporativo · NO MODIFICABLE (Pantone/CMYK: PENDIENTE) */
+  --ro-morado: #701B78;
+
+  /* Ruta A «Piel y luz» (base recomendada · borrador) */
+  --ro-marfil: #F7F2EB;
+  --ro-arena: #E9DCCB;
+  --ro-lila-empolvado: #E8DAE6;
+  --ro-arcilla-rosada: #B7897A;
+  --ro-ciruela-tinta: #2E1A2C;
+
+  /* Ruta B «Criterio sereno» (apoyo en medicina estética · borrador) */
+  --ro-blanco-roto: #FAF9F7;
+  --ro-niebla: #ECEAEE;
+  --ro-lavanda: #D9CFE2;
+  --ro-salvia: #A9B7A4;
+  --ro-salvia-profunda: #56664F;
+  --ro-grafito: #1E1C21;
+
+  /* Tipografía */
+  --ro-fuente-titulares: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --ro-fuente-texto: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+}

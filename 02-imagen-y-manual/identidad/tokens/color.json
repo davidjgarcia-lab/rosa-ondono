@@ -1,0 +1,30 @@
+{
+  "corporativo": {
+    "morado": {
+      "hex": "#701B78",
+      "rgb": [
+        112,
+        27,
+        120
+      ],
+      "fijo": true,
+      "pantone": "PENDIENTE",
+      "cmyk": "PENDIENTE"
+    }
+  },
+  "ruta_a_secundaria": {
+    "marfil": "#F7F2EB",
+    "arena": "#E9DCCB",
+    "lila-empolvado": "#E8DAE6",
+    "arcilla-rosada": "#B7897A",
+    "ciruela-tinta": "#2E1A2C"
+  },
+  "ruta_b_secundaria": {
+    "blanco-roto": "#FAF9F7",
+    "niebla": "#ECEAEE",
+    "lavanda": "#D9CFE2",
+    "salvia": "#A9B7A4",
+    "salvia-profunda": "#56664F",
+    "grafito": "#1E1C21"
+  }
+}
