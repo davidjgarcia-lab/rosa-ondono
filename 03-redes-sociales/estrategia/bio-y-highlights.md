@@ -91,7 +91,7 @@ Rosa Ondoño es un centro de estética, terapias complementarias y medicina est�
 - Google no permite URLs ni ofertas en la descripción: este texto no las lleva.
 - Revisar con experto-seo (palabras clave locales) antes de publicarlo.
 - Opción a valorar: mencionar el patio-jardín interior. No cabe sin recortar otra frase (límite de 750); proponer a experto-seo qué frase sacrificar.
-- Fotos de la ficha: subir G01-G06 (G06 = patio, categoría «Interior»). **No reutilizar las fotos de Google Maps de terceros.**
+- Fotos de la ficha: subir G01-G06 (G06 = patio, categoría «Interior»). Mientras llegan, se pueden subir las del recorrido 360° del centro (`assets/fotografia/recorrido-360/`, derechos del centro confirmados).
 
 ---
 
@@ -108,7 +108,7 @@ Rosa Ondoño es un centro de estética, terapias complementarias y medicina est�
 | 5 | **Med. estética** | Ver §4.1. Información, nunca promoción. | Cuídate | Símbolo neutro (cruz redondeada o estetoscopio simplificado) en el mismo estilo de línea; nada que sugiera jeringas ni resultados. |
 | 6 | **Equipo** | Rosa (historia, 30 años), el Dr. Roberth Bravo Pardo y el resto del equipo [PENDIENTE: nombres, funciones y permiso de imagen]. Un día en el centro. | Conecta | Dos arcos que se tocan. |
 | 7 | **Opiniones** | Reseñas reales de Google **con permiso escrito** de cada autora o autor; solo sobre trato, estética y bienestar, nunca sobre resultados de tratamientos médicos. | Conecta | Comillas o estrella en trazo de línea (sin relleno). |
-| 8 | **Info** | El centro por dentro: recepción, cabina A y **patio-jardín** (R11 como portada del recorrido, F16, S11; solo fotos propias). Horario [PENDIENTE invierno], cómo llegar (Av. Maisonnave 38, Entlo. Izq.), cómo pedir cita (teléfono, WhatsApp), preguntas frecuentes, accesibilidad del local [PENDIENTE] y aparcamientos cercanos [PENDIENTE]. | Conecta | «i» o pin de ubicación. |
+| 8 | **Info** | El centro por dentro: recepción, cabinas y **patio-jardín** (R11 como portada del recorrido, F16, S11 o, hasta la sesión, las fotos del recorrido 360° del centro; sin asignar un tratamiento a cada cabina). Horario [PENDIENTE invierno], cómo llegar (Av. Maisonnave 38, Entlo. Izq.), cómo pedir cita (teléfono, WhatsApp), preguntas frecuentes, accesibilidad del local [PENDIENTE] y aparcamientos cercanos [PENDIENTE]. | Conecta | «i» o pin de ubicación. |
 
 ### 4.1 Destacado «Med. estética»: contenido mínimo obligatorio
 Frames en este orden; ninguno se publica hasta tener los datos pendientes:

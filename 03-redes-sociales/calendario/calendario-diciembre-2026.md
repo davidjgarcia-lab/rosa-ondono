@@ -22,7 +22,7 @@
 7. Sin urgencia agresiva. Se recuerdan las fechas de compra y entrega con calma («para que llegue a tiempo, pídelo antes del…»). Nunca «últimas plazas», «solo hoy» ni cuentas atrás de descuento.
 8. Sin precios hasta que el cliente los facilite. Sin antes/después. Reseñas solo reales, con permiso escrito y sobre trato, estética o bienestar.
 9. Terapias en lenguaje de bienestar: «soltar tensión», «sensación de ligereza», «un rato para ti». Nunca «cura», «elimina», «trata». **Tampoco claims sobre los aceites esenciales** (ni «curan» ni «relajan el sistema nervioso»: solo aroma y textura).
-10. **Patio-jardín interior** (fuente: `02-imagen-y-manual/espacios/mapa-del-centro.md`, en origin/main): es un argumento diferencial y se menciona con naturalidad en las piezas *Siente*. **Solo se publican fotos propias de la sesión** (R11, R12, F16, F17, S11, G06). Las fotos de Google Maps son de un tercero y **no se publican**. Las imágenes generadas con IA solo sirven de moodboard y **nunca se publican como si fueran el centro**.
+10. **Patio-jardín interior** (fuente: `02-imagen-y-manual/espacios/mapa-del-centro.md`, en origin/main): es un argumento diferencial y se menciona con naturalidad en las piezas *Siente*. Se publican fotos propias: las de la sesión (R11, R12, F16, F17, S11, G06) y las del **recorrido 360° del centro** en `assets/fotografia/recorrido-360/` (versiones `_4x5-redes`), que fue un encargo del centro con derechos confirmados (17/11/2026). Mientras no haya fotos de la sesión, esas imágenes sirven de **plan B** para cualquier pieza de espacios (recepción, pasillo, cabinas, patio). No se asigna un uso o tratamiento concreto a ninguna cabina (decisión del cliente). Las imágenes generadas con IA solo sirven de moodboard y **nunca se publican como si fueran el centro**.
 11. **No se promete en el copy lo que no esté confirmado:** que el ritual incluya un rato con infusión en el patio está [PENDIENTE: confirmar con el cliente]. Mientras tanto, el copy habla del jardín como parte del centro, no como servicio incluido.
 
 ---
@@ -129,7 +129,7 @@ Ritmo recomendado: de 3 a 6 frames al día. Escenario mínimo: 3 días a la sema
   2. **F14**: «**Masajes.** Para quien carga la espalda o necesita parar un rato. [PENDIENTE: masajes incluidos en bono]»
   3. **F16** (patio-jardín) o F04: «**Rituales.** Individuales o en pareja, con tiempo de sobra y sin mirar el reloj. Y un jardín al que dan las cabinas. [PENDIENTE: rituales y duración]»
   4. **F08**: «**Tratamientos faciales de estética.** Para quien disfruta cuidándose la piel. [PENDIENTE: tratamientos incluidos]»
-  5. **F19** (bodegón de la cabina A) o F05: «**Terapias de bienestar.** Reflexología y masaje ayurvédico, entre otras. [PENDIENTE: confirmar cuáles; fisioterapia, osteopatía y acupuntura quedan fuera hasta tener respuesta del asesor]»
+  5. **F19** (bodegón de la cabina ciruela) o F05: «**Terapias de bienestar.** Reflexología y masaje ayurvédico, entre otras. [PENDIENTE: confirmar cuáles; fisioterapia, osteopatía y acupuntura quedan fuera hasta tener respuesta del asesor]»
   6. **F03**: «**Por importe** [PENDIENTE: confirmar si existe]. Para que elija quien lo recibe.»
   7. **Cierre (F02)**: «Cuéntanos para quién es y te ayudamos a elegir. WhatsApp 691 315 622 · Av. Maisonnave 38»
 - **Copy:**
@@ -215,7 +215,7 @@ Ritmo recomendado: de 3 a 6 frames al día. Escenario mínimo: 3 días a la sema
   2. **Foto de archivo** [PENDIENTE: el cliente aporta una foto de sus inicios; si no hay, F08]: «Empecé en el Hotel Sidi San Juan. Allí aprendí que cuidar a alguien empieza por escucharle.»
   3. **F08**: «Me formé en estética en Llongueras, en Barcelona, y después en naturopatía y terapias en Madrid. Quería entender a la persona entera, no solo la piel.»
   4. **F14**: «Durante años, médicos de Alicante, Madrid y Barcelona me han confiado el drenaje linfático de sus pacientes después de una cirugía. Es una responsabilidad que sigo cuidando mucho.»
-  5. **F18** (cabina A con el cojín del icono bordado) o F12: «Hoy, en Maisonnave 38, sigo haciendo lo mismo, con un equipo que trabaja igual: sin prisa y explicando cada paso.»
+  5. **F18** (cabina ciruela con el cojín del icono bordado) o F12: «Hoy, en Maisonnave 38, sigo haciendo lo mismo, con un equipo que trabaja igual: sin prisa y explicando cada paso.»
   6. **F07 (variante) o F10 sin el doctor**: «Cuídate · Conecta · Siente. Para mí no es un lema: es el orden en el que trabajo.» [validar con Rosa]
 - **Copy (voz de Rosa):**
 > Me preguntan a menudo cuánto tiempo llevo en esto. Más de treinta años.
@@ -388,7 +388,7 @@ Ritmo recomendado: de 3 a 6 frames al día. Escenario mínimo: 3 días a la sema
 - **Hashtags:** #RitualDeBienestar #BonoRegalo #RegalosAlicante #BienestarAlicante
 - **CTA:** WhatsApp.
 - **Texto alternativo:** «Detalles de un ritual en cabina: una toalla caliente, aceite cayendo en la palma de una mano y unas manos sobre una espalda cubierta. Una puerta de vidrio se abre a un patio con plantas, y una persona toma una infusión bajo un cenador de lona crema.»
-- **Cumplimiento:** sin efectos de salud atribuidos al ritual ni a los aceites. Sin marcas visibles. Modelo cubierta. Solo imágenes propias (nada de fotos de Google Maps ni de IA). **[PENDIENTE: confirmar que el patio se puede usar después del tratamiento en invierno; si no, el texto 4 pasa a «Y un jardín a dos pasos» y el copy no sugiere que forme parte del ritual.]**
+- **Cumplimiento:** sin efectos de salud atribuidos al ritual ni a los aceites. Sin marcas visibles. Modelo cubierta. Solo imágenes propias: sesión o recorrido 360° del centro (nada de IA). **[PENDIENTE: confirmar que el patio se puede usar después del tratamiento en invierno; si no, el texto 4 pasa a «Y un jardín a dos pasos» y el copy no sugiere que forme parte del ritual.]**
 
 ### D14 · Jueves 24/12 · Reel · Conecta · Felicitación
 - **Plantilla:** REEL. Se publica el 24 a mediodía y vale también para el 25.
@@ -514,7 +514,7 @@ Ritmo recomendado: de 3 a 6 frames al día. Escenario mínimo: 3 días a la sema
 - [ ] Horarios y fechas confirmados por el cliente (D04, D12, D14, D15, D16).
 - [ ] Texto alternativo, subtítulos en reels con voz y contraste AA en los textos (plantilla).
 - [ ] Hashtags: ninguno de medicamentos ni de antes/después.
-- [ ] Imágenes: todas de la sesión propia o con cesión. Ni fotos de Google Maps ni imágenes generadas con IA presentadas como el centro. Sin claims sobre aceites.
+- [ ] Imágenes: todas de la sesión propia o con cesión. Solo fotos de la sesión o del recorrido 360° del centro; nunca imágenes generadas con IA presentadas como el centro. Ninguna cabina se asocia a un tratamiento concreto. Sin claims sobre aceites.
 - [ ] Revisión: director-arte (visual) → qa (cumplimiento) → ejecutivo-cuentas (visto bueno del cliente). Piezas de medicina estética: además, el Dr. Bravo y la autorización sanitaria si aplica.
 
 **Calendario de aprobación propuesto:** paquete de la semana 1 (D01-D03 + GBP) aprobado el **27/11**; semanas 2-3 el **4/12**; semanas 4-5 el **15/12**; enero el **22/12**.

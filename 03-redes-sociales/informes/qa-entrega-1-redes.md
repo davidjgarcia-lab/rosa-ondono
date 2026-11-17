@@ -141,3 +141,10 @@
 5. Criterio de los destacados (por servicio o por pilar) y nombre del de medicina estética.
 6. Si fisioterapia, osteopatía y acupuntura pueden ir en bonos (pendiente del asesor).
 7. Color corporativo oficial (#701B78 o #8E1F5C), Pantone, CMYK y logo vectorial.
+
+---
+
+## Adenda 17/11/2026 · Fotos del recorrido 360°
+- **L5 actualizado:** el recorrido 360° fue un encargo remunerado del centro y los derechos están confirmados (ver `assets/fotografia/recorrido-360/LEEME.md` en `main`). Las fotos **se pueden publicar**. Se han actualizado el calendario (regla 10, D13 y checklist), la estrategia, la bio/highlights y el shot list (§5.5 y registro de cambios). Las imágenes generadas con IA siguen sin poder publicarse como si fueran el centro.
+- **Cabinas:** por decisión del cliente no se asigna un uso o tratamiento a ninguna cabina. «Cabina A» pasa a «cabina ciruela» y F18 deja de etiquetarse como «Cuídate».
+- ⚠️ **Recomendación:** archivar la confirmación de derechos por escrito (factura o contrato del encargo) junto a las fotos.
