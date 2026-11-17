@@ -4,5 +4,6 @@
 window.RO_CONFIG = {
   supabaseUrl: "https://prrwekpaphnbqakrwtiz.supabase.co",
   supabaseKey: "sb_publishable_VwawVXu9AojSuW2mcdSWYA_n3UE-sRT",
-  tiempoMaximoMs: 6000
+  whatsapp: "34691315622",   // número del centro que recibe los mensajes de los formularios
+  tiempoMaximoMs: 8000
 };

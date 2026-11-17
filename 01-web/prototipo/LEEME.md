@@ -1,4 +1,6 @@
-# Prototipo web v2 · Rosa Ondoño
+# Prototipo web v3 · Rosa Ondoño
+
+**Enlace para compartir (móvil y escritorio):** https://rosa-ondono-prototipo.netlify.app · Netlify, proyecto `rosa-ondono-prototipo`. Configuración en `netlify.toml`: se publica `sitio/`, con cabeceras de seguridad y `noindex`. Pruebas y funcionamiento de los formularios: `../qa/pruebas-v3-responsive-y-formularios.md`.
 *01-web · 17/11/2026 · Estado: **PROTOTIPO v2**. Aplica el manual de marca v2.1; pendiente de QA final y de la validación del director de arte.*
 
 Web estática multipágina generada a partir del catálogo de Supabase:
@@ -39,6 +41,7 @@ cd sitio && python3 -m http.server 8000  # http://localhost:8000
 
 ## Base de datos (Supabase `rosa-ondono-web`, eu-west-3)
 - **Lectura pública:** `areas`, `categorias` (con `area_slug`), `tratamientos`, `faqs`, `profesionales`, `pilares` y `programas`.
+- **Formularios:** exigen teléfono **o** email (migración `004_telefono_o_email.sql`). Cada envío va a Netlify Forms (email), a Supabase y a WhatsApp, con el mensaje ya redactado para el número del centro.
 - **Solo inserción** (no se pueden leer con la clave pública):
   - `solicitudes_reserva`: solo tratamientos reservables;
   - `solicitudes_regalo`: nunca tratamientos médicos.

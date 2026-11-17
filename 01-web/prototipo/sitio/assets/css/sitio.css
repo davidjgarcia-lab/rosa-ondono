@@ -335,3 +335,120 @@ body.con-cookies .whatsapp { display: none; }
 .cookies__opciones label b { display: block; font-weight: 500; }
 .cookies__opciones input { width: 22px; height: 22px; accent-color: var(--morado); flex: none; }
 @media (max-width: 560px) { .cookies { left: 10px; right: 10px; bottom: 10px; width: auto; } }
+
+/* ======================================================================
+   Optimización responsive (v3) · móvil primero en los detalles críticos
+   ====================================================================== */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { overflow-x: clip; }
+a, button, summary, label, select { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+h1, h2, h3 { overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; }
+h1 { font-size: clamp(2.05rem, 1.15rem + 4vw, 4.6rem); }
+h2 { font-size: clamp(1.7rem, 1.1rem + 2.4vw, 3rem); }
+.texto, .entrada, p { overflow-wrap: break-word; }
+.boton { max-width: 100%; }
+.boton--ancho { min-width: 240px; }
+.envio { display: grid; gap: 10px; justify-items: start; }
+.lista-envios { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 6px; font-size: .95rem; }
+.pie ul a { display: inline-block; padding: 4px 0; }
+.barra-prototipo .corto { display: none; }
+
+/* Efectos de hover solo con ratón: en táctil se quedaban «pegados» */
+@media (hover: none) {
+  .tarjeta:hover, .via:hover { transform: none; box-shadow: none; }
+  .tarjeta:hover .tarjeta__foto img, .area-tarjeta:hover img, .galeria figure:hover img { transform: none; }
+}
+
+/* Zonas seguras (iPhone con muesca / barra de gestos) */
+.whatsapp { right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); }
+.cookies { bottom: max(16px, env(safe-area-inset-bottom)); }
+.panel-menu { padding-top: max(18px, env(safe-area-inset-top)); padding-bottom: max(32px, env(safe-area-inset-bottom)); }
+
+/* Tableta */
+@media (max-width: 1024px) {
+  :root { --cab: 76px; }
+  .seccion { padding: clamp(56px, 8vw, 96px) 0; }
+  .pie__rejilla { gap: 28px; }
+}
+
+/* Móvil */
+@media (max-width: 700px) {
+  :root { --cab: 66px; --r: 16px; }
+  body { font-size: 16.5px; }
+  .barra-prototipo { font-size: .72rem; padding: 5px 14px; }
+  .barra-prototipo .largo { display: none; }
+  .barra-prototipo .corto { display: inline; }
+  .cabecera__fila { gap: 10px; }
+  .cabecera__logo img { width: 132px; }
+  .cabecera__acciones .boton { min-height: 44px; padding: 0 16px; font-size: .92rem; }
+  .boton-menu { padding: 0 14px; }
+  .seccion { padding: 56px 0; }
+  .cabeza-seccion { margin-bottom: 26px; }
+  .portada { padding-top: 20px; }
+  .portada h1 .h1-pre, h1 .h1-pre { font-size: .72rem; margin-bottom: .9rem; letter-spacing: .14em; }
+  .portada__datos { gap: 6px 18px; margin-top: 26px; }
+  .portada__datos b { font-size: 1.15rem; }
+  .portada__visual { max-width: 340px; }
+  .portada__sello { padding: 10px 14px; right: 0; bottom: 18px; }
+  .portada__sello b { font-size: 1.2rem; }
+  .botonera .boton { flex: 1 1 auto; }
+  .boton--ancho { width: 100%; min-width: 0; }
+  .lema { font-size: 1.3rem; }
+
+  /* Carruseles deslizables: áreas y destacados (menos scroll vertical) */
+  .universo, .rejilla--carrusel { display: flex; grid-template-columns: none; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scroll-padding-inline: 18px; margin-inline: calc(-1 * clamp(18px, 4vw, 48px)); padding: 4px clamp(18px, 4vw, 48px) 14px; scrollbar-width: none; }
+  .universo::-webkit-scrollbar, .rejilla--carrusel::-webkit-scrollbar { display: none; }
+  .universo > *, .rejilla--carrusel > * { flex: 0 0 80%; scroll-snap-align: start; }
+  .area-tarjeta { aspect-ratio: 3 / 4; }
+  .pista-desliza { display: flex; align-items: center; gap: 8px; font-size: .82rem; color: var(--texto-suave); margin: -8px 0 6px; }
+  .pista-desliza::after { content: "→"; }
+
+  .rejilla { grid-template-columns: 1fr; gap: 16px; }
+  .tarjeta__foto { aspect-ratio: 16 / 9; }
+  .bloque-categoria__cabeza { flex-wrap: wrap; }
+  .indice-categorias { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(-1 * clamp(18px, 4vw, 48px)); padding: 2px clamp(18px, 4vw, 48px) 8px; scrollbar-width: none; }
+  .indice-categorias::-webkit-scrollbar { display: none; }
+  .indice-categorias a { flex: none; }
+  .ficha-datos { grid-template-columns: 1fr 1fr; gap: 0 16px; }
+  .dos__foto { aspect-ratio: 4 / 3; }
+  .valores { grid-template-columns: 1fr; }
+  .opinion { padding: 24px; gap: 16px; }
+  .opinion blockquote { font-size: 1.3rem; }
+  .via { padding: 22px; }
+  .bloque-form { padding: 20px 18px; }
+  .tarjeta-regalo { aspect-ratio: 1.5 / 1; }
+  .lado-form { order: -1; }
+  .columnas-form .lado-form .via { display: none; }
+  .pie { padding-bottom: 96px; }
+  .pie__legal { flex-direction: column; }
+  .verbos { gap: 18px; margin: 28px 0 32px; }
+}
+@media (min-width: 701px) { .pista-desliza { display: none; } }
+
+/* Móvil muy estrecho (320–360 px) */
+@media (max-width: 360px) {
+  .cabecera__logo img { width: 112px; }
+  .cabecera__acciones .boton { padding: 0 12px; font-size: .88rem; }
+  .boton-menu { padding: 0 10px; font-size: .88rem; }
+  .ficha-datos { grid-template-columns: 1fr; }
+  .universo > *, .rejilla--carrusel > * { flex-basis: 86%; }
+}
+
+/* Móvil en horizontal: que la portada no ocupe más de una pantalla */
+@media (max-height: 500px) and (orientation: landscape) {
+  .portada__rejilla { grid-template-columns: 1.2fr .8fr; }
+  .portada__visual { max-width: 260px; }
+  .panel-menu ul a { font-size: 1.4rem; padding: 2px 0; }
+}
+
+/* Correcciones de la auditoría v3 */
+.portada__rejilla > *, .cabecera-pagina__rejilla > *, .dos > *, .columnas-form > *, .cabeza-seccion > *, .pie__rejilla > * { min-width: 0; }
+.antetitulo, .tarjeta__cat, .ficha-datos dt, .pie__titulo, .etiqueta, .area-tarjeta__num, .tarjeta-regalo__para small, .opinion__nota small { font-size: .8rem; }
+h1 .h1-pre { font-size: .8rem; }
+.pie__legal button { min-height: 32px; padding: 4px 0; }
+.casilla input, .cookies__opciones input { width: 24px; height: 24px; }
+@media (max-width: 700px) {
+  .barra-prototipo { font-size: .78rem; }
+  h1 .h1-pre, .portada h1 .h1-pre { font-size: .78rem; }
+}
+@media (max-width: 700px) { .portada__arco { aspect-ratio: 4 / 4.3; } }

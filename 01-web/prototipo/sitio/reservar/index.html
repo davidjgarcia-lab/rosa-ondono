@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Reservar cita · Rosa Ondoño Alicante</title>
 <meta name="description" content="Reserva tu cita en Rosa Ondoño, Av. Maisonnave 38, Alicante: elige tratamiento, día y franja y te confirmamos la hora.">
 <meta name="robots" content="index, follow">
@@ -19,7 +19,7 @@
 </head>
 <body>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
-<div class="barra-prototipo" role="note">Prototipo con el manual de marca v2.1 · fotos de tratamientos provisionales (Unsplash) · no introduzcas datos reales</div>
+<div class="barra-prototipo" role="note"><span class="largo">Prototipo con el manual de marca v2.1 · fotos de tratamientos provisionales (Unsplash) · </span><span class="corto">Prototipo · </span>no introduzcas datos reales</div>
 <header class="cabecera">
   <div class="envoltura cabecera__fila">
     <a class="cabecera__logo" href="/" aria-label="Rosa Ondoño, ir al inicio"><img src="/assets/img/logo-horizontal.svg" alt="Rosa Ondoño" width="172" height="57"></a>
@@ -43,7 +43,9 @@
     <div>
       <span class="antetitulo">Reserva tu cita</span><h1>Reservar cita</h1>
       <p class="entrada" style="margin-bottom:32px">Elige tratamiento, día y franja, y te llamamos para confirmar la hora exacta.</p>
-      <form class="formulario" id="form-reserva" novalidate>
+      <form class="formulario" id="form-reserva" name="reserva" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="reserva"><input type="hidden" name="subject" value="Nueva solicitud de cita · web Rosa Ondoño"><input type="hidden" name="servicio_nombre" value="">
+        <p class="oculto-visual" aria-hidden="true"><label>No rellenar: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
         <fieldset class="bloque-form"><legend><span>1</span>Tratamiento</legend>
           <div data-campo><label for="r-servicio">¿Qué quieres reservar?</label>
           <select class="campo" id="r-servicio" name="servicio" data-preseleccion><option value="">Elige un tratamiento</option><optgroup label="Valoración"><option value="valoracion-integral">Valoración integral</option></optgroup><optgroup label="Faciales"><option value="dermapen">Dermapen</option><option value="hidratacion-facial">Hidratación facial</option><option value="limpieza-facial-profunda">Limpieza facial profunda</option><option value="microdermoabrasion">Microdermoabrasión</option><option value="peeling-facial">Peeling facial</option><option value="radiofrecuencia-facial">Radiofrecuencia facial</option><option value="tratamiento-facial-antiedad">Tratamiento facial antiedad</option></optgroup><optgroup label="Corporales"><option value="cavitacion">Cavitación</option><option value="detox-integral">Detox integral</option><option value="lipolaser">Lipoláser</option><option value="presoterapia">Presoterapia</option><option value="radiofrecuencia-corporal">Radiofrecuencia corporal</option><option value="reafirmacion-corporal">Reafirmación corporal</option><option value="tratamiento-anticelulitico">Tratamiento anticelulítico</option><option value="tratamiento-reductor">Tratamiento reductor</option><option value="vacumterapia">Vacumterapia</option></optgroup><optgroup label="Masajes y drenaje"><option value="drenaje-linfatico">Drenaje linfático manual</option><option value="drenaje-linfatico-postoperatorio">Drenaje linfático postoperatorio</option><option value="linfodrenaje-energetico">Linfodrenaje energético</option><option value="masaje-ayurvedico">Masaje ayurvédico</option><option value="masaje-descontracturante">Masaje descontracturante</option><option value="masaje-relajante">Masaje relajante</option><option value="masaje-terapeutico">Masaje terapéutico</option><option value="reflexologia">Reflexología podal y craneofacial</option></optgroup><optgroup label="Terapias complementarias"><option value="acupuntura">Acupuntura</option><option value="balneoterapia">Balneoterapia</option><option value="electroestimulacion">Electroestimulación</option><option value="flores-de-bach">Flores de Bach</option><option value="magnetoterapia">Magnetoterapia</option><option value="moxibustion">Moxibustión</option><option value="onda-corta">Onda corta</option><option value="terapia-craneosacral">Terapia craneosacral</option><option value="terapia-manual">Terapia manual</option><option value="terapia-miofascial">Terapia miofascial</option><option value="terapia-somatoemocional">Terapia somatoemocional</option></optgroup><optgroup label="Depilación"><option value="depilacion-skins-brazilian">Depilación Skin&#x27;s Brazilian</option><option value="depilacion-laser">Depilación láser</option></optgroup><optgroup label="Belleza"><option value="manicura-y-pedicura">Manicura y pedicura</option><option value="maquillaje-de-ceremonia">Maquillaje de ceremonia</option><option value="micropigmentacion">Micropigmentación</option><option value="micropigmentacion-oncologica">Micropigmentación oncológica</option></optgroup><optgroup label="Medicina estética"><option value="consulta-medica">Consulta de medicina estética</option></optgroup><optgroup label="Rituales"><option value="circuito-spa">Circuito spa</option><option value="experiencia-beauty">Experiencia Beauty</option><option value="ritual-en-pareja">Ritual en pareja</option><option value="ritual-individual">Ritual individual</option></optgroup></select>
@@ -60,13 +62,14 @@
         <fieldset class="bloque-form"><legend><span>3</span>Tus datos</legend>
           <div class="campo-grupo">
             <div data-campo class="ancho-completo"><label for="r-nombre">Nombre y apellidos</label><input class="campo" id="r-nombre" name="nombre" autocomplete="name"></div>
-            <div data-campo><label for="r-telefono">Teléfono</label><input class="campo" id="r-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel"></div>
-            <div data-campo><label for="r-email">Email</label><input class="campo" id="r-email" name="email" type="email" autocomplete="email"></div>
+            <p class="ayuda ancho-completo" id="r-contacto-ayuda" style="margin:0">Déjanos un <strong>teléfono o un email</strong>: con uno basta.</p>
+            <div data-campo><label for="r-telefono">Teléfono</label><input class="campo" id="r-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="r-contacto-ayuda"></div>
+            <div data-campo><label for="r-email">Email</label><input class="campo" id="r-email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="r-contacto-ayuda"></div>
             <div data-campo class="ancho-completo"><label class="casilla"><input type="checkbox" name="privacidad"><span>He leído la <a href="/privacidad/">política de privacidad</a> y acepto que se usen mis datos para gestionar esta cita.</span></label></div>
           </div>
           <p class="ayuda">No te pedimos datos de salud en el formulario: los hablamos en persona.</p>
         </fieldset>
-        <div><button class="boton boton--primario" type="submit">Solicitar cita</button></div>
+        <div class="envio"><button class="boton boton--primario boton--ancho" type="submit">Enviar solicitud</button><p class="ayuda">Al enviar, avisamos al centro por email y se abre WhatsApp con tu mensaje ya escrito para que solo tengas que pulsar «Enviar».</p></div>
       </form>
       <div class="resultado" hidden></div>
     </div>

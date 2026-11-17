@@ -135,7 +135,9 @@ def L(ruta, ancla=""):
     return ruta + ("#" + ancla if ancla else "")
 def A(ruta):  # recursos
     return ("" if MODO == "vista" else "/") + "assets/" + ruta
-def ruta_trat(t): return f"/medicina-estetica/{t['slug']}/" if t["tipo"] == "medico" else f"/tratamientos/{t['slug']}/"
+def ruta_trat(t):
+    if t["slug"] == "valoracion-integral": return "/valoracion-integral/"  # tiene landing propia: sin ficha duplicada
+    return f"/medicina-estetica/{t['slug']}/" if t["tipo"] == "medico" else f"/tratamientos/{t['slug']}/"
 def ruta_reserva(slug=""):
     if MODO == "vista": return "#reservar" + (f"--{slug}" if slug else "")
     return "/reservar/" + (f"?servicio={slug}" if slug else "")
@@ -194,7 +196,7 @@ SVG_MAPA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0
 def cabecera(activa):
     items = "".join(f'<li><a href="{L(r)}" data-menu="{m}"{" aria-current=page" if m == activa else ""}>{n}</a></li>' for n, r, m in MENU)
     items_m = "".join(f'<li><a href="{L(r)}" data-menu="{m}">{n}</a></li>' for n, r, m in MENU)
-    return f'''<div class="barra-prototipo" role="note">Prototipo con el manual de marca v2.1 · fotos de tratamientos provisionales (Unsplash) · no introduzcas datos reales</div>
+    return f'''<div class="barra-prototipo" role="note"><span class="largo">Prototipo con el manual de marca v2.1 · fotos de tratamientos provisionales (Unsplash) · </span><span class="corto">Prototipo · </span>no introduzcas datos reales</div>
 <header class="cabecera">
   <div class="envoltura cabecera__fila">
     <a class="cabecera__logo" href="{L("/")}" aria-label="Rosa Ondoño, ir al inicio"><img src="{A("img/logo-horizontal.svg")}" alt="Rosa Ondoño" width="172" height="57"></a>
@@ -330,6 +332,7 @@ def construir():
 <section class="seccion seccion--blanca" id="universo"><div class="envoltura">
   <div class="cabeza-seccion"><div><span class="antetitulo"><b>01</b>Nuestro universo</span><h2>Cuatro maneras de cuidarte</h2></div>
   <p>Estética, medicina estética, terapias y bienestar bajo un mismo techo, para que no tengas que elegir entre cuidarte por fuera y sentirte bien por dentro.</p></div>
+  <p class="pista-desliza" aria-hidden="true">Desliza para ver las cuatro</p>
   <div class="universo">{universo}</div>
 </div></section>
 
@@ -350,7 +353,8 @@ def construir():
 <section class="seccion"><div class="envoltura">
   <div class="cabeza-seccion"><div><span class="antetitulo"><b>02</b>Experiencias y tratamientos</span><h2>Los más pedidos</h2></div>
   <p>Cada tratamiento tiene su ficha con lo que incluye, para quién es y cómo reservarlo.</p></div>
-  <div class="rejilla">{"".join(tarjeta(t) for t in destacados)}</div>
+  <p class="pista-desliza" aria-hidden="true">Desliza para ver más</p>
+  <div class="rejilla rejilla--carrusel">{"".join(tarjeta(t) for t in destacados)}</div>
 </div></section>
 
 <section class="seccion seccion--blanca"><div class="envoltura dos">
@@ -448,6 +452,7 @@ def construir():
 
     # ---------- Fichas
     for t in TRAT:
+        if t["slug"] == "valoracion-integral": continue
         cat = I["c"][t["categoria_slug"]]; ar = I["a"].get(cat.get("area_slug")) if cat.get("area_slug") else None
         prof = I["p"].get(t.get("profesional_slug"))
         medico = t["tipo"] == "medico"
@@ -494,7 +499,8 @@ def construir():
         objs = [servicio, ld_migas([(n, r if r else (ruta_trat(t) if n == t["nombre"] else None)) for n, r in mig])]
         if faqs: objs.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": f["pregunta"], "acceptedAnswer": {"@type": "Answer", "text": f["respuesta"]}} for f in faqs]})
         desc = (t["resumen"][:150].rsplit(" ", 1)[0] + "…") if len(t["resumen"]) > 155 else t["resumen"]
-        desc += " Av. Maisonnave 38, Alicante." if len(desc) < 120 else ""
+        for extra in (" Reserva online en Rosa Ondoño, Av. Maisonnave 38, Alicante.", " Rosa Ondoño, Av. Maisonnave 38, Alicante.", " En Alicante centro."):
+            if len(desc) + len(extra) <= 158: desc += extra; break
         titulo = f'{t["nombre"]} en Alicante · Rosa Ondoño'
         pagina(ruta_trat(t), titulo, desc, cuerpo, "medicina-estetica" if medico else (ar["slug"] if ar else ""), ld(*objs), stem)
 
@@ -565,7 +571,9 @@ def construir():
     <div>
       <span class="antetitulo">Reserva tu cita</span><h1>Reservar cita</h1>
       <p class="entrada" style="margin-bottom:32px">Elige tratamiento, día y franja, y te llamamos para confirmar la hora exacta.</p>
-      <form class="formulario" id="form-reserva" novalidate>
+      <form class="formulario" id="form-reserva" name="reserva" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="reserva"><input type="hidden" name="subject" value="Nueva solicitud de cita · web Rosa Ondoño"><input type="hidden" name="servicio_nombre" value="">
+        <p class="oculto-visual" aria-hidden="true"><label>No rellenar: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
         <fieldset class="bloque-form"><legend><span>1</span>Tratamiento</legend>
           <div data-campo><label for="r-servicio">¿Qué quieres reservar?</label>
           <select class="campo" id="r-servicio" name="servicio" data-preseleccion><option value="">Elige un tratamiento</option>{opciones}</select>
@@ -582,13 +590,14 @@ def construir():
         <fieldset class="bloque-form"><legend><span>3</span>Tus datos</legend>
           <div class="campo-grupo">
             <div data-campo class="ancho-completo"><label for="r-nombre">Nombre y apellidos</label><input class="campo" id="r-nombre" name="nombre" autocomplete="name"></div>
-            <div data-campo><label for="r-telefono">Teléfono</label><input class="campo" id="r-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel"></div>
-            <div data-campo><label for="r-email">Email</label><input class="campo" id="r-email" name="email" type="email" autocomplete="email"></div>
+            <p class="ayuda ancho-completo" id="r-contacto-ayuda" style="margin:0">Déjanos un <strong>teléfono o un email</strong>: con uno basta.</p>
+            <div data-campo><label for="r-telefono">Teléfono</label><input class="campo" id="r-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="r-contacto-ayuda"></div>
+            <div data-campo><label for="r-email">Email</label><input class="campo" id="r-email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="r-contacto-ayuda"></div>
             <div data-campo class="ancho-completo"><label class="casilla"><input type="checkbox" name="privacidad"><span>He leído la <a href="{L("/privacidad/")}">política de privacidad</a> y acepto que se usen mis datos para gestionar esta cita.</span></label></div>
           </div>
           <p class="ayuda">No te pedimos datos de salud en el formulario: los hablamos en persona.</p>
         </fieldset>
-        <div><button class="boton boton--primario" type="submit">Solicitar cita</button></div>
+        <div class="envio"><button class="boton boton--primario boton--ancho" type="submit">Enviar solicitud</button><p class="ayuda">Al enviar, avisamos al centro por email y se abre WhatsApp con tu mensaje ya escrito para que solo tengas que pulsar «Enviar».</p></div>
       </form>
       <div class="resultado" hidden></div>
     </div>
@@ -610,7 +619,9 @@ def construir():
     <div>
       <span class="antetitulo">Tarjeta regalo</span><h1>Regala un momento para cuidarse</h1>
       <p class="entrada" style="margin-bottom:32px">Elige una experiencia o un importe, personaliza el mensaje y te la enviamos por email.</p>
-      <form class="formulario" id="form-regalo" novalidate>
+      <form class="formulario" id="form-regalo" name="regalo" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="regalo"><input type="hidden" name="subject" value="Nueva tarjeta regalo · web Rosa Ondoño"><input type="hidden" name="regalo_nombre" value="">
+        <p class="oculto-visual" aria-hidden="true"><label>No rellenar: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
         <fieldset class="bloque-form"><legend><span>1</span>¿Qué quieres regalar?</legend>
           <div data-campo class="opciones" style="margin-bottom:18px"><label class="opcion"><input type="radio" name="modalidad" value="experiencia" checked><span>Una experiencia</span></label><label class="opcion"><input type="radio" name="modalidad" value="importe"><span>Un importe</span></label></div>
           <div data-campo id="campo-experiencia"><label for="g-exp">Experiencia</label><select class="campo" id="g-exp" name="experiencia" data-preseleccion><option value="">Elige una experiencia</option>{ops}</select></div>
@@ -626,13 +637,14 @@ def construir():
         <fieldset class="bloque-form"><legend><span>3</span>Tus datos</legend>
           <div class="campo-grupo">
             <div data-campo class="ancho-completo"><label for="g-nombre">Nombre y apellidos</label><input class="campo" id="g-nombre" name="nombre" autocomplete="name"></div>
-            <div data-campo><label for="g-telefono">Teléfono</label><input class="campo" id="g-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel"></div>
-            <div data-campo><label for="g-email">Email</label><input class="campo" id="g-email" name="email" type="email" autocomplete="email"></div>
+            <p class="ayuda ancho-completo" id="g-contacto-ayuda" style="margin:0">Déjanos un <strong>teléfono o un email</strong>: con uno basta.</p>
+            <div data-campo><label for="g-telefono">Teléfono</label><input class="campo" id="g-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="g-contacto-ayuda"></div>
+            <div data-campo><label for="g-email">Email</label><input class="campo" id="g-email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="g-contacto-ayuda"></div>
             <div data-campo class="ancho-completo"><label class="casilla"><input type="checkbox" name="privacidad"><span>He leído la <a href="{L("/privacidad/")}">política de privacidad</a> y acepto que se usen mis datos para preparar la tarjeta.</span></label></div>
           </div>
           <p class="ayuda">El pago se gestiona cuando te contactamos, hasta que el sistema de reservas permita pagar online.</p>
         </fieldset>
-        <div><button class="boton boton--primario" type="submit">Solicitar tarjeta regalo</button></div>
+        <div class="envio"><button class="boton boton--primario boton--ancho" type="submit">Enviar solicitud</button><p class="ayuda">Al enviar, avisamos al centro por email y se abre WhatsApp con tu mensaje ya escrito para que solo tengas que pulsar «Enviar».</p></div>
       </form>
       <div class="resultado" hidden></div>
     </div>
@@ -652,7 +664,7 @@ def construir():
         cuerpo = f'''<section class="seccion"><div class="envoltura estrecho legal">{migas([("Inicio", "/"), (titulo, None)])}<h1>{titulo}</h1>
 <p class="entrada">Texto pendiente de redactar y validar por el asesor legal del centro. Contendrá:</p><ul>{"".join(f"<li>{p}</li>" for p in puntos)}</ul>
 {'<p><button class="boton boton--secundario" type="button" data-abrir-cookies>Configurar cookies</button></p>' if ruta == "/cookies/" else ""}</div></section>'''
-        pagina(ruta, f"{titulo} · Rosa Ondoño", f"{titulo} de la web de Rosa Ondoño, centro de estética en Alicante.", cuerpo, "", "", indexar=False)
+        pagina(ruta, f"{titulo} · Rosa Ondoño", f"{titulo} de la web de Rosa Ondoño, centro de estética, terapias y medicina estética en Av. Maisonnave 38, Alicante.", cuerpo, "", "", indexar=False)
     pagina("/404", "Página no encontrada · Rosa Ondoño", "La página que buscas no existe.",
            f'<section class="seccion"><div class="envoltura estrecho"><span class="antetitulo">Error 404</span><h1>No encontramos esta página</h1><p class="entrada">Puede que haya cambiado de dirección con la nueva web.</p><div class="botonera"><a class="boton boton--primario" href="{L("/")}">Ir al inicio</a><a class="boton boton--secundario" href="{ruta_reserva()}">Reservar cita</a></div></div></section>', "", "", indexar=False)
 
@@ -670,7 +682,7 @@ def head(p, en_vista=False):
     og = f'{DOMINIO}/assets/img/{p["og"]}.jpg'
     robots = "index, follow" if p["indexar"] and not en_vista else "noindex, follow"
     return f'''<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{e(p["titulo"])}</title>
 <meta name="description" content="{e(p["desc"])}">
 <meta name="robots" content="{robots}">
@@ -760,7 +772,8 @@ def main():
     seo_archivos()
     n = len(PAGINAS)
     MODO = "vista"; construir()
-    (SALIDA / "vista-previa.html").write_text(vista_previa())
+    # La vista previa no debe registrar formularios en Netlify (solo /reservar/ y /regalar/)
+    (SALIDA / "vista-previa.html").write_text(vista_previa().replace(' data-netlify="true" netlify-honeypot="bot-field"', ''))
     print(f"{n} páginas generadas en {SALIDA} · datos: {D['origen']}")
 
 if __name__ == "__main__":
