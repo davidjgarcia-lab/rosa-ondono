@@ -1,5 +1,35 @@
 {
  "exportado": "2026-11-17",
+ "areas": [
+  {
+   "slug": "estetica",
+   "nombre": "Estética",
+   "orden": 1,
+   "titular": "Tu piel y tu cuerpo, en buenas manos",
+   "descripcion": "Tratamientos faciales y corporales, depilación láser y belleza. Te recomendamos lo que de verdad necesitas."
+  },
+  {
+   "slug": "medicina-estetica",
+   "nombre": "Medicina estética",
+   "orden": 2,
+   "titular": "Resultados naturales, con criterio médico",
+   "descripcion": "Cada tratamiento empieza con una consulta con el médico, que valora tu caso y te explica opciones, riesgos y alternativas."
+  },
+  {
+   "slug": "terapias",
+   "nombre": "Terapias",
+   "orden": 3,
+   "titular": "Manos expertas para el cuerpo y la emoción",
+   "descripcion": "Masajes, drenaje linfático y terapias manuales y complementarias, con más de 30 años de oficio."
+  },
+  {
+   "slug": "bienestar",
+   "nombre": "Bienestar",
+   "orden": 4,
+   "titular": "Rituales para parar",
+   "descripcion": "Experiencias para desconectar, solo o en compañía, en pleno centro de Alicante."
+  }
+ ],
  "pilares": [
   {
    "slug": "cuidate",
@@ -82,55 +112,64 @@
    "slug": "valoracion",
    "nombre": "Valoración",
    "icono": "valoracion",
-   "orden": 0
+   "orden": 0,
+   "area_slug": null
   },
   {
    "slug": "faciales",
    "nombre": "Faciales",
    "icono": "facial",
-   "orden": 1
+   "orden": 1,
+   "area_slug": "estetica"
   },
   {
    "slug": "corporales",
    "nombre": "Corporales",
    "icono": "corporal",
-   "orden": 2
+   "orden": 2,
+   "area_slug": "estetica"
   },
   {
    "slug": "masajes",
    "nombre": "Masajes y drenaje",
    "icono": "masaje",
-   "orden": 3
+   "orden": 3,
+   "area_slug": "terapias"
   },
   {
    "slug": "terapias-complementarias",
    "nombre": "Terapias complementarias",
    "icono": "acupuntura",
-   "orden": 4
+   "orden": 4,
+   "area_slug": "terapias"
   },
   {
    "slug": "depilacion",
    "nombre": "Depilación",
    "icono": "laser",
-   "orden": 5
+   "orden": 5,
+   "area_slug": "estetica"
   },
   {
    "slug": "belleza",
    "nombre": "Belleza",
    "icono": "facial",
-   "orden": 6
+   "orden": 6,
+   "area_slug": "estetica"
   },
   {
    "slug": "medicina-estetica",
    "nombre": "Medicina estética",
    "icono": "medicina",
-   "orden": 7
+   "orden": 7,
+   "area_slug": "medicina-estetica"
   },
   {
    "slug": "rituales",
    "nombre": "Rituales",
    "icono": "ritual",
-   "orden": 8
+   "orden": 8,
+   "area_slug": "bienestar"
   }
  ],
  "profesionales": [

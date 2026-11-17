@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /vista-previa.html
+
+Sitemap: https://rosaondono.com/sitemap.xml

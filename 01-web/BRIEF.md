@@ -55,3 +55,18 @@ Nuevos pendientes del cliente:
   - QA (accesibilidad, legal).
   - Validación del director de arte.
   - Datos del cliente: precios, duraciones, colegiado, registro sanitario y retratos.
+
+## Prototipo v2 (17/11/2026)
+- **Rediseño** más gráfico y sencillo a partir del benchmark (`investigacion/benchmark-competencia-web.md`):
+  - especialidades con foto;
+  - sin buscador;
+  - Reservar y Regalar por separado;
+  - WhatsApp discreto;
+  - aviso de cookies.
+- **SEO completo:** web estática multipágina con JSON-LD, sitemap y 301.
+- **Revisión de textos y solapes:** `qa/revision-textos-ux-v2.md`.
+- **Supabase:** nuevas tablas `areas` y `solicitudes_regalo`.
+- **Pendiente:**
+  - analizar 6 webs de competencia (bloqueadas por el proxy);
+  - sesión de fotos propia;
+  - textos legales.

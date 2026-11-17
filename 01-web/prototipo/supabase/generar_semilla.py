@@ -30,16 +30,22 @@ programas = [
  dict(slug="equilibrio-emocional", pilar_slug="conecta", orden=3, nombre="Equilibrio emocional", descripcion="Terapias complementarias para parar, escucharte y sentirte mejor. Complementan, nunca sustituyen, la atención médica o psicológica."),
  dict(slug="rituales-y-desconexion", pilar_slug="siente", orden=1, nombre="Rituales y desconexión", descripcion="Experiencias pensadas para bajar el ritmo, solo o en compañía."),
 ]
+areas = [
+ dict(slug="estetica", nombre="Estética", orden=1, titular="Tu piel y tu cuerpo, en buenas manos", descripcion="Tratamientos faciales y corporales, depilación láser y belleza. Te recomendamos lo que de verdad necesitas."),
+ dict(slug="medicina-estetica", nombre="Medicina estética", orden=2, titular="Resultados naturales, con criterio médico", descripcion="Cada tratamiento empieza con una consulta con el médico, que valora tu caso y te explica opciones, riesgos y alternativas."),
+ dict(slug="terapias", nombre="Terapias", orden=3, titular="Manos expertas para el cuerpo y la emoción", descripcion="Masajes, drenaje linfático y terapias manuales y complementarias, con más de 30 años de oficio."),
+ dict(slug="bienestar", nombre="Bienestar", orden=4, titular="Rituales para parar", descripcion="Experiencias para desconectar, solo o en compañía, en pleno centro de Alicante."),
+]
 categorias = [
- dict(slug="faciales", nombre="Faciales", icono="facial", orden=1),
- dict(slug="corporales", nombre="Corporales", icono="corporal", orden=2),
- dict(slug="masajes", nombre="Masajes y drenaje", icono="masaje", orden=3),
- dict(slug="terapias-complementarias", nombre="Terapias complementarias", icono="acupuntura", orden=4),
- dict(slug="depilacion", nombre="Depilación", icono="laser", orden=5),
- dict(slug="belleza", nombre="Belleza", icono="facial", orden=6),
- dict(slug="medicina-estetica", nombre="Medicina estética", icono="medicina", orden=7),
- dict(slug="rituales", nombre="Rituales", icono="ritual", orden=8),
- dict(slug="valoracion", nombre="Valoración", icono="valoracion", orden=0),
+ dict(slug="faciales", nombre="Faciales", icono="facial", orden=1, area_slug="estetica"),
+ dict(slug="corporales", nombre="Corporales", icono="corporal", orden=2, area_slug="estetica"),
+ dict(slug="masajes", nombre="Masajes y drenaje", icono="masaje", orden=3, area_slug="terapias"),
+ dict(slug="terapias-complementarias", nombre="Terapias complementarias", icono="acupuntura", orden=4, area_slug="terapias"),
+ dict(slug="depilacion", nombre="Depilación", icono="laser", orden=5, area_slug="estetica"),
+ dict(slug="belleza", nombre="Belleza", icono="facial", orden=6, area_slug="estetica"),
+ dict(slug="medicina-estetica", nombre="Medicina estética", icono="medicina", orden=7, area_slug="medicina-estetica"),
+ dict(slug="rituales", nombre="Rituales", icono="ritual", orden=8, area_slug="bienestar"),
+ dict(slug="valoracion", nombre="Valoración", icono="valoracion", orden=0, area_slug=None),
 ]
 profesionales = [
  dict(slug="rosa-ondono", nombre="Rosa Ondoño", cargo="Fundadora · esteticista y terapeuta", sanitario=False,
@@ -138,7 +144,7 @@ faqs = [
 sql = "-- Generado por generar_semilla.py · no editar a mano\n"
 sql += ins("pilares", ["slug","nombre","lema","descripcion","color","orden"], pilares)
 sql += ins("programas", ["slug","pilar_slug","nombre","descripcion","orden"], programas)
-sql += ins("categorias", ["slug","nombre","icono","orden"], categorias)
+sql += ins("categorias", ["slug","nombre","icono","orden"], categorias)  # area_slug: ver 003_areas_y_regalos.sql
 sql += ins("profesionales", ["slug","nombre","cargo","bio","num_colegiado","sanitario"], profesionales)
 sql += ins("tratamientos", cols, trat)
 sql += ins("faqs", ["tratamiento_slug","pregunta","respuesta","orden"], [dict(tratamiento_slug=a,pregunta=b,respuesta=c,orden=d) for a,b,c,d in faqs])
@@ -152,7 +158,7 @@ def completa(t):
     return {**base, **t}
 catalogo = dict(
     exportado=datetime.date.today().isoformat(),
-    pilares=pilares, programas=programas, categorias=sorted(categorias, key=lambda c: c["orden"]),
+    areas=areas, pilares=pilares, programas=programas, categorias=sorted(categorias, key=lambda c: c["orden"]),
     profesionales=[{**dict(num_colegiado=None), **p} for p in profesionales],
     tratamientos=[completa(t) for t in sorted(trat, key=lambda t: (t["prioridad"], t["nombre"]))],
     faqs=[dict(tratamiento_slug=a, pregunta=b, respuesta=c, orden=d) for a, b, c, d in faqs],

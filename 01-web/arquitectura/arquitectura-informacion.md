@@ -254,3 +254,12 @@ Leyenda: ★ prioridad SEO alta · ⚕️ médica · ⚠️ revisar quién la re
 - Precios.
 - Horario de invierno.
 - Páginas legales actuales.
+
+## Cambio v2 (17/11/2026), por indicación del cliente
+- **Menú principal por especialidades,** al estilo de los «ateliers» de la Dra. Garrigós y de la referencia TACHA: Estética (`/estetica/`) · Medicina estética (`/medicina-estetica/`) · Terapias (`/terapias/`) · Bienestar (`/bienestar/`) · Conócenos (`/conocenos/`).
+- **Botones separados:** **Reservar** (`/reservar/`) y **Regalar** (`/regalar/`).
+- **Cuídate · Conecta · Siente** deja de ser menú y pasa a ser el *método* de la marca, contado en la home y en Conócenos. Los programas por necesidad (§4) se mantienen como contenido de apoyo para la fase 2: no se han eliminado de la base de datos.
+- **Sin buscador ni filtros:** índice de categorías dentro de cada área.
+- **Fichas:** se mantiene `/tratamientos/{slug}/` y `/medicina-estetica/{slug}/` para las médicas.
+- **301:** actualizadas en `../seo/redirecciones-301.csv`.
+- **Implementación:** `../prototipo/generar_sitio.py`.

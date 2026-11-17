@@ -1,73 +1,86 @@
-# Prototipo web · Rosa Ondoño
-*01-web · programador + disenador-web · 17/11/2026 · Estado: **PROTOTIPO** (borrador con el manual de marca v2.1, aún sin QA)*
+# Prototipo web v2 · Rosa Ondoño
+*01-web · 17/11/2026 · Estado: **PROTOTIPO v2**. Aplica el manual de marca v2.1; pendiente de QA final y de la validación del director de arte.*
 
-Prototipo navegable del rediseño. Aplica la arquitectura de `../arquitectura/` y los wireframes de baja fidelidad. Lee el catálogo de una base de datos propia en Supabase.
+Web estática multipágina generada a partir del catálogo de Supabase:
+- con URLs limpias y SEO completo;
+- con su vista previa en un solo archivo (`sitio/vista-previa.html`), que es la que se publica como artefacto en Claude.
 
-## Qué incluye
-- **Inicio:**
-  - lema;
-  - los tres pilares (Cuídate · Conecta · Siente) con el supergráfico;
-  - valoración integral;
-  - tratamientos destacados;
-  - equipo;
-  - el centro, con fotos reales y sin asignar uso a las cabinas;
-  - regalo.
-- **Páginas de pilar** con sus programas, por necesidad.
-- **Listado de los 62 tratamientos**, con buscador y filtros por técnica y por pilar.
-- **Ficha por tratamiento.**
-  - Contenido: datos clave, profesional, FAQ y relacionados.
-  - Variante médica: CTA de consulta, aviso sanitario y nº de colegiado.
-- **Medicina estética** (hub), **Rosa y el equipo** y **Tarjeta regalo**.
-- **Reserva en 3 pasos:**
-  1. tratamiento (llega precargado desde la ficha);
-  2. día y franja;
-  3. datos y privacidad.
-
-  La solicitud se guarda en Supabase.
-
-**Datos pendientes del cliente.** Se muestran como pendientes y nunca se inventan:
-- precios y duraciones;
-- nº de colegiado;
-- nº de registro sanitario;
-- horario de invierno;
-- retratos.
-
-## Base de datos (Supabase)
-| | |
+## Estructura
+| Ruta | Qué es |
 |---|---|
-| Proyecto | `rosa-ondono-web` (ref `prrwekpaphnbqakrwtiz`), región eu-west-3 (París) |
-| Esquema | `supabase/001_esquema.sql` |
-| Datos | `supabase/002_semilla.sql`, generado con `supabase/generar_semilla.py` |
-| Tablas | `pilares`, `programas`, `categorias`, `profesionales`, `tratamientos`, `faqs`, `solicitudes_reserva` |
+| `generar_sitio.py` | Generador. Lee Supabase (o la copia `datos/catalogo.json` si no hay conexión) y escribe `sitio/` |
+| `fuente/` | `sitio.css` (tokens del manual), `sitio.js` (menú, cookies, formularios) y `config.js` (Supabase) |
+| `img/` | Logotipos e isotipo del manual v2.1, iconos del manual y fotos (`fotos/`) |
+| `supabase/` | `001_esquema.sql`, `002_semilla.sql` (con `generar_semilla.py`) y `003_areas_y_regalos.sql` |
+| `sitio/` | **Salida generada** (no editar a mano): 75 páginas, `sitemap.xml`, `robots.txt`, `_redirects` y `404.html` |
 
-**Seguridad (RLS):**
-- El catálogo es de solo lectura con la clave publicable.
-- `solicitudes_reserva` solo admite inserciones:
-  - no se puede leer con la clave pública;
-  - solo acepta tratamientos reservables: los médicos van a «Consulta de medicina estética»;
-  - solo fechas de los próximos 120 días.
-- El formulario no tiene campo de texto libre, para no recoger datos de salud.
-- Las solicitudes se consultan desde el panel de Supabase.
-
-**Copia local:** `datos/catalogo.json` es una copia del mismo catálogo. Se usa cuando no hay conexión con Supabase, por ejemplo en la vista previa publicada en Claude, que bloquea las peticiones externas.
-- En ese modo la reserva **no se envía**, y la página lo dice claramente.
-- La barra superior indica siempre de dónde vienen los datos.
-
-## Cómo verlo
 ```bash
 cd 01-web/prototipo
-python3 -m http.server 8000   # y abrir http://localhost:8000
+python3 generar_sitio.py                 # regenera sitio/
+cd sitio && python3 -m http.server 8000  # http://localhost:8000
 ```
-Abrir `index.html` con doble clic no funciona: el navegador bloquea la lectura de `datos/catalogo.json` desde `file://`.
 
-## Para regenerar la semilla
-```bash
-python3 supabase/generar_semilla.py   # reescribe 002_semilla.sql y datos/catalogo.json
-```
-Después hay que aplicar el SQL en Supabase: vaciar las tablas e insertar de nuevo.
+## Páginas
+- **Inicio:**
+  1. Hero «Tu bienestar empieza por ti».
+  2. 01 Nuestro universo.
+  3. Método Cuídate · Conecta · Siente.
+  4. 02 Los más pedidos.
+  5. 03 Conócenos.
+  6. 04 Tu experiencia.
+  7. 05 Reserva tu cita.
+  8. Tarjeta regalo.
+- **4 áreas:** `/estetica/`, `/medicina-estetica/`, `/terapias/` y `/bienestar/`.
+- **62 fichas:**
+  - `/tratamientos/{slug}/`;
+  - las médicas en `/medicina-estetica/{slug}/`, con CTA de consulta y aviso sanitario.
+- **Otras páginas:** `/valoracion-integral/`, `/conocenos/`, `/reservar/` (acepta `?servicio=`) y `/regalar/` (también acepta `?servicio=`).
+- **Legales**, con texto pendiente del asesor: `/aviso-legal/`, `/privacidad/` y `/cookies/`.
+
+## Base de datos (Supabase `rosa-ondono-web`, eu-west-3)
+- **Lectura pública:** `areas`, `categorias` (con `area_slug`), `tratamientos`, `faqs`, `profesionales`, `pilares` y `programas`.
+- **Solo inserción** (no se pueden leer con la clave pública):
+  - `solicitudes_reserva`: solo tratamientos reservables;
+  - `solicitudes_regalo`: nunca tratamientos médicos.
+- Sin campos de texto libre de salud.
+- Asesor de seguridad de Supabase: sin avisos.
+
+## SEO incluido
+- **Etiquetas:** un H1 por página; `title` de 60 caracteres o menos; meta description; canonical; Open Graph y Twitter; `lang="es"`.
+- **Datos estructurados (JSON-LD):**
+  - `HealthAndBeautyBusiness` + `MedicalClinic` (NAP, horario, mapa, redes);
+  - `Service` / `MedicalProcedure` por ficha;
+  - `FAQPage`, `BreadcrumbList` y `Person`.
+- **Archivos:**
+  - `sitemap.xml` sin legales ni 404;
+  - `robots.txt` (bloquea la vista previa);
+  - `_redirects` en formato Netlify, generado desde `../seo/redirecciones-301.csv`, con las URLs actualizadas a la v2.
+- **Rendimiento:**
+  - imágenes WebP de 800 y 1600 px con `srcset`, `width`/`height` y carga diferida;
+  - foto principal con `fetchpriority="high"`;
+  - JS mínimo y diferido.
+- **Pendiente:**
+  - tipografías autoalojadas en WOFF2 para producción;
+  - el blog, al que apuntan las 301 de los artículos actuales, aún no está construido.
+
+## Fotografía
+- **Del centro** (derechos del cliente): `01-recepcion`, `02-recepcion-ventana-patio`, `03-pasillo-cabinas`, `06-cabina-hornacina-lavabo`, `08-patio-jardin-cenador` y `10-patio-plantas`.
+  - Las cabinas no llevan uso asignado.
+  - `09-patio-puerta-icono` no se usa porque se ve la alarma.
+- **Provisionales de Unsplash** (licencia Unsplash, uso comercial permitido; descarga registrada). Se sustituyen por la sesión propia:
+
+| Archivo | Autoría |
+|---|---|
+| `u-facial-masaje` | Dominique Rivas |
+| `u-facial-mascarilla` | Rosa Rafael |
+| `u-retrato-natural` | Štefan Štefančík |
+| `u-masaje-espalda` | Toa Heftiba |
+| `u-piedras-flores` | engin akyurt |
+| `u-terapia-agujas` | Antonika Chanel |
+| `u-corporal` | THLT LCX |
+| `u-manos` | THLT LCX |
 
 ## Límites del prototipo
-- La disponibilidad es una franja de mañana o tarde. Los huecos reales llegarán del sistema de reservas elegido (ver `../codigo/propuesta-stack-y-reservas.md`).
-- Las tipografías se cargan desde Google Fonts. En producción irán autoalojadas (WOFF2).
-- El logotipo es el vector reconstruido del manual v2.1, pendiente de validar. El isotipo es el original del cliente y no se modifica.
-- La cabina que aparece en la galería no tiene un uso asignado, por decisión del cliente.
+- **Vista previa en Claude:** no puede conectar con Supabase. Los formularios lo indican y **no** dan la solicitud por enviada. Los datos salen de `datos/catalogo.json`, copia de la misma base.
+- **Disponibilidad:** la reserva pide día y franja (mañana o tarde). Los huecos reales llegarán del sistema de reservas.
+- **Tarjeta regalo:** el pago se gestiona por contacto hasta tener pasarela.
