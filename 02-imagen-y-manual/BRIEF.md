@@ -18,11 +18,11 @@
 | 1 | Cuestionario de briefing al cliente | ejecutivo-cuentas | ✅ Ronda 1 lista para enviar (`estrategia/cuestionario-cliente.md`) |
 | 2 | Plataforma de marca + arquetipo + tono | experto-marketing-comunicacion | 🟡 Borrador v1 para validar (`estrategia/plataforma-de-marca.md`) |
 | 3 | Moodboard y dirección creativa (2 rutas) | director-arte | 🟡 Borrador v1: moodboard descrito (`identidad/rutas-creativas.md`, `lamina-presentacion.html`); falta el moodboard con imágenes |
-| 4 | Paleta secundaria y tipografías | director-arte + disenador-grafico | 🟡 Paleta sobre #7D1F73 (confirmado); falta Pantone/CMYK |
+| 4 | Paleta secundaria y tipografías | director-arte + disenador-grafico | ✅ #7D1F73 · PANTONE 255 C · CMYK 53/96/10/24 (falta la prueba de color) |
 | 5 | Sistema de logo y usos incorrectos | disenador-grafico | 🟡 Sistema A–G en SVG (color, negro y negativo); logotipo reconstruido en vector, pendiente de validar |
 | 6 | Iconografía y estilo fotográfico | disenador-grafico + fotografo | 🟡 Set de 14 iconos SVG + capítulo de fotografía |
 | 7 | Aplicaciones | disenador-grafico | 🟡 Maquetas en el manual (tarjeta, vale, firma, redes, WhatsApp, placa, uniformes, packaging) |
-| 8 | Manual HTML + PDF, QA y presentación | director-arte + qa + ejecutivo-cuentas | 🟡 v2.1 con las decisiones del cliente (`manual/`); falta QA |
+| 8 | Manual HTML + PDF, QA y presentación | director-arte + qa + ejecutivo-cuentas | 🟡 v2.2 (47 págs.): Pantone, tilde y fotos del centro; falta QA |
 
 ## Punto de partida (investigación 17/11/2026)
 - Icono: figura humana abstracta de trazo continuo (círculo, doble onda, círculo macizo). PNG en `../assets/logo-original/`. **Falta el vector.**
@@ -36,3 +36,4 @@
 - **17/11/2026** · Manual de marca v1 completo (13 capítulos) en HTML + PDF, con iconos SVG y tokens de color. Construido sobre la Ruta A, pendiente de que el cliente elija ruta.
 - **17/11/2026** · Manual v2.0 rediseñado en A4 horizontal, siguiendo las referencias del cliente. Recibidos el PSD de 2023 y el SVG del isotipo. Propuesto #7D1F73 (PSD maestro) como color oficial: pendiente de confirmar.
 - **17/11/2026** · El cliente confirma #7D1F73 y las licencias, y autoriza el negativo y el supergráfico. No hay vector del logotipo: se reconstruye (isotipo original + texto calcado del PSD). Manual v2.1.
+- **17/11/2026** · Manual v2.2: PANTONE 255 C y CMYK 53/96/10/24, tilde en el descriptor, nuevo apartado «El centro» con las fotos del recorrido 360° (sin asignar uso a las cabinas) y sin el nº de registro sanitario, por decisión del cliente.

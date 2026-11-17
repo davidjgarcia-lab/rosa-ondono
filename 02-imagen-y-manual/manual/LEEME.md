@@ -1,4 +1,4 @@
-# Manual de marca · Rosa Ondoño · v2.1
+# Manual de marca · Rosa Ondoño · v2.2
 *Departamento de Imagen y Manual · 17/11/2026 · A4 horizontal, 44 páginas*
 
 | Archivo | Qué es |
@@ -22,9 +22,13 @@ Originales del cliente en `assets/logo-original/2023/`: el PSD maestro, el SVG d
   - el texto está calcado del PSD maestro con `herramientas/vectorizar.py` (coincidencia del 97,6 % en el horizontal).
   - Antes de imprenta o rotulación, conviene revisarlo a gran tamaño.
 
+## v2.2 (17/11/2026)
+- **Morado en imprenta:** PANTONE 255 C (ΔE00 1,9) y CMYK 53/96/10/24 (Color Bridge, ΔE 3,7). Calculado contra las bibliotecas PANTONE+ en Lab.
+- **Descriptor:** tilde añadida («estética») en todas las versiones SVG y PNG (`--tilde` en `herramientas/vectorizar.py`).
+- **Nuevo apartado «El centro»:** fotos del recorrido 360° (`assets/fotografia/recorrido-360/`), con los derechos del centro. Por decisión del cliente, no se asigna un uso a cada cabina.
+- **Nº de registro sanitario:** retirado del manual, por decisión del cliente.
+
 ## Pendiente
-1. Pantone y CMYK del #7D1F73, con una prueba de color.
-2. Validar el vector reconstruido.
-3. Tilde y contenido del descriptor.
-4. Nº de registro sanitario y nº de colegiado.
-5. Sesión de fotos propia.
+1. Prueba de color de PANTONE 255 C y del CMYK sobre el papel final.
+2. Nº de colegiado del médico.
+3. Sesión de fotos propia para gran formato e impresión.

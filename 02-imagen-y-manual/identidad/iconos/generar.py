@@ -54,7 +54,7 @@ def svg(cuerpo, titulo):
 
 PALETA = {
     "corporativo": {"morado": {"hex": "#7D1F73", "rgb": [125, 31, 115], "fuente": "LOGO_2023.psd (propuesto, pendiente de confirmar)", "fijo": True,
-                    "pantone": "PENDIENTE", "cmyk": "PENDIENTE"}},
+                    "pantone": "PANTONE 255 C", "cmyk": [53, 96, 10, 24]}},
     "ruta_a_secundaria": {
         "marfil": "#F7F2EB", "arena": "#E9DCCB", "lila-empolvado": "#E8DAE6",
         "arcilla-rosada": "#B7897A", "ciruela-tinta": "#2E1A2C"},

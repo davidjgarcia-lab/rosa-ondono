@@ -20,6 +20,7 @@ H_BL = f"{LOGO_DIR}/logo-horizontal-blanco.svg"
 V_BL = f"{LOGO_DIR}/logo-vertical-blanco.svg"
 H_NE = f"{LOGO_DIR}/logo-horizontal-negro.svg"
 FOTO = "img/fotos"
+F360 = "../../assets/fotografia/recorrido-360"
 with open(os.path.join(AQUI, "..", "identidad", "logo", "isotipo-negro.svg")) as f:
     ISO_D = re.search(r' d="([^"]+)"', f.read()).group(1)
 ISO_VB = "0 0 171.2 237.53"
@@ -35,6 +36,16 @@ def ratio(a, b):
     x, y = sorted([lum(a), lum(b)], reverse=True); return (x + .05) / (y + .05)
 def coma(n, d=1): return f"{n:.{d}f}".replace(".", ",")
 def rgb(h): h = h.lstrip('#'); return ", ".join(str(int(h[i:i+2], 16)) for i in (0, 2, 4))
+def lab_a_hex(L, a, b):
+    """Lab (D50) -> sRGB, para simular en pantalla una tinta Pantone."""
+    fy = (L + 16) / 116; fx = fy + a / 500; fz = fy - b / 200
+    finv = lambda t: t ** 3 if t ** 3 > 216 / 24389 else (116 * t - 16) / (24389 / 27)
+    X, Y, Z = 0.96422 * finv(fx), finv(fy), 0.82521 * finv(fz)
+    M = [[0.9555766, -0.0230393, 0.0631636], [-0.0282895, 1.0099416, 0.0210077], [0.0122982, -0.0204830, 1.3299098]]
+    X, Y, Z = [M[i][0] * X + M[i][1] * Y + M[i][2] * Z for i in range(3)]
+    r = 3.2404542 * X - 1.5371385 * Y - 0.4985314 * Z; g = -0.9692660 * X + 1.8760108 * Y + 0.0415560 * Z; bb = 0.0556434 * X - 0.2040259 * Y + 1.0572252 * Z
+    gam = lambda c: max(0, min(1, 12.92 * c if c <= 0.0031308 else 1.055 * c ** (1 / 2.4) - 0.055))
+    return "#" + "".join(f"{round(gam(c) * 255):02X}" for c in (r, g, bb))
 def nivel(r): return "AAA" if r >= 7 else "AA" if r >= 4.5 else "Solo grande" if r >= 3 else "No"
 
 # ---------------- piezas ----------------
@@ -64,7 +75,7 @@ nombres = dict(morado="Morado", marfil="Marfil", arena="Arena", lila="Lila", sal
 # ======================= PORTADA =======================
 pagina(f'''<div class="portada">
 <div class="pt-izq">
-  <p class="kicker">Manual de marca · v2.1 · Noviembre 2026</p>
+  <p class="kicker">Manual de marca · v2.2 · Noviembre 2026</p>
   {img(H_LOGO, "Logotipo de Rosa Ondoño", "width:118mm")}
   <p class="lema-xl">Cuídate · Conecta · Siente</p>
   <p class="pt-meta">Estrategia · Identidad · Color · Tipografía<br>Fotografía · Aplicaciones · Accesibilidad</p>
@@ -218,7 +229,7 @@ pagina(f'''{cab("03 · Logotipo", "Anatomía")}
 <div class="g3 mt">
 <div class="card blanco"><h4>1 · El isotipo</h4><p>Una figura humana de trazo continuo: cabeza, cuerpo en doble onda y raíz. Es la parte intocable de la marca.</p></div>
 <div class="card blanco"><h4>2 · El nombre</h4><p>«Rosa Ondoño» en <strong>Bambino Light</strong>: geométrica, fina, con «O» circular que repite los círculos del isotipo.</p></div>
-<div class="card blanco"><h4>3 · El descriptor</h4><p>En <strong>Biko</strong>, muy espaciada. {pend("Revisar")} Falta la tilde de «estética» y no menciona la medicina estética.</p></div></div>''', "Logotipo")
+<div class="card blanco"><h4>3 · El descriptor</h4><p>En <strong>Biko</strong>, muy espaciada: «centro de estética y terapias complementarias». Tilde añadida en noviembre de 2026.</p></div></div>''', "Logotipo")
 
 partes = [("La cabeza", "Un círculo abierto: la persona, la mente, la escucha. Es donde empieza el trazo."),
           ("El recorrido", "La doble onda es el cuerpo y la energía que lo recorre: fluidez, equilibrio y conexión."),
@@ -288,10 +299,10 @@ def tarjeta_color(n, h, p, u, fijo):
     claro = lum(h) > 0.3
     return (f'<div class="pc"><div class="pc-s" style="background:{h};color:{"var(--tinta)" if claro else "#fff"}">'
             f'<p>{n}</p>{"<span class=fijo>FIJO</span>" if fijo else ""}</div><div class="pc-d"><p><b>{h}</b></p><p>RGB {rgb(h)}</p>'
-            f'<p>CMYK {pend() if fijo else "tras prueba"}</p><p class="proc"><b>Procedencia:</b> {p}</p><p class="uso">{u}</p></div></div>')
+            f'<p>{"Pantone 255 C<br>CMYK 53 · 96 · 10 · 24" if fijo else "CMYK tras prueba"}</p><p class="proc"><b>Procedencia:</b> {p}</p><p class="uso">{u}</p></div></div>')
 pagina(f'''{cab("04 · Color", "Paleta y su procedencia", "Un solo color fijo, el morado del logotipo, y una paleta que sale del propio centro: la cal, el lino, el jardín y la terracota.")}
 <div class="paleta">{"".join(tarjeta_color(*p) for p in pal)}</div>
-<p class="pie-nota">CMYK y Pantone del morado: {pend()} (dato de la imprenta). Los del resto se fijarán con una prueba de impresión.</p>''', "Color")
+<p class="pie-nota">Morado en imprenta: PANTONE 255 C · CMYK 53 · 96 · 10 · 24. Los CMYK del resto de la paleta se fijarán con la prueba de color.</p>''', "Color")
 
 mor = [("#7D1F73", "Logotipo maestro LOGO_2023.psd y logos completos", "Oficial · confirmado 17/11/2026"),
        ("#701B78", "Favicon e isotipo de la web actual", "Se sustituye"),
@@ -301,7 +312,19 @@ mc4 = "".join(f'<div class="mor"><div class="mor-s" style="background:{h}"></div
 pagina(f'''{cab("04 · Color", "Un solo morado", "Circulaban cuatro morados distintos, tan parecidos que juntos ensuciaban la marca (contraste inferior a 1,1:1). Desde ahora, solo hay uno.")}
 <div class="g4">{mc4}</div>
 <div class="g2 mt"><div class="card oscuro"><p class="decl-m">El color oficial es <span class="acento">#7D1F73</span> · RGB 125, 31, 115: el del archivo maestro del logotipo. Web, papelería, rótulos y redes usan este único valor.</p></div>
-<div class="card blanco"><h4>Para imprimir {pend("Pantone y CMYK")}</h4><p>Falta el equivalente de imprenta. Se fijará con una prueba de color sobre el papel elegido y, para tarjetas, placa y vales, con una tinta directa Pantone.</p></div></div>''', "Color")
+<div class="card blanco"><h4>Para imprimir</h4><p><b>PANTONE 255 C</b> en tinta directa y <b>C53 M96 Y10 K24</b> en cuatricromía. Detalle en la página siguiente.</p></div></div>''', "Color")
+
+impr = [("Pantalla", "#7D1F73", "RGB 125 · 31 · 115", "Web, redes y pantallas", "Referencia", True),
+        ("PANTONE 255 C", lab_a_hex(29.8, 42, -24), "Tinta directa · papel estucado", "Tarjetas, vales, placa y packaging", "ΔE 1,9 · prácticamente igual", True),
+        ("CMYK 53 · 96 · 10 · 24", lab_a_hex(31.8, 39, -19), "Cuatricromía (PANTONE Color Bridge 255 CP)", "Folletos, carteles e impresión digital", "ΔE 3,7 · un punto más apagado", True),
+        ("PANTONE 255 U", lab_a_hex(43.1, 23, -14), "Tinta directa · papel sin estucar", "Algodón, kraft y offset sin estucar", "ΔE 14 · mucho más claro", False)]
+ic = "".join(f'<div class="imp"><div class="imp-s" style="background:{h}"></div><p class="mh">{n}</p><p>{a}</p><p class="peq">{u}</p><p class="mest {"ok" if ok else "ko"}">{d}</p></div>' for n, h, a, u, d, ok in impr)
+pagina(f'''{cab("04 · Color", "El morado en imprenta", "Una tinta nunca es idéntica a una pantalla, pero se puede acercar tanto que el ojo no note la diferencia. Hemos comparado el #7D1F73 con toda la biblioteca PANTONE+ (diferencia de color CIEDE2000).")}
+<div class="g4">{ic}</div>
+<div class="g3 mt"><div class="card blanco"><h4>Cómo leer el ΔE</h4><p>Por debajo de 2, la diferencia es casi imperceptible: es la tolerancia habitual en imprenta. Por encima de 5, se nota a simple vista.</p></div>
+<div class="card blanco"><h4>Papel sin estucar</h4><p>El algodón y el kraft absorben la tinta y la apagan. Pide a la imprenta que <b>iguale a 255 C</b> sobre ese papel (tinta reformulada), no 255 U tal cual.</p></div>
+<div class="card blanco"><h4>Antes de imprimir</h4><p>Pide siempre una prueba de color sobre el papel final y compárala con la guía PANTONE física, no con la pantalla.</p></div></div>
+<p class="pie-nota">Fuente: bibliotecas PANTONE+ Solid Coated, Solid Uncoated y Color Bridge Coated (Lab D50). Las muestras de esta página son una simulación en pantalla.</p>''', "Color")
 
 parejas = [("La firma", "marfil", "morado"), ("El día a día", "marfil", "tinta"), ("Botón", "morado", "blanco"),
            ("Conecta", "arena", "morado"), ("Siente", "lila", "tinta"), ("Jardín", "salvia", "tinta")]
@@ -336,7 +359,7 @@ jer = [("Titular", "Jost Light · 52/56 · −2 %", '<p style="font-weight:300;f
        ("Lema y citas", "Cormorant Italic 500 · 26/32", '<p style="font-family:Cormorant Garamond;font-style:italic;font-size:20pt;color:var(--morado)">Cuídate · Conecta · Siente</p>'),
        ("Antetítulo", "Jost Medium · 11 · +16 % · mayúsculas", '<p style="font-weight:500;font-size:9pt;letter-spacing:.16em;text-transform:uppercase;color:var(--morado)">Cuídate · Medicina estética</p>'),
        ("Texto", "Jost Regular · 17/27", '<p style="font-size:12pt">Antes de cualquier tratamiento te valoramos y te explicamos qué puedes esperar.</p>'),
-       ("Legal", "Jost Regular · 12/16", '<p style="font-size:8.5pt">Nº de registro sanitario: PENDIENTE · Supervisión médica: Dr. Roberth Bravo Pardo.</p>')]
+       ("Legal", "Jost Regular · 12/16", '<p style="font-size:8.5pt">Supervisión médica: Dr. Roberth Bravo Pardo · médico estético.</p>')]
 pagina(f'''{cab("05 · Tipografía", "Jerarquía")}<div class="jer">{"".join(f'<div class="jr"><div><p class="jn">{a}</p><p class="js">{b}</p></div><div>{c}</div></div>' for a, b, c in jer)}</div>
 <p class="pie-nota">En la web, las fuentes se sirven desde el propio servidor (WOFF2), solo en los pesos indicados. En ofimática, si no están instaladas: Century Gothic y Georgia.</p>''', "Tipografía")
 
@@ -385,6 +408,18 @@ pagina(f'''{cab("06 · Fotografía", "Qué sí y qué no")}
 <p><b>4</b>Tratamiento, sesiones y tiempo, con «resultados variables».</p><p><b>5</b>En medicina estética, revisar la normativa autonómica.</p></div></div>
 <p class="pie-nota">Fotos del moodboard: Unsplash (licencia Unsplash), solo como referencia. Las definitivas saldrán de una sesión propia en el centro.</p>''', "Fotografía")
 
+cent = [("08-patio-jardin-cenador", "El patio-jardín", "c1"), ("01-recepcion", "Recepción", "c2"), ("02-recepcion-ventana-patio", "Recepción y vista al patio", "c3"),
+        ("03-pasillo-cabinas", "Pasillo", "c4"), ("10-patio-plantas", "Patio", "c5"), ("09-patio-puerta-icono", "El isotipo en la puerta", "c6")]
+pagina(f'''<div class="centro-g">{"".join(f'<div class="{c}" style="background-image:url({F360}/{f}_3x2.jpg)"><span>{t}</span></div>' for f, t, c in cent)}
+<div class="c7"><p class="kicker">06 · Fotografía</p><h2>El centro</h2><p class="cuerpo">Fotos reales de Rosa Ondoño, de un encargo propio: los derechos son del centro. El jardín interior es su gran diferencia en pleno Maisonnave.</p></div></div>''', "Fotografía", clase="sin-pie")
+
+cab4 = ["04-cabina-ciruela-aparatologia", "05-cabina-ciruela-tres-hornacinas", "06-cabina-hornacina-lavabo", "07-cabina-estor-ciruela"]
+pagina(f'''<div class="g-cab"><div class="cab4">{"".join(f'<div style="background-image:url({F360}/{f}_3x2.jpg)"><span>Cabina</span></div>' for f in cab4)}</div>
+<div>{cab("06 · Fotografía", "Las cabinas")}<p class="cuerpo">Las paredes ciruela del centro dialogan con el morado de la marca: en la foto, el color lo pone el propio espacio.</p>
+<div class="card blanco"><h4>Cómo usarlas</h4><p>Web, redes y presentaciones, en sus tres formatos: completa (3:2), cabecera web (16:9) y redes (4:5).</p></div>
+<div class="card blanco mt"><h4>Límites</h4><p>Son aptas para uso digital. Para cabeceras grandes e impresión, mejor una sesión nueva con luz natural.</p></div>
+<p class="pie-nota">Archivos en <code>assets/fotografia/recorrido-360/</code>.</p></div></div>''', "Fotografía")
+
 # ======================= 07 · APLICACIONES =======================
 portadilla("07", "Aplicaciones", C["morado"], iso("#fff", "position:absolute;left:160mm;top:-70mm;height:300mm;transform:rotate(10deg)"), oscuro=True, sub="La marca en la vida real")
 
@@ -418,11 +453,11 @@ pagina(f'''{cab("07 · Aplicaciones", "Web y digital")}
 
 pagina(f'''{cab("07 · Aplicaciones", "El espacio")}
 <div class="g3 espacio">
-<div class="esp"><div class="placa">{img(V_LOGO, "", "height:40mm")}<p class="peq">Entresuelo izquierda · Nº registro sanitario {pend()}</p></div><p class="pap-l">Placa de portal · 300 × 150 mm</p></div>
+<div class="esp"><div class="placa">{img(V_LOGO, "", "height:40mm")}<p class="peq">Entresuelo izquierda · Av. Maisonnave 38</p></div><p class="pap-l">Placa de portal · 300 × 150 mm</p></div>
 <div class="esp"><div class="unif-w"><svg viewBox="0 0 200 220" class="unif"><path d="M60 20 L100 34 L140 20 L178 44 L164 92 L146 86 L146 210 L54 210 L54 86 L36 92 L22 44 Z" fill="#E9DCCB" stroke="#d6c6b3"/><path d="M84 26 L100 52 L116 26" fill="none" stroke="#c9b8a4" stroke-width="2"/></svg>
 {iso(style="position:absolute;left:58%;top:30%;height:9mm")}</div><p class="pap-l">Túnica de cabina · isotipo bordado 25 mm</p></div>
 <div class="esp"><div class="bolsa"><span class="asa"></span>{iso(style="height:34mm")}</div><p class="pap-l">Bolsa de papel kraft · una tinta</p></div></div>
-<div class="g3 mt"><div class="card blanco"><h4>Señalética</h4><p>Metacrilato mate o latón, con fondo marfil e isotipo a color. El nº de registro sanitario es obligatorio.</p></div>
+<div class="g3 mt"><div class="card blanco"><h4>Señalética</h4><p>Metacrilato mate o latón, con fondo marfil e isotipo a color, o en negativo sobre morado.</p></div>
 <div class="card blanco"><h4>Uniformes</h4><p>Cabina: túnica arena o marfil. Medicina estética: bata blanca con nombre, titulación y nº de colegiado {pend()}.</p></div>
 <div class="card blanco"><h4>Packaging</h4><p>Kraft o arena, una sola tinta y sin plastificados brillantes. Cajas en marfil con relieve en seco.</p></div></div>''', "Aplicaciones")
 
@@ -440,7 +475,7 @@ pagina(f'''<div class="g-2col"><div>{cab("08 · Accesibilidad", "Contraste compr
 pagina(f'''<div class="g-2col"><div>{cab("08 · Archivos", "Formatos válidos")}
 <table class="tform"><tr><th>Formato</th><th>Color</th><th>Uso</th></tr>
 <tr><td><b>SVG</b></td><td>RGB / HEX</td><td>Web e interfaz. ✔ Disponible: todas las versiones, en color, negro y blanco</td></tr>
-<tr><td><b>PDF vectorial</b></td><td>CMYK + Pantone</td><td>Imprenta, papelería y vales. Se exporta del SVG cuando esté el Pantone {pend()}</td></tr>
+<tr><td><b>PDF vectorial</b></td><td>CMYK + Pantone</td><td>Imprenta, papelería y vales. Se exporta del SVG con la tinta PANTONE 255 C</td></tr>
 <tr><td><b>EPS / AI</b></td><td>CMYK + Pantone</td><td>Rotulación, bordado, vinilo y relieve</td></tr>
 <tr><td><b>PNG transparente</b></td><td>RGB</td><td>Office, email, redes y presentaciones (2× y 3×)</td></tr>
 <tr><td><b>JPG</b></td><td>sRGB</td><td>Solo fotografía, nunca el logotipo</td></tr></table>
@@ -449,16 +484,15 @@ pagina(f'''<div class="g-2col"><div>{cab("08 · Archivos", "Formatos válidos")}
 <div>{cab("08 · Archivos", "Antes de publicar")}<ul class="check">
 <li>Logotipo original, sin modificar, sobre fondo claro y con su área de respeto.</li><li>Un único morado: #7D1F73.</li>
 <li>Solo Jost y Cormorant en los textos.</li><li>Todo el texto con contraste AA.</li>
-<li>Sin garantías, «curar», «seguro», urgencias ni palabras vetadas.</li><li>Medicina estética: profesional identificado y nº de registro sanitario.</li>
+<li>Sin garantías, «curar», «seguro», urgencias ni palabras vetadas.</li><li>Medicina estética: profesional sanitario identificado.</li>
 <li>Consentimiento escrito de cada persona fotografiada.</li><li>Revisión de QA según la guía de cumplimiento legal.</li></ul></div></div>''', "Archivos")
 
 res_l = [("Color oficial", "#7D1F73, el del PSD maestro."), ("Licencias", "Bambino Light y Biko, con licencia comercial."),
          ("Negativo", "Isotipo y logotipo en blanco sobre morado u oscuro."), ("Supergráfico", "Isotipo ampliado y recortado como recurso."),
-         ("Vector del logotipo", "No existía: se ha reconstruido con el isotipo original y el texto calcado del PSD.")]
-pend_l = [("Pantone y CMYK", "Fijar el equivalente de imprenta del #7D1F73 con una prueba de color."),
-          ("Validar el vector", "Revisar con lupa el logotipo reconstruido antes de enviarlo a imprenta o rotulación."),
-          ("Descriptor", "Corregir la tilde de «estética» y valorar incluir la medicina estética."),
-          ("Datos sanitarios", "Nº de registro sanitario del centro y nº de colegiado del médico."),
+         ("Vector del logotipo", "Reconstruido con el isotipo original y el texto del PSD. El cliente tiene el logo en gran formato."),
+         ("Pantone y CMYK", "PANTONE 255 C · C53 M96 Y10 K24."), ("Descriptor", "Tilde añadida: «estética».")]
+pend_l = [("Prueba de color", "Validar PANTONE 255 C y el CMYK con una prueba sobre el papel final."),
+          ("Nº de colegiado", "Del Dr. Roberth Bravo Pardo, para las fichas de medicina estética."),
           ("Sesión de fotos", "Sustituir las fotos de referencia por una sesión propia en el centro.")]
 pagina(f'''{cab("Siguientes pasos", "Decidido y pendiente", "Decisiones del cliente del 17/11/2026 y lo que falta para cerrar los archivos finales.")}
 <div class="g2"><div><h4 class="si">✔ Resuelto</h4>{"".join(f'<div class="card blanco fila"><b>{a}</b><span>{b}</span></div>' for a, b in res_l)}</div>
@@ -645,6 +679,14 @@ code{font-size:8pt;background:rgba(125,31,115,.08);padding:0 1.5mm;border-radius
 .check{list-style:none}.check li{padding:2.4mm 0 2.4mm 8mm;border-bottom:1px solid #e3d8cc;position:relative;font-size:10pt}.check li::before{content:'';position:absolute;left:0;top:3mm;width:4mm;height:4mm;border:1.2px solid var(--morado);border-radius:1mm}
 .contra{position:absolute;inset:0}.contra-t{position:absolute;left:22mm;top:50%;transform:translateY(-50%)}
 .sin-pie .pie{display:none}
+.imp-s{height:52mm;border-radius:4mm;margin-bottom:3mm;border:1px solid rgba(0,0,0,.06)}.imp p{font-size:9pt}.imp .mh{font-size:12pt}
+.centro-g{position:absolute;inset:0;display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:3mm;padding:3mm}
+.centro-g>div{background-size:cover;background-position:center;border-radius:3mm;position:relative}
+.centro-g span,.cab4 span{position:absolute;left:4mm;bottom:3mm;background:rgba(247,242,235,.92);font-size:8pt;padding:.8mm 3mm;border-radius:10mm}
+.c1{grid-row:1/span 2;grid-column:1}.c2{grid-column:2;grid-row:1}.c3{grid-column:3;grid-row:1}.c4{grid-column:2;grid-row:2}.c5{grid-column:3;grid-row:2}.c6{grid-column:1;grid-row:3}
+.c7{grid-column:2/span 2;grid-row:3;background:var(--marfil)!important;padding:6mm 8mm}.c7 h2{font-size:24pt;margin-bottom:2mm}
+.g-cab{display:grid;grid-template-columns:1.6fr 1fr;gap:10mm;height:100%}
+.cab4{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3mm;margin:-4mm 0 2mm -6mm}.cab4>div{background-size:cover;background-position:center;border-radius:3mm;position:relative}
 .fila{display:grid;grid-template-columns:42mm 1fr;gap:4mm;padding:3.4mm 5mm;margin-bottom:2.5mm;font-size:9.5pt}
 """
 
@@ -653,9 +695,9 @@ def render():
     for i, (cuerpo, seccion, fondo, oscuro, clase) in enumerate(PAGINAS, 1):
         bg = C.get(fondo, fondo)
         out.append(f'<section class="page {clase}{" oscuro-p" if oscuro else ""}" style="background:{bg}">{cuerpo}'
-                   f'<div class="pie"><span>Rosa Ondoño · Manual de marca · v2.1 · Noviembre 2026</span><span>{seccion}</span><span>{i:02d}</span></div></section>')
+                   f'<div class="pie"><span>Rosa Ondoño · Manual de marca · v2.2 · Noviembre 2026</span><span>{seccion}</span><span>{i:02d}</span></div></section>')
     return f"""<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Manual de marca · Rosa Ondoño · v2.1</title>
+<title>Manual de marca · Rosa Ondoño · v2.2</title>
 <!-- Generado por manual/construir_manual.py · no editar a mano -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">

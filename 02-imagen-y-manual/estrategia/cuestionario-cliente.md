@@ -75,3 +75,10 @@ Pantone: ________ · CMYK: ________ · Imprenta: ________
 - ✅ **Negativo:** autorizado el isotipo en blanco.
 - ✅ **Supergráfico:** autorizado.
 - ⏳ Siguen sin respuesta: tilde del descriptor (P19), registro sanitario y colegiado (P9–P10), horario de invierno (P11), tuteo en medicina estética (P13) y Valoración integral (P14).
+
+## Respuestas del cliente · 17/11/2026 (2)
+- ✅ Pantone y CMYK: los ha investigado la agencia → **PANTONE 255 C** · **C53 M96 Y10 K24**. Falta validarlos con una prueba de imprenta.
+- ✅ El cliente tiene el logotipo en gran formato.
+- ✅ Descriptor: tilde añadida.
+- ✅ Nº de registro sanitario: no se incluye, por decisión del cliente.
+- ✅ Fotos del recorrido 360°: se añaden al manual sin sustituir las de referencia.

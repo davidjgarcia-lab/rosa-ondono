@@ -19,8 +19,8 @@
 ## Color corporativo (NO MODIFICABLE)
 | Sistema | Valor |
 |---|---|
-| Pantone | PENDIENTE (confirmar con el cliente/imprenta) |
-| CMYK | PENDIENTE |
+| Pantone | **PANTONE 255 C** (ΔE00 1,9 frente a #7D1F73; la coincidencia más cercana de la biblioteca PANTONE+ Solid Coated). Sobre papel sin estucar: pedir que se iguale a 255 C (255 U queda mucho más claro, ΔE 14) |
+| CMYK | **C53 M96 Y10 K24** (PANTONE Color Bridge Coated 255 CP, ΔE 3,7). Validar con una prueba de color |
 | RGB | **125, 31, 115** |
 | HEX | **#7D1F73** ✅ confirmado por el cliente el 17/11/2026 (color del archivo maestro LOGO_2023.psd) |
 
@@ -32,7 +32,8 @@
 - Horario (verano, según web): lunes a viernes 9:30–19:00. Horario de invierno: PENDIENTE
 - Web actual: https://rosaondono.com (WordPress + Divi, hecha por Gráficas Continuos Alicante)
 - Redes: instagram.com/rosaondono · facebook.com/RosaOndono · Google: 4,9★ (widget de reseñas)
-- Nº de registro sanitario del centro: PENDIENTE (obligatorio en publicidad de medicina estética)
+- Nº de registro sanitario del centro: **no se incluye en las piezas, por decisión del cliente (17/11/2026)**. ⚠️ Ver `cumplimiento-legal.md`: en publicidad sanitaria puede ser exigible; revisar con el asesor antes de lanzar campañas de medicina estética.
 - Fundadora: Rosa Ondoño — +30 años de experiencia; esteticista titulada, formación en Llongueras (Barcelona), naturopatía y terapias alternativas (Madrid), terapias manuales, quiropraxia, drenaje linfático postquirúrgico; empezó en Hotel Sidi San Juan.
 - Médico: Dr. Roberth Bravo Pardo (médico estético y nutricionista, supervisión médica) — nº de colegiado PENDIENTE
 - Listado de servicios: ver `investigacion/auditoria-web-actual.md` §2. Precios: PENDIENTE
+- Descriptor del logotipo corregido (17/11/2026): «centro de estética y terapias complementarias», con tilde. El cliente dispone del logotipo en gran formato.

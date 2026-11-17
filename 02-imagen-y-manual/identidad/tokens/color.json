@@ -9,8 +9,13 @@
       ],
       "fuente": "LOGO_2023.psd (propuesto, pendiente de confirmar)",
       "fijo": true,
-      "pantone": "PENDIENTE",
-      "cmyk": "PENDIENTE"
+      "pantone": "PANTONE 255 C",
+      "cmyk": [
+        53,
+        96,
+        10,
+        24
+      ]
     }
   },
   "ruta_a_secundaria": {
