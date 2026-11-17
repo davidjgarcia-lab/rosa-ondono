@@ -1,27 +1,34 @@
-# Manual de marca · Rosa Ondoño
-*Departamento de Imagen y Manual · borrador v1 · 17/11/2026*
+# Manual de marca · Rosa Ondoño · v2.0
+*Departamento de Imagen y Manual · 17/11/2026 · A4 horizontal, 44 páginas*
 
 | Archivo | Qué es |
 |---|---|
-| `manual-de-marca.html` | Manual navegable (13 capítulos, índice lateral). Abrir en el navegador. |
-| `manual-de-marca.pdf` | El mismo manual en A4 para enviar o imprimir. |
-| `construir_manual.py` | Genera el HTML (los contrastes WCAG se calculan, no se escriben a mano). |
-| `exportar_pdf.js` | Exporta el HTML a PDF (`node exportar_pdf.js`). |
-| `../identidad/iconos/` | Set de 14 iconos SVG y `generar.py`. |
-| `../identidad/tokens/` | `tokens.css` y `color.json` para web y redes. |
+| `manual-de-marca.pdf` | El manual para enviar o presentar. |
+| `manual-de-marca.html` | La misma versión, para ver en el navegador. |
+| `construir_manual.py` | Genera el HTML. Los contrastes WCAG se calculan, no se escriben a mano. **No edites el HTML a mano.** |
+| `exportar_pdf.js` | Exporta el PDF (`node exportar_pdf.js`; con `--png`, saca también miniaturas). |
+| `img/fotos/` | Fotos del moodboard (Unsplash, licencia Unsplash). Solo como referencia. |
+| `../identidad/logo/` | Logos listos para usar: isotipo SVG (color y negro) y PNG transparentes. |
+| `../identidad/iconos/` · `../identidad/tokens/` | 14 iconos SVG y tokens de color y tipografía. |
 
-**Para editar:** cambiar `construir_manual.py` → `python3 construir_manual.py && node exportar_pdf.js`. No editar el HTML a mano.
+Originales del cliente en `assets/logo-original/2023/`: el PSD maestro, el SVG del isotipo y los PNG/WEBP de cada versión.
 
-## Capítulos
-00 Cómo usar · 01 Esencia · 02 Arquetipo y personalidad · 03 Tono de comunicación · 04 Logotipo (versiones, área de respeto, tamaños mínimos, fondos, usos incorrectos) · 05 Color (códigos, paleta, proporciones, matriz de contraste WCAG) · 06 Tipografía · 07 Iconografía · 08 Fotografía · 09 Elementos gráficos · 10 Aplicaciones · 11 Formatos de archivo · 12 Checklist y control de versiones
+**Para editar:** cambia `construir_manual.py` y ejecuta `python3 construir_manual.py && node exportar_pdf.js`.
 
-## Bloqueos (no se inventan: se piden al cliente)
-- Logo vectorial → sin él no hay SVG, PDF ni EPS de producción ni artes finales.
-- Pantone y CMYK del morado.
-- Color oficial: #701B78 (icono, hipótesis) o #8E1F5C (web actual).
-- Autorización de las versiones monocroma y negativa del isotipo.
-- Logotipo tipográfico original, si existe. Si no, se usa la composición propuesta.
-- Nº de registro sanitario, nº de colegiado y horario de invierno.
+## Hallazgos en los archivos del cliente
+- **Tipografías del logotipo** (sacadas del PSD): nombre en **Bambino Light** y descriptor en **Biko**.
+- **Cuatro morados en uso:**
+  - **#7D1F73**: el del PSD maestro y los logos completos. Es el que propone el manual.
+  - #701B78: favicon de la web.
+  - #6C2470: PNG del isotipo y logo vertical.
+  - #8E1F5C: CSS de la web.
+- **El descriptor dice «centro de estetica…»**: le falta la tilde y no menciona la medicina estética.
+- **El isotipo ya existe en SVG**, y el cliente tiene una versión oficial en negro.
 
-## Decisiones tomadas en el borrador
-- Base visual: **Ruta A «Piel y luz»** (la recomendada), con niebla y salvia de la Ruta B para medicina estética. Pendiente de que el cliente elija la ruta.
+## Pendiente del cliente
+1. Confirmar #7D1F73 como color oficial, con su Pantone y su CMYK.
+2. Logotipo completo en vector (AI, EPS o PDF).
+3. Licencias comerciales de Bambino Light y Biko.
+4. Corregir el descriptor.
+5. Autorizar la versión negativa del isotipo y su uso como supergráfico.
+6. Nº de registro sanitario y nº de colegiado.

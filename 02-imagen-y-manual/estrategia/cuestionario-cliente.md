@@ -58,3 +58,11 @@ Pantone: ________ · CMYK: ________ · Imprenta: ________
 
 ---
 **Devolución:** responde por email o lo vemos en la reunión de presentación. Las respuestas de los bloques 1 y 2 **desbloquean** el sistema de logo y la paleta definitiva.
+
+---
+## Actualización 17/11/2026 · tras recibir el PSD y el SVG
+- **P5 (color):** en los archivos aparecen cuatro morados. Proponemos **#7D1F73**, el del archivo maestro `LOGO_2023.psd`. ¿Lo confirmas? Las otras variantes son #701B78 (favicon), #6C2470 (PNG del isotipo) y #8E1F5C (web).
+- **P1 (vector):** ya tenemos el isotipo en SVG. Falta el **logotipo completo** («Rosa Ondoño» y el descriptor) en AI, EPS o PDF.
+- **P18 (licencias):** el nombre está compuesto en **Bambino Light** y el descriptor en **Biko**. ¿Tenéis licencia comercial de ambas fuentes?
+- **P19 (descriptor):** dice «centro de estetica y terapias complementarias», sin tilde y sin mencionar la medicina estética. ¿Lo corregimos?
+- **P20 (supergráfico):** ¿autorizas usar el isotipo ampliado y recortado por el borde como recurso gráfico? Se mantiene su forma y su color.

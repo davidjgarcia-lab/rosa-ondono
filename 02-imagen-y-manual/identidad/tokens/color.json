@@ -1,12 +1,13 @@
 {
   "corporativo": {
     "morado": {
-      "hex": "#701B78",
+      "hex": "#7D1F73",
       "rgb": [
-        112,
-        27,
-        120
+        125,
+        31,
+        115
       ],
+      "fuente": "LOGO_2023.psd (propuesto, pendiente de confirmar)",
       "fijo": true,
       "pantone": "PENDIENTE",
       "cmyk": "PENDIENTE"

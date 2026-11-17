@@ -1,527 +1,656 @@
-"""Construye el manual de marca de Rosa Ondoño (HTML navegable y PDF).
+"""Manual de marca de Rosa Ondoño · v2 (A4 horizontal).
 
-Uso:  python3 construir_manual.py          -> manual-de-marca.html
-      node exportar_pdf.js                 -> manual-de-marca.pdf
+Uso:  python3 construir_manual.py   -> manual-de-marca.html
+      node exportar_pdf.js          -> manual-de-marca.pdf
 
-Los contrastes WCAG se calculan aquí, no se escriben a mano.
-El isotipo se inserta SIEMPRE como el archivo original, sin modificarlo.
+- El isotipo se usa SIEMPRE desde el vector original (identidad/logo/), sin redibujar.
+- El logotipo completo se usa desde los archivos originales del cliente (PSD 2023).
+- Los contrastes WCAG se calculan aquí, no se escriben a mano.
 """
-import os, sys, html
+import os, re, sys, math
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(AQUI, "..", "identidad", "iconos"))
-from generar import ICONOS, svg  # noqa: E402
+from generar import ICONOS, svg as svg_icono  # noqa: E402
 
-LOGO = "../../assets/logo-original/LOGO-ROSA-ONDONO-solo.png"
-FAVICON = "../../assets/logo-original/cropped-LOGO-ROSA-ONDONO-solo-32x32.png"
+LOGO_DIR = "../identidad/logo"
+H_LOGO = f"{LOGO_DIR}/logo-horizontal.png"
+V_LOGO = f"{LOGO_DIR}/logo-vertical.png"
+V_SIN = f"{LOGO_DIR}/logo-vertical-sin-descriptor.png"
+FOTO = "img/fotos"
+with open(os.path.join(AQUI, "..", "identidad", "logo", "isotipo-negro.svg")) as f:
+    ISO_D = re.search(r' d="([^"]+)"', f.read()).group(1)
+ISO_VB = "0 0 171.2 237.53"
 
-# ---------- color ----------
+# ---------------- color ----------------
+C = dict(morado="#7D1F73", marfil="#F7F2EB", arena="#E9DCCB", lila="#E8DAE6", arcilla="#B7897A",
+         tinta="#2E1A2C", salvia="#A9B7A4", blanco="#FFFFFF")
 def lum(h):
     h = h.lstrip('#'); c = [int(h[i:i+2], 16) / 255 for i in (0, 2, 4)]
     c = [x / 12.92 if x <= 0.03928 else ((x + 0.055) / 1.055) ** 2.4 for x in c]
     return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
 def ratio(a, b):
     x, y = sorted([lum(a), lum(b)], reverse=True); return (x + .05) / (y + .05)
+def coma(n, d=1): return f"{n:.{d}f}".replace(".", ",")
 def rgb(h): h = h.lstrip('#'); return ", ".join(str(int(h[i:i+2], 16)) for i in (0, 2, 4))
-def coma(n): return f"{n:.2f}".replace(".", ",")
+def nivel(r): return "AAA" if r >= 7 else "AA" if r >= 4.5 else "Solo grande" if r >= 3 else "No"
 
-PALETA = [  # (nombre, hex, rol, uso, proporción)
-    ("Morado Rosa Ondoño", "#701B78", "Corporativo · fijo", "Isotipo, titulares de acento, botones, enlaces, sellos", "10–15 %"),
-    ("Marfil", "#F7F2EB", "Fondo principal", "Fondo de web, papelería y señalética", "50–60 %"),
-    ("Arena", "#E9DCCB", "Fondo secundario", "Bloques, tarjetas y universo «Conecta»", "15–20 %"),
-    ("Lila empolvado", "#E8DAE6", "Acento suave", "Universo «Siente», vales regalo", "5–10 %"),
-    ("Arcilla rosada", "#B7897A", "Acento decorativo", "Solo líneas, ilustración y fondos de foto. Nunca texto", "≤ 5 %"),
-    ("Ciruela tinta", "#2E1A2C", "Texto", "Texto corrido y titulares", "—"),
-    ("Blanco", "#FFFFFF", "Neutro", "Fondos de formulario, texto sobre morado", "—"),
-]
-APOYO = [  # Ruta B: solo para el universo de medicina estética
-    ("Niebla", "#ECEAEE", "Fondo de fichas de medicina estética"),
-    ("Salvia", "#A9B7A4", "Acento complementario (≤ 5 %), sin texto pequeño encima salvo morado o tinta"),
-]
+# ---------------- piezas ----------------
+def iso(color="var(--morado)", style="", cls="iso"):
+    return f'<svg class="{cls}" viewBox="{ISO_VB}" style="{style}" aria-hidden="true"><path fill="{color}" d="{ISO_D}"/></svg>'
+def img(src, alt, style="", cls=""):
+    return f'<img src="{src}" alt="{alt}" class="{cls}" style="{style}">'
+def ico(k, tam=26, color="var(--morado)"):
+    t, cuerpo = ICONOS[k]
+    return svg_icono(cuerpo, t).replace('width="24" height="24"', f'width="{tam}" height="{tam}" style="color:{color}"')
+def pend(t="PENDIENTE"): return f'<span class="pend">{t}</span>'
 
-def matriz():
-    cols = [p for p in PALETA]
-    filas = "".join(
-        "<tr><th>" + f'<span class="sw" style="background:{a[1]}"></span>{a[0]}' + "</th>" + "".join(
-            (lambda r: f'<td class="{"aaa" if r >= 7 else "aa" if r >= 4.5 else "g" if r >= 3 else "no"}">{coma(r)}</td>')(ratio(a[1], b[1]))
-            if a != b else '<td class="x">—</td>' for b in cols) + "</tr>" for a in cols)
-    cab = "<tr><th>Texto ↓ / Fondo →</th>" + "".join(f"<th>{c[0]}</th>" for c in cols) + "</tr>"
-    return f'<div class="scroll"><table class="matriz">{cab}{filas}</table></div>'
+PAGINAS = []
+def pagina(cuerpo, seccion="", fondo="marfil", oscuro=False, clase=""):
+    PAGINAS.append((cuerpo, seccion, fondo, oscuro, clase))
 
-def icono(nombre, tam=40, color="var(--morado)"):
-    t, cuerpo = ICONOS[nombre]
-    return svg(cuerpo, t).replace('width="24" height="24"', f'width="{tam}" height="{tam}" style="color:{color}"')
+def portadilla(num, titulo, fondo, deco, oscuro=False, sub=""):
+    pagina(f'''<div class="deco">{deco}</div>
+<div class="portadilla"><p class="pnum">{num}</p><h1 class="ptit">{titulo}</h1>{f'<p class="psub">{sub}</p>' if sub else ''}</div>''',
+           titulo, fondo, oscuro, "divisor")
 
-def logo(h, alt="Isotipo de Rosa Ondoño", extra=""):
-    return f'<img src="{LOGO}" alt="{alt}" style="height:{h}px;width:auto{extra}">'
+def cab(kicker, titulo, intro=""):
+    return f'<p class="kicker">{kicker}</p><h2>{titulo}</h2>' + (f'<p class="intro">{intro}</p>' if intro else "")
 
-def marca_vertical(h=150):
-    return (f'<div class="lock v">{logo(h)}<div class="nombre" style="font-size:{h*.26:.0f}px">Rosa Ondoño</div>'
-            f'<div class="lemaL" style="font-size:{h*.11:.0f}px">Cuídate · Conecta · Siente</div></div>')
+nombres = dict(morado="Morado", marfil="Marfil", arena="Arena", lila="Lila", salvia="Salvia", tinta="Ciruela tinta", blanco="Blanco", arcilla="Arcilla")
 
-def marca_horizontal(h=90):
-    return (f'<div class="lock h">{logo(h)}<div><div class="nombre" style="font-size:{h*.42:.0f}px">Rosa Ondoño</div>'
-            f'<div class="lemaL" style="font-size:{h*.17:.0f}px">Cuídate · Conecta · Siente</div></div></div>')
+# ======================= PORTADA =======================
+pagina(f'''<div class="portada">
+<div class="pt-izq">
+  <p class="kicker">Manual de marca · v2.0 · Noviembre 2026</p>
+  {img(H_LOGO, "Logotipo de Rosa Ondoño", "width:118mm")}
+  <p class="lema-xl">Cuídate · Conecta · Siente</p>
+  <p class="pt-meta">Estrategia · Identidad · Color · Tipografía<br>Fotografía · Aplicaciones · Accesibilidad</p>
+</div>
+<div class="pt-der" style="background-image:url({FOTO}/masaje-manos.jpg)"></div>
+</div>''', "Portada", "marfil", clase="sin-pie")
 
-# ---------- secciones ----------
-S = []
-def sec(id_, num, titulo, cuerpo):
-    S.append((id_, num, titulo, f'<section id="{id_}"><p class="num">{num}</p><h2>{titulo}</h2>{cuerpo}</section>'))
+# ======================= ÍNDICE =======================
+cap = [("01", "Estrategia", "Propósito, valores, posicionamiento y lema"),
+       ("02", "Arquetipo y voz", "Personalidad y forma de hablar"),
+       ("03", "Logotipo", "Sistema, construcción, versiones y usos"),
+       ("04", "Color", "Paleta, procedencia, parejas y proporción"),
+       ("05", "Tipografía", "Lettering del logo, familias y jerarquía"),
+       ("06", "Elementos gráficos", "Supergráfico, iconos y fotografía"),
+       ("07", "Aplicaciones", "Papelería, redes, web y espacio"),
+       ("08", "Accesibilidad y archivos", "Contraste, formatos y checklist")]
+filas = "".join(f'<div class="ix"><span class="ixn">{n}</span><div><p class="ixt">{t}</p><p class="ixs">{s}</p></div></div>' for n, t, s in cap)
+pagina(f'''<div class="g-indice"><div><p class="kicker">Índice</p><h2 class="h-xl">Contenido</h2>
+<p class="intro">Todo lo necesario para que Rosa Ondoño se vea, suene y se comporte igual en cualquier lugar: en cabina, en la web, en las redes, en un vale regalo o en la placa del portal.</p>
+{iso(style="width:34mm;margin-top:8mm")}</div><div class="ix-col">{filas}</div></div>''', "Índice")
 
-sec("uso", "00", "Cómo usar este manual", f"""
-<p class="lead">Este manual recoge las reglas para que Rosa Ondoño se vea, se escriba y suene igual en todas partes: en la web, en las redes, en cabina, en el papel y en la calle.</p>
+# ======================= CÓMO USARLO =======================
+disc = [("01", "Estrategia", "Propósito, valores, posicionamiento y el lema como estructura de la oferta.", C["morado"]),
+        ("02", "Identidad verbal", "Arquetipo, personalidad, tono y ejemplos por canal.", C["arcilla"]),
+        ("03", "Identidad visual", "Logotipo, color, tipografía, iconos y supergráfico.", C["salvia"]),
+        ("04", "Fotografía", "Luz, encuadres, qué sí, qué no y protocolo antes/después.", C["lila"]),
+        ("05", "Aplicaciones", "Papelería, redes, web, señalética, uniforme y packaging.", C["arena"])]
+cards = "".join(f'<div class="card borde-sup" style="--c:{c}"><p class="cnum">{n}</p><h3>{t}</h3><p>{d}</p></div>' for n, t, d, c in disc)
+ficha = [("Marca", "Rosa Ondoño"), ("Categoría", "Estética, terapias y medicina estética"), ("Lema", "Cuídate · Conecta · Siente"),
+         ("Arquetipo", "Cuidador + Sabio"), ("Color clave", f'<span class="sw" style="background:{C["morado"]}"></span>#7D1F73'), ("Tipografías", "Jost · Cormorant")]
+pagina(f'''{cab("Introducción", "Cómo está hecho este manual", "Reúne el trabajo de cinco disciplinas. Cada sección responde a una pregunta: quiénes somos, cómo hablamos, cómo nos vemos y cómo nos aplicamos.")}
+<div class="g5">{cards}</div>
+<div class="g2 mt">
+<div class="card blanco"><h3>Lo que nunca cambia</h3><p><strong>El isotipo</strong> no se redibuja, deforma, recolorea ni lleva efectos. <strong>El color corporativo</strong> no se modifica: todo lo demás se construye a su alrededor.</p></div>
+<div class="card blanco"><h3>Cómo usarlo</h3><p>Las reglas de logotipo, color y legales son <strong>obligatorias</strong>. Lo demás son recomendaciones. Lo marcado {pend()} espera la confirmación del cliente y no se usa en producción.</p></div></div>
+<div class="ficha">{"".join(f'<div><p class="fl">{k}</p><p class="fv">{v}</p></div>' for k, v in ficha)}</div>''', "Introducción")
+
+# ======================= 01 · ESTRATEGIA =======================
+portadilla("01", "Estrategia", C["morado"], "", oscuro=True, sub="Bienestar integral con criterio")
+
+pagina(f'''<div class="g-2col"><div>{cab("01 · Estrategia", "Qué es Rosa Ondoño")}
+<p class="cuerpo">Un centro de estética, terapias manuales y complementarias y medicina estética en la Av. Maisonnave de Alicante, fundado por Rosa Ondoño: más de 30 años de oficio, formación en estética, naturopatía y terapias manuales, y médicos que le confían el drenaje postquirúrgico de sus pacientes.</p>
+<p class="cuerpo">Es el único lugar de la zona que reúne bajo un mismo techo la piel, el cuerpo y la emoción, con supervisión médica.</p>
+<div class="card" style="background:var(--lila)"><p><strong>El reto de marca.</strong> Hoy la web dice «tu oasis» y «resultados garantizados», como cualquiera. Rosa Ondoño tiene que sonar a lo que dicen sus clientas: trato, calma, sinceridad y oficio.</p></div></div>
+<div class="pila">
+<div class="card blanco"><h4>Para quién</h4><p>Personas de Alicante, sobre todo mujeres de 35 a 65 años, que quieren cuidarse sin perder naturalidad y buscan a alguien de confianza.</p></div>
+<div class="card blanco"><h4>Qué resuelve</h4><p>«No sé por dónde empezar ni en quién confiar.» Respuesta: una valoración y un plan propio.</p></div>
+<div class="card blanco"><h4>Qué no es</h4><p>Ni una cadena de bonos y descuentos ni un spa de postal. Tampoco promete milagros.</p></div>
+<div class="card blanco"><h4>Posicionamiento</h4><p><strong>Bienestar integral con criterio.</strong></p></div></div></div>''', "Estrategia")
+
+valores = [("Criterio", "Recomendamos solo lo que tiene sentido para ti, aunque sea menos.", "valoracion"),
+           ("Cuidado", "Trato cercano, tiempo y atención al detalle.", "masaje"),
+           ("Honestidad", "Expectativas realistas, sin promesas ni presión.", "facial"),
+           ("Oficio", "Más de 30 años de formación y práctica.", "fisioterapia"),
+           ("Integración", "Piel, cuerpo y emoción, tratados juntos.", "drenaje"),
+           ("Serenidad", "Calma en el espacio y en la palabra.", "ritual")]
+vcards = "".join(f'<div class="card blanco"><span class="circ">{ico(i, 22)}</span><h4>{t}</h4><p>{d}</p></div>' for t, d, i in valores)
+pagina(f'''{cab("01 · Estrategia", "Propósito, misión y visión")}
+<div class="g3 decl">
+<div><p class="dl">Propósito</p><p class="dt">Que cada persona se cuide con conocimiento y con calma, en cada etapa de su vida.</p></div>
+<div><p class="dl">Misión</p><p class="dt">Escuchar, valorar y acompañar con un plan propio que une estética, terapias y medicina estética.</p></div>
+<div><p class="dl">Visión</p><p class="dt">Ser en Alicante el lugar al que se acude, y se recomienda, para que te cuiden y te digan la verdad.</p></div></div>
+<h4 class="mt">Valores</h4><div class="g6">{vcards}</div>''', "Estrategia")
+
+pagina(f'''<div class="g-2col"><div>{cab("01 · Estrategia", "Posicionamiento")}
+<div class="card oscuro"><p class="decl-xl">Para quien quiere cuidarse sin perder naturalidad ni confianza, <span class="acento">Rosa Ondoño</span> es el centro de bienestar integral con criterio: estética, terapias y medicina estética supervisada, con una profesional que te dice lo que necesitas, y lo que no.</p></div>
+<h4 class="mt">Lo que nos diferencia</h4><ul class="lista">
+<li>Más de 30 años de oficio, con nombre y apellidos.</li><li>Supervisión médica identificada (Dr. Roberth Bravo Pardo).</li>
+<li>Especialidad histórica en drenaje pre y postquirúrgico.</li><li>4,9★ en Google, con reseñas sobre el trato y la sinceridad.</li></ul></div>
+<div class="mapa">
+<span class="eje ey1">Rigor médico ↑</span><span class="eje ey2">Sin respaldo médico ↓</span><span class="eje ex1">← Impersonal</span><span class="eje ex2">Cálido, persona →</span>
+<div class="punto" style="left:26%;top:24%"><i></i>Clínicas médicas</div>
+<div class="punto" style="left:26%;top:66%"><i></i>Cadenas y franquicias</div>
+<div class="punto" style="left:74%;top:74%"><i></i>Centros holísticos</div>
+<div class="punto rosa" style="left:74%;top:24%"><i></i>Rosa Ondoño</div>
+<p class="nota-mapa">Compara categorías, no marcas concretas. Hipótesis a validar con clientas.</p></div></div>''', "Estrategia")
+
+lema = [("Cuídate", "Saber qué necesitas es el primer cuidado.", ["valoracion", "facial", "laser", "medicina"], "Valoración integral · faciales · corporales · láser · medicina estética con supervisión médica", C["blanco"]),
+        ("Conecta", "Tu cuerpo te habla. Aquí te ayudamos a escucharlo.", ["masaje", "drenaje", "fisioterapia", "acupuntura"], "Masajes · drenaje pre y postquirúrgico · fisioterapia · osteopatía · terapias complementarias", C["arena"]),
+        ("Siente", "Un tiempo solo para ti.", ["ritual", "regalo"], "Rituales individuales y en pareja · circuito spa · tarjeta regalo", C["lila"])]
+lp = "".join(f'<div class="lema-panel" style="background:{bg}"><p class="lp-n">0{i+1}</p><p class="lp-v">{v}</p><p class="lp-f">{f}</p><div class="lp-i">{"".join(ico(k, 30) for k in ks)}</div><p class="lp-s">{s}</p></div>' for i, (v, f, ks, s, bg) in enumerate(lema))
+pagina(f'''{cab("01 · Estrategia", "El lema como estructura", "Cuídate · Conecta · Siente deja de ser una firma decorativa y pasa a ordenar la oferta, la web y el recorrido de cada clienta.")}
+<div class="g3 lema-g">{lp}</div>
+<p class="pie-nota">Siempre en este orden, con punto medio ( · ) y mayúscula inicial. No se añaden verbos ni se traduce.</p>''', "Estrategia")
+
+# ======================= 02 · ARQUETIPO Y VOZ =======================
+portadilla("02", "Arquetipo y voz", C["lila"], iso(style="position:absolute;right:-10mm;top:-34mm;height:215mm"))
+
+arq = ["Inocente", "Explorador", "Sabio", "Héroe", "Forajido", "Mago", "Persona corriente", "Amante", "Bufón", "Cuidador", "Creador", "Gobernante"]
+puntos = ""
+for i, a in enumerate(arq):
+    ang = -math.pi / 2 + i * 2 * math.pi / 12
+    x, y = 50 + 40 * math.cos(ang), 50 + 40 * math.sin(ang)
+    puntos += f'<div class="rp{" on" if a in ("Cuidador", "Sabio") else ""}" style="left:{x:.1f}%;top:{y:.1f}%"><i></i><span>{a}</span></div>'
+pagina(f'''<div class="g-2col"><div class="rueda"><div class="aro"></div>{puntos}<div class="rc">{iso(style="height:26mm")}</div></div>
+<div>{cab("02 · Arquetipo", "El Cuidador que sabe", "Rosa Ondoño es un Cuidador con la voz del Sabio: te acompaña y te protege, y además te explica y te dice la verdad.")}
+<div class="barras">
+<div class="br"><span>Cuidador</span><b><i style="width:65%;background:var(--morado)"></i></b><em>65 %</em></div>
+<div class="br"><span>Sabio</span><b><i style="width:35%;background:var(--arcilla)"></i></b><em>35 %</em></div>
+<div class="br"><span>Amante</span><b><i style="width:8%;background:var(--salvia)"></i></b><em>rasgo</em></div></div>
+<div class="g2 mini"><div class="card blanco"><h4>Deseo</h4><p>Que la persona esté bien y tranquila.</p></div><div class="card blanco"><h4>Miedo</h4><p>La frialdad, la prisa, el abandono tras el tratamiento.</p></div>
+<div class="card blanco"><h4>Don</h4><p>Escuchar y explicar con calma.</p></div><div class="card blanco"><h4>Imagen mental</h4><p>Unas manos expertas y una voz que no te vende nada.</p></div></div>
+<div class="card rosa-suave"><p><strong>Arquetipo que evitamos: el Mago.</strong> Su promesa de transformación roza el «resultado garantizado», prohibido en publicidad sanitaria.</p></div></div></div>''', "Arquetipo y voz")
+
+pers = [("Cercana", "Tuteamos y hablamos como Rosa en cabina.", "Confianzuda o con diminutivos"),
+        ("Experta", "Explicamos el porqué con palabras sencillas.", "Técnica o fría"),
+        ("Honesta", "Expectativas realistas: «puede ayudarte a».", "Promocional o milagrosa"),
+        ("Serena", "Frases cortas, ritmo pausado, mucho aire.", "Urgente, con exclamaciones"),
+        ("Sensorial", "Texturas y calma en Conecta y Siente.", "Sensual o cliché de spa")]
+filas_p = "".join(f'<tr><td class="pn">{a}</td><td><b class="si">Es</b> {b}</td><td><b class="no">No es</b> {c}</td></tr>' for a, b, c in pers)
+sl = [("Formal", "Cercano", 72), ("Serio", "Divertido", 30), ("Técnico", "Sencillo", 70), ("Sobrio", "Emotivo", 55)]
+sliders = "".join(f'<div class="sl"><span>{a}</span><b><i style="left:{p}%"></i></b><span>{z}</span></div>' for a, z, p in sl)
+pagina(f'''{cab("02 · Voz", "Personalidad y tono", "Si Rosa Ondoño fuera una persona, sería una profesional serena y elegante sin ostentación, que te mira a los ojos, te escucha y te dice con cariño lo que de verdad te conviene.")}
+<table class="tpers">{filas_p}</table>
+<div class="g2 mt"><div><h4>Dimensiones del tono</h4>{sliders}</div>
+<div><h4>El tono según la línea</h4><ul class="lista">
+<li><strong>Siente:</strong> cercano y evocador.</li><li><strong>Conecta:</strong> equilibrado y sensorial.</li>
+<li><strong>Cuídate, estética:</strong> explicativo.</li><li><strong>Medicina estética:</strong> sobrio, experto, con el profesional sanitario identificado.</li></ul></div></div>''', "Arquetipo y voz")
+
+asi = [("Pide tu valoración. Te explicamos qué puedes esperar.", "¡Resultados garantizados en una sesión!"),
+       ("El drenaje puede ayudarte a sentir las piernas más ligeras.", "Elimina la retención para siempre."),
+       ("Las flores de Bach acompañan tu bienestar emocional.", "Cura la ansiedad y la depresión."),
+       ("Que te reconozcas en el espejo, con naturalidad.", "Borra tus arrugas y corrige tus defectos."),
+       ("Regala tiempo: tarjetas regalo para rituales.", "¡Últimas plazas! Solo hoy −30 %.")]
+si = "".join(f'<div class="bub si-b">{a}</div><div class="bub no-b">{b}</div>' for a, b in asi)
+pagina(f'''<div class="g-voz"><div>{cab("02 · Voz", "Cómo hablamos")}
+<p class="cuerpo">Como una profesional experta y cariñosa: frases cortas, tuteo, verbos en positivo y nada de jerga.</p>
+<h4 class="mt">Palabras que no usamos</h4><p class="vetadas">garantizado · milagro · curativo · perfecto · eliminar para siempre · sin riesgo · oasis · transformación radical</p>
+<h4 class="mt">Nuestro vocabulario</h4><p class="cuerpo">cuidar · escuchar · valorar · criterio · oficio · manos · plan · calma · equilibrio · piel · natural · acompañar · tiempo</p></div>
+<div><div class="g2 cab-bub"><p class="si">Así sí</p><p class="no">Así no</p></div><div class="g2 bubs">{si}</div></div></div>''', "Arquetipo y voz")
+
+canales = [("Web · portada", "<strong>Cuídate · Conecta · Siente.</strong> Estética, terapias y medicina estética en el centro de Alicante, con más de 30 años de oficio y el criterio de decirte lo que necesitas."),
+           ("Ficha de medicina estética", "Antes de cualquier tratamiento, el Dr. Roberth Bravo Pardo valora tu piel y te explica qué puedes esperar. Si no es para ti, te lo diremos."),
+           ("Instagram · Conecta", "Esa tensión en los hombros que ya ni notas. Con terapia miofascial trabajamos con las manos para ayudarte a soltar."),
+           ("WhatsApp", "Hola, Marta. Gracias por escribirnos. Para recomendarte bien, lo mejor es una valoración de 20 minutos. ¿Te viene bien el jueves a las 17:00?"),
+           ("Recepción", "«Centro Rosa Ondoño, buenos días. ¿En qué te puedo ayudar?»"),
+           ("Campaña · Navidad", "<strong>Regala tiempo.</strong> Tarjetas regalo para rituales y masajes en Maisonnave.")]
+cc = "".join(f'<div class="card blanco canal"><p class="cl">{a}</p><p>{b}</p></div>' for a, b in canales)
+pagina(f'''{cab("02 · Voz", "La voz en cada canal", "La personalidad no cambia; el registro se adapta al momento.")}<div class="g3 canales">{cc}</div>''', "Arquetipo y voz")
+
+# ======================= 03 · LOGOTIPO =======================
+portadilla("03", "Logotipo", C["blanco"], img(V_LOGO, "", "position:absolute;right:22mm;top:24mm;height:116mm"))
+
+pagina(f'''{cab("03 · Logotipo", "Logotipo principal")}
+<div class="lienzo centro" style="height:132mm">{img(H_LOGO, "Logotipo horizontal de Rosa Ondoño", "width:215mm")}</div>
+<p class="pie-nota">Archivo maestro: <code>LOGO_2023.psd</code>. Versión horizontal con descriptor: la preferente siempre que haya espacio a lo ancho.</p>''', "Logotipo")
+
+pagina(f'''{cab("03 · Logotipo", "Anatomía")}
+<div class="lienzo centro anat" style="height:106mm">{img(H_LOGO, "Anatomía del logotipo", "width:200mm")}
+<span class="et" style="left:22mm;top:7mm">1 · Isotipo</span><span class="et" style="left:104mm;top:7mm">2 · Nombre · Bambino Light</span><span class="et" style="left:104mm;bottom:7mm">3 · Descriptor · Biko</span></div>
+<div class="g3 mt">
+<div class="card blanco"><h4>1 · El isotipo</h4><p>Una figura humana de trazo continuo: cabeza, cuerpo en doble onda y raíz. Es la parte intocable de la marca.</p></div>
+<div class="card blanco"><h4>2 · El nombre</h4><p>«Rosa Ondoño» en <strong>Bambino Light</strong>: geométrica, fina, con «O» circular que repite los círculos del isotipo.</p></div>
+<div class="card blanco"><h4>3 · El descriptor</h4><p>En <strong>Biko</strong>, muy espaciada. {pend("Revisar")} Falta la tilde de «estética» y no menciona la medicina estética.</p></div></div>''', "Logotipo")
+
+partes = [("La cabeza", "Un círculo abierto: la persona, la mente, la escucha. Es donde empieza el trazo."),
+          ("El recorrido", "La doble onda es el cuerpo y la energía que lo recorre: fluidez, equilibrio y conexión."),
+          ("La raíz", "El círculo macizo es el peso, la tierra, el centro. La persona que vuelve a sí misma.")]
+pagina(f'''<div class="g-simbolo"><div>{cab("03 · Logotipo", "El símbolo", "Un solo trazo que no se interrumpe, de grosor uniforme. Así se cuida en Rosa Ondoño: sin cortes entre piel, cuerpo y emoción.")}
+{"".join(f'<div class="card blanco"><h4>{a}</h4><p>{b}</p></div>' for a, b in partes)}</div>
+<div class="lienzo centro">{iso(style="height:150mm")}</div></div>''', "Logotipo")
+
+pagina(f'''{cab("03 · Logotipo", "El sistema")}
+<div class="sistema">
+<div class="sb blanco">{img(H_LOGO, "", "width:88%")}<p class="sl2">A · Horizontal con descriptor · principal</p></div>
+<div class="sb blanco s-b">{img(V_LOGO, "", "width:80%")}<p class="sl2">B · Vertical con descriptor</p></div>
+<div class="sb lila">{iso(style="height:62%")}<p class="sl2">C · Isotipo</p></div>
+<div class="sb blanco">{img(V_SIN, "", "height:70%")}<p class="sl2">D · Vertical sin descriptor</p></div>
+<div class="sb arena"><div class="avatar-m">{iso(style="height:62%")}</div><p class="sl2">E · Avatar y favicon</p></div>
+</div>
+<p class="pie-nota">A para casi todo · B cuando hay espacio vertical (portadas, vales, packaging) · C como sello y supergráfico · D cuando el descriptor no se lee · E en perfiles y pestañas.</p>''', "Logotipo")
+
+pagina(f'''{cab("03 · Logotipo", "Construcción y área de respeto")}
 <div class="g2">
-<div class="card"><h3>Lo que nunca cambia</h3><ul>
-<li><strong>El isotipo.</strong> No se redibuja, deforma, recolorea ni lleva efectos.</li>
-<li><strong>El color corporativo #701B78.</strong> Todo lo demás se construye a su alrededor.</li></ul></div>
-<div class="card estado"><h3>Estado: borrador v1 · 17/11/2026</h3><ul>
-<li>Base visual: <strong>Ruta A «Piel y luz»</strong> (la recomendada), con el tratamiento sobrio de la Ruta B en medicina estética. <em>Pendiente de aprobación.</em></li>
-<li><span class="pend">PENDIENTE</span> logo vectorial (AI/EPS/SVG/PDF).</li>
-<li><span class="pend">PENDIENTE</span> Pantone y CMYK oficiales.</li>
-<li><span class="pend">PENDIENTE</span> confirmar el color oficial: #701B78 (icono) o #8E1F5C (web actual).</li>
-<li><span class="pend">PENDIENTE</span> autorizar versiones monocromas y en negativo.</li></ul></div>
-</div>
-<p class="nota">Las piezas marcadas <span class="pend">PENDIENTE</span> o <span class="prop">PROPUESTA</span> no se usan en producción hasta que el cliente las apruebe. Las preguntas al cliente están en <code>estrategia/cuestionario-cliente.md</code>.</p>
-""")
+<div class="lienzo centro" style="height:110mm;position:relative">
+<div class="respeto" style="padding:9mm">{img(H_LOGO, "", "width:140mm;display:block")}</div><span class="cota-t">Área de respeto: 1 x en todo el contorno</span></div>
+<div class="lienzo centro" style="height:110mm;position:relative">
+<div class="respeto" style="padding:14mm">{iso(style="height:62mm;display:block")}</div><span class="cota-t">x = diámetro del círculo de la cabeza</span></div></div>
+<div class="g3 mt">
+<div class="card blanco"><h4>Unidad x</h4><p>El diámetro del círculo de la cabeza, igual al de la raíz: ≈ 28 % de la altura del isotipo.</p></div>
+<div class="card blanco"><h4>Área de respeto</h4><p>1 x libre alrededor del logotipo y del isotipo: sin texto, imágenes, bordes ni otros logos.</p></div>
+<div class="card blanco"><h4>Proporción del isotipo</h4><p>1 : 1,39 (ancho : alto), medida sobre el vector original.</p></div></div>''', "Logotipo")
 
-sec("esencia", "01", "Esencia", """
-<p class="lead">Ayudamos a cada persona a cuidarse con conocimiento y con calma, para que se sienta bien en su cuerpo en cada etapa de su vida.</p>
-<div class="g3">
-<div class="card"><h3>Misión</h3><p>Escuchar, valorar y acompañar a cada persona con un plan propio que combina estética, terapias manuales y complementarias y medicina estética, explicando siempre qué hacemos, por qué y qué puede esperar.</p></div>
-<div class="card"><h3>Visión</h3><p>Ser en Alicante la referencia del <strong>bienestar integral con criterio</strong>: el lugar al que se acude, y se recomienda, cuando se busca que te cuiden de verdad y que te digan la verdad.</p></div>
-<div class="card"><h3>Historia</h3><p>Más de 30 años de oficio. Rosa empezó en el Hotel Sidi San Juan y se formó en Llongueras, naturopatía y terapias manuales. Médicos de Alicante, Madrid y Barcelona le han derivado pacientes para el drenaje postquirúrgico. <span class="pend">Validar con Rosa</span></p></div>
-</div>
-<h3>Valores</h3>
-<table><tr><th>Valor</th><th>Significa</th><th>Se demuestra</th></tr>
-<tr><td><strong>Criterio</strong></td><td>Recomendamos solo lo que tiene sentido para ti.</td><td>Valoración previa; «esto no lo necesitas».</td></tr>
-<tr><td><strong>Cuidado</strong></td><td>Trato cercano, tiempo y detalle.</td><td>Citas sin prisas y seguimiento.</td></tr>
-<tr><td><strong>Honestidad</strong></td><td>Expectativas realistas.</td><td>Sin promesas ni presión; precios claros.</td></tr>
-<tr><td><strong>Oficio</strong></td><td>Más de 30 años de formación y práctica.</td><td>Profesionales con nombre y formación visible.</td></tr>
-<tr><td><strong>Integración</strong></td><td>Piel, cuerpo y emoción, juntos.</td><td>Programas por necesidad.</td></tr>
-<tr><td><strong>Serenidad</strong></td><td>Calma en el espacio y en la palabra.</td><td>Diseño con aire, cero urgencias.</td></tr></table>
-<h3>Posicionamiento</h3>
-<p class="cita">Bienestar integral con criterio: el único centro de Alicante que une estética, terapias manuales y complementarias y medicina estética supervisada, con una profesional con nombre propio que te dice lo que necesitas, y lo que no.</p>
-<h3>El lema como estructura</h3>
-<div class="g3">
-<div class="card verbo"><p class="v">Cuídate</p><p><em>Saber qué necesitas es el primer cuidado.</em></p><p class="peq">Valoración integral · faciales · corporales · láser · medicina estética</p></div>
-<div class="card verbo arena"><p class="v">Conecta</p><p><em>Tu cuerpo te habla. Aquí te ayudamos a escucharlo.</em></p><p class="peq">Masajes · drenaje · fisioterapia · osteopatía · terapias complementarias</p></div>
-<div class="card verbo lila"><p class="v">Siente</p><p><em>Un tiempo solo para ti.</em></p><p class="peq">Rituales · circuito spa · tarjeta regalo</p></div>
-</div>
-<p class="nota"><strong>Reglas del lema:</strong> siempre en este orden, con punto medio ( · ) como separador y mayúscula inicial en cada verbo. No se añaden verbos ni se traduce. Cada verbo puede titular una sección o programa por sí solo.</p>
-""")
+esc = "".join(f'<div class="esc-i"><div class="esc-c">{iso(style=f"height:{h}mm")}</div><p>{t}</p></div>' for h, t in [(34, "Uso normal"), (15, "15 mm · relieve y bordado"), (10, "10 mm / 32 px · mínimo"), (5, "16 px · solo favicon")])
+pagina(f'''{cab("03 · Logotipo", "Tamaños mínimos")}
+<div class="g2"><div class="lienzo esc">{esc}</div>
+<div class="lienzo centro col" style="height:96mm">{img(H_LOGO, "", "width:110mm")}<p class="pie-nota">Con descriptor: mínimo 40 mm de ancho · 240 px</p>
+{img(V_SIN, "", "height:20mm;margin-top:4mm")}<p class="pie-nota">Vertical sin descriptor: mínimo 18 mm de alto · 100 px</p></div></div>
+<div class="g3 mt"><div class="card blanco"><h4>Isotipo</h4><p>10 mm impreso · 32 px en pantalla.</p></div><div class="card blanco"><h4>Con descriptor</h4><p>40 mm de ancho · 240 px. Por debajo, el descriptor deja de leerse: usa la versión D.</p></div><div class="card blanco"><h4>Por debajo del mínimo</h4><p>Solo el favicon, exportado desde el vector, nunca ampliando un PNG pequeño.</p></div></div>''', "Logotipo")
 
-sec("arquetipo", "02", "Arquetipo y personalidad", """
-<div class="g2">
-<div class="card"><p class="peq">PRIMARIO · ≈65 %</p><h3>El Cuidador</h3><p>Protege, acompaña y antepone la persona a la venta. Es lo que ya dicen las reseñas («como en casa», «Rosa en persona»). Encarna el verbo <em>Cuídate</em>.</p><p class="peq"><strong>Riesgo:</strong> volverse empalagoso. Lo equilibra el Sabio.</p></div>
-<div class="card lila"><p class="peq">SECUNDARIO · ≈35 %</p><h3>El Sabio</h3><p>Valora, explica y dice la verdad. Aporta el <em>con criterio</em>, sostiene la credibilidad de la medicina estética y responde a lo que más pide el cliente: «que me expliquen».</p><p class="peq"><strong>Riesgo:</strong> frialdad técnica. Lo equilibra el Cuidador.</p></div>
-</div>
-<table><tr><th>Descartado</th><th>Por qué</th></tr>
-<tr><td>Mago</td><td>Promete transformación: roza el «resultado garantizado», prohibido en publicidad sanitaria.</td></tr>
-<tr><td>Amante</td><td>Sensualiza y acerca al cliché de spa. Lo sensorial queda como <em>rasgo</em>, no como arquetipo.</td></tr>
-<tr><td>Inocente</td><td>Resta autoridad técnica a la medicina estética.</td></tr></table>
-<h3>Personalidad</h3>
-<div class="tags"><span>Cálida</span><span>Serena</span><span>Experta</span><span>Honesta</span><span>Sensorial</span><span>Discreta</span></div>
-<p>Si Rosa Ondoño fuera una persona, sería una profesional serena y elegante sin ostentación, que te mira a los ojos, te escucha, te explica con palabras sencillas y te dice con cariño lo que de verdad te conviene.</p>
-<table><tr><th>Somos</th><th>No somos</th></tr>
-<tr><td>Cercanos</td><td>Confianzudos</td></tr><tr><td>Expertos</td><td>Técnicos o fríos</td></tr>
-<tr><td>Elegantes</td><td>Ostentosos o «lujo»</td></tr><tr><td>Serenos</td><td>Aburridos</td></tr>
-<tr><td>Sensoriales</td><td>Sensuales</td></tr><tr><td>Honestos</td><td>Promocionales</td></tr></table>
-""")
+fondos = [("Blanco", C["blanco"]), ("Marfil", C["marfil"]), ("Arena", C["arena"]), ("Lila", C["lila"]), ("Salvia", C["salvia"])]
+fc = "".join(f'<div class="vc" style="background:{c}">{img(H_LOGO, "", "width:82%")}<p>{n} · {coma(ratio(C["morado"], c), 2)}:1 ✔</p></div>' for n, c in fondos)
+pagina(f'''{cab("03 · Logotipo", "Versiones de color y fondos")}
+<div class="vcol">{fc}
+<div class="vc" style="background:#fff">{iso("#000", "height:30mm")}<p>Monocromo negro · versión oficial del cliente</p></div>
+<div class="vc rayas"><p class="grande">Negativo en blanco</p><p>{pend()} Requiere autorización: cambia el color del icono.</p></div>
+<div class="vc" style="background:var(--tinta)"><p class="grande" style="color:var(--marfil)">Fondo oscuro</p><p style="color:var(--marfil)">✖ Morado sobre tinta: {coma(ratio(C["morado"], C["tinta"]), 2)}:1. Prohibido.</p></div></div>
+<p class="pie-nota">El logotipo es un elemento gráfico: necesita al menos 3:1 con el fondo. Sobre foto, solo en zonas claras y lisas.</p>''', "Logotipo")
 
-sec("tono", "03", "Tono de comunicación", """
-<h3>Cinco principios</h3>
-<ol class="principios">
-<li><strong>Cercana, no confianzuda.</strong> Tuteamos y hablamos como Rosa en cabina. Sin diminutivos, «guapa» ni «cari».</li>
-<li><strong>Experta, no técnica.</strong> Cada término técnico va con su explicación sencilla.</li>
-<li><strong>Honesta, no promocional.</strong> «Puede ayudarte a» en lugar de «conseguirás». Sin superlativos ni urgencias.</li>
-<li><strong>Serena, no fría.</strong> Frases cortas y mucho aire. Ni exclamaciones en cadena ni emojis de cohete.</li>
-<li><strong>Sensorial con medida.</strong> Texturas y calma solo en <em>Conecta</em> y <em>Siente</em>, nunca en medicina estética.</li></ol>
-<h3>Registro por línea de servicio</h3>
-<table><tr><th>Línea</th><th>Registro</th></tr>
-<tr><td>Siente · rituales y regalo</td><td><span class="esc" style="--n:4"></span> Cercano y evocador</td></tr>
-<tr><td>Conecta · terapias y masajes</td><td><span class="esc" style="--n:3"></span> Equilibrado</td></tr>
-<tr><td>Cuídate · estética</td><td><span class="esc" style="--n:2"></span> Explicativo</td></tr>
-<tr><td>Cuídate · medicina estética</td><td><span class="esc" style="--n:1"></span> Experto, sobrio, con profesional sanitario identificado</td></tr></table>
-<h3>Decimos / No decimos</h3>
-<table class="dnd"><tr><th>Decimos</th><th>No decimos</th><th>Motivo</th></tr>
-<tr><td>Valoración, un plan para ti</td><td>Oferta, chollo, ¡últimas plazas!</td><td>Sin presión comercial</td></tr>
-<tr><td>Puede ayudarte a, contribuye a</td><td>Resultados garantizados, 100 % seguro, sin efectos secundarios</td><td>Prohibido en publicidad sanitaria</td></tr>
-<tr><td>Bienestar, alivio, relajación</td><td>Curar, poder curativo, tratar la ansiedad</td><td>Las terapias hablan de bienestar, no de curación</td></tr>
-<tr><td>Naturalidad, que te reconozcas</td><td>Antiedad, quitar arrugas, corregir defectos</td><td>No fomentar inseguridad corporal</td></tr>
-<tr><td>Cuidarte, tu piel, tu cuerpo</td><td>Oasis, experiencia transformadora, déjate mimar</td><td>Clichés de plantilla</td></tr>
-<tr><td>El médico te valorará</td><td>«Tratamiento con [marca de toxina]»</td><td>No se publicitan medicamentos de prescripción</td></tr></table>
-<div class="g2">
-<div class="card"><h3>Vocabulario propio</h3><p>cuidar · escuchar · valorar · criterio · oficio · manos · plan · ritmo · calma · equilibrio · piel · natural · acompañar · tiempo</p><p class="peq">Con moderación: <em>ritual</em> (solo en Siente) y <em>energía</em> (solo en terapias, sin claims).</p></div>
-<div class="card"><h3>Palabras vetadas</h3><p>garantizado · milagro · curativo · perfecto · eliminar para siempre · sin riesgo · oasis · transformación radical</p></div>
-</div>
-<h3>Ejemplos por canal</h3>
-<div class="g2 ej">
-<div class="card"><p class="canal">Web · portada</p><p><strong>Cuídate · Conecta · Siente</strong><br>Estética, terapias y medicina estética en el centro de Alicante. Con más de 30 años de oficio y el criterio de decirte lo que necesitas.</p></div>
-<div class="card"><p class="canal">Web · ficha de medicina estética</p><p>Antes de cualquier tratamiento, el Dr. Roberth Bravo Pardo (médico estético, nº col. <span class="pend">PENDIENTE</span>) valora tu piel y te explica qué puedes esperar y qué cuidados necesitarás. Si no es para ti, te lo diremos.</p></div>
-<div class="card"><p class="canal">Instagram · Conecta</p><p>Esa tensión en los hombros que ya ni notas. En una sesión de terapia miofascial trabajamos con las manos para ayudarte a soltar y a moverte con más libertad.</p></div>
-<div class="card"><p class="canal">WhatsApp Business</p><p>Hola, Marta. Gracias por escribirnos. Para recomendarte bien, lo mejor es una valoración de 20 minutos en el centro. ¿Te viene bien el jueves a las 17:00?</p></div>
-<div class="card"><p class="canal">Recepción y teléfono</p><p>«Centro Rosa Ondoño, buenos días, te atiende Laura. ¿En qué te puedo ayudar?»</p></div>
-<div class="card"><p class="canal">Campaña · Navidad</p><p><strong>Regala tiempo.</strong> Tarjetas regalo para rituales y masajes en Maisonnave. <span class="peq">(Nunca de tratamientos médicos.)</span></p></div>
-</div>
-""")
+malos = [("transform:scaleX(1.45)", "No lo deformes", ""), ("transform:rotate(-14deg)", "No lo gires", ""),
+         ("filter:hue-rotate(160deg)", "No cambies su color", ""), ("filter:drop-shadow(5px 6px 3px rgba(0,0,0,.4))", "Sin sombras ni efectos", ""),
+         ("opacity:.25", "No uses poco contraste", ""), ("", "No lo pongas sobre fondo oscuro", "background:var(--tinta)"),
+         ("", "No lo pongas sobre fotos recargadas", f"background:url({FOTO}/patio.jpg) center/cover"), ("transform:scaleX(-1)", "No lo reflejes", "")]
+mc = "".join(f'<div class="mal"><div class="mc" style="{b}">{img(H_LOGO, "Uso incorrecto", "width:76%;" + s)}</div><p>✖ {t}</p></div>' for s, t, b in malos)
+pagina(f'''{cab("03 · Logotipo", "Usos incorrectos")}<div class="g4 malos">{mc}</div>
+<p class="pie-nota">Tampoco: separar el isotipo del nombre y recolocarlos, cambiar la tipografía del nombre, añadir contornos o encerrarlo en formas.</p>''', "Logotipo")
 
-x = 150 * 0.27
-sec("logo", "04", "Logotipo", f"""
-<div class="g2">
-<div><h3>El isotipo</h3><p>Una figura humana abstracta de <strong>trazo continuo y grosor uniforme</strong>: círculo superior (cabeza), cuerpo en doble onda y círculo macizo inferior. Se lee como persona, fluidez, equilibrio y energía que recorre el cuerpo. Es la síntesis visual de <em>Cuídate · Conecta · Siente</em>.</p>
-<p class="aviso"><strong>Intocable.</strong> El isotipo se usa siempre desde el archivo original. No se redibuja, no se deforma, no se recolorea y no lleva efectos.</p>
-<p class="nota"><span class="pend">PENDIENTE</span> Solo existe en PNG de 233 × 315 px (web). Para imprenta, rotulación o tamaños grandes hace falta el vector original o un calco fiel aprobado por el cliente.</p></div>
-<div class="fondo-claro centro">{logo(260)}</div></div>
+# ======================= 04 · COLOR =======================
+portadilla("04", "Color", C["arena"], iso(style="position:absolute;right:26mm;top:-46mm;height:240mm;transform:rotate(-8deg)"))
 
-<h3>Proporciones de referencia (medidas sobre el original)</h3>
-<table><tr><th>Medida</th><th>Valor</th></tr>
-<tr><td>Caja del isotipo (sin margen)</td><td>148 × 206 px en el original → proporción ancho:alto ≈ <strong>1 : 1,39</strong></td></tr>
-<tr><td>Diámetro del círculo superior y del inferior</td><td>≈ 56 px en ambos, el <strong>27 % de la altura</strong>. Esta medida es el módulo <strong>x</strong> del sistema.</td></tr>
-<tr><td>Grosor del trazo</td><td>≈ 4 % de la altura del isotipo</td></tr></table>
+pal = [("Morado Rosa Ondoño", C["morado"], "El logotipo maestro (PSD 2023). La firma.", "Isotipo, acentos, botones", True),
+       ("Marfil", C["marfil"], "La pared encalada y la luz de la mañana.", "Fondo principal", False),
+       ("Arena", C["arena"], "El lino crudo y la baldosa del patio.", "Bloques · «Conecta»", False),
+       ("Lila", C["lila"], "El morado de la marca, hecho piel.", "«Siente» y vales", False),
+       ("Salvia", C["salvia"], "Las plantas del jardín interior.", "Acento complementario", False),
+       ("Arcilla", C["arcilla"], "La terracota de las macetas.", "Solo decorativo", False),
+       ("Ciruela tinta", C["tinta"], "El morado llevado a la sombra.", "Texto", False)]
+def tarjeta_color(n, h, p, u, fijo):
+    claro = lum(h) > 0.3
+    return (f'<div class="pc"><div class="pc-s" style="background:{h};color:{"var(--tinta)" if claro else "#fff"}">'
+            f'<p>{n}</p>{"<span class=fijo>FIJO</span>" if fijo else ""}</div><div class="pc-d"><p><b>{h}</b></p><p>RGB {rgb(h)}</p>'
+            f'<p>CMYK {pend() if fijo else "tras prueba"}</p><p class="proc"><b>Procedencia:</b> {p}</p><p class="uso">{u}</p></div></div>')
+pagina(f'''{cab("04 · Color", "Paleta y su procedencia", "Un solo color fijo, el morado del logotipo, y una paleta que sale del propio centro: la cal, el lino, el jardín y la terracota.")}
+<div class="paleta">{"".join(tarjeta_color(*p) for p in pal)}</div>
+<p class="pie-nota">CMYK y Pantone del morado: {pend()} (dato de la imprenta). Los del resto se fijarán con una prueba de impresión.</p>''', "Color")
 
-<h3>Versiones</h3>
-<div class="g3 versiones">
-<div class="card blanco centro">{marca_vertical(130)}<p class="peq"><strong>Principal vertical</strong> · <span class="prop">PROPUESTA</span><br>Para portada, papelería, vales y redes.</p></div>
-<div class="card blanco centro">{marca_horizontal(70)}<p class="peq"><strong>Horizontal</strong> · <span class="prop">PROPUESTA</span><br>Para cabecera web, firma de email y rótulos alargados.</p></div>
-<div class="card blanco centro">{logo(120)}<p class="peq"><strong>Isotipo solo</strong> · <span class="ok">VÁLIDO</span><br>Avatar de redes, favicon, sellos y relieve en seco.</p></div>
-<div class="card blanco centro"><img src="{FAVICON}" alt="Favicon original" style="height:32px;image-rendering:auto"><p class="peq"><strong>Reducida / favicon</strong> · <span class="ok">VÁLIDO</span> (archivo original de 32 px)</p></div>
-<div class="card centro pendbox"><p><strong>Monocromo positivo</strong><br>(isotipo en ciruela tinta)</p><p class="peq"><span class="pend">PENDIENTE</span> Cambia el color del icono: requiere autorización del cliente (P8) y el vector.</p></div>
-<div class="card centro pendbox"><p><strong>Negativo</strong><br>(isotipo en blanco sobre morado)</p><p class="peq"><span class="pend">PENDIENTE</span> Igual que la anterior. Mientras no se autorice, el isotipo va siempre a color sobre fondo claro.</p></div>
-</div>
-<p class="nota"><span class="prop">PROPUESTA</span> El nombre «Rosa Ondoño» va compuesto en Cormorant Garamond 600 y el lema en cursiva. Si existe un logotipo tipográfico original (pregunta P3), se sustituye por él. En las composiciones solo cambia la relación entre isotipo y nombre: el isotipo no se altera.</p>
+mor = [("#7D1F73", "Logotipo maestro LOGO_2023.psd y logos completos", "Propuesto como oficial"),
+       ("#701B78", "Favicon e isotipo de la web actual", "Variante"),
+       ("#6C2470", "PNG del isotipo y vertical sin descriptor", "Variante"),
+       ("#8E1F5C", "CSS de la web actual (49 usos)", "Se retira")]
+mc4 = "".join(f'<div class="mor"><div class="mor-s" style="background:{h}"></div><p class="mh">{h}</p><p>{s}</p><p class="mest {"ok" if i == 0 else ""}">{e}</p></div>' for i, (h, s, e) in enumerate(mor))
+pagina(f'''{cab("04 · Color", "Un morado, cuatro versiones", "Hoy circulan cuatro morados distintos. Son tan parecidos que, juntos, ensucian la marca: entre ellos el contraste no llega a 1,1:1.")}
+<div class="g4">{mc4}</div>
+<div class="g2 mt"><div class="card oscuro"><p class="decl-m">Proponemos <span class="acento">#7D1F73</span> como color oficial: es el del archivo maestro del logotipo (2023) y el de los logos completos.</p></div>
+<div class="card blanco"><h4>{pend("Decisión del cliente")}</h4><p>Confirmar #7D1F73 y facilitar el Pantone o el CMYK de la imprenta. A partir de ahí, web, papelería y rótulos usan un único valor.</p></div></div>''', "Color")
 
-<h3>Área de respeto</h3>
-<div class="g2"><div class="fondo-claro centro"><div class="respeto" style="padding:{x:.0f}px">{logo(150)}</div></div>
-<div><p>Alrededor del isotipo se deja un margen libre igual a <strong>x</strong>, el diámetro del círculo superior (≈ 27 % de la altura del isotipo). En las versiones con nombre, el área de respeto se mide desde los bordes del conjunto.</p>
-<p>Dentro de esa zona no puede haber texto, imágenes, bordes de página ni otros logotipos.</p>
-<p>Separación entre isotipo y nombre: en la vertical, <strong>0,5 x</strong>; en la horizontal, <strong>0,75 x</strong>.</p></div></div>
+parejas = [("La firma", "marfil", "morado"), ("El día a día", "marfil", "tinta"), ("Botón", "morado", "blanco"),
+           ("Conecta", "arena", "morado"), ("Siente", "lila", "tinta"), ("Jardín", "salvia", "tinta")]
+pc6 = ""
+for etq, f, t in parejas:
+    r = ratio(C[f], C[t])
+    pc6 += (f'<div class="par"><div class="par-a" style="background:{C[f]};color:{C[t]}"><p class="pe">«{etq}»</p><p class="pn2">{nombres[f]}</p><p>{C[f]}</p></div>'
+            f'<span class="pr">{coma(r)}:1 · {nivel(r)}</span><div class="par-b" style="background:{C[t]};color:{C[f]}"><p class="pn2">{nombres[t]}</p><p>{C[t]}</p></div></div>')
+pagina(f'''{cab("04 · Color", "Parejas de color", "Cada pieza usa una sola pareja: un fondo claro y una tinta profunda. Contraste medido con la fórmula WCAG 2.2.")}<div class="parejas">{pc6}</div>''', "Color")
 
-<h3>Tamaños mínimos</h3>
-<table><tr><th>Versión</th><th>Pantalla</th><th>Impresión</th></tr>
-<tr><td>Isotipo solo</td><td>32 px de alto (el favicon de 16 px es una excepción técnica)</td><td>10 mm de alto</td></tr>
-<tr><td>Horizontal</td><td>40 px de alto</td><td>12 mm de alto</td></tr>
-<tr><td>Vertical con lema</td><td>120 px de alto (por debajo, sin lema)</td><td>30 mm de alto (por debajo, sin lema)</td></tr></table>
-<p class="nota">Por debajo de estos tamaños el trazo pierde definición. El relieve en seco y la serigrafía piden un mínimo de 15 mm. Hay que validarlo en una prueba de imprenta con el vector.</p>
+prop = [("Marfil", C["marfil"], 50), ("Arena", C["arena"], 18), ("Morado", C["morado"], 12), ("Lila", C["lila"], 8), ("Tinta", C["tinta"], 7), ("Salvia", C["salvia"], 3), ("Arcilla", C["arcilla"], 2)]
+barra = "".join(f'<div style="flex:{p};background:{h};color:{"#fff" if lum(h) < .2 else "var(--tinta)"}"><b style="font-size:{20 if p > 5 else 11}pt">{p} %</b><span>{n if p > 3 else ""}</span></div>' for n, h, p in prop)
+pagina(f'''{cab("04 · Color", "Proporción y reglas de uso")}<div class="barra-xl">{barra}</div>
+<div class="g3 mt"><div class="card blanco"><h4>El morado es la firma</h4><p>Entre el 10 y el 15 % de cada pieza. Si pasa del 20 %, pierde valor y cansa.</p></div>
+<div class="card blanco"><h4>Una pareja por pieza</h4><p>Si se mezclan parejas, la marca pierde calma. Salvia y arcilla, solo en detalles.</p></div>
+<div class="card blanco"><h4>Nunca morado sobre oscuro</h4><p>Con la tinta da {coma(ratio(C["morado"], C["tinta"]), 2)}:1: no se lee. Sobre fondo oscuro, el texto va en marfil.</p></div></div>''', "Color")
 
-<h3>Fondos permitidos</h3>
-<div class="fondos">
-{''.join(f'<div class="fondo" style="background:{c}">{logo(70)}<p>{n}<br><span class="{"ok" if ratio("#701B78", c) >= 3 else "ko"}">{coma(ratio("#701B78", c))}:1 {"✔" if ratio("#701B78", c) >= 3 else "✖"}</span></p></div>' for n, c in [("Blanco","#FFFFFF"),("Marfil","#F7F2EB"),("Arena","#E9DCCB"),("Lila empolvado","#E8DAE6"),("Niebla","#ECEAEE")])}
-</div>
-<p>El isotipo es un elemento gráfico, así que necesita un contraste de al menos <strong>3:1</strong> con el fondo. Sobre fotografía, se coloca solo en zonas claras y uniformes (cielo, pared, lino) y nunca sobre zonas con detalle.</p>
-<p class="aviso"><strong>Fondos prohibidos:</strong> ciruela tinta (1,63:1), grafito (1,70:1), salvia profunda (1,61:1), cualquier oscuro y el propio morado. Tampoco sobre el ciruela-magenta #8E1F5C (1,18:1).</p>
+# ======================= 05 · TIPOGRAFÍA =======================
+portadilla("05", "Tipografía", C["tinta"], '<p class="aa">Aa</p>', oscuro=True)
 
-<h3>Usos incorrectos</h3>
-<div class="incorrectos">
-<div><div class="caja">{logo(80, "Uso incorrecto: deformado", ";transform:scaleX(1.6)")}</div><p>Estirar o deformar</p></div>
-<div><div class="caja">{logo(80, "Uso incorrecto: girado", ";transform:rotate(25deg)")}</div><p>Girar o inclinar</p></div>
-<div><div class="caja">{logo(80, "Uso incorrecto: recoloreado", ";filter:hue-rotate(150deg)")}</div><p>Cambiar el color</p></div>
-<div><div class="caja">{logo(80, "Uso incorrecto: con sombra", ";filter:drop-shadow(4px 6px 4px rgba(0,0,0,.45))")}</div><p>Añadir sombras o efectos</p></div>
-<div><div class="caja" style="background:#2E1A2C">{logo(80, "Uso incorrecto: fondo oscuro")}</div><p>Colocarlo sobre fondo oscuro</p></div>
-<div><div class="caja" style="background:repeating-linear-gradient(45deg,#E9DCCB 0 8px,#B7897A 8px 16px)">{logo(80, "Uso incorrecto: fondo recargado")}</div><p>Colocarlo sobre fondo recargado</p></div>
-<div><div class="caja">{logo(80, "Uso incorrecto: transparencia", ";opacity:.35")}</div><p>Aplicar transparencia</p></div>
-<div><div class="caja"><div style="border:2px solid #701B78;border-radius:50%;padding:10px">{logo(60, "Uso incorrecto: encerrado")}</div></div><p>Encerrarlo en formas</p></div>
-<div><div class="caja" style="position:relative">{logo(80, "Uso incorrecto: texto encima")}<span style="position:absolute;font-family:var(--serif);font-size:22px;color:#2E1A2C">Rosa Ondoño</span></div><p>Superponer texto o invadir el área de respeto</p></div>
-<div><div class="caja pix"><img src="{FAVICON}" alt="Uso incorrecto: ampliado desde baja resolución" style="height:90px;image-rendering:pixelated"></div><p>Ampliar un archivo de baja resolución</p></div>
-<div><div class="caja"><span style="font-family:var(--serif);font-size:20px;color:#701B78">∫ Rosa Ondoño</span></div><p>Redibujarlo, imitarlo o sustituirlo por un carácter</p></div>
-<div><div class="caja">{logo(55, "Uso incorrecto: varios", ";transform:scaleX(-1)")}</div><p>Reflejarlo en espejo</p></div>
-</div>
-""")
+pagina(f'''{cab("05 · Tipografía", "Un lettering y dos familias")}
+<div class="g3 tipos">
+<div class="card oscuro"><p class="cl" style="color:var(--lila)">Lettering del logotipo</p><div class="lt-n">Rosa Ondoño</div>
+<p class="mt">«Rosa Ondoño» está compuesto en <strong>Bambino Light</strong> y el descriptor en <strong>Biko</strong>. Solo viven en el logotipo: no se escribe con ellas.</p><p class="mt">{pend("Licencias por comprobar")}</p></div>
+<div class="card blanco"><p class="cl">Jost · titulares, texto e interfaz</p><p class="mega" style="font-family:Jost;font-weight:300">Aa Ññ</p>
+<p><b>Light 300 · Regular 400 · Medium 500</b></p><p>Geométrica de «o» circular, prima hermana de Bambino. Es la voz moderna y limpia de la marca.</p><p class="lic">SIL Open Font License · gratuita</p></div>
+<div class="card blanco"><p class="cl">Cormorant Garamond · lema y citas</p><p class="mega" style="font-family:'Cormorant Garamond';font-style:italic;font-weight:500">Aa Ññ</p>
+<p><b>Italic 500 · SemiBold 600</b></p><p>Serifa editorial para el lema, las citas y los momentos «Siente». Aporta calidez y oficio.</p><p class="lic">SIL Open Font License · gratuita</p></div></div>''', "Tipografía")
 
-filas_pal = "".join(f'<tr><td><span class="sw big" style="background:{h}"></span></td><td><strong>{n}</strong><br><span class="peq">{r}</span></td><td><code>{h}</code></td><td><code>{rgb(h)}</code></td><td>{"<span class=pend>PENDIENTE</span>" if h=="#701B78" else "Tras prueba de imprenta"}</td><td>{u}</td><td>{p}</td></tr>' for n, h, r, u, p in PALETA)
-barra = "".join(f'<span style="background:{h};flex:{f}" title="{n}"></span>' for n, h, f in [("Marfil","#F7F2EB",55),("Arena","#E9DCCB",17),("Morado","#701B78",12),("Lila","#E8DAE6",7),("Ciruela tinta","#2E1A2C",6),("Arcilla","#B7897A",3)])
-sec("color", "05", "Color", f"""
-<div class="g2">
-<div class="ficha-color"><div class="muestra" style="background:#701B78"></div>
-<div><p class="peq">COLOR CORPORATIVO · NO MODIFICABLE</p><h3>Morado Rosa Ondoño</h3>
-<table class="codigos"><tr><td>HEX</td><td><code>#701B78</code></td></tr><tr><td>RGB</td><td><code>112, 27, 120</code></td></tr>
-<tr><td>HSL</td><td><code>295°, 63 %, 29 %</code></td></tr>
-<tr><td>CMYK</td><td><span class="pend">PENDIENTE</span> (dato oficial de la imprenta)</td></tr>
-<tr><td>Pantone</td><td><span class="pend">PENDIENTE</span> (dato oficial de la imprenta)</td></tr></table>
-<p class="peq">HEX y RGB medidos en el PNG original del isotipo. No se publica una conversión CMYK automática porque varía según el papel y la imprenta: el valor de imprenta lo fija el cliente.</p></div></div>
-<div class="card estado"><h3>Discrepancia por resolver</h3>
-<div class="disc"><div><span style="background:#701B78"></span>#701B78<br>Isotipo · <em>hipótesis oficial</em></div><div><span style="background:#8E1F5C"></span>#8E1F5C<br>Web actual (49 usos)</div></div>
-<p class="peq">Contraste entre ambos: <strong>{coma(ratio("#701B78", "#8E1F5C"))}:1</strong>. Juntos se confunden y ensucian la marca. Mientras el cliente no decida, <strong>#8E1F5C no se usa</strong> en piezas nuevas.</p></div></div>
+jer = [("Titular", "Jost Light · 52/56 · −2 %", '<p style="font-weight:300;font-size:38pt;letter-spacing:-.02em;line-height:1">Bienestar con criterio</p>'),
+       ("Título de sección", "Jost Regular · 30/36", '<p style="font-size:21pt">Tratamientos faciales</p>'),
+       ("Lema y citas", "Cormorant Italic 500 · 26/32", '<p style="font-family:Cormorant Garamond;font-style:italic;font-size:20pt;color:var(--morado)">Cuídate · Conecta · Siente</p>'),
+       ("Antetítulo", "Jost Medium · 11 · +16 % · mayúsculas", '<p style="font-weight:500;font-size:9pt;letter-spacing:.16em;text-transform:uppercase;color:var(--morado)">Cuídate · Medicina estética</p>'),
+       ("Texto", "Jost Regular · 17/27", '<p style="font-size:12pt">Antes de cualquier tratamiento te valoramos y te explicamos qué puedes esperar.</p>'),
+       ("Legal", "Jost Regular · 12/16", '<p style="font-size:8.5pt">Nº de registro sanitario: PENDIENTE · Supervisión médica: Dr. Roberth Bravo Pardo.</p>')]
+pagina(f'''{cab("05 · Tipografía", "Jerarquía")}<div class="jer">{"".join(f'<div class="jr"><div><p class="jn">{a}</p><p class="js">{b}</p></div><div>{c}</div></div>' for a, b, c in jer)}</div>
+<p class="pie-nota">En la web, las fuentes se sirven desde el propio servidor (WOFF2), solo en los pesos indicados. En ofimática, si no están instaladas: Century Gothic y Georgia.</p>''', "Tipografía")
 
-<h3>Paleta completa · Ruta A «Piel y luz»</h3>
-<div class="scroll"><table class="paleta"><tr><th></th><th>Color</th><th>HEX</th><th>RGB</th><th>CMYK / Pantone</th><th>Uso</th><th>Proporción</th></tr>{filas_pal}</table></div>
+# ======================= 06 · ELEMENTOS GRÁFICOS =======================
+portadilla("06", "Elementos gráficos", C["lila"], iso(style="position:absolute;left:150mm;top:-60mm;height:300mm;transform:rotate(12deg)"))
 
-<h3>Apoyo para medicina estética (de la Ruta B)</h3>
-<table>{''.join(f'<tr><td><span class="sw big" style="background:{h}"></span></td><td><strong>{n}</strong></td><td><code>{h}</code></td><td><code>{rgb(h)}</code></td><td>{u}</td><td>Morado sobre {n.lower()}: <strong>{coma(ratio("#701B78", h))}:1</strong></td></tr>' for n, h, u in APOYO)}</table>
+tiles = [(C["marfil"], "right:-26mm;bottom:-46mm;height:115mm;transform:rotate(-10deg)", "Cuídate"),
+         (C["arena"], "right:-30mm;bottom:-50mm;height:120mm;transform:rotate(8deg)", "Conecta"),
+         (C["lila"], "right:-24mm;bottom:-40mm;height:118mm", "Siente"),
+         ("#fff", "right:-6mm;bottom:-58mm;height:120mm;transform:rotate(-6deg)", "")]
+tl = "".join(f'<div class="tile" style="background:{bg}">{iso(style="position:absolute;" + s)}{f"<p class=tt>{t}</p>" if t else img(H_LOGO, "", "position:absolute;left:7mm;top:7mm;width:44mm")}</div>' for bg, s, t in tiles)
+pagina(f'''<div class="g-super"><div>{cab("06 · Elementos", "El supergráfico")}
+<p class="cuerpo">El isotipo, a gran escala y recortado por el borde, es el gran recurso de la marca: aporta movimiento y reconocimiento sin añadir nada nuevo.</p>
+<div class="card blanco"><h4>Escala</h4><p>Entre el 120 % y el 300 % del alto de la pieza.</p></div>
+<div class="card blanco"><h4>Giro</h4><p>Entre −12° y +12°. Nunca boca abajo.</p></div>
+<div class="card blanco"><h4>Color</h4><p>Siempre en su morado, sobre marfil, arena, lila o blanco. Nunca junto al logotipo grande.</p></div>
+<p class="pie-nota">{pend("Aprobación")} Ampliar y recortar el isotipo no lo redibuja, pero cambia su encuadre: lo debe aprobar el cliente.</p></div><div class="g2 tiles">{tl}</div></div>''', "Elementos gráficos")
 
-<h3>Proporción de uso</h3>
-<div class="barra">{barra}</div>
-<p class="peq">Marfil 55 % · Arena 17 % · Morado 12 % · Lila 7 % · Ciruela tinta (texto) 6 % · Arcilla 3 %. El morado es la firma: si ocupa más del 20 % de una pieza, pierde valor.</p>
+icg = "".join(f'<div class="ic"><span class="icc">{ico(k, 24)}</span><p>{v[0]}</p></div>' for k, v in ICONOS.items())
+pagina(f'''<div class="g-2col"><div>{cab("06 · Elementos", "Iconografía", "Un set propio de iconos de línea: trazo de 1,5 px, extremos redondeados, dentro de un círculo lila. Acompaña al isotipo, pero no lo imita.")}
+<div class="iconos">{icg}</div></div>
+<div>{cab("06 · Elementos", "El punto medio")}<p class="cuerpo">El separador del lema es el segundo recurso propio. Separa datos, menús, categorías y firmas, siempre en morado.</p>
+<div class="card blanco centro" style="height:38mm"><p class="pm">Faciales <i>·</i> Corporales <i>·</i> Masajes</p></div>
+<div class="card blanco centro mt" style="height:38mm"><p class="pm" style="font-size:14pt!important">965 120 300 <i>·</i> Av. Maisonnave 38 <i>·</i> rosaondono.com</p></div>
+<p class="pie-nota">Los iconos SVG están en <code>identidad/iconos/</code>.</p></div></div>''', "Elementos gráficos")
 
-<h3>Contraste WCAG 2.2 de todas las combinaciones</h3>
-<p class="peq">Leyenda: <span class="lg aaa">≥ 7 AAA</span> <span class="lg aa">≥ 4,5 AA texto</span> <span class="lg g">≥ 3 solo texto grande o gráfico</span> <span class="lg no">&lt; 3 prohibido</span></p>
-{matriz()}
+pagina(f'''<div class="mood">
+<div class="m1" style="background-image:url({FOTO}/masaje-espalda.jpg)"><span>Manos que cuidan</span></div>
+<div class="m2" style="background-image:url({FOTO}/retrato.jpg)"><span>Piel real, luz cálida</span></div>
+<div class="m3" style="background-image:url({FOTO}/olivo.jpg)"><span>Objetos sencillos</span></div>
+<div class="m4" style="background-image:url({FOTO}/patio.jpg)"><span>El jardín interior</span></div>
+<div class="m5" style="background-image:url({FOTO}/lino.jpg)"><span>Lino y textura</span></div>
+<div class="m6"><p class="kicker">06 · Fotografía</p><h2>La luz de Alicante, sobre piel, lino y manos</h2><p class="cuerpo">Luz natural lateral y cálida, personas reales con textura de piel y materiales naturales. El morado no se fuerza en la foto: lo pone el diseño.</p></div>
+</div>''', "Fotografía", clase="sin-pie")
 
-<h3>Combinaciones recomendadas</h3>
-<div class="combos">
-<div style="background:#F7F2EB;color:#2E1A2C">Texto en tinta<br>sobre marfil<br><b>{coma(ratio("#2E1A2C","#F7F2EB"))}</b></div>
-<div style="background:#F7F2EB;color:#701B78">Titular en morado<br>sobre marfil<br><b>{coma(ratio("#701B78","#F7F2EB"))}</b></div>
-<div style="background:#701B78;color:#fff">Blanco sobre morado<br>(botones y bandas)<br><b>{coma(ratio("#FFFFFF","#701B78"))}</b></div>
-<div style="background:#E9DCCB;color:#701B78">Morado sobre arena<br><br><b>{coma(ratio("#701B78","#E9DCCB"))}</b></div>
-<div style="background:#E8DAE6;color:#2E1A2C">Tinta sobre lila<br><br><b>{coma(ratio("#2E1A2C","#E8DAE6"))}</b></div>
-<div style="background:#2E1A2C;color:#F7F2EB">Marfil sobre tinta<br>(pie de página)<br><b>{coma(ratio("#F7F2EB","#2E1A2C"))}</b></div>
-</div>
-<p class="nota">Tokens listos para desarrollo: <code>identidad/tokens/tokens.css</code> y <code>identidad/tokens/color.json</code>.</p>
-""")
+pagina(f'''{cab("06 · Fotografía", "Qué sí y qué no")}
+<div class="g2"><div class="card blanco"><h4 class="si">✔ Sí</h4><ul class="lista">
+<li>Luz natural de ventana, sombras suaves y grano fino (4.500–5.000 K).</li><li>Manos de Rosa y del equipo trabajando: el oficio es la prueba.</li>
+<li>Personas de distintas edades, con piel con textura.</li><li>Lino, cerámica, madera clara, olivo y el jardín del centro.</li>
+<li>En medicina estética, la conversación de la valoración, no la aguja.</li></ul></div>
+<div class="card blanco"><h4 class="no">✖ No</h4><ul class="lista">
+<li>Piedras apiladas, orquídeas, velas y bambú de stock.</li><li>Pieles plastificadas o retoque que borre la textura.</li>
+<li>Agujas, jeringas o productos médicos con marca.</li><li>Cuerpos sexualizados o planos que generen inseguridad.</li><li>Filtros de color, viñetas o neones.</li></ul></div></div>
+<div class="card oscuro mt"><h4 style="color:var(--lila)">Antes y después: protocolo obligatorio</h4><div class="g5 pasos">
+<p><b>1</b>Consentimiento escrito, específico y revocable.</p><p><b>2</b>Misma luz, encuadre, distancia y fondo.</p><p><b>3</b>Sin retoque. Se archivan los RAW.</p>
+<p><b>4</b>Tratamiento, sesiones y tiempo, con «resultados variables».</p><p><b>5</b>En medicina estética, revisar la normativa autonómica.</p></div></div>
+<p class="pie-nota">Fotos del moodboard: Unsplash (licencia Unsplash), solo como referencia. Las definitivas saldrán de una sesión propia en el centro.</p>''', "Fotografía")
 
-sec("tipografia", "06", "Tipografía", """
-<p class="lead">Las seis familias de la web actual se sustituyen por dos.</p>
-<div class="g2">
-<div class="card blanco"><p class="peq">TITULARES</p><p style="font-family:var(--serif);font-size:56px;line-height:1;color:var(--morado)">Cormorant Garamond</p><p style="font-family:var(--serif);font-size:24px">Aa Bb Cc Ññ 0123456789 · <em>Cuídate · Conecta · Siente</em></p><p class="peq">Pesos: Medium 500 y SemiBold 600, más cursiva 500 para el lema. Es una serifa editorial de curvas amplias que dialoga con la onda del isotipo. <strong>Licencia SIL OFL</strong>: libre para web, impresión y rotulación.</p></div>
-<div class="card blanco"><p class="peq">TEXTO E INTERFAZ</p><p style="font-family:var(--sans);font-size:48px;line-height:1.1">Jost</p><p style="font-family:var(--sans);font-size:20px">Aa Bb Cc Ññ 0123456789 · Pide tu valoración</p><p class="peq">Pesos: Regular 400 y Medium 500. Es una sans geométrica: su «o» circular repite los círculos del isotipo. <strong>Licencia SIL OFL</strong>.</p></div></div>
-<h3>Jerarquía</h3>
-<div class="jer">
-<div><span>H1 · Cormorant 600 · 56/60 px (móvil 38)</span><p style="font-family:var(--serif);font-weight:600;font-size:56px;line-height:1.05">Bienestar con criterio</p></div>
-<div><span>H2 · Cormorant 600 · 38/44 px (móvil 30)</span><p style="font-family:var(--serif);font-weight:600;font-size:38px">Tratamientos faciales</p></div>
-<div><span>H3 · Jost 500 · 22/30 px</span><p style="font-family:var(--sans);font-weight:500;font-size:22px">¿Para quién es?</p></div>
-<div><span>Antetítulo · Jost 500 · 13 px · mayúsculas · espaciado 0,16 em · morado</span><p style="font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--morado)">Cuídate · Medicina estética</p></div>
-<div><span>Texto · Jost 400 · 18/29 px (móvil 17) · máximo 70 caracteres por línea</span><p style="font-family:var(--sans);font-size:18px;line-height:1.6;max-width:38em">Antes de cualquier tratamiento te valoramos y te explicamos qué puedes esperar, cuántas sesiones son orientativas y qué cuidados necesitarás después.</p></div>
-<div><span>Lema · Cormorant cursiva 500</span><p style="font-family:var(--serif);font-style:italic;font-size:30px;color:var(--morado)">Cuídate · Conecta · Siente</p></div>
-<div><span>Pie y legal · Jost 400 · 14 px</span><p style="font-family:var(--sans);font-size:14px">Nº de registro sanitario: PENDIENTE · Supervisión médica: Dr. Roberth Bravo Pardo.</p></div>
-</div>
-<table><tr><th>Entorno</th><th>Cómo</th></tr>
-<tr><td>Web</td><td>WOFF2 servidos <strong>desde el propio servidor</strong> (no desde Google Fonts, por rendimiento y RGPD), solo en los pesos indicados y con <code>font-display: swap</code>.</td></tr>
-<tr><td>Ofimática (Word, email, presupuestos)</td><td>Instalar las dos familias. Si no están disponibles: Georgia para titulares y Arial para texto.</td></tr>
-<tr><td>Imprenta</td><td>Enviar los PDF con las fuentes incrustadas o el texto trazado.</td></tr>
-<tr><td>Reglas</td><td>Cormorant nunca por debajo de 20 px ni en bloques largos. Nada de mayúsculas sostenidas en Cormorant. Sin subrayados decorativos.</td></tr></table>
-""")
+# ======================= 07 · APLICACIONES =======================
+portadilla("07", "Aplicaciones", C["morado"], "", oscuro=True, sub="La marca en la vida real")
 
-iconos_html = "".join(f'<div class="ico">{icono(k, 44)}<p>{v[0]}</p><code>icono-{k}.svg</code></div>' for k, v in ICONOS.items())
-sec("iconografia", "07", "Iconografía", f"""
-<p class="lead">Un set propio de iconos de línea para servicios, navegación y redes. Acompaña al isotipo, pero no lo imita.</p>
-<div class="iconos">{iconos_html}</div>
-<h3>Reglas de construcción</h3>
-<div class="g2"><ul>
-<li>Retícula de <strong>24 × 24</strong> con 2 px de margen interior.</li>
-<li>Trazo único de <strong>1,5 px</strong> (≈ el 4 % que mide el trazo del isotipo), con extremos y uniones redondeados.</li>
-<li>Sin rellenos, salvo puntos de detalle. Esquinas con radio de 2 px.</li>
-<li>Color: morado o ciruela tinta. Sobre morado, en blanco.</li></ul>
-<ul>
-<li>Tamaños: 24 px en la interfaz, 32–48 px en tarjetas de servicio y 64 px en portadas de destacados.</li>
-<li>Nunca se combinan con iconos de otros sets ni con emojis en titulares.</li>
-<li><strong>Prohibido</strong> crear un icono que reproduzca o se parezca a la figura del isotipo.</li>
-<li>En medicina estética no se usan jeringas ni agujas: el icono es el estetoscopio.</li></ul></div>
-<p class="nota">Los archivos SVG están en <code>identidad/iconos/</code> y se regeneran con <code>generar.py</code>.</p>
-<h3>Iconos por universo del lema</h3>
-<div class="g3">
-<div class="card"><p class="v2">Cuídate</p>{icono("valoracion",32)}{icono("facial",32)}{icono("corporal",32)}{icono("laser",32)}{icono("medicina",32)}</div>
-<div class="card arena"><p class="v2">Conecta</p>{icono("masaje",32)}{icono("drenaje",32)}{icono("fisioterapia",32)}{icono("acupuntura",32)}</div>
-<div class="card lila"><p class="v2">Siente</p>{icono("ritual",32)}{icono("regalo",32)}</div></div>
-""")
+pagina(f'''{cab("07 · Aplicaciones", "Papelería")}
+<div class="pap">
+<div class="pap-c"><div class="tv frente">{img(V_SIN, "", "height:28mm")}</div><div class="tv dorso"><p class="tn">Rosa Ondoño</p><p class="tc">Fundadora · Esteticista y terapeuta</p>
+<p class="td">965 120 300 <i>·</i> 691 315 622<br>info@rosaondono.com<br>Av. Maisonnave 38, Entlo. Izq.<br>03003 Alicante</p>{iso(style="position:absolute;right:-6mm;bottom:-14mm;height:38mm")}</div><p class="pap-l">Tarjeta de visita · 85 × 55 mm</p></div>
+<div class="pap-c"><div class="carta">{img(H_LOGO, "", "width:38mm")}<div class="lineas"><i></i><i></i><i></i><i style="width:70%"></i><br><i></i><i></i><i style="width:55%"></i></div>
+<p class="carta-pie">Av. Maisonnave 38 · 03003 Alicante · 965 120 300 · rosaondono.com</p>{iso(style="position:absolute;right:-16mm;bottom:-22mm;height:60mm")}</div><p class="pap-l">Hoja de carta · A4</p></div>
+<div class="pap-c"><div class="vale">{iso(style="position:absolute;left:-22mm;top:-16mm;height:70mm")}<div class="vale-t"><p class="kicker">Tarjeta regalo · Siente</p><p class="lema-m">Regala tiempo</p><p class="peq">Para ________ · Ritual ________<br>Válida hasta ________ · Nº ____</p></div></div><p class="pap-l">Tarjeta regalo · 210 × 99 mm</p></div></div>
+<p class="pie-nota">Papel de algodón sin estucar, isotipo en tinta directa o relieve en seco. Tarjetas regalo solo para estética, masajes y rituales: nunca para medicina estética.</p>''', "Aplicaciones")
 
-sec("fotografia", "08", "Fotografía", """
-<p class="lead">La luz de Alicante entrando por una ventana de Maisonnave a media mañana: piel real, manos que trabajan, materiales naturales.</p>
-<div class="g2">
-<div class="card"><h3>Sí</h3><ul>
-<li>Luz natural lateral y cálida (4.500–5.000 K), con sombras suaves.</li>
-<li>Personas reales de distintas edades, con piel con textura, poros y lunares.</li>
-<li>Manos de Rosa y del equipo trabajando: el oficio es la prueba.</li>
-<li>Lino, cerámica artesana, madera clara, papel de algodón y olivo.</li>
-<li>Retratos con nombre de Rosa y del médico, mirando a cámara.</li>
-<li>En medicina estética: consulta luminosa y conversación (valoración), no la aguja.</li>
-<li>Postproducción: grano fino, saturación baja y blancos cálidos.</li></ul></div>
-<div class="card"><h3>No</h3><ul>
-<li>Piedras apiladas, orquídeas, velas y bambú de stock.</li>
-<li>Pieles plastificadas o retoque que borre la textura.</li>
-<li>Primeros planos de agujas, jeringas o productos médicos con marca.</li>
-<li>Cuerpos sexualizados o planos que fomenten la inseguridad corporal.</li>
-<li>Filtros de color o viñetas. El morado no se fuerza en la foto: lo pone el diseño.</li>
-<li>Imágenes de stock reconocibles en portada.</li></ul></div></div>
-<h3>Antes y después: protocolo obligatorio</h3>
-<ol><li>Consentimiento informado <strong>por escrito</strong>, específico para la publicación y revocable.</li>
-<li>Misma luz, encuadre, distancia, postura y fondo; sin maquillaje en ninguna de las dos.</li>
-<li><strong>Sin retoque</strong> de ningún tipo. Se archivan los RAW originales.</li>
-<li>Indicar el tratamiento, el número de sesiones y el tiempo transcurrido. Añadir «resultados variables según cada persona».</li>
-<li>En medicina estética: revisar antes la normativa autonómica de publicidad sanitaria. Si hay dudas, no se publica.</li></ol>
-""")
+pagina(f'''{cab("07 · Aplicaciones", "Redes sociales")}
+<div class="redes2">
+<div class="perfil"><div class="avatar-r">{iso(style="height:58%")}</div><p>Perfil</p></div>
+<div class="post p-foto" style="background-image:url({FOTO}/masaje-manos.jpg)"><div class="pf-t"><p class="kicker" style="color:var(--marfil)">Conecta</p><p class="pt2">Tu cuerpo te habla.</p></div></div>
+<div class="post" style="background:var(--lila)">{iso(style="position:absolute;right:-22mm;bottom:-52mm;height:84mm")}<p class="kicker">Siente</p><p class="pt2" style="color:var(--tinta)">Un tiempo<br>solo para ti.</p></div>
+<div class="post" style="background:#fff"><p class="kicker">Cuídate · La valoración</p><p class="pt3">«Tres preguntas que te haré antes de cualquier tratamiento facial.»</p><p class="firma-p">— Rosa</p>{img(H_LOGO, "", "position:absolute;left:6mm;bottom:6mm;width:30mm")}</div>
+<div class="story" style="background:var(--arena)">{iso(style="position:absolute;left:4mm;top:-24mm;height:60mm;transform:rotate(-8deg)")}<p class="pt2">Regala tiempo</p><span class="st-btn">Ver tarjetas</span></div></div>
+<div class="dest">{"".join(f'<div><span class="icc g">{ico(k, 24)}</span><p>{t}</p></div>' for k, t in [("valoracion", "Valoración"), ("facial", "Facial"), ("masaje", "Masajes"), ("ritual", "Rituales"), ("regalo", "Regalo"), ("ubicacion", "El centro")])}</div>
+<p class="pie-nota">Una pareja de color por pieza, titular en Jost Light y el isotipo como supergráfico. El logotipo, pequeño y discreto. Portadas de destacados con el set de iconos.</p>''', "Aplicaciones")
 
-sec("graficos", "09", "Elementos gráficos", """
-<div class="g2">
-<div><h3>Punto medio</h3><p>El separador del lema ( · ) es el recurso gráfico propio: separa datos, navegación, categorías y firmas. Va siempre en morado.</p>
-<p style="font-family:var(--serif);font-size:26px">Faciales <span style="color:var(--morado)">·</span> Corporales <span style="color:var(--morado)">·</span> Masajes</p>
-<h3>Línea fina</h3><p>Filetes de 1 px en ciruela tinta al 20 % o en arcilla, para dividir contenido. Nunca hay curvas decorativas: <strong>la curva es solo del isotipo</strong>.</p><hr class="filete">
-<h3>Bloques de color</h3><p>Rectángulos planos de marfil, arena o lila, sin degradados ni sombras. Esquinas rectas en el diseño y radio de 2 px solo en botones y tarjetas de interfaz.</p></div>
-<div><h3>Retícula y aire</h3><p>Retícula de 12 columnas en la web y márgenes generosos en papel (mínimo 2 x). Como mínimo, el 40 % de cada pieza queda libre.</p>
-<h3>Texturas</h3><p>Lino, papel de algodón y pared encalada, siempre <strong>fotografiadas</strong> y nunca generadas como patrón. Opacidad máxima del 15 % si van de fondo.</p>
-<h3>Movimiento (web y reels)</h3><p>Transiciones lentas (400–600 ms) con fundidos y desplazamientos suaves. Sin rebotes ni giros. <strong>El isotipo no se anima</strong> ni se dibuja trazo a trazo sin el permiso del cliente. Se respeta <code>prefers-reduced-motion</code>.</p>
-<p class="nota"><span class="prop">PROPUESTA</span> Usar el isotipo a gran escala recortado por el borde de la página, como marca de agua. Necesita aprobación expresa del cliente, porque altera su encuadre.</p></div></div>
-""")
+pagina(f'''{cab("07 · Aplicaciones", "Web y digital")}
+<div class="g-web"><div class="nav-m"><div class="barra-n"><i></i><i></i><i></i><span>rosaondono.com</span></div>
+<div class="web-h">{img(H_LOGO, "", "height:9mm")}<p>Cuídate · Conecta · Siente · Sobre Rosa · Contacto</p><span class="btn">Pide tu valoración</span></div>
+<div class="web-hero"><div><p class="kicker">Estética · Terapias · Medicina estética</p><p class="wh1">Bienestar integral,<br>con criterio.</p><p class="peq">Más de 30 años de oficio en el centro de Alicante.</p><span class="btn">Pide tu valoración</span></div>
+<div class="web-f" style="background-image:url({FOTO}/masaje-espalda.jpg)"></div></div></div>
+<div class="movil"><div class="mv">{img(H_LOGO, "", "width:32mm;margin:5mm auto 3mm;display:block")}<div class="mv-f" style="background-image:url({FOTO}/retrato.jpg)"></div><p class="wh2">Tu piel, con criterio.</p><span class="btn">Reservar</span></div></div></div>
+<div class="g2 mt"><div class="firma2">{iso(style="height:16mm")}<div><p class="fn">Nombre Apellido</p><p>Recepción · Rosa Ondoño</p><p>965 120 300 · WhatsApp 691 315 622</p><p class="lema-s">Cuídate · Conecta · Siente</p></div></div>
+<div class="card blanco"><h4>Firma de email y WhatsApp</h4><p>Isotipo en PNG a 2×, sin banners. Foto de perfil de WhatsApp: el mismo avatar que en redes. Bienvenida: «Hola, gracias por escribirnos. Si nos cuentas qué te gustaría cuidar, te orientamos.»</p></div></div>''', "Aplicaciones")
 
-tarjeta = f"""<div class="tarjeta"><div class="t-front">{logo(70)}<p class="nombre" style="font-size:20px">Rosa Ondoño</p><p class="lemaL" style="font-size:10px">Cuídate · Conecta · Siente</p></div>
-<div class="t-back"><p class="tn">Rosa Ondoño</p><p class="tc">Fundadora · Esteticista y terapeuta</p><p class="td">965 120 300 <span>·</span> 691 315 622<br>info@rosaondono.com<br>Av. Maisonnave 38, Entlo. Izq.<br>03003 Alicante<br><b>rosaondono.com</b></p></div></div>"""
-vale = f"""<div class="vale"><div>{logo(60)}</div><div><p class="peq" style="letter-spacing:.16em">TARJETA REGALO · SIENTE</p><p style="font-family:var(--serif);font-size:30px;line-height:1.1">Regala tiempo</p><p class="peq">Para: ______________ · Ritual: ______________<br>Válida hasta: ________ · Nº ________</p></div></div>"""
-firma = f"""<div class="firma"><img src="{LOGO}" alt="Rosa Ondoño" style="height:56px"><div><p style="font-family:var(--serif);font-size:20px;font-weight:600">Nombre Apellido</p><p>Recepción · Rosa Ondoño</p><p>965 120 300 · WhatsApp 691 315 622</p><p>Av. Maisonnave 38, Alicante · <span style="color:var(--morado)">rosaondono.com</span></p><p class="lemaL" style="font-size:13px">Cuídate · Conecta · Siente</p></div></div>"""
-avatar = f'<div class="avatar">{logo(80)}</div>'
-post = f"""<div class="post"><p class="peq" style="color:var(--morado);letter-spacing:.16em">CONECTA</p><p style="font-family:var(--serif);font-size:30px;line-height:1.1">Tu cuerpo te habla.<br>Aquí te ayudamos<br>a escucharlo.</p><div class="post-pie">{logo(28)}<span>@rosaondono</span></div></div>"""
-story = "".join(f'<div class="dest">{icono(k, 30)}<p>{t}</p></div>' for k, t in [("valoracion","Valoración"),("facial","Facial"),("masaje","Masajes"),("ritual","Rituales"),("regalo","Regalo"),("ubicacion","Centro")])
-placa = f"""<div class="placa">{logo(90)}<div><p class="nombre" style="font-size:34px">Rosa Ondoño</p><p class="peq" style="letter-spacing:.16em">ESTÉTICA · TERAPIAS · MEDICINA ESTÉTICA</p><p class="peq">Entresuelo izquierda · L–V 9:30–19:00 (verano; invierno <span class="pend">PENDIENTE</span>)</p><p class="peq">Nº registro sanitario: <span class="pend">PENDIENTE</span></p></div></div>"""
-sec("aplicaciones", "10", "Aplicaciones", f"""
-<p class="lead">Ejemplos de aplicación del sistema. Las artes finales de imprenta esperan al vector y a los valores CMYK.</p>
-<h3>Tarjeta de visita · 85 × 55 mm</h3>{tarjeta}
-<p class="peq">Anverso en marfil con el isotipo centrado. Reverso en blanco con los datos en Jost y el nombre en Cormorant. Papel de algodón de 600 g sin estucar, con el isotipo en tinta directa (Pantone <span class="pend">PENDIENTE</span>) o en relieve en seco.</p>
-<h3>Tarjeta regalo · 210 × 99 mm</h3>{vale}
-<p class="peq">Fondo lila empolvado, con sobre de color arena. <strong>Solo para estética, masajes y rituales</strong>: nunca tratamientos de medicina estética, por normativa sanitaria.</p>
-<h3>Firma de email</h3>{firma}
-<p class="peq">Nombre de ejemplo. HTML con el isotipo en PNG a 2× (112 px de alto, mostrado a 56 px). Sin banners promocionales ni citas inspiracionales.</p>
-<h3>Redes sociales</h3>
-<div class="redes">{avatar}{post}<div class="dests">{story}</div></div>
-<p class="peq">Avatar: isotipo sobre círculo marfil, con un margen de 1 x. Posts 4:5 sobre marfil, arena o lila según el universo del lema. Portadas de destacados con los iconos del set sobre marfil.</p>
-<h3>WhatsApp Business</h3>
-<div class="g2"><div class="card"><p><strong>Foto de perfil:</strong> la misma que el avatar.<br><strong>Nombre:</strong> Rosa Ondoño · Estética y bienestar<br><strong>Descripción:</strong> Estética, terapias y medicina estética en Maisonnave, Alicante. Cuídate · Conecta · Siente.<br><strong>Horario:</strong> L–V 9:30–19:00 (invierno: <span class="pend">PENDIENTE</span>)</p></div>
-<div class="card"><p><strong>Mensaje de bienvenida:</strong><br>«Hola, gracias por escribirnos. Te respondemos en horario de centro. Si nos cuentas qué te gustaría cuidar, te orientamos.»<br><strong>Fuera de horario:</strong> «Ahora el centro está cerrado; mañana a primera hora te escribimos.»</p></div></div>
-<h3>Señalética · placa de portal (300 × 150 mm)</h3>{placa}
-<p class="peq">Metacrilato mate o latón con impresión directa, fondo marfil e isotipo a color. El nº de registro sanitario es obligatorio en el exterior y en la publicidad de medicina estética.</p>
-<h3>Uniformes</h3>
-<div class="g2"><div class="card"><p><strong>Cabina:</strong> túnica de algodón o lino en arena o marfil, con el isotipo bordado en morado (25 mm) en el pecho izquierdo. El nombre de la persona va bordado en tinta debajo, en Jost.</p></div>
-<div class="card"><p><strong>Medicina estética:</strong> bata blanca con el isotipo bordado y una placa con el nombre, la titulación y el nº de colegiado (<span class="pend">PENDIENTE</span>).</p></div></div>
-<h3>Packaging y bolsa</h3>
-<p>Bolsa de papel kraft blanqueado o color arena, con asas de algodón. Isotipo en tinta directa en una sola cara, nombre en la cara opuesta y nada más. Cajas de producto en marfil con etiqueta en relieve seco. Sin plastificados brillantes.</p>
-<h3>Web</h3>
-<p>Los tokens de color y tipografía están en <code>identidad/tokens/</code>. El capítulo digital completo (componentes, estados y accesibilidad) lo desarrolla <code>01-web</code> sobre este manual. Botón principal: fondo morado, texto blanco en Jost 500 y radio de 2 px. Foco visible: contorno de 2 px en ciruela tinta.</p>
-""")
+pagina(f'''{cab("07 · Aplicaciones", "El espacio")}
+<div class="g3 espacio">
+<div class="esp"><div class="placa">{img(V_LOGO, "", "height:40mm")}<p class="peq">Entresuelo izquierda · Nº registro sanitario {pend()}</p></div><p class="pap-l">Placa de portal · 300 × 150 mm</p></div>
+<div class="esp"><div class="unif-w"><svg viewBox="0 0 200 220" class="unif"><path d="M60 20 L100 34 L140 20 L178 44 L164 92 L146 86 L146 210 L54 210 L54 86 L36 92 L22 44 Z" fill="#E9DCCB" stroke="#d6c6b3"/><path d="M84 26 L100 52 L116 26" fill="none" stroke="#c9b8a4" stroke-width="2"/></svg>
+{iso(style="position:absolute;left:58%;top:30%;height:9mm")}</div><p class="pap-l">Túnica de cabina · isotipo bordado 25 mm</p></div>
+<div class="esp"><div class="bolsa"><span class="asa"></span>{iso(style="height:34mm")}</div><p class="pap-l">Bolsa de papel kraft · una tinta</p></div></div>
+<div class="g3 mt"><div class="card blanco"><h4>Señalética</h4><p>Metacrilato mate o latón, con fondo marfil e isotipo a color. El nº de registro sanitario es obligatorio.</p></div>
+<div class="card blanco"><h4>Uniformes</h4><p>Cabina: túnica arena o marfil. Medicina estética: bata blanca con nombre, titulación y nº de colegiado {pend()}.</p></div>
+<div class="card blanco"><h4>Packaging</h4><p>Kraft o arena, una sola tinta y sin plastificados brillantes. Cajas en marfil con relieve en seco.</p></div></div>''', "Aplicaciones")
 
-sec("formatos", "11", "Formatos de archivo", """
-<table><tr><th>Formato</th><th>Color</th><th>Cuándo usarlo</th><th>Estado</th></tr>
-<tr><td><strong>SVG</strong></td><td>RGB / HEX</td><td>Web, aplicaciones e interfaz: escala sin perder calidad</td><td><span class="pend">PENDIENTE</span> del vector</td></tr>
-<tr><td><strong>PDF vectorial</strong></td><td>CMYK + tinta directa</td><td>Imprenta, papelería, vales y cartelería</td><td><span class="pend">PENDIENTE</span></td></tr>
-<tr><td><strong>EPS / AI</strong></td><td>CMYK + Pantone</td><td>Rotulación, bordado, serigrafía, vinilo de corte y relieve</td><td><span class="pend">PENDIENTE</span></td></tr>
-<tr><td><strong>PNG transparente</strong></td><td>RGB</td><td>Office, email, redes y presentaciones. Exportar a 2× y 3×</td><td>Solo el original de 233 × 315 px; los nuevos tamaños dependen del vector</td></tr>
-<tr><td><strong>JPG</strong></td><td>RGB (sRGB)</td><td>Solo fotografía. Nunca para el logo (no admite transparencia)</td><td>—</td></tr>
-<tr><td><strong>ICO / PNG 16–512</strong></td><td>RGB</td><td>Favicon e iconos de app</td><td>Hay originales de 32, 180, 192 y 270 px</td></tr></table>
-<h3>RGB o CMYK</h3>
-<p><strong>RGB/HEX</strong> se usa en todo lo que se ve en pantalla. <strong>CMYK o Pantone</strong> se usa en todo lo que se imprime. No se envía nunca a imprenta un archivo RGB, ni se publica en web uno CMYK. El morado es un color de gama difícil en CMYK: para piezas clave (tarjetas, placa, vales) se recomienda tinta directa Pantone.</p>
-<h3>Nomenclatura de archivos</h3>
-<p><code>rosaondono_[version]_[color]_[formato].[ext]</code> → p. ej. <code>rosaondono_vertical_color_rgb.svg</code>, <code>rosaondono_isotipo_color_cmyk.pdf</code></p>
-<h3>Carpeta de entrega (cuando llegue el vector)</h3>
-<pre>logo/
-  rgb/   svg · png@1x · png@2x · png@3x
-  cmyk/  pdf · eps
-  pantone/ pdf · eps
-  favicon/ ico · png 16–512</pre>
-""")
+# ======================= 08 · ACCESIBILIDAD Y ARCHIVOS =======================
+pares = [("marfil", "tinta"), ("marfil", "morado"), ("morado", "blanco"), ("arena", "morado"), ("lila", "tinta"), ("salvia", "tinta"), ("salvia", "morado"), ("arcilla", "morado"), ("tinta", "morado")]
+filas_c = ""
+for f, t in pares:
+    r = ratio(C[f], C[t]); ok = r >= 4.5
+    filas_c += f'<tr><td><span class="chip-c" style="background:{C[f]};color:{C[t]}">Aa 16 px</span></td><td>{nombres[t]} sobre {nombres[f].lower()}</td><td><b>{coma(r)}:1</b></td><td class="{"ok" if ok else "ko"}">{"✔" if ok else "✖"} {nivel(r)}</td></tr>'
+pagina(f'''<div class="g-2col"><div>{cab("08 · Accesibilidad", "Contraste comprobado", "Mínimo 4,5:1 en texto normal y 3:1 en texto grande y elementos gráficos (WCAG 2.2 AA).")}<table class="tcontr">{filas_c}</table></div>
+<div class="pila mt2"><div class="card rosa-suave"><h4>Nunca morado sobre oscuro</h4><p>Con la tinta da {coma(ratio(C["morado"], C["tinta"]), 2)}:1. Sobre fondo oscuro, el texto va en marfil.</p></div>
+<div class="card blanco"><h4>Arcilla y salvia, solo de apoyo</h4><p>Con ellas, el morado no llega a 4,5:1 en texto pequeño. Se usan como fondo con texto en tinta, o en ilustración.</p></div>
+<div class="card blanco"><h4>Web</h4><p>Objetivo WCAG 2.2 AA: foco visible, botones de 48 px, textos alternativos y movimiento reducido si el usuario lo pide.</p></div></div></div>''', "Accesibilidad")
 
-sec("cumplimiento", "12", "Anexo · Checklist antes de publicar", """
-<ul class="check">
-<li>¿Se ha usado el isotipo original, sin modificar, sobre fondo claro y con su área de respeto?</li>
-<li>¿El morado es #701B78 y ocupa menos del 20 %? ¿Se ha evitado el #8E1F5C?</li>
-<li>¿Solo hay dos tipografías: Cormorant Garamond y Jost?</li>
-<li>¿Todos los textos cumplen contraste AA?</li>
-<li>¿El texto evita garantías, «curar», «seguro», urgencias y palabras vetadas?</li>
-<li>Si es medicina estética: ¿aparece el profesional sanitario identificado y el nº de registro sanitario? ¿Se evitan las marcas de medicamentos?</li>
-<li>¿Hay consentimiento escrito de cada persona que aparece en las fotos?</li>
-<li>¿Lo ha revisado QA según <code>00-nucleo-marca/cumplimiento-legal.md</code>?</li></ul>
-<h3>Control de versiones</h3>
-<table><tr><th>Versión</th><th>Fecha</th><th>Cambios</th></tr>
-<tr><td>v1 borrador</td><td>17/11/2026</td><td>Primera versión completa sobre la Ruta A. Pendientes: vector, Pantone/CMYK, color oficial y versiones monocromas.</td></tr></table>
-""")
+pagina(f'''<div class="g-2col"><div>{cab("08 · Archivos", "Formatos válidos")}
+<table class="tform"><tr><th>Formato</th><th>Color</th><th>Uso</th></tr>
+<tr><td><b>SVG</b></td><td>RGB / HEX</td><td>Web e interfaz. Isotipo disponible; logotipo completo {pend()}</td></tr>
+<tr><td><b>PDF vectorial</b></td><td>CMYK + Pantone</td><td>Imprenta, papelería y vales</td></tr>
+<tr><td><b>EPS / AI</b></td><td>CMYK + Pantone</td><td>Rotulación, bordado, vinilo y relieve</td></tr>
+<tr><td><b>PNG transparente</b></td><td>RGB</td><td>Office, email, redes y presentaciones (2× y 3×)</td></tr>
+<tr><td><b>JPG</b></td><td>sRGB</td><td>Solo fotografía, nunca el logotipo</td></tr></table>
+<p class="cuerpo"><b>RGB/HEX</b> para todo lo que se ve en pantalla; <b>CMYK o Pantone</b> para todo lo que se imprime. En tarjetas, placa y vales, tinta directa Pantone.</p>
+<p class="pie-nota">Archivos en <code>identidad/logo/</code>: isotipo-color.svg · isotipo-negro.svg · logo-horizontal.png · logo-vertical.png · logo-vertical-sin-descriptor.png</p></div>
+<div>{cab("08 · Archivos", "Antes de publicar")}<ul class="check">
+<li>Logotipo original, sin modificar, sobre fondo claro y con su área de respeto.</li><li>Un único morado: #7D1F73.</li>
+<li>Solo Jost y Cormorant en los textos.</li><li>Todo el texto con contraste AA.</li>
+<li>Sin garantías, «curar», «seguro», urgencias ni palabras vetadas.</li><li>Medicina estética: profesional identificado y nº de registro sanitario.</li>
+<li>Consentimiento escrito de cada persona fotografiada.</li><li>Revisión de QA según la guía de cumplimiento legal.</li></ul></div></div>''', "Archivos")
 
-nav = "".join(f'<a href="#{i}"><span>{n}</span>{t}</a>' for i, n, t, _ in S)
+pend_l = [("Color oficial", "Confirmar #7D1F73 y facilitar Pantone y CMYK de la imprenta."),
+          ("Logotipo completo en vector", "Tenemos el isotipo en SVG. Falta el logotipo con el nombre (AI, EPS o PDF)."),
+          ("Licencias tipográficas", "Bambino Light y Biko: confirmar la licencia comercial del logotipo."),
+          ("Descriptor", "Corregir la tilde de «estética» y valorar incluir la medicina estética."),
+          ("Negativo y supergráfico", "Autorizar el isotipo en blanco sobre fondo oscuro y su uso ampliado y recortado."),
+          ("Datos sanitarios", "Nº de registro sanitario del centro y nº de colegiado del médico.")]
+pagina(f'''{cab("Siguientes pasos", "Lo que necesitamos del cliente", "Sin estos datos, el manual es un borrador: en cuanto lleguen, se actualiza y se exportan los archivos finales.")}<div class="g3">{"".join(f'<div class="card borde-sup" style="--c:var(--morado)"><p class="cnum">{i+1:02d}</p><h4>{a}</h4><p>{b}</p></div>' for i, (a, b) in enumerate(pend_l))}</div>''', "Pendientes")
+
+pagina(f'''<div class="contra">{iso(style="position:absolute;right:-70mm;top:-56mm;height:300mm;transform:rotate(-10deg)")}
+<div class="contra-t">{img(V_LOGO, "Logotipo de Rosa Ondoño", "height:62mm")}
+<p class="lema-xl" style="margin-top:10mm">Cuídate · Conecta · Siente</p>
+<p class="pt-meta">Av. Maisonnave 38, Entlo. Izq. · 03003 Alicante<br>965 120 300 · rosaondono.com · @rosaondono</p></div></div>''', "Contraportada", "marfil", clase="sin-pie")
+
+# ======================= ESTILOS =======================
 CSS = """
-:root{--morado:#701B78;--marfil:#F7F2EB;--arena:#E9DCCB;--lila:#E8DAE6;--arcilla:#B7897A;--tinta:#2E1A2C;
---serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost','Helvetica Neue',Arial,sans-serif}
+:root{--morado:#7D1F73;--marfil:#F7F2EB;--arena:#E9DCCB;--lila:#E8DAE6;--arcilla:#B7897A;--tinta:#2E1A2C;--salvia:#A9B7A4}
+@page{size:297mm 210mm;margin:0}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--sans);color:var(--tinta);background:#fff;font-size:16.5px;line-height:1.6}
-nav{position:fixed;top:0;left:0;bottom:0;width:250px;background:var(--marfil);padding:28px 22px;overflow:auto;border-right:1px solid #e6ddd2}
-nav img{height:70px;margin-bottom:6px}
-nav .nm{font-family:var(--serif);font-size:22px;font-weight:600}
-nav .sub{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--morado);margin-bottom:22px}
-nav a{display:block;color:var(--tinta);text-decoration:none;padding:5px 0;font-size:14.5px}
-nav a span{display:inline-block;width:28px;color:var(--morado);font-size:12px}
-nav a:hover,nav a:focus{color:var(--morado)}
-main{margin-left:250px;max-width:1120px;padding:0 56px 80px}
-.portada{min-height:92vh;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid #eee}
-.portada h1{font-family:var(--serif);font-weight:600;font-size:64px;line-height:1.05;margin-top:30px}
-section{padding:72px 0 40px;border-bottom:1px solid #eee}
-.num{font-size:13px;letter-spacing:.18em;color:var(--morado);font-weight:500}
-h2{font-family:var(--serif);font-weight:600;font-size:44px;line-height:1.1;margin:6px 0 26px}
-h3{font-family:var(--serif);font-weight:600;font-size:26px;margin:34px 0 12px}
-.card h3{margin-top:0}
-p,ul,ol,table{margin-bottom:14px} ul,ol{padding-left:20px} li{margin:4px 0}
-.lead{font-size:21px;max-width:46em}
-.peq{font-size:13.5px} .nota{font-size:14px;background:var(--marfil);padding:12px 16px;border-left:3px solid var(--arcilla)}
-.aviso{font-size:15px;padding:12px 16px;border-left:3px solid var(--morado);background:#fff}
-.cita{font-family:var(--serif);font-size:26px;line-height:1.3;color:var(--morado);max-width:36em}
-.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:22px;margin-bottom:14px}
-.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:14px}
-.card{background:var(--marfil);padding:22px 24px} .card.arena{background:var(--arena)} .card.lila{background:var(--lila)} .card.blanco{background:#fff;border:1px solid #eee}
-.card.estado{background:#fff;border:1px solid var(--morado)}
-.centro{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
-.fondo-claro{background:var(--marfil);padding:30px}
-table{border-collapse:collapse;width:100%;font-size:14.5px}
-th,td{text-align:left;padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.09);vertical-align:top}
-th{font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
-code{font-size:13px;background:#f3eef4;padding:1px 5px;border-radius:2px}
-pre{background:var(--marfil);padding:14px;font-size:13px}
-.pend{display:inline-block;background:#FCE8E6;color:#8A1C1C;font-size:11px;font-weight:500;letter-spacing:.06em;padding:1px 6px;border-radius:2px}
-.prop{display:inline-block;background:#FFF4D6;color:#6B4E00;font-size:11px;font-weight:500;letter-spacing:.06em;padding:1px 6px;border-radius:2px}
+html{background:#8d8590}
+body{font-family:Jost,'Century Gothic',sans-serif;color:var(--tinta);font-size:10.5pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:297mm;height:210mm;position:relative;overflow:hidden;padding:14mm 18mm 18mm;margin:10mm auto;box-shadow:0 4px 30px rgba(0,0,0,.25);break-after:page}
+@media print{html{background:none}.page{margin:0;box-shadow:none}}
+.pie{position:absolute;left:18mm;right:18mm;bottom:7mm;display:flex;justify-content:space-between;font-size:7.5pt;opacity:.7}
+.oscuro-p .pie,.oscuro-p .kicker{color:var(--marfil)}
+.kicker{font-size:8pt;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--morado);margin-bottom:2.5mm}
+h2{font-weight:300;font-size:30pt;line-height:1.02;letter-spacing:-.02em;margin-bottom:5mm}
+.h-xl{font-size:46pt}
+h3{font-weight:500;font-size:13pt;margin-bottom:2mm} h4{font-weight:500;font-size:10.5pt;margin-bottom:1.2mm}
+.intro{font-size:12pt;max-width:210mm;margin-top:-1mm;margin-bottom:7mm;color:#5a4a57}
+.cuerpo{font-size:11pt;margin-bottom:4mm}
+.mt{margin-top:6mm}.mt2{margin-top:24mm}
+p{margin-bottom:1mm}
+.card{background:var(--marfil);border-radius:5mm;padding:5mm 6mm}
+.card.blanco{background:#fff}.card.oscuro{background:var(--tinta);color:var(--marfil)}.card.rosa-suave{background:#F4E1E4}
+.card p{font-size:9.5pt}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:5mm}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:5mm}.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:4mm}.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:4mm}
+.g-2col{display:grid;grid-template-columns:1fr 1fr;gap:12mm;height:100%}
+.pila{display:flex;flex-direction:column;gap:4mm}
+.centro{display:flex;align-items:center;justify-content:center}.col{flex-direction:column;gap:2mm}
+.pend{display:inline-block;background:#FCE8E6;color:#8A1C1C;font-size:7pt;font-weight:500;letter-spacing:.06em;padding:.3mm 2mm;border-radius:10mm;vertical-align:1px}
+.pie-nota{font-size:8.5pt;color:#6b5b68;margin-top:4mm}
+.lista{padding-left:4mm}.lista li{margin:1.2mm 0;font-size:10pt}
+code{font-size:8pt;background:rgba(125,31,115,.08);padding:0 1.5mm;border-radius:1mm}
 .ok{color:#1d6b33;font-weight:500}.ko{color:#a3262a;font-weight:500}
-.verbo .v,.v2{font-family:var(--serif);font-size:34px;font-weight:600;color:var(--morado);line-height:1.1;margin-bottom:6px}
-.v2{font-size:26px} .card svg{margin:4px 6px 0 0}
-.tags span{display:inline-block;border:1px solid var(--morado);color:var(--morado);padding:3px 12px;margin:0 6px 8px 0;font-size:14px}
-.esc{display:inline-block;width:80px;height:8px;background:linear-gradient(90deg,var(--morado) calc(var(--n)*20%),#e6dfe8 0);margin-right:8px}
-.ej .canal{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--morado);font-weight:500}
-.lock{display:flex;align-items:center;color:var(--morado)} .lock.v{flex-direction:column;gap:6px} .lock.h{gap:18px;text-align:left}
-.nombre{font-family:var(--serif);font-weight:600;color:var(--tinta);line-height:1.05;letter-spacing:.01em}
-.lemaL{font-family:var(--serif);font-style:italic;color:var(--morado)}
-.versiones .card{min-height:250px}
-.pendbox{background:repeating-linear-gradient(45deg,#fff 0 10px,#faf6f9 10px 20px);border:1px dashed #c9a9c9}
-.respeto{outline:2px dashed var(--arcilla);display:inline-block;background:rgba(183,137,122,.08);position:relative}
-.respeto::after{content:'x';position:absolute;top:4px;left:8px;font-size:13px;color:var(--arcilla)}
-.fondos{display:flex;gap:12px;flex-wrap:wrap}.fondo{padding:18px;text-align:center;width:160px;font-size:13px;border:1px solid #eee}
-.incorrectos{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
-.incorrectos .caja{height:140px;display:flex;align-items:center;justify-content:center;background:var(--marfil);position:relative;overflow:hidden}
-.incorrectos .caja::after{content:'';position:absolute;inset:0;background:linear-gradient(to top right,transparent calc(50% - 1.5px),#C62828 calc(50% - 1.5px),#C62828 calc(50% + 1.5px),transparent calc(50% + 1.5px))}
-.incorrectos p{font-size:13px;margin-top:6px}
-.ficha-color{display:flex;gap:20px}.ficha-color .muestra{width:150px;min-height:240px;flex-shrink:0}
-.codigos td{padding:4px 8px}
-.disc{display:flex;gap:16px;margin:10px 0;font-size:13px}.disc span{display:block;width:120px;height:60px;margin-bottom:4px}
-.sw{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:6px;border:1px solid rgba(0,0,0,.12)}.sw.big{width:44px;height:44px}
-.barra{display:flex;height:46px;border:1px solid #eee;margin:8px 0}
-.scroll{overflow-x:auto}
-.matriz td,.matriz th{font-size:12.5px;text-align:center;padding:6px}.matriz th:first-child,.matriz tr th{text-align:left}
-.aaa{background:#dff0e2}.aa{background:#eef6e6}.g{background:#fff4d6}.no{background:#fbe3e1;color:#8A1C1C}.x{background:#f5f5f5}
-.lg{padding:2px 8px;margin-right:6px}
-.combos{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}.combos div{padding:18px;font-size:14px;min-height:110px}
-.combos b{font-size:22px;font-family:var(--serif)}
-.jer>div{border-bottom:1px dashed #e5dde5;padding:10px 0}.jer span{font-size:12px;color:#7a6a78}
-.iconos{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
-.ico{background:var(--marfil);padding:18px 12px;text-align:center}.ico p{font-size:13px;margin:6px 0 2px}.ico code{font-size:10.5px}
-hr.filete{border:0;border-top:1px solid rgba(46,26,44,.2);margin:14px 0}
-.tarjeta{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:10px}
-.t-front,.t-back{width:340px;height:220px;box-shadow:0 1px 6px rgba(0,0,0,.12)}
-.t-front{background:var(--marfil);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
-.t-back{background:#fff;padding:26px 28px}.tn{font-family:var(--serif);font-size:22px;font-weight:600}.tc{font-size:12px;color:var(--morado);margin-bottom:12px}.td{font-size:12px;line-height:1.55}.td span{color:var(--morado)}
-.vale{display:flex;gap:28px;align-items:center;background:var(--lila);width:620px;max-width:100%;height:292px;padding:34px;box-shadow:0 1px 6px rgba(0,0,0,.12);margin-bottom:10px}
-.firma{display:flex;gap:16px;border:1px solid #eee;padding:18px;max-width:520px;font-size:13px;line-height:1.45;margin-bottom:10px}
-.redes{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin-bottom:10px}
-.avatar{width:150px;height:150px;border-radius:50%;background:var(--marfil);display:flex;align-items:center;justify-content:center;border:1px solid #eee}
-.post{width:270px;height:338px;background:var(--arena);padding:28px;display:flex;flex-direction:column;justify-content:space-between}
-.post-pie{display:flex;align-items:center;gap:8px;font-size:12px}
-.dests{display:grid;grid-template-columns:repeat(3,84px);gap:12px}.dest{text-align:center;font-size:12px}.dest svg{background:var(--marfil);border-radius:50%;padding:18px;width:72px;height:72px;border:1px solid #eadfd3}
-.placa{display:flex;gap:26px;align-items:center;background:var(--marfil);width:600px;max-width:100%;height:300px;padding:40px;box-shadow:0 2px 10px rgba(0,0,0,.15);margin-bottom:10px}
-.check li{list-style:'☐  '}
-@media (max-width:900px){nav{position:static;width:auto}main{margin-left:0;padding:0 22px}}
-@media print{nav{display:none}main{margin:0;max-width:none;padding:0 10mm}section{page-break-before:always;padding-top:10mm}.portada{min-height:auto;padding:40mm 0}
-.incorrectos .caja::after{-webkit-print-color-adjust:exact;print-color-adjust:exact}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+.si{color:#1d6b33}.no{color:#a3262a}
+.sw{display:inline-block;width:3.5mm;height:3.5mm;border-radius:50%;vertical-align:-.5mm;margin-right:1.5mm}
+.portada{position:absolute;inset:0;display:grid;grid-template-columns:1.05fr 1fr}
+.pt-izq{padding:18mm 16mm 18mm 20mm;display:flex;flex-direction:column;justify-content:center;gap:9mm}
+.pt-der{background-size:cover;background-position:center}
+.lema-xl{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:26pt;color:var(--morado)}
+.pt-meta{font-size:9pt;letter-spacing:.04em;color:#6b5b68}
+.deco{position:absolute;inset:0}
+.portadilla{position:absolute;left:18mm;bottom:20mm}
+.pnum{font-weight:300;font-size:120pt;line-height:.85;letter-spacing:-.04em}
+.ptit{font-weight:300;font-size:40pt;letter-spacing:-.02em;margin-top:2mm}
+.psub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20pt;margin-top:2mm}
+.divisor .pnum,.divisor .ptit{color:var(--tinta)}.divisor.oscuro-p .pnum,.divisor.oscuro-p .ptit,.divisor.oscuro-p .psub{color:var(--marfil)}
+.aa{position:absolute;right:18mm;top:4mm;font-weight:300;font-size:210pt;line-height:1;color:var(--lila)}
+.g-indice{display:grid;grid-template-columns:1fr 1.3fr;gap:16mm;height:100%}
+.ix-col{display:grid;grid-template-columns:1fr 1fr;column-gap:10mm;align-content:start;padding-top:8mm}
+.ix{display:flex;gap:5mm;border-top:1px solid #e3d8cc;padding:4mm 0}
+.ixn{font-size:18pt;font-weight:300;color:var(--morado);width:12mm}.ixt{font-size:13pt;font-weight:500}.ixs{font-size:9pt;color:#6b5b68}
+.borde-sup{border-top:1.6mm solid var(--c);background:#fff}.cnum{color:var(--morado);font-weight:500;font-size:9pt}
+.ficha{display:grid;grid-template-columns:repeat(6,1fr);gap:4mm;border-top:1px solid #e3d8cc;margin-top:7mm;padding-top:4mm}
+.fl{font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:#7a6a78}.fv{font-weight:500;font-size:10pt}
+.decl .dl{color:var(--morado);font-weight:500;font-size:9pt}.decl .dt{font-weight:300;font-size:17pt;line-height:1.18;letter-spacing:-.01em}
+.circ{display:inline-flex;width:11mm;height:11mm;border-radius:50%;background:var(--lila);align-items:center;justify-content:center;margin-bottom:3mm}
+.decl-xl{font-weight:300;font-size:15pt;line-height:1.32}.decl-m{font-weight:300;font-size:14pt;line-height:1.3}.acento{color:var(--lila);font-weight:500}
+.mapa{position:relative;background:#fff;border-radius:5mm;height:170mm}
+.mapa::before{content:'';position:absolute;left:50%;top:12mm;bottom:12mm;border-left:1px solid #ddd}
+.mapa::after{content:'';position:absolute;top:50%;left:10mm;right:10mm;border-top:1px solid #ddd}
+.eje{position:absolute;font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:#7a6a78}
+.ey1{left:52%;top:5mm}.ey2{left:52%;bottom:5mm}.ex1{left:5mm;top:calc(50% + 2mm)}.ex2{right:5mm;top:calc(50% + 2mm)}
+.punto{position:absolute;transform:translate(-50%,-50%);text-align:center;font-size:9pt;color:#6b5b68;z-index:1;width:40mm}
+.punto i{display:block;width:9mm;height:9mm;border-radius:50%;background:#cfc6cd;margin:0 auto 2mm}
+.punto.rosa{color:var(--morado);font-weight:500;font-size:11pt}.punto.rosa i{width:16mm;height:16mm;background:var(--morado)}
+.nota-mapa{position:absolute;left:6mm;bottom:5mm;width:44%;font-size:7pt;color:#8a7a88}
+.lema-g{height:122mm}
+.lema-panel{border-radius:5mm;padding:7mm;display:flex;flex-direction:column}
+.lp-n{font-size:9pt;color:var(--morado);font-weight:500}.lp-v{font-weight:300;font-size:40pt;letter-spacing:-.02em;line-height:1.1;color:var(--morado)}
+.lp-f{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16pt;line-height:1.2;margin:2mm 0 auto}
+.lp-i{display:flex;gap:4mm;margin:6mm 0 3mm}.lp-s{font-size:9pt}
+.rueda{position:relative;width:150mm;height:150mm;align-self:center;justify-self:center}
+.aro{position:absolute;left:10%;top:10%;width:80%;height:80%;border:1px solid #d9cfd6;border-radius:50%}
+.rp{position:absolute;transform:translate(-50%,-50%);font-size:8pt;color:#8a7a88;text-align:center;width:30mm}
+.rp i{display:block;width:3mm;height:3mm;border-radius:50%;background:#cfc6cd;margin:0 auto 1mm}
+.rp.on{color:var(--morado);font-weight:500;font-size:10pt}.rp.on i{width:7mm;height:7mm;background:var(--morado)}
+.rc{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.barras{margin:2mm 0 5mm}.br{display:grid;grid-template-columns:24mm 1fr 14mm;gap:3mm;align-items:center;margin:2mm 0;font-weight:500}
+.br b{height:3.5mm;border-radius:2mm;background:#e8e0e5;position:relative;overflow:hidden}.br b i{position:absolute;top:0;bottom:0;left:0;border-radius:2mm}
+.br em{font-style:normal;font-size:9pt;color:#6b5b68}
+.mini{margin-bottom:4mm}.mini .card{padding:3.5mm 5mm}
+.tpers{width:100%;border-collapse:collapse}.tpers td{border-bottom:1px solid #e3d8cc;padding:2.6mm 2mm;font-size:10pt}
+.tpers .pn{font-weight:300;font-size:17pt;width:42mm}.tpers b{font-weight:500;margin-right:2mm}
+.sl{display:grid;grid-template-columns:20mm 1fr 20mm;gap:3mm;align-items:center;font-size:9pt;margin:3mm 0}.sl span:last-child{text-align:right}
+.sl b{height:1.6mm;border-radius:1mm;background:#e3d8cc;position:relative}.sl b i{position:absolute;top:50%;width:5mm;height:5mm;border-radius:50%;background:var(--morado);transform:translate(-50%,-50%)}
+.g-voz{display:grid;grid-template-columns:.8fr 1.4fr;gap:12mm}
+.vetadas{font-size:10pt;color:#a3262a;text-decoration:line-through}
+.cab-bub p{font-weight:500;font-size:10pt;margin-bottom:2mm}
+.bubs{gap:3mm}.bub{border-radius:4mm;padding:4mm 5mm;font-size:10pt;font-weight:500;min-height:21mm;display:flex;align-items:center}
+.si-b{background:var(--lila)}.no-b{background:#F4E1E4;color:#6b2a2a;text-decoration:line-through;font-weight:400}
+.canal{min-height:48mm}.cl{font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--morado);font-weight:500;margin-bottom:2mm}
+.canal p:last-child{font-size:11.5pt;line-height:1.4}
+.lienzo{border-radius:5mm;background:#fff}
+.anat{position:relative}.et{position:absolute;background:var(--tinta);color:var(--marfil);font-size:8pt;padding:1mm 3mm;border-radius:10mm}
+.g-simbolo{display:grid;grid-template-columns:1fr 1.2fr;gap:10mm;height:100%}.g-simbolo .card{margin-bottom:3mm}
+.sistema{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:64mm 64mm;gap:4mm}
+.sb{border-radius:5mm;position:relative;display:flex;align-items:center;justify-content:center}
+.sb.blanco{background:#fff}.sb.lila{background:var(--lila)}.sb.arena{background:var(--arena)}
+.s-b{grid-row:span 2;grid-column:2}
+.sl2{position:absolute;left:5mm;bottom:3mm;font-size:8pt;font-weight:500}
+.avatar-m{width:32mm;height:32mm;border-radius:50%;background:var(--marfil);display:flex;align-items:center;justify-content:center}
+.respeto{outline:1.2px dashed var(--arcilla);background:rgba(183,137,122,.08);position:relative}
+.cota-t{position:absolute;left:6mm;top:4mm;font-size:8pt;color:var(--arcilla);font-weight:500}
+.esc{display:flex;align-items:flex-end;justify-content:space-around;padding:10mm;height:96mm}.esc-i{text-align:center;font-size:8pt}.esc-c{height:38mm;display:flex;align-items:flex-end;justify-content:center;margin-bottom:3mm}
+.vcol{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm}
+.vc{border-radius:4mm;height:60mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;border:1px solid #eadfd3;font-size:8pt;padding:4mm;text-align:center}
+.vc .grande{font-size:11pt;font-weight:500}
+.rayas{background:repeating-linear-gradient(45deg,#fff 0 3mm,#f7eff5 3mm 6mm)}
+.malos{gap:4mm}.mc{height:48mm;border-radius:4mm;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mal p{font-size:9pt;color:#a3262a;font-weight:500;margin-top:2mm}
+.paleta{display:grid;grid-template-columns:repeat(7,1fr);gap:3.5mm}
+.pc{border-radius:4mm;overflow:hidden;background:#fff}.pc-s{height:50mm;padding:4mm;position:relative}.pc-s p{font-weight:500;font-size:10.5pt;line-height:1.15}
+.fijo{position:absolute;left:4mm;bottom:3mm;font-size:6.5pt;letter-spacing:.14em;border:1px solid currentColor;padding:.2mm 1.5mm;border-radius:5mm}
+.pc-d{padding:3.5mm 4mm;font-size:8pt;min-height:50mm}.pc-d .proc{margin-top:2mm}.pc-d .uso{color:#6b5b68}
+.mor-s{height:58mm;border-radius:4mm;margin-bottom:3mm}.mh{font-weight:500;font-size:13pt}.mor p{font-size:9pt}.mest{font-weight:500;color:#7a6a78}.mest.ok{color:#1d6b33}
+.parejas{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm}
+.par{border-radius:5mm;overflow:hidden;position:relative;height:64mm;display:grid;grid-template-rows:1fr 1fr}
+.par-a,.par-b{padding:4mm 6mm;text-align:center;display:flex;flex-direction:column;justify-content:center}.pe{font-size:7.5pt;text-align:left;position:absolute;left:5mm;top:3mm}
+.pn2{font-size:14pt;font-weight:500}.par p{font-size:8.5pt;margin:0}
+.pr{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;color:var(--tinta);font-size:8pt;font-weight:500;padding:1mm 4mm;border-radius:10mm;white-space:nowrap}
+.barra-xl{display:flex;height:84mm;border-radius:5mm;overflow:hidden;border:1px solid #e3d8cc}
+.barra-xl div{display:flex;flex-direction:column;justify-content:flex-end;padding:4mm 3mm;font-size:8pt;min-width:0}.barra-xl b{font-weight:300;font-size:20pt;line-height:1}
+.tipos .card{height:134mm}.card .mega{font-size:58pt;line-height:1.05;margin:3mm 0}.lic{font-size:8pt;color:#7a6a78;margin-top:3mm}
+.lt-n{font-family:Jost;font-weight:300;font-size:30pt;letter-spacing:.01em;color:var(--marfil);margin:6mm 0 0}
+.jer{border-top:1px solid #e3d8cc}.jr{display:grid;grid-template-columns:62mm 1fr;align-items:center;border-bottom:1px solid #e3d8cc;padding:2.6mm 0}
+.jn{font-weight:500}.js{font-size:8pt;color:#7a6a78}
+.g-super{display:grid;grid-template-columns:.85fr 1.3fr;gap:10mm;height:100%}.g-super .card{margin-bottom:3mm;padding:3.5mm 5mm}
+.tiles{gap:4mm}.tile{border-radius:5mm;position:relative;overflow:hidden;height:82mm;border:1px solid #eadfd3}
+.tt{position:absolute;z-index:2;left:6mm;top:5mm;font-weight:300;font-size:20pt;color:var(--morado)}
+.iconos{display:grid;grid-template-columns:repeat(5,1fr);gap:4mm 2mm}.ic{text-align:center;font-size:7pt;line-height:1.2}
+.icc{display:inline-flex;width:13mm;height:13mm;border-radius:50%;background:var(--lila);align-items:center;justify-content:center;margin-bottom:1mm}
+.icc.g{width:17mm;height:17mm;background:#fff;border:1px solid #e3d8cc}
+.card .pm{font-weight:300;font-size:20pt}.pm i{color:var(--morado);font-style:normal;font-weight:600;margin:0 2mm}
+.mood{position:absolute;inset:0;display:grid;grid-template-columns:1.15fr 1fr 1fr .95fr;grid-template-rows:1fr 1fr;gap:3mm;padding:3mm}
+.mood>div{background-size:cover;background-position:center;border-radius:3mm;position:relative}
+.mood span{position:absolute;left:4mm;bottom:3mm;background:rgba(247,242,235,.92);font-size:8pt;padding:.8mm 3mm;border-radius:10mm}
+.m1{grid-row:span 2}.m2{grid-column:2;grid-row:1}.m3{grid-column:3;grid-row:1}.m4{grid-column:2;grid-row:2}.m5{grid-column:3;grid-row:2}.m6{grid-column:4;grid-row:1/span 2;background:var(--marfil);padding:9mm;display:flex;flex-direction:column;justify-content:center}.m6 h2{font-size:22pt}
+.pasos{gap:4mm;margin-top:2mm}.pasos p{font-size:9pt}.pasos b{display:block;font-weight:300;font-size:20pt;color:var(--lila)}
+.pap{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:8mm;align-items:end;margin-top:4mm}
+.pap-c{display:flex;flex-direction:column;align-items:center;gap:4mm}.pap-l{font-size:8.5pt;font-weight:500;text-align:center}
+.tv{width:76mm;height:49mm;border-radius:1mm;box-shadow:0 2px 10px rgba(0,0,0,.14);position:relative;overflow:hidden}
+.frente{background:#fff;display:flex;align-items:center;justify-content:center}.dorso{background:var(--marfil);padding:5mm 6mm}
+.tn{font-weight:500;font-size:11pt}.tc{font-size:7pt;color:var(--morado);margin-bottom:3mm}.td{font-size:7pt;line-height:1.5}.td i{color:var(--morado);font-style:normal}
+.carta{width:78mm;height:110mm;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.14);padding:9mm;position:relative;overflow:hidden}
+.lineas{margin-top:12mm}.lineas i{display:block;height:1.5mm;background:#eee6e0;margin:2.5mm 0;border-radius:1mm}
+.carta-pie{position:absolute;left:9mm;bottom:6mm;font-size:5pt;color:#7a6a78}
+.vale{width:104mm;height:49mm;background:var(--lila);box-shadow:0 2px 10px rgba(0,0,0,.14);position:relative;overflow:hidden}
+.vale-t{position:absolute;left:38mm;top:8mm;right:5mm}.lema-m{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21pt;color:var(--morado);line-height:1.1;margin-bottom:2mm}
+.peq{font-size:7.5pt}
+.redes2{display:flex;gap:5mm;align-items:center}
+.perfil{text-align:center;font-size:8pt}.avatar-r{width:30mm;height:30mm;border-radius:50%;background:var(--marfil);border:1px solid #e3d8cc;display:flex;align-items:center;justify-content:center;margin-bottom:2mm}
+.post{width:56mm;height:70mm;border-radius:3mm;position:relative;overflow:hidden;padding:6mm;flex-shrink:0;box-shadow:0 1px 6px rgba(0,0,0,.08)}
+.p-foto{background-size:cover;background-position:center}.pf-t{position:absolute;left:0;right:0;bottom:0;padding:6mm;background:linear-gradient(transparent,rgba(46,26,44,.78))}
+.pt2{font-weight:300;font-size:19pt;line-height:1.1;color:var(--marfil)}.pt3{font-weight:300;font-size:14pt;line-height:1.2;margin-top:3mm}.firma-p{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--morado);font-size:13pt}
+.story{width:40mm;height:71mm;border-radius:3mm;position:relative;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.08)}.story .pt2{color:var(--tinta);position:absolute;left:5mm;bottom:17mm;font-size:14pt}
+.st-btn{position:absolute;left:5mm;bottom:7mm;background:var(--morado);color:#fff;font-size:7pt;padding:1mm 3mm;border-radius:10mm}
+.dest{display:flex;gap:8mm;margin-top:7mm}.dest div{text-align:center;font-size:8pt}
+.g-web{display:grid;grid-template-columns:2.2fr .8fr;gap:8mm;align-items:center}
+.nav-m{border-radius:3mm;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.16);background:#fff}
+.barra-n{background:#ece6ea;padding:2mm 3mm;display:flex;gap:1.5mm;align-items:center;font-size:7pt;color:#7a6a78}.barra-n i{width:2.5mm;height:2.5mm;border-radius:50%;background:#cfc4cb}.barra-n span{margin-left:4mm}
+.web-h{display:flex;align-items:center;gap:6mm;padding:3mm 6mm;font-size:7pt;border-bottom:1px solid #eee}.web-h p{margin:0 0 0 auto}
+.btn{display:inline-block;background:var(--morado);color:#fff;font-size:7.5pt;font-weight:500;padding:1.5mm 4mm;border-radius:10mm}
+.web-hero{display:grid;grid-template-columns:1fr 1fr;background:var(--marfil);height:72mm}.web-hero>div:first-child{padding:9mm;display:flex;flex-direction:column;justify-content:center;gap:2mm;align-items:flex-start}
+.wh1{font-weight:300;font-size:22pt;line-height:1.05;letter-spacing:-.02em}.web-f{background-size:cover;background-position:center}
+.movil{display:flex;justify-content:center}.mv{width:52mm;height:100mm;border-radius:7mm;border:2.5mm solid var(--tinta);background:var(--marfil);overflow:hidden;text-align:center}
+.mv-f{height:44mm;background-size:cover;background-position:center 20%}.wh2{font-weight:300;font-size:13pt;margin:3mm 0 2mm}
+.firma2{display:flex;gap:5mm;background:#fff;border-radius:5mm;padding:5mm 6mm;font-size:8.5pt;align-items:center}.fn{font-weight:500;font-size:11pt}.lema-s{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--morado);font-size:11pt}
+.espacio{align-items:end}.esp{display:flex;flex-direction:column;align-items:center;gap:4mm}
+.placa{width:92mm;height:60mm;background:var(--marfil);box-shadow:0 3px 14px rgba(0,0,0,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;border-radius:1mm;border:1px solid #e3d8cc}
+.unif-w{position:relative;height:66mm}.unif{height:66mm}
+.bolsa{width:48mm;height:60mm;background:#d9c3a3;position:relative;display:flex;align-items:center;justify-content:center;border-radius:1mm;margin-top:10mm}.asa{position:absolute;top:-10mm;left:13mm;width:22mm;height:14mm;border:2mm solid #b99e7c;border-bottom:none;border-radius:10mm 10mm 0 0}
+.tcontr{width:100%;border-collapse:collapse}.tcontr td{border-bottom:1px solid #e3d8cc;padding:2.1mm 2mm;font-size:9.5pt}
+.chip-c{display:inline-block;padding:1mm 4mm;border-radius:2mm;font-weight:500;font-size:8.5pt;border:1px solid rgba(0,0,0,.06)}
+.tform{width:100%;border-collapse:collapse;margin-bottom:4mm}.tform td,.tform th{border-bottom:1px solid #e3d8cc;padding:2mm;font-size:9pt;text-align:left}.tform th{font-weight:500;font-size:7.5pt;letter-spacing:.12em;text-transform:uppercase}
+.check{list-style:none}.check li{padding:2.4mm 0 2.4mm 8mm;border-bottom:1px solid #e3d8cc;position:relative;font-size:10pt}.check li::before{content:'';position:absolute;left:0;top:3mm;width:4mm;height:4mm;border:1.2px solid var(--morado);border-radius:1mm}
+.contra{position:absolute;inset:0}.contra-t{position:absolute;left:22mm;top:50%;transform:translateY(-50%)}
+.sin-pie .pie{display:none}
 """
 
-doc = f"""<!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Manual de marca · Rosa Ondoño (borrador v1)</title>
+def render():
+    out = []
+    for i, (cuerpo, seccion, fondo, oscuro, clase) in enumerate(PAGINAS, 1):
+        bg = C.get(fondo, fondo)
+        out.append(f'<section class="page {clase}{" oscuro-p" if oscuro else ""}" style="background:{bg}">{cuerpo}'
+                   f'<div class="pie"><span>Rosa Ondoño · Manual de marca · v2.0 · Noviembre 2026</span><span>{seccion}</span><span>{i:02d}</span></div></section>')
+    return f"""<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manual de marca · Rosa Ondoño · v2.0</title>
 <!-- Generado por manual/construir_manual.py · no editar a mano -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
-<style>{CSS}</style></head><body>
-<nav aria-label="Índice del manual"><img src="{LOGO}" alt="Isotipo de Rosa Ondoño"><p class="nm">Rosa Ondoño</p><p class="sub">Manual de marca · v1</p>{nav}</nav>
-<main>
-<header class="portada">{marca_vertical(200)}<h1>Manual de marca</h1><p class="lead">Identidad visual, verbal y aplicaciones · Borrador v1 · 17/11/2026</p>
-<p class="peq">Departamento de Imagen y Manual: dirección de arte, diseño gráfico, marketing y comunicación, fotografía y QA.</p></header>
-{''.join(s for *_, s in S)}
-</main></body></html>"""
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>{CSS}</style></head><body>{''.join(out)}</body></html>"""
 
 with open(os.path.join(AQUI, "manual-de-marca.html"), "w") as f:
-    f.write(doc)
-print("manual-de-marca.html generado:", len(S), "capítulos")
+    f.write(render())
+print("manual-de-marca.html:", len(PAGINAS), "páginas")

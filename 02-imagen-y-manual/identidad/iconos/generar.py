@@ -53,7 +53,7 @@ def svg(cuerpo, titulo):
             f'stroke-linejoin="round" role="img" aria-label="{titulo}"><title>{titulo}</title>{cuerpo}</svg>\n')
 
 PALETA = {
-    "corporativo": {"morado": {"hex": "#701B78", "rgb": [112, 27, 120], "fijo": True,
+    "corporativo": {"morado": {"hex": "#7D1F73", "rgb": [125, 31, 115], "fuente": "LOGO_2023.psd (propuesto, pendiente de confirmar)", "fijo": True,
                     "pantone": "PENDIENTE", "cmyk": "PENDIENTE"}},
     "ruta_a_secundaria": {
         "marfil": "#F7F2EB", "arena": "#E9DCCB", "lila-empolvado": "#E8DAE6",
@@ -71,7 +71,7 @@ if __name__ == "__main__":
     with open(os.path.join(tok, "color.json"), "w") as f:
         json.dump(PALETA, f, ensure_ascii=False, indent=2)
     css = [":root {", "  /* Color corporativo · NO MODIFICABLE (Pantone/CMYK: PENDIENTE) */",
-           "  --ro-morado: #701B78;", "", "  /* Ruta A «Piel y luz» (base recomendada · borrador) */"]
+           "  --ro-morado: #7D1F73; /* del logotipo maestro LOGO_2023.psd · confirmar */", "", "  /* Ruta A «Piel y luz» (base recomendada · borrador) */"]
     css += [f"  --ro-{k}: {v};" for k, v in PALETA["ruta_a_secundaria"].items()]
     css += ["", "  /* Ruta B «Criterio sereno» (apoyo en medicina estética · borrador) */"]
     css += [f"  --ro-{k}: {v};" for k, v in PALETA["ruta_b_secundaria"].items()]
