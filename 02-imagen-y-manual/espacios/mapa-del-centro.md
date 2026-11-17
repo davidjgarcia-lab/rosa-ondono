@@ -5,7 +5,7 @@
 - 9 esferas 360° de Google Maps (recepción, pasillo, 5 cabinas, aseos y patio).
 - 1 foto de cabina aportada por el cliente.
 
-Ambas imágenes son de un usuario de Google Maps (Jorge Luis Álvarez Solís, hace unos 5 años) y **pueden estar sujetas a derechos de autor**. Por eso se guardan solo como referencia interna en `referencias-privadas/`, una carpeta excluida de Git que no se sube al repositorio público. **No se pueden publicar** en la web, en redes ni en campañas sin cesión de derechos.
+✅ **Derechos confirmados (17/11/2026):** el recorrido 360° (Jorge Luis Álvarez Solís, hace unos 5 años) fue un **encargo remunerado del centro, que tiene los derechos**. Las imágenes extraídas y reveladas **se pueden usar en la web, en redes y en publicidad**. Están en `assets/fotografia/recorrido-360/`.
 
 ## 1. Esquema de espacios (reconstruido a partir de las 9 esferas del recorrido)
 
@@ -32,11 +32,10 @@ Ambas imágenes son de un usuario de Google Maps (Jorge Luis Álvarez Solís, ha
  hornacina   aparato-    3 horna-    estor       blanca,     • ducha con
  grande +    logía +     cinas,      ciruela,    camilla +     pared verde
  lavabo      lavabo      amplia      monitor y   silla       • lavabo con
- (pared      (pared      (pared      portátil    (¿fisio o     pared de
- ciruela)    ciruela)    ciruela)    (¿láser o   medicina?)    mármol
-                                     diagnóstico?)
+ (pared      (pared      (pared      portátil                  pared de
+ ciruela)    ciruela)    ciruela)                              mármol
 ```
-*La distribución exacta y el uso de cada cabina deben confirmarse con Rosa.*
+*Las cabinas se numeran solo para identificarlas. Por decisión del cliente, no se asigna un uso a cada cabina.*
 
 ## 2. Ficha de cada espacio
 
@@ -45,8 +44,8 @@ Ambas imágenes son de un usuario de Google Maps (Jorge Luis Álvarez Solís, ha
 | **Recepción** | Mostrador con frente ciruela, vitrina de vidrio con producto, lirios blancos, luz natural del patio | Luminosa, ordenada, algo de «tienda» | Primer impacto de marca: icono en el mostrador o la pared, menos producto a la vista |
 | **Pasillo** | Mural collage (buda, loto, caracteres chinos), hornacina retroiluminada | Estética «zen» de hace 10–15 años | ⚠️ El collage asiático no encaja con el nuevo territorio y es un cliché. Propuesta: sustituirlo por fotografía propia o por una pared ciruela con el lema |
 | **Cabinas 1–3** (pared ciruela) | Pared de acento ciruela, hornacinas retroiluminadas, muebles crema, lavabo con mosaico, cobre, velas | Calidez, intimidad, cuidado | El corazón visual de la marca: base del estilo fotográfico |
-| **Cabina 4** | Estor ciruela, equipo con monitor, portátil | Técnica, menos cálida | Encaja con la «Valoración integral» y el diagnóstico |
-| **Cabina 5** | Blanca, camilla y silla | Clínica, neutra | Cabina médica o de fisioterapia: conviene dar señales de rigor (titulaciones visibles) |
+| **Cabina 4** | Estor ciruela, equipo con monitor, portátil | Técnica, menos cálida | Fotografiar con luz más cálida para igualarla al resto |
+| **Cabina 5** | Blanca, camilla y silla | Clínica, neutra | Añadir calidez: textiles, una planta y detalles de marca |
 | **Aseos** | Uno con ducha y pared verde menta, otro con pared de mármol | Incoherente con el resto | La pared verde rompe la paleta: valorar repintarla |
 | **Patio-jardín** | Cenador, plantas, geranios, muro con remate de terracota | Oasis urbano, pero hay instalaciones a la vista | **Activo diferencial** para el pilar «Siente» |
 
@@ -73,7 +72,7 @@ Elementos que se repiten en varias fotos y conviene retirar antes de fotografiar
    - Fotografiar el patio a primera hora o con luz de tarde.
 
 ## 4. Generar imágenes de entornos parecidos al real
-Para usar con un generador de imágenes (Adobe Firefly, Midjourney u otro). Adjunta como **imagen de referencia de estructura o estilo** la vista correspondiente de `referencias-privadas/`.
+Para usar con un generador de imágenes (Adobe Firefly, Midjourney u otro). Adjunta como **imagen de referencia de estructura o estilo** la vista correspondiente de `assets/fotografia/recorrido-360/`.
 
 **Reglas:**
 - Las imágenes generadas se usan como **moodboard, maquetas o fondos**, nunca como si fueran fotos reales del centro.
@@ -100,10 +99,10 @@ Para usar con un generador de imágenes (Adobe Firefly, Midjourney u otro). Adju
 ## 5. Fotos reveladas a partir del recorrido (17/11/2026)
 Se han extraído 10 encuadres en alta resolución (2400×1600) con las verticales rectas, en perspectiva de dos puntos como en fotografía de interiorismo:
 - **Revelado en Adobe (Photoshop/Lightroom):** auto-tono, más un ajuste común de marca (luces −25, sombras +15, contraste +12, temperatura algo más cálida, intensidad +15). En el patio: exposición +0,3 e intensidad +25. Los archivos están en la nube de Adobe Creative Cloud del usuario.
-- **Revelado local**, en `referencias-privadas/fotos-reveladas/`. Cada foto en tres formatos: `_3x2`, `_16x9-web` y `_4x5-redes`.
+- **Revelado local**, en `assets/fotografia/recorrido-360/`. Cada foto en tres formatos: `_3x2`, `_16x9-web` y `_4x5-redes`.
 
 **Límites de calidad:**
 - Las fotos vienen de una cámara 360° de hace unos 5 años: hay ruido, poca nitidez y luz artificial mezclada.
 - Sirven para maquetas, moodboards y referencias de la web, y como imagen provisional en Google Business Profile.
 - **No igualan una sesión profesional.** Para la web final y las campañas se recomienda una sesión de medio día, siguiendo la shot list de redes y el estilo del manual.
-- **Derechos:** las esferas están firmadas por un tercero en Google Maps. Antes de publicarlas hay que confirmar si fue un encargo del centro (con cesión de derechos) o pedir permiso al autor.
+- **Derechos:** confirmados. Fue un encargo remunerado del centro y se pueden publicar.
