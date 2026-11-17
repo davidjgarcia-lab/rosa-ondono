@@ -1,4 +1,6 @@
 # Dirección creativa · Dos rutas
+
+> **Actualización 17/11/2026:** el color oficial confirmado es **#7D1F73**, no #701B78. Los contrastes vigentes son los del manual v2.1 (`manual/`), que se construye sobre la Ruta A.
 *Versión 1 · BORRADOR para presentar al cliente · 17/11/2026*
 *Responsables: director-arte (lidera) · disenador-grafico (paleta y tipografía) · fotografo (moodboard) · qa (contrastes)*
 

@@ -8,7 +8,11 @@
 - Servicios: estética · terapias complementarias · medicina estética
 
 ## Icono / isotipo (NO MODIFICABLE)
-- Archivo original vectorial: **PENDIENTE de recibir (SVG/AI/EPS/PDF vectorial)**
+- Isotipo vectorial: ✅ recibido (17/11/2026) → `assets/logo-original/2023/isotipo-vector-original.svg`
+- Archivo maestro del logotipo: `assets/logo-original/2023/LOGO_2023.psd` (raster, 3543 × 1204 px)
+- Logotipo completo en vector: **no existe original** (confirmado por el cliente). Reconstruido en `02-imagen-y-manual/identidad/logo/`: isotipo vectorial original + texto calcado del PSD (coincidencia del 97,6 %). Pendiente de validación antes de imprenta.
+- Tipografías del logotipo: nombre en **Bambino Light**, descriptor en **Biko**. Licencias comerciales: ✅ confirmadas por el cliente.
+- Versiones autorizadas por el cliente (17/11/2026): color, monocromo negro, **negativo en blanco** y **supergráfico** (isotipo ampliado y recortado, sin redibujar).
 - Archivos raster recuperados de la web (solo referencia, no aptos para producción): `assets/logo-original/LOGO-ROSA-ONDONO-solo.png` (233×315 px) y favicons.
 - Descripción del icono: figura humana abstracta de trazo continuo y grosor uniforme — círculo superior (cabeza), cuerpo en doble onda/«S» y círculo macizo inferior. Lectura: persona, fluidez, equilibrio, energía que recorre el cuerpo. Encaja con Cuídate · Conecta · Siente.
 
@@ -17,10 +21,10 @@
 |---|---|
 | Pantone | PENDIENTE (confirmar con el cliente/imprenta) |
 | CMYK | PENDIENTE |
-| RGB | 112, 27, 120 *(medido en el PNG del icono)* |
-| HEX | #701B78 *(medido en el PNG del icono)* |
+| RGB | **125, 31, 115** |
+| HEX | **#7D1F73** ✅ confirmado por el cliente el 17/11/2026 (color del archivo maestro LOGO_2023.psd) |
 
-> ⚠️ **Discrepancia a resolver:** la web actual usa como color principal **#8E1F5C** (ciruela-magenta, 49 usos en CSS), distinto del icono **#701B78** (morado). Hay que confirmar con el cliente cuál es el oficial. Hipótesis de trabajo hasta entonces: el oficial es el del icono (#701B78) y #8E1F5C pasa a evaluarse como color de apoyo.
+> ✅ **Discrepancia resuelta (17/11/2026):** el oficial es **#7D1F73**. Se retiran #701B78 (favicon web), #6C2470 (PNG antiguos) y #8E1F5C (CSS de la web).
 
 ## Datos del negocio (para web, SEO local y campañas)
 - Dirección: Av. Maisonnave 38, Entlo. Izq., 03003 Alicante

@@ -66,3 +66,12 @@ Pantone: ________ · CMYK: ________ · Imprenta: ________
 - **P18 (licencias):** el nombre está compuesto en **Bambino Light** y el descriptor en **Biko**. ¿Tenéis licencia comercial de ambas fuentes?
 - **P19 (descriptor):** dice «centro de estetica y terapias complementarias», sin tilde y sin mencionar la medicina estética. ¿Lo corregimos?
 - **P20 (supergráfico):** ¿autorizas usar el isotipo ampliado y recortado por el borde como recurso gráfico? Se mantiene su forma y su color.
+
+---
+## Respuestas del cliente · 17/11/2026
+- ✅ **Color:** el oficial es **#7D1F73** (el del PSD). Pantone y CMYK: siguen pendientes.
+- ✅ **Vector:** no existe el logotipo completo en vector. Se ha reconstruido (isotipo original + texto calcado del PSD) y queda pendiente de validación visual.
+- ✅ **Licencias:** Bambino Light y Biko tienen licencia comercial.
+- ✅ **Negativo:** autorizado el isotipo en blanco.
+- ✅ **Supergráfico:** autorizado.
+- ⏳ Siguen sin respuesta: tilde del descriptor (P19), registro sanitario y colegiado (P9–P10), horario de invierno (P11), tuteo en medicina estética (P13) y Valoración integral (P14).

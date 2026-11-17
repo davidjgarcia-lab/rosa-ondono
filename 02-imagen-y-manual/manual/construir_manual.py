@@ -13,9 +13,12 @@ sys.path.insert(0, os.path.join(AQUI, "..", "identidad", "iconos"))
 from generar import ICONOS, svg as svg_icono  # noqa: E402
 
 LOGO_DIR = "../identidad/logo"
-H_LOGO = f"{LOGO_DIR}/logo-horizontal.png"
-V_LOGO = f"{LOGO_DIR}/logo-vertical.png"
-V_SIN = f"{LOGO_DIR}/logo-vertical-sin-descriptor.png"
+H_LOGO = f"{LOGO_DIR}/logo-horizontal.svg"
+V_LOGO = f"{LOGO_DIR}/logo-vertical.svg"
+V_SIN = f"{LOGO_DIR}/logo-vertical-sin-descriptor.svg"
+H_BL = f"{LOGO_DIR}/logo-horizontal-blanco.svg"
+V_BL = f"{LOGO_DIR}/logo-vertical-blanco.svg"
+H_NE = f"{LOGO_DIR}/logo-horizontal-negro.svg"
 FOTO = "img/fotos"
 with open(os.path.join(AQUI, "..", "identidad", "logo", "isotipo-negro.svg")) as f:
     ISO_D = re.search(r' d="([^"]+)"', f.read()).group(1)
@@ -61,7 +64,7 @@ nombres = dict(morado="Morado", marfil="Marfil", arena="Arena", lila="Lila", sal
 # ======================= PORTADA =======================
 pagina(f'''<div class="portada">
 <div class="pt-izq">
-  <p class="kicker">Manual de marca · v2.0 · Noviembre 2026</p>
+  <p class="kicker">Manual de marca · v2.1 · Noviembre 2026</p>
   {img(H_LOGO, "Logotipo de Rosa Ondoño", "width:118mm")}
   <p class="lema-xl">Cuídate · Conecta · Siente</p>
   <p class="pt-meta">Estrategia · Identidad · Color · Tipografía<br>Fotografía · Aplicaciones · Accesibilidad</p>
@@ -100,7 +103,7 @@ pagina(f'''{cab("Introducción", "Cómo está hecho este manual", "Reúne el tra
 <div class="ficha">{"".join(f'<div><p class="fl">{k}</p><p class="fv">{v}</p></div>' for k, v in ficha)}</div>''', "Introducción")
 
 # ======================= 01 · ESTRATEGIA =======================
-portadilla("01", "Estrategia", C["morado"], "", oscuro=True, sub="Bienestar integral con criterio")
+portadilla("01", "Estrategia", C["morado"], iso("#fff", "position:absolute;right:-24mm;top:-44mm;height:240mm;transform:rotate(-8deg)"), oscuro=True, sub="Bienestar integral con criterio")
 
 pagina(f'''<div class="g-2col"><div>{cab("01 · Estrategia", "Qué es Rosa Ondoño")}
 <p class="cuerpo">Un centro de estética, terapias manuales y complementarias y medicina estética en la Av. Maisonnave de Alicante, fundado por Rosa Ondoño: más de 30 años de oficio, formación en estética, naturopatía y terapias manuales, y médicos que le confían el drenaje postquirúrgico de sus pacientes.</p>
@@ -207,7 +210,7 @@ portadilla("03", "Logotipo", C["blanco"], img(V_LOGO, "", "position:absolute;rig
 
 pagina(f'''{cab("03 · Logotipo", "Logotipo principal")}
 <div class="lienzo centro" style="height:132mm">{img(H_LOGO, "Logotipo horizontal de Rosa Ondoño", "width:215mm")}</div>
-<p class="pie-nota">Archivo maestro: <code>LOGO_2023.psd</code>. Versión horizontal con descriptor: la preferente siempre que haya espacio a lo ancho.</p>''', "Logotipo")
+<p class="pie-nota">Versión horizontal con descriptor: la preferente siempre que haya espacio a lo ancho. Vector <code>logo-horizontal.svg</code>: isotipo vectorial original del cliente y texto calcado del archivo maestro <code>LOGO_2023.psd</code> (coincidencia del 97,6 %).</p>''', "Logotipo")
 
 pagina(f'''{cab("03 · Logotipo", "Anatomía")}
 <div class="lienzo centro anat" style="height:106mm">{img(H_LOGO, "Anatomía del logotipo", "width:200mm")}
@@ -229,10 +232,12 @@ pagina(f'''{cab("03 · Logotipo", "El sistema")}
 <div class="sb blanco">{img(H_LOGO, "", "width:88%")}<p class="sl2">A · Horizontal con descriptor · principal</p></div>
 <div class="sb blanco s-b">{img(V_LOGO, "", "width:80%")}<p class="sl2">B · Vertical con descriptor</p></div>
 <div class="sb lila">{iso(style="height:62%")}<p class="sl2">C · Isotipo</p></div>
+<div class="sb morado-b">{img(H_BL, "", "width:86%")}<p class="sl2" style="color:#fff">F · Negativo</p></div>
 <div class="sb blanco">{img(V_SIN, "", "height:70%")}<p class="sl2">D · Vertical sin descriptor</p></div>
 <div class="sb arena"><div class="avatar-m">{iso(style="height:62%")}</div><p class="sl2">E · Avatar y favicon</p></div>
+<div class="sb blanco">{img(H_NE, "", "width:86%")}<p class="sl2">G · Monocromo negro</p></div>
 </div>
-<p class="pie-nota">A para casi todo · B cuando hay espacio vertical (portadas, vales, packaging) · C como sello y supergráfico · D cuando el descriptor no se lee · E en perfiles y pestañas.</p>''', "Logotipo")
+<p class="pie-nota">A para casi todo · B cuando hay espacio vertical (portadas, vales, packaging) · C como sello y supergráfico · D cuando el descriptor no se lee · E en perfiles y pestañas · F sobre morado o fondos oscuros · G en una sola tinta.</p>''', "Logotipo")
 
 pagina(f'''{cab("03 · Logotipo", "Construcción y área de respeto")}
 <div class="g2">
@@ -257,13 +262,13 @@ fc = "".join(f'<div class="vc" style="background:{c}">{img(H_LOGO, "", "width:82
 pagina(f'''{cab("03 · Logotipo", "Versiones de color y fondos")}
 <div class="vcol">{fc}
 <div class="vc" style="background:#fff">{iso("#000", "height:30mm")}<p>Monocromo negro · versión oficial del cliente</p></div>
-<div class="vc rayas"><p class="grande">Negativo en blanco</p><p>{pend()} Requiere autorización: cambia el color del icono.</p></div>
-<div class="vc" style="background:var(--tinta)"><p class="grande" style="color:var(--marfil)">Fondo oscuro</p><p style="color:var(--marfil)">✖ Morado sobre tinta: {coma(ratio(C["morado"], C["tinta"]), 2)}:1. Prohibido.</p></div></div>
-<p class="pie-nota">El logotipo es un elemento gráfico: necesita al menos 3:1 con el fondo. Sobre foto, solo en zonas claras y lisas.</p>''', "Logotipo")
+<div class="vc" style="background:var(--morado)">{img(H_BL, "", "width:82%")}<p style="color:#fff">Negativo sobre morado · {coma(ratio("#FFFFFF", C["morado"]), 2)}:1 ✔</p></div>
+<div class="vc" style="background:var(--tinta)">{img(H_BL, "", "width:82%")}<p style="color:var(--marfil)">Negativo sobre tinta · {coma(ratio("#FFFFFF", C["tinta"]), 2)}:1 ✔</p></div></div>
+<p class="pie-nota">El logotipo necesita al menos 3:1 con el fondo. Sobre fondos claros, a color; sobre morado u oscuros, en negativo blanco. Nunca el morado sobre fondo oscuro ({coma(ratio(C["morado"], C["tinta"]), 2)}:1).</p>''', "Logotipo")
 
 malos = [("transform:scaleX(1.45)", "No lo deformes", ""), ("transform:rotate(-14deg)", "No lo gires", ""),
          ("filter:hue-rotate(160deg)", "No cambies su color", ""), ("filter:drop-shadow(5px 6px 3px rgba(0,0,0,.4))", "Sin sombras ni efectos", ""),
-         ("opacity:.25", "No uses poco contraste", ""), ("", "No lo pongas sobre fondo oscuro", "background:var(--tinta)"),
+         ("opacity:.25", "No uses poco contraste", ""), ("", "No uses el color sobre oscuro: va en negativo", "background:var(--tinta)"),
          ("", "No lo pongas sobre fotos recargadas", f"background:url({FOTO}/patio.jpg) center/cover"), ("transform:scaleX(-1)", "No lo reflejes", "")]
 mc = "".join(f'<div class="mal"><div class="mc" style="{b}">{img(H_LOGO, "Uso incorrecto", "width:76%;" + s)}</div><p>✖ {t}</p></div>' for s, t, b in malos)
 pagina(f'''{cab("03 · Logotipo", "Usos incorrectos")}<div class="g4 malos">{mc}</div>
@@ -288,15 +293,15 @@ pagina(f'''{cab("04 · Color", "Paleta y su procedencia", "Un solo color fijo, e
 <div class="paleta">{"".join(tarjeta_color(*p) for p in pal)}</div>
 <p class="pie-nota">CMYK y Pantone del morado: {pend()} (dato de la imprenta). Los del resto se fijarán con una prueba de impresión.</p>''', "Color")
 
-mor = [("#7D1F73", "Logotipo maestro LOGO_2023.psd y logos completos", "Propuesto como oficial"),
-       ("#701B78", "Favicon e isotipo de la web actual", "Variante"),
-       ("#6C2470", "PNG del isotipo y vertical sin descriptor", "Variante"),
+mor = [("#7D1F73", "Logotipo maestro LOGO_2023.psd y logos completos", "Oficial · confirmado 17/11/2026"),
+       ("#701B78", "Favicon e isotipo de la web actual", "Se sustituye"),
+       ("#6C2470", "PNG del isotipo y vertical sin descriptor", "Se sustituye"),
        ("#8E1F5C", "CSS de la web actual (49 usos)", "Se retira")]
 mc4 = "".join(f'<div class="mor"><div class="mor-s" style="background:{h}"></div><p class="mh">{h}</p><p>{s}</p><p class="mest {"ok" if i == 0 else ""}">{e}</p></div>' for i, (h, s, e) in enumerate(mor))
-pagina(f'''{cab("04 · Color", "Un morado, cuatro versiones", "Hoy circulan cuatro morados distintos. Son tan parecidos que, juntos, ensucian la marca: entre ellos el contraste no llega a 1,1:1.")}
+pagina(f'''{cab("04 · Color", "Un solo morado", "Circulaban cuatro morados distintos, tan parecidos que juntos ensuciaban la marca (contraste inferior a 1,1:1). Desde ahora, solo hay uno.")}
 <div class="g4">{mc4}</div>
-<div class="g2 mt"><div class="card oscuro"><p class="decl-m">Proponemos <span class="acento">#7D1F73</span> como color oficial: es el del archivo maestro del logotipo (2023) y el de los logos completos.</p></div>
-<div class="card blanco"><h4>{pend("Decisión del cliente")}</h4><p>Confirmar #7D1F73 y facilitar el Pantone o el CMYK de la imprenta. A partir de ahí, web, papelería y rótulos usan un único valor.</p></div></div>''', "Color")
+<div class="g2 mt"><div class="card oscuro"><p class="decl-m">El color oficial es <span class="acento">#7D1F73</span> · RGB 125, 31, 115: el del archivo maestro del logotipo. Web, papelería, rótulos y redes usan este único valor.</p></div>
+<div class="card blanco"><h4>Para imprimir {pend("Pantone y CMYK")}</h4><p>Falta el equivalente de imprenta. Se fijará con una prueba de color sobre el papel elegido y, para tarjetas, placa y vales, con una tinta directa Pantone.</p></div></div>''', "Color")
 
 parejas = [("La firma", "marfil", "morado"), ("El día a día", "marfil", "tinta"), ("Botón", "morado", "blanco"),
            ("Conecta", "arena", "morado"), ("Siente", "lila", "tinta"), ("Jardín", "salvia", "tinta")]
@@ -320,7 +325,7 @@ portadilla("05", "Tipografía", C["tinta"], '<p class="aa">Aa</p>', oscuro=True)
 pagina(f'''{cab("05 · Tipografía", "Un lettering y dos familias")}
 <div class="g3 tipos">
 <div class="card oscuro"><p class="cl" style="color:var(--lila)">Lettering del logotipo</p><div class="lt-n">Rosa Ondoño</div>
-<p class="mt">«Rosa Ondoño» está compuesto en <strong>Bambino Light</strong> y el descriptor en <strong>Biko</strong>. Solo viven en el logotipo: no se escribe con ellas.</p><p class="mt">{pend("Licencias por comprobar")}</p></div>
+<p class="mt">«Rosa Ondoño» está compuesto en <strong>Bambino Light</strong> y el descriptor en <strong>Biko</strong>. Solo viven en el logotipo: no se escribe con ellas.</p><p class="mt" style="color:var(--lila)">✔ Licencia comercial confirmada por el cliente.</p></div>
 <div class="card blanco"><p class="cl">Jost · titulares, texto e interfaz</p><p class="mega" style="font-family:Jost;font-weight:300">Aa Ññ</p>
 <p><b>Light 300 · Regular 400 · Medium 500</b></p><p>Geométrica de «o» circular, prima hermana de Bambino. Es la voz moderna y limpia de la marca.</p><p class="lic">SIL Open Font License · gratuita</p></div>
 <div class="card blanco"><p class="cl">Cormorant Garamond · lema y citas</p><p class="mega" style="font-family:'Cormorant Garamond';font-style:italic;font-weight:500">Aa Ññ</p>
@@ -341,14 +346,14 @@ portadilla("06", "Elementos gráficos", C["lila"], iso(style="position:absolute;
 tiles = [(C["marfil"], "right:-26mm;bottom:-46mm;height:115mm;transform:rotate(-10deg)", "Cuídate"),
          (C["arena"], "right:-30mm;bottom:-50mm;height:120mm;transform:rotate(8deg)", "Conecta"),
          (C["lila"], "right:-24mm;bottom:-40mm;height:118mm", "Siente"),
-         ("#fff", "right:-6mm;bottom:-58mm;height:120mm;transform:rotate(-6deg)", "")]
-tl = "".join(f'<div class="tile" style="background:{bg}">{iso(style="position:absolute;" + s)}{f"<p class=tt>{t}</p>" if t else img(H_LOGO, "", "position:absolute;left:7mm;top:7mm;width:44mm")}</div>' for bg, s, t in tiles)
+         (C["morado"], "right:-6mm;bottom:-58mm;height:120mm;transform:rotate(-6deg)", "")]
+tl = "".join(f'<div class="tile" style="background:{bg}">{iso("#fff" if bg == C["morado"] else "var(--morado)", "position:absolute;" + s)}{f"<p class=tt>{t}</p>" if t else img(H_BL, "", "position:absolute;left:7mm;top:7mm;width:44mm")}</div>' for bg, s, t in tiles)
 pagina(f'''<div class="g-super"><div>{cab("06 · Elementos", "El supergráfico")}
 <p class="cuerpo">El isotipo, a gran escala y recortado por el borde, es el gran recurso de la marca: aporta movimiento y reconocimiento sin añadir nada nuevo.</p>
 <div class="card blanco"><h4>Escala</h4><p>Entre el 120 % y el 300 % del alto de la pieza.</p></div>
 <div class="card blanco"><h4>Giro</h4><p>Entre −12° y +12°. Nunca boca abajo.</p></div>
-<div class="card blanco"><h4>Color</h4><p>Siempre en su morado, sobre marfil, arena, lila o blanco. Nunca junto al logotipo grande.</p></div>
-<p class="pie-nota">{pend("Aprobación")} Ampliar y recortar el isotipo no lo redibuja, pero cambia su encuadre: lo debe aprobar el cliente.</p></div><div class="g2 tiles">{tl}</div></div>''', "Elementos gráficos")
+<div class="card blanco"><h4>Color</h4><p>En su morado sobre marfil, arena, lila o blanco; en blanco sobre morado. Nunca junto al logotipo grande.</p></div>
+<p class="pie-nota">✔ Uso aprobado por el cliente el 17/11/2026. El isotipo se amplía y se recorta, pero no se redibuja ni se deforma.</p></div><div class="g2 tiles">{tl}</div></div>''', "Elementos gráficos")
 
 icg = "".join(f'<div class="ic"><span class="icc">{ico(k, 24)}</span><p>{v[0]}</p></div>' for k, v in ICONOS.items())
 pagina(f'''<div class="g-2col"><div>{cab("06 · Elementos", "Iconografía", "Un set propio de iconos de línea: trazo de 1,5 px, extremos redondeados, dentro de un círculo lila. Acompaña al isotipo, pero no lo imita.")}
@@ -381,7 +386,7 @@ pagina(f'''{cab("06 · Fotografía", "Qué sí y qué no")}
 <p class="pie-nota">Fotos del moodboard: Unsplash (licencia Unsplash), solo como referencia. Las definitivas saldrán de una sesión propia en el centro.</p>''', "Fotografía")
 
 # ======================= 07 · APLICACIONES =======================
-portadilla("07", "Aplicaciones", C["morado"], "", oscuro=True, sub="La marca en la vida real")
+portadilla("07", "Aplicaciones", C["morado"], iso("#fff", "position:absolute;left:160mm;top:-70mm;height:300mm;transform:rotate(10deg)"), oscuro=True, sub="La marca en la vida real")
 
 pagina(f'''{cab("07 · Aplicaciones", "Papelería")}
 <div class="pap">
@@ -398,7 +403,7 @@ pagina(f'''{cab("07 · Aplicaciones", "Redes sociales")}
 <div class="post p-foto" style="background-image:url({FOTO}/masaje-manos.jpg)"><div class="pf-t"><p class="kicker" style="color:var(--marfil)">Conecta</p><p class="pt2">Tu cuerpo te habla.</p></div></div>
 <div class="post" style="background:var(--lila)">{iso(style="position:absolute;right:-22mm;bottom:-52mm;height:84mm")}<p class="kicker">Siente</p><p class="pt2" style="color:var(--tinta)">Un tiempo<br>solo para ti.</p></div>
 <div class="post" style="background:#fff"><p class="kicker">Cuídate · La valoración</p><p class="pt3">«Tres preguntas que te haré antes de cualquier tratamiento facial.»</p><p class="firma-p">— Rosa</p>{img(H_LOGO, "", "position:absolute;left:6mm;bottom:6mm;width:30mm")}</div>
-<div class="story" style="background:var(--arena)">{iso(style="position:absolute;left:4mm;top:-24mm;height:60mm;transform:rotate(-8deg)")}<p class="pt2">Regala tiempo</p><span class="st-btn">Ver tarjetas</span></div></div>
+<div class="story" style="background:var(--morado)">{iso("#fff", "position:absolute;left:4mm;top:-24mm;height:60mm;transform:rotate(-8deg)")}<p class="pt2" style="color:#fff">Regala tiempo</p><span class="st-btn">Ver tarjetas</span></div></div>
 <div class="dest">{"".join(f'<div><span class="icc g">{ico(k, 24)}</span><p>{t}</p></div>' for k, t in [("valoracion", "Valoración"), ("facial", "Facial"), ("masaje", "Masajes"), ("ritual", "Rituales"), ("regalo", "Regalo"), ("ubicacion", "El centro")])}</div>
 <p class="pie-nota">Una pareja de color por pieza, titular en Jost Light y el isotipo como supergráfico. El logotipo, pequeño y discreto. Portadas de destacados con el set de iconos.</p>''', "Aplicaciones")
 
@@ -428,37 +433,41 @@ for f, t in pares:
     r = ratio(C[f], C[t]); ok = r >= 4.5
     filas_c += f'<tr><td><span class="chip-c" style="background:{C[f]};color:{C[t]}">Aa 16 px</span></td><td>{nombres[t]} sobre {nombres[f].lower()}</td><td><b>{coma(r)}:1</b></td><td class="{"ok" if ok else "ko"}">{"✔" if ok else "✖"} {nivel(r)}</td></tr>'
 pagina(f'''<div class="g-2col"><div>{cab("08 · Accesibilidad", "Contraste comprobado", "Mínimo 4,5:1 en texto normal y 3:1 en texto grande y elementos gráficos (WCAG 2.2 AA).")}<table class="tcontr">{filas_c}</table></div>
-<div class="pila mt2"><div class="card rosa-suave"><h4>Nunca morado sobre oscuro</h4><p>Con la tinta da {coma(ratio(C["morado"], C["tinta"]), 2)}:1. Sobre fondo oscuro, el texto va en marfil.</p></div>
+<div class="pila mt2"><div class="card rosa-suave"><h4>Nunca morado sobre oscuro</h4><p>Con la tinta da {coma(ratio(C["morado"], C["tinta"]), 2)}:1. Sobre fondo oscuro, el texto va en marfil y el logotipo en negativo blanco.</p></div>
 <div class="card blanco"><h4>Arcilla y salvia, solo de apoyo</h4><p>Con ellas, el morado no llega a 4,5:1 en texto pequeño. Se usan como fondo con texto en tinta, o en ilustración.</p></div>
 <div class="card blanco"><h4>Web</h4><p>Objetivo WCAG 2.2 AA: foco visible, botones de 48 px, textos alternativos y movimiento reducido si el usuario lo pide.</p></div></div></div>''', "Accesibilidad")
 
 pagina(f'''<div class="g-2col"><div>{cab("08 · Archivos", "Formatos válidos")}
 <table class="tform"><tr><th>Formato</th><th>Color</th><th>Uso</th></tr>
-<tr><td><b>SVG</b></td><td>RGB / HEX</td><td>Web e interfaz. Isotipo disponible; logotipo completo {pend()}</td></tr>
-<tr><td><b>PDF vectorial</b></td><td>CMYK + Pantone</td><td>Imprenta, papelería y vales</td></tr>
+<tr><td><b>SVG</b></td><td>RGB / HEX</td><td>Web e interfaz. ✔ Disponible: todas las versiones, en color, negro y blanco</td></tr>
+<tr><td><b>PDF vectorial</b></td><td>CMYK + Pantone</td><td>Imprenta, papelería y vales. Se exporta del SVG cuando esté el Pantone {pend()}</td></tr>
 <tr><td><b>EPS / AI</b></td><td>CMYK + Pantone</td><td>Rotulación, bordado, vinilo y relieve</td></tr>
 <tr><td><b>PNG transparente</b></td><td>RGB</td><td>Office, email, redes y presentaciones (2× y 3×)</td></tr>
 <tr><td><b>JPG</b></td><td>sRGB</td><td>Solo fotografía, nunca el logotipo</td></tr></table>
 <p class="cuerpo"><b>RGB/HEX</b> para todo lo que se ve en pantalla; <b>CMYK o Pantone</b> para todo lo que se imprime. En tarjetas, placa y vales, tinta directa Pantone.</p>
-<p class="pie-nota">Archivos en <code>identidad/logo/</code>: isotipo-color.svg · isotipo-negro.svg · logo-horizontal.png · logo-vertical.png · logo-vertical-sin-descriptor.png</p></div>
+<p class="pie-nota">Archivos en <code>identidad/logo/</code>: isotipo, logo-horizontal, logo-vertical y logo-vertical-sin-descriptor, cada uno en .svg (color), -negro.svg y -blanco.svg.</p></div>
 <div>{cab("08 · Archivos", "Antes de publicar")}<ul class="check">
 <li>Logotipo original, sin modificar, sobre fondo claro y con su área de respeto.</li><li>Un único morado: #7D1F73.</li>
 <li>Solo Jost y Cormorant en los textos.</li><li>Todo el texto con contraste AA.</li>
 <li>Sin garantías, «curar», «seguro», urgencias ni palabras vetadas.</li><li>Medicina estética: profesional identificado y nº de registro sanitario.</li>
 <li>Consentimiento escrito de cada persona fotografiada.</li><li>Revisión de QA según la guía de cumplimiento legal.</li></ul></div></div>''', "Archivos")
 
-pend_l = [("Color oficial", "Confirmar #7D1F73 y facilitar Pantone y CMYK de la imprenta."),
-          ("Logotipo completo en vector", "Tenemos el isotipo en SVG. Falta el logotipo con el nombre (AI, EPS o PDF)."),
-          ("Licencias tipográficas", "Bambino Light y Biko: confirmar la licencia comercial del logotipo."),
+res_l = [("Color oficial", "#7D1F73, el del PSD maestro."), ("Licencias", "Bambino Light y Biko, con licencia comercial."),
+         ("Negativo", "Isotipo y logotipo en blanco sobre morado u oscuro."), ("Supergráfico", "Isotipo ampliado y recortado como recurso."),
+         ("Vector del logotipo", "No existía: se ha reconstruido con el isotipo original y el texto calcado del PSD.")]
+pend_l = [("Pantone y CMYK", "Fijar el equivalente de imprenta del #7D1F73 con una prueba de color."),
+          ("Validar el vector", "Revisar con lupa el logotipo reconstruido antes de enviarlo a imprenta o rotulación."),
           ("Descriptor", "Corregir la tilde de «estética» y valorar incluir la medicina estética."),
-          ("Negativo y supergráfico", "Autorizar el isotipo en blanco sobre fondo oscuro y su uso ampliado y recortado."),
-          ("Datos sanitarios", "Nº de registro sanitario del centro y nº de colegiado del médico.")]
-pagina(f'''{cab("Siguientes pasos", "Lo que necesitamos del cliente", "Sin estos datos, el manual es un borrador: en cuanto lleguen, se actualiza y se exportan los archivos finales.")}<div class="g3">{"".join(f'<div class="card borde-sup" style="--c:var(--morado)"><p class="cnum">{i+1:02d}</p><h4>{a}</h4><p>{b}</p></div>' for i, (a, b) in enumerate(pend_l))}</div>''', "Pendientes")
+          ("Datos sanitarios", "Nº de registro sanitario del centro y nº de colegiado del médico."),
+          ("Sesión de fotos", "Sustituir las fotos de referencia por una sesión propia en el centro.")]
+pagina(f'''{cab("Siguientes pasos", "Decidido y pendiente", "Decisiones del cliente del 17/11/2026 y lo que falta para cerrar los archivos finales.")}
+<div class="g2"><div><h4 class="si">✔ Resuelto</h4>{"".join(f'<div class="card blanco fila"><b>{a}</b><span>{b}</span></div>' for a, b in res_l)}</div>
+<div><h4 style="color:#8A1C1C">Pendiente</h4>{"".join(f'<div class="card blanco fila"><b>{a}</b><span>{b}</span></div>' for a, b in pend_l)}</div></div>''', "Pendientes")
 
-pagina(f'''<div class="contra">{iso(style="position:absolute;right:-70mm;top:-56mm;height:300mm;transform:rotate(-10deg)")}
-<div class="contra-t">{img(V_LOGO, "Logotipo de Rosa Ondoño", "height:62mm")}
-<p class="lema-xl" style="margin-top:10mm">Cuídate · Conecta · Siente</p>
-<p class="pt-meta">Av. Maisonnave 38, Entlo. Izq. · 03003 Alicante<br>965 120 300 · rosaondono.com · @rosaondono</p></div></div>''', "Contraportada", "marfil", clase="sin-pie")
+pagina(f'''<div class="contra">{iso("#fff", "position:absolute;right:-70mm;top:-56mm;height:300mm;transform:rotate(-10deg)")}
+<div class="contra-t">{img(V_BL, "Logotipo de Rosa Ondoño", "height:62mm")}
+<p class="lema-xl" style="margin-top:10mm;color:var(--lila)">Cuídate · Conecta · Siente</p>
+<p class="pt-meta" style="color:var(--marfil)">Av. Maisonnave 38, Entlo. Izq. · 03003 Alicante<br>965 120 300 · rosaondono.com · @rosaondono</p></div></div>''', "Contraportada", "morado", oscuro=True, clase="sin-pie")
 
 # ======================= ESTILOS =======================
 CSS = """
@@ -554,9 +563,9 @@ code{font-size:8pt;background:rgba(125,31,115,.08);padding:0 1.5mm;border-radius
 .lienzo{border-radius:5mm;background:#fff}
 .anat{position:relative}.et{position:absolute;background:var(--tinta);color:var(--marfil);font-size:8pt;padding:1mm 3mm;border-radius:10mm}
 .g-simbolo{display:grid;grid-template-columns:1fr 1.2fr;gap:10mm;height:100%}.g-simbolo .card{margin-bottom:3mm}
-.sistema{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:64mm 64mm;gap:4mm}
+.sistema{display:grid;grid-template-columns:1.45fr 1fr .9fr 1.2fr;grid-template-rows:64mm 64mm;gap:4mm}
 .sb{border-radius:5mm;position:relative;display:flex;align-items:center;justify-content:center}
-.sb.blanco{background:#fff}.sb.lila{background:var(--lila)}.sb.arena{background:var(--arena)}
+.sb.blanco{background:#fff}.sb.morado-b{background:var(--morado)}.sb.lila{background:var(--lila)}.sb.arena{background:var(--arena)}
 .s-b{grid-row:span 2;grid-column:2}
 .sl2{position:absolute;left:5mm;bottom:3mm;font-size:8pt;font-weight:500}
 .avatar-m{width:32mm;height:32mm;border-radius:50%;background:var(--marfil);display:flex;align-items:center;justify-content:center}
@@ -614,7 +623,7 @@ code{font-size:8pt;background:rgba(125,31,115,.08);padding:0 1.5mm;border-radius
 .p-foto{background-size:cover;background-position:center}.pf-t{position:absolute;left:0;right:0;bottom:0;padding:6mm;background:linear-gradient(transparent,rgba(46,26,44,.78))}
 .pt2{font-weight:300;font-size:19pt;line-height:1.1;color:var(--marfil)}.pt3{font-weight:300;font-size:14pt;line-height:1.2;margin-top:3mm}.firma-p{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--morado);font-size:13pt}
 .story{width:40mm;height:71mm;border-radius:3mm;position:relative;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.08)}.story .pt2{color:var(--tinta);position:absolute;left:5mm;bottom:17mm;font-size:14pt}
-.st-btn{position:absolute;left:5mm;bottom:7mm;background:var(--morado);color:#fff;font-size:7pt;padding:1mm 3mm;border-radius:10mm}
+.st-btn{position:absolute;left:5mm;bottom:7mm;background:#fff;color:var(--morado);font-size:7pt;padding:1mm 3mm;border-radius:10mm}
 .dest{display:flex;gap:8mm;margin-top:7mm}.dest div{text-align:center;font-size:8pt}
 .g-web{display:grid;grid-template-columns:2.2fr .8fr;gap:8mm;align-items:center}
 .nav-m{border-radius:3mm;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.16);background:#fff}
@@ -636,6 +645,7 @@ code{font-size:8pt;background:rgba(125,31,115,.08);padding:0 1.5mm;border-radius
 .check{list-style:none}.check li{padding:2.4mm 0 2.4mm 8mm;border-bottom:1px solid #e3d8cc;position:relative;font-size:10pt}.check li::before{content:'';position:absolute;left:0;top:3mm;width:4mm;height:4mm;border:1.2px solid var(--morado);border-radius:1mm}
 .contra{position:absolute;inset:0}.contra-t{position:absolute;left:22mm;top:50%;transform:translateY(-50%)}
 .sin-pie .pie{display:none}
+.fila{display:grid;grid-template-columns:42mm 1fr;gap:4mm;padding:3.4mm 5mm;margin-bottom:2.5mm;font-size:9.5pt}
 """
 
 def render():
@@ -643,9 +653,9 @@ def render():
     for i, (cuerpo, seccion, fondo, oscuro, clase) in enumerate(PAGINAS, 1):
         bg = C.get(fondo, fondo)
         out.append(f'<section class="page {clase}{" oscuro-p" if oscuro else ""}" style="background:{bg}">{cuerpo}'
-                   f'<div class="pie"><span>Rosa Ondoño · Manual de marca · v2.0 · Noviembre 2026</span><span>{seccion}</span><span>{i:02d}</span></div></section>')
+                   f'<div class="pie"><span>Rosa Ondoño · Manual de marca · v2.1 · Noviembre 2026</span><span>{seccion}</span><span>{i:02d}</span></div></section>')
     return f"""<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Manual de marca · Rosa Ondoño · v2.0</title>
+<title>Manual de marca · Rosa Ondoño · v2.1</title>
 <!-- Generado por manual/construir_manual.py · no editar a mano -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
