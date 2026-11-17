@@ -2,79 +2,60 @@
 *17/11/2026 · Responsables: fotografo, director-arte*
 
 **Fuentes:**
-- 1 esfera 360° de Google Maps (el patio).
+- 9 esferas 360° de Google Maps (recepción, pasillo, 5 cabinas, aseos y patio).
 - 1 foto de cabina aportada por el cliente.
 
 Ambas imágenes son de un usuario de Google Maps (Jorge Luis Álvarez Solís, hace unos 5 años) y **pueden estar sujetas a derechos de autor**. Por eso se guardan solo como referencia interna en `referencias-privadas/`, una carpeta excluida de Git que no se sube al repositorio público. **No se pueden publicar** en la web, en redes ni en campañas sin cesión de derechos.
 
-> Este mapa está incompleto. El recorrido tiene más puntos (recepción, otras cabinas, etc.) a los que no he podido acceder. Hay que completarlo con los enlaces de cada esfera o con fotos nuevas.
-
-## 1. Esquema de espacios
+## 1. Esquema de espacios (reconstruido a partir de las 9 esferas del recorrido)
 
 ```
-                Av. Maisonnave (calle)
-                        │
-              [Portal y escalera del edificio]
-                        │  (entresuelo izquierda)
-        ┌───────────────┴────────────────┐
-        │  RECEPCIÓN / ESPERA   (?)       │  ← sin datos: confirmar
-        ├────────────┬────────────────────┤
-        │ CABINA A   │  CABINAS B, C… (?) │  ← A = cabina de la foto (pared ciruela)
-        │ (facial/   │  masaje, medicina  │
-        │ corporal)  │  estética, fisio…  │
-        └─────┬──────┴─────────┬──────────┘
-              │ puerta corredera│ puerta corredera
-              │ vidrio mate +   │ vidrio transparente
-              │ vinilo del icono│ (se ve cabina con sillón blanco)
-        ┌─────┴─────────────────┴──────────────────────┐
-        │              PATIO-JARDÍN INTERIOR            │
-        │  • cenador de lona crema con mesa y sillas    │
-        │  • más de 30 macetas: monstera, palmeras areca,│
-        │    ficus, dracena, yuca, geranios rojos       │
-        │  • paredes blancas; lona crema en zócalo      │
-        │  • muro perimetral con remate de terracota    │
-        └───────────────────────────────────────────────┘
+  Puerta de entrada (escalera del edificio, entresuelo izq.)
+        │
+  ┌─────┴──────────────────────────────┐        ┌──────────────────────────┐
+  │ RECEPCIÓN                           │ venta- │                          │
+  │ • mostrador blanco, frente ciruela  │ nal +  │   PATIO-JARDÍN INTERIOR  │
+  │ • vitrina de vidrio con productos   │ puerta │  • cenador de lona crema │
+  │ • panel de vidrio con caracteres    ├────────┤  • más de 30 macetas     │
+  │   chinos · sillón blanco · agua     │ corre- │  • puertas correderas a  │
+  │ • lámparas colgantes de cristal     │ dera   │    las cabinas (vinilo   │
+  └─────┬──────────────────────────────┘        │    con el icono)         │
+        │                                        └──────────────────────────┘
+  ┌─────┴────────────────────────────────────────────────────────────┐
+  │ PASILLO DE CABINAS                                                │
+  │ • mural tipo collage asiático (buda, loto, agua, caracteres chinos)│
+  │ • hornacina de vidrio retroiluminada con producto                 │
+  │ • puertas de color wengué, techo con focos                        │
+  └──┬───────────┬───────────┬───────────┬───────────┬──────────┬───┘
+     │           │           │           │           │          │
+ CABINA 1    CABINA 2    CABINA 3    CABINA 4    CABINA 5    ASEOS
+ hornacina   aparato-    3 horna-    estor       blanca,     • ducha con
+ grande +    logía +     cinas,      ciruela,    camilla +     pared verde
+ lavabo      lavabo      amplia      monitor y   silla       • lavabo con
+ (pared      (pared      (pared      portátil    (¿fisio o     pared de
+ ciruela)    ciruela)    ciruela)    (¿láser o   medicina?)    mármol
+                                     diagnóstico?)
 ```
+*La distribución exacta y el uso de cada cabina deben confirmarse con Rosa.*
 
 ## 2. Ficha de cada espacio
 
-### Patio-jardín interior (esfera 360°) ✅
-- **Qué es:** terraza ajardinada en el patio de manzana, a la que dan las cabinas por puertas correderas de vidrio. **Es un activo diferencial:** pocos centros del centro de Alicante tienen un jardín privado.
-- **Materiales y colores:**
-  - Paredes blancas encaladas.
-  - Suelo de baldosa beige.
-  - Lona crema.
-  - Macetas de terracota.
-  - Verde intenso de las plantas.
-  - Toque rojo de los geranios.
-- **Elementos que conviene esconder o recolocar antes de fotografiar:**
-  - Máquinas de aire acondicionado.
-  - Cartel de alarma.
-  - Cableado y bajantes.
-  - Rejas de los vecinos.
-  - Fachadas de los edificios de arriba.
-- **Uso en la marca:** pilar **«Siente»**. Momento post-tratamiento con infusión, rituales al aire libre, contenidos de calma y naturaleza, y posible «espacio de desconexión» como argumento de venta.
+| Espacio | Lo que hay | Lo que transmite hoy | Para el rebranding |
+|---|---|---|---|
+| **Recepción** | Mostrador con frente ciruela, vitrina de vidrio con producto, lirios blancos, luz natural del patio | Luminosa, ordenada, algo de «tienda» | Primer impacto de marca: icono en el mostrador o la pared, menos producto a la vista |
+| **Pasillo** | Mural collage (buda, loto, caracteres chinos), hornacina retroiluminada | Estética «zen» de hace 10–15 años | ⚠️ El collage asiático no encaja con el nuevo territorio y es un cliché. Propuesta: sustituirlo por fotografía propia o por una pared ciruela con el lema |
+| **Cabinas 1–3** (pared ciruela) | Pared de acento ciruela, hornacinas retroiluminadas, muebles crema, lavabo con mosaico, cobre, velas | Calidez, intimidad, cuidado | El corazón visual de la marca: base del estilo fotográfico |
+| **Cabina 4** | Estor ciruela, equipo con monitor, portátil | Técnica, menos cálida | Encaja con la «Valoración integral» y el diagnóstico |
+| **Cabina 5** | Blanca, camilla y silla | Clínica, neutra | Cabina médica o de fisioterapia: conviene dar señales de rigor (titulaciones visibles) |
+| **Aseos** | Uno con ducha y pared verde menta, otro con pared de mármol | Incoherente con el resto | La pared verde rompe la paleta: valorar repintarla |
+| **Patio-jardín** | Cenador, plantas, geranios, muro con remate de terracota | Oasis urbano, pero hay instalaciones a la vista | **Activo diferencial** para el pilar «Siente» |
 
-### Cabina A (foto del cliente) ✅
-- **Pared de acento** en ciruela o magenta oscuro con columna central iluminada.
-  - En la foto, bajo luz cálida, se ve entre #7B3748 y #9C4C63, más cerca del #8E1F5C de la web que del #701B78 del icono.
-  - **No sirve como medida de color:** hay que pedir la referencia de la pintura.
-- **Mobiliario:**
-  - Muebles lacados en crema.
-  - Lavabo sobre encimera con salpicadero de mosaico.
-  - Hornacina retroiluminada con productos.
-  - Mesa auxiliar con aceites esenciales.
-- **Atrezo y equipamiento:**
-  - Alambique de cobre y velas.
-  - Lámpara de sal.
-  - Cuadro de flor violeta.
-  - Equipo de aparatología corporal blanco.
-- **Textil:** camilla con sábana blanca y **cojín con el icono bordado en morado**, un detalle de marca que hay que potenciar.
-- **Luz:** downlights cálidos y paredes laterales beige.
-- **Uso en la marca:** pilar **«Cuídate»**, para tratamientos faciales y corporales y aparatología.
-
-### Por confirmar
-Recepción, sala de espera, otras cabinas (masaje, fisioterapia y osteopatía, medicina estética), aseo, zona de pareja o circuito spa, y escaparate o portal.
+Elementos que se repiten en varias fotos y conviene retirar antes de fotografiar:
+- Pósteres de marcas de cosmética.
+- Cartelería de depilación.
+- Extintores en plano.
+- Cables.
+- Máquinas de aire acondicionado del patio.
 
 ## 3. Conclusiones para el rebranding
 1. El centro **ya tiene el morado o ciruela en el espacio físico**. El sistema visual tiene que dialogar con ese color, además de con el del icono.
@@ -115,3 +96,14 @@ Para usar con un generador de imágenes (Adobe Firefly, Midjourney u otro). Adju
 > Therapist's hands gently giving a back massage, client lying on a treatment bed with white linen, plum-toned softly lit wall in the background, natural skin texture, warm and respectful, no face visible, editorial photography, calm atmosphere
 
 **Negative prompt común:** `text, watermark, logo, signage, air conditioner, cables, clutter, neon, glossy plastic, cartoon, oversaturated, fake skin, before and after`
+
+## 5. Fotos reveladas a partir del recorrido (17/11/2026)
+Se han extraído 10 encuadres en alta resolución (2400×1600) con las verticales rectas, en perspectiva de dos puntos como en fotografía de interiorismo:
+- **Revelado en Adobe (Photoshop/Lightroom):** auto-tono, más un ajuste común de marca (luces −25, sombras +15, contraste +12, temperatura algo más cálida, intensidad +15). En el patio: exposición +0,3 e intensidad +25. Los archivos están en la nube de Adobe Creative Cloud del usuario.
+- **Revelado local**, en `referencias-privadas/fotos-reveladas/`. Cada foto en tres formatos: `_3x2`, `_16x9-web` y `_4x5-redes`.
+
+**Límites de calidad:**
+- Las fotos vienen de una cámara 360° de hace unos 5 años: hay ruido, poca nitidez y luz artificial mezclada.
+- Sirven para maquetas, moodboards y referencias de la web, y como imagen provisional en Google Business Profile.
+- **No igualan una sesión profesional.** Para la web final y las campañas se recomienda una sesión de medio día, siguiendo la shot list de redes y el estilo del manual.
+- **Derechos:** las esferas están firmadas por un tercero en Google Maps. Antes de publicarlas hay que confirmar si fue un encargo del centro (con cesión de derechos) o pedir permiso al autor.
