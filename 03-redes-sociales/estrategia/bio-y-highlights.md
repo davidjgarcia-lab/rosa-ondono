@@ -44,6 +44,15 @@ Alicante · Maisonnave 38
 
 **Recomendación:** B en campaña de Navidad y Reyes y A el resto del año. En la bio no se mencionan tratamientos médicos concretos ni promociones.
 
+> **Nota de QA (17/11/2026):** las tres opciones citan la medicina estética como servicio. Mientras falten el n.º de registro sanitario del centro y la confirmación del asesor sobre la publicidad sanitaria [PENDIENTE], no se activa ninguna bio que la mencione. Si la bio de campaña tiene que publicarse el 25/11 sin esos datos, se usa esta variante **B-sin-med (131 caracteres, contados con script)**:
+> ```
+> Estética, masajes, terapias y rituales
+> Cuídate · Conecta · Siente
+> +30 años cuidándote en Av. Maisonnave 38, Alicante
+> Bonos regalo ↓
+> ```
+> El mismo criterio aplica a la introducción de Facebook (§2) y a la descripción de Google (§3).
+
 **Otros ajustes del perfil**
 - Categoría: «Centro de estética» (o «Salud y belleza»; validar con lo que permita la cuenta profesional).
 - Botones de contacto: WhatsApp (691 315 622), llamar (965 120 300) y dirección (Av. Maisonnave 38, Entlo. Izq., 03003 Alicante).

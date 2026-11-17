@@ -17,7 +17,7 @@
 ## Punto de partida (investigación 17/11/2026)
 - Instagram (@rosaondono) no se ha podido analizar sin sesión iniciada. Hay que pedir al cliente capturas, estadísticas y acceso.
 - La competencia directa de SoKo está enfrente (Maisonnave 41). Referentes de contenido: Maeli (educativo y médico) y Rituals (emocional).
-- Material ya disponible: más de 15 reseñas de 4,9★ con citas reutilizables (con permiso), la historia de 30 años de Rosa y la especialidad postquirúrgica.
+- Material ya disponible: reseñas de Google con valoración 4,9★ (n.º total de reseñas [PENDIENTE: confirmar en la ficha]), cuyas citas solo se podrán reutilizar con permiso escrito de sus autores; la historia de 30 años de Rosa y la especialidad postquirúrgica.
 
 ## Bloqueos y datos pendientes (actualizado 17/11/2026)
 

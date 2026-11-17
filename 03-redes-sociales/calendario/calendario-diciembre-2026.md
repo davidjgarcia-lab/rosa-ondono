@@ -6,9 +6,10 @@
 
 ## 0. Cómo leer este calendario
 - **Códigos de pieza:** D01–D16 (diciembre) y E01–E04 (enero, opcional). Son los códigos de publicación.
-- **Códigos de plano:** R01–R10 (reels), F01–F15 (fotos 4:5), S01–S10 (fondos de stories) y G01–G05 (Google), tal como figuran en el shot list. Son estables: si un plano cambia, manda el registro de cambios del shot list.
-- **Plantillas:** POST, CAR, STO, REEL y GBP, según las especificaciones de disenador-grafico. Formato 4:5 (1080 × 1350); la rejilla del perfil recorta a 3:4, así que nada importante en las franjas superior e inferior.
+- **Códigos de plano:** R01–R12 (reels), F01–F19 (fotos 4:5), S01–S11 (fondos de stories) y G01–G06 (Google), tal como figuran en el shot list. Son estables: si un plano cambia, manda el registro de cambios del shot list.
+- **Plantillas:** POST, CAR, STO, REEL y GBP, según las especificaciones de disenador-grafico. Formato 4:5 (1080 × 1350); la rejilla del perfil recorta a 3:4 por los laterales (≈ 34 px por lado), así que nada importante pegado a los bordes izquierdo y derecho.
 - **Marcadores `[PENDIENTE: …]`:** ninguna pieza que los contenga se publica hasta sustituirlos por el dato real del cliente. **No se inventan precios, horarios, plazos ni citas.**
+- **Subtítulos:** todos los reels con voz (D01, D03, D09, D11 si lleva voz, D14, E03) llevan subtítulos incrustados en la zona segura y archivo .srt para Facebook (especificaciones de plantillas §8). Los reels sin voz (D08, D13) llevan solo texto en pantalla, que se transcribe en el texto alternativo.
 - **Hora de publicación:** sin datos de actividad de seguidores. Provisional: entre semana a las 13:30 o a las 20:30; se ajusta con la auditoría.
 
 ## 1. Reglas de la campaña de bonos regalo (aplican a todas las piezas)
@@ -56,7 +57,7 @@
 **Resumen de diciembre (feed de Instagram):** 15 piezas (D04 no va al feed). Por semana: 3 · 3 · 4 · 3 · 2.
 - **Por pilar:** Cuídate 3 (20 %), Conecta 6 (40 %) y Siente 6 (40 %).
 - **Por formato:** 7 reels, 4 carruseles y 4 posts.
-- **Fuera del feed:** Facebook recibe 14 piezas adaptadas y Google, 5 publicaciones más el horario especial.
+- **Fuera del feed:** Facebook recibe 15 piezas adaptadas (todas salvo D10) y Google, 4 publicaciones (D01, D08, D12 y D15) más los horarios especiales del puente (D04) y de Navidad (D12).
 
 ### 2.1 Fechas clave del mes
 - **Domingo 6/12:** Día de la Constitución (cae en domingo). [PENDIENTE: confirmar si el calendario laboral de la Comunitat Valenciana lo traslada al lunes 7 y si el centro abre.]
@@ -95,7 +96,7 @@ Ritmo recomendado: de 3 a 6 frames al día. Escenario mínimo: 3 días a la sema
 
 | # | Tiempo | Plano | Rosa dice (voz directa) | Texto en pantalla |
 |---|---|---|---|---|
-| 1 | 0-4 s | R01 (plano medio, Rosa a cámara) | «Este año te propongo regalar algo diferente: tiempo para cuidarse.» | Regala tiempo para cuidarte |
+| 1 | 0-4 s | R01 (plano medio, Rosa a cámara) | «Este año te propongo regalar algo diferente: tiempo para cuidarse.» | Regala tiempo para cuidarse |
 | 2 | 4-12 s | R02 (manos escriben un nombre en la tarjeta) | (voz en off) «Tenemos bonos regalo de estética, masajes, rituales y terapias de bienestar.» | Estética · Masajes · Rituales · Terapias de bienestar |
 | 3 | 12-20 s | R01 (plano medio corto) | «Si no sabes cuál elegir, escríbenos y te ayudamos a acertar según la persona.» | ¿No sabes cuál? Te ayudamos a elegir |
 | 4 | 20-28 s | R02 (sobre y cinta) y F02 | (voz en off) «Te lo preparamos en sobre para darlo en mano, o te lo enviamos en digital.» | En sobre o en digital [PENDIENTE: confirmar formatos] |
@@ -141,7 +142,7 @@ Ritmo recomendado: de 3 a 6 frames al día. Escenario mínimo: 3 días a la sema
 > Guárdalo para cuando te toque hacer la lista.
 - **Hashtags:** #BonoRegalo #RegalosAlicante #MasajesAlicante #EsteticaAlicante
 - **CTA:** guardar y escribir por WhatsApp.
-- **Texto alternativo:** «Carrusel de siete imágenes: un bono regalo sobre una mesa de madera, unas manos que masajean unos hombros, el patio-jardín del centro con un cenador y macetas de terracota, un gesto de cuidado facial, un bodegón con un alambique de cobre y frascos de aceite, una mano que entrega un sobre y el sobre cerrado con una cinta.»
+- **Texto alternativo:** «Carrusel de siete imágenes: un bono regalo sobre una mesa de madera, unas manos que masajean unos hombros, el patio-jardín del centro con un cenador y macetas de terracota, Rosa con las manos sobre los hombros de una modelo, un bodegón con un alambique de cobre y frascos de aceite, una mano que entrega un sobre y el sobre cerrado con una cinta.»
 - **Cumplimiento:** el catálogo se limita a estética y bienestar. Sin precios. «Juntas» presupone un público femenino: [validar con el cliente si prefiere un tono neutro («lo vemos contigo»)].
 
 ### D03 · Viernes 4/12 · Reel · Cuídate · Piel y frío: tres gestos
@@ -284,7 +285,7 @@ Ritmo recomendado: de 3 a 6 frames al día. Escenario mínimo: 3 días a la sema
 |---|---|---|
 | 1 | R06 (gesto lento desde el tobillo) | «El drenaje linfático manual es un masaje muy suave, lento y rítmico.» |
 | 2 | R06 (dirección del movimiento) | «No se trata de apretar: se sigue el recorrido natural del sistema linfático.» |
-| 3 | R06 y F14 | «En invierno, con menos movimiento y más horas sentados, es cuando más nos lo piden quienes notan las piernas cargadas.» |
+| 3 | R06 y F14 | «En invierno, con menos movimiento y más horas sentados, hay quien nota las piernas más cargadas.» |
 | 4 | R06 (antebrazo o clavícula) | «Si vienes de una cirugía, lo coordinamos siempre con tu cirujano.» |
 | 5 | Rótulo | «Si tienes problemas circulatorios o cardiacos o estás embarazada, coméntalo antes: no siempre está indicado.» |
 | 6 | Rótulo final | Rosa Ondoño · Cuídate |
@@ -372,7 +373,7 @@ Ritmo recomendado: de 3 a 6 frames al día. Escenario mínimo: 3 días a la sema
 |---|---|---|
 | 1 | R03 (toalla caliente que se despliega) | Una toalla caliente. |
 | 2 | R03 (aceite que cae en la palma) | Aceite templado. |
-| 3 | R03 (manos que se posan en la espalda) y R09 | Una hora en la que nadie te pide nada. |
+| 3 | R03 (manos que se posan en la espalda) y R09 | Un rato en el que nadie te pide nada. |
 | 4 | R11 (la puerta corredera de la cabina se abre al jardín, en un solo plano) | Y al salir, un jardín. |
 | 5 | R12 (infusión bajo el cenador: manos, vapor de la taza, plantas) | En pleno centro de Alicante. |
 | 6 | F16 (plano general del patio) | Esto es lo que regalas. |
@@ -381,7 +382,7 @@ Ritmo recomendado: de 3 a 6 frames al día. Escenario mínimo: 3 días a la sema
 - **Copy:**
 > No es un objeto más para el armario. Es una tarde con el móvil apagado, una toalla caliente y unas manos que saben lo que hacen.
 >
-> Y luego está nuestro patio: un jardín escondido en pleno centro de Alicante, al que dan las cabinas. Pocas cosas sientan tan bien como salir a él después.
+> Y luego está nuestro patio: un jardín escondido en pleno centro de Alicante, al que dan las cabinas. [PENDIENTE: si el cliente confirma que el patio se usa después del tratamiento en invierno, añadir «Pocas cosas sientan tan bien como salir a él después»; si no, la frase no se incluye.]
 >
 > Rituales, masajes y tratamientos de estética para regalar estas fiestas. Escríbenos por WhatsApp (enlace en la bio).
 - **Hashtags:** #RitualDeBienestar #BonoRegalo #RegalosAlicante #BienestarAlicante
@@ -417,7 +418,7 @@ Ritmo recomendado: de 3 a 6 frames al día. Escenario mínimo: 3 días a la sema
 - **Hashtags:** #ReyesMagos #BonoRegalo #RegalosAlicante
 - **CTA:** WhatsApp.
 - **Texto alternativo:** «Una persona abre un sobre con un bono regalo de Rosa Ondoño y sonríe.»
-- **GBP (Novedad, G03):** «Bono digital para Reyes: pídelo por WhatsApp hasta el [PENDIENTE] y te lo enviamos al momento [PENDIENTE: plazo].» Botón: «Llamar».
+- **GBP (Novedad, G03):** «Bono digital para Reyes: pídelo por WhatsApp hasta el [PENDIENTE] y te lo enviamos en [PENDIENTE: plazo].» Botón: «Llamar».
 - **Cumplimiento:** recordatorio de fecha sereno; sin «última oportunidad».
 
 ### D16 · Jueves 31/12 · Post · Conecta · Cierre de año
@@ -521,6 +522,6 @@ Ritmo recomendado: de 3 a 6 frames al día. Escenario mínimo: 3 días a la sema
 ---
 
 ## Cierre de la entrega
-- **Qué he hecho:** calendario de diciembre con 16 piezas (15 en el feed de Instagram), 5 publicaciones en Google, stories por semana y avance de enero con 4 piezas, con copys completos, guiones con los códigos del shot list, hashtags, CTA, textos alternativos y notas de cumplimiento.
+- **Qué he hecho:** calendario de diciembre con 16 piezas (15 en el feed de Instagram), 4 publicaciones en Google más horarios especiales, stories por semana y avance de enero con 4 piezas, con copys completos, guiones con los códigos del shot list, hashtags, CTA, textos alternativos y notas de cumplimiento.
 - **Qué falta:** todos los `[PENDIENTE]` (bonos, horarios, fechas, equipo, cita de reseña), revisión de tono cuando se apruebe el manual, validación de Rosa de D06 y D09, y QA.
 - **Decisiones del cliente:** catálogo de bonos y si las terapias sanitarias quedan fuera; formatos físico y digital, pago y plazos; tono femenino o neutro («lo vemos juntas» o «contigo»); permisos de reseñas; si se publica E04 en enero.

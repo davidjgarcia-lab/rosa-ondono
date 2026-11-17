@@ -12,7 +12,7 @@
 - Reputación muy alta en Google (4,9★ en el widget de la web). Las reseñas hablan de trato, calma, «como en casa», Rosa en persona y asesoramiento sincero (`../../00-nucleo-marca/investigacion/auditoria-web-actual.md`).
 - **Patio-jardín interior privado** al que dan las cabinas (cenador, más de 30 macetas) y cabina A con pared ciruela y cojín con el icono bordado (`../../02-imagen-y-manual/espacios/mapa-del-centro.md`, en origin/main). Es un argumento diferencial del pilar *Siente*: pocos centros del centro de Alicante tienen jardín. Solo se publican fotos propias (shot list R11, R12, F16-F19, S11, G06).
 - Activos diferenciales: más de 30 años de oficio de Rosa, especialidad histórica en drenaje linfático postquirúrgico y estética, terapias y medicina estética bajo el mismo techo, con supervisión médica del Dr. Roberth Bravo Pardo.
-- Competencia: SoKo está enfrente (Maisonnave 41) con poca presencia digital. Maeli es el referente educativo y médico, Garrigós el de marca personal y Dorsia el contra-referente por descuentos y urgencia (`../../00-nucleo-marca/investigacion/analisis-competencia.md`).
+- Competencia: SoKo está enfrente (Maisonnave 41), con poca presencia web localizable (sus redes no se han analizado). Maeli es el referente educativo y médico, Garrigós el de marca personal y Dorsia el contra-referente por descuentos y urgencia (`../../00-nucleo-marca/investigacion/analisis-competencia.md`).
 
 **Lo que no sabemos (bloqueo):** seguidores, alcance, interacción, público real, qué contenido funciona, quién gestiona hoy las redes y cuántas horas puede dedicar. Se obtiene con la auditoría.
 

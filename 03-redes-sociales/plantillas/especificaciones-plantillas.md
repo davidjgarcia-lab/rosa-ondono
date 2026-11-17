@@ -14,12 +14,12 @@
 | Tipografías (principal y secundaria) y licencias | PENDIENTE | director-arte | Todas |
 | Área de respeto y tamaño mínimo del isotipo | PENDIENTE (manual §4) | director-arte + disenador-grafico | Todas |
 | Versión monocroma negativa del isotipo | PENDIENTE (manual §4) | director-arte | Cualquier fondo oscuro o foto |
-| Nº de colegiado del Dr. Roberth Bravo Pardo | PENDIENTE | cliente | Piezas de medicina estética |
-| Nº de registro sanitario del centro | PENDIENTE | cliente | Piezas de medicina estética |
+| N.º de colegiado del Dr. Roberth Bravo Pardo | PENDIENTE | cliente | Piezas de medicina estética |
+| N.º de registro sanitario del centro | PENDIENTE | cliente | Piezas de medicina estética |
 | Necesidad de autorización previa de publicidad sanitaria (Comunitat Valenciana) | PENDIENTE de verificar | cliente / asesor legal | Piezas de medicina estética |
 | Condiciones, validez, importes/servicios y datos del emisor del bono regalo | PENDIENTE | cliente | Pieza de diciembre |
 
-**Regla:** mientras sigan PENDIENTES el nº de colegiado y el nº de registro sanitario, **no se publica ninguna pieza de medicina estética**, aunque la plantilla esté lista.
+**Regla:** mientras sigan PENDIENTES el n.º de colegiado y el n.º de registro sanitario, **no se publica ninguna pieza de medicina estética**, aunque la plantilla esté lista.
 
 ---
 
@@ -110,8 +110,8 @@ La firma y el pie legal no se reducen por debajo del mínimo para «hacer sitio�
 ### 3.3 Pie legal de medicina estética (obligatorio en esas piezas)
 Texto base (redacción final: experto-marketing-comunicacion + revisión legal):
 
-> Tratamiento médico realizado por el Dr. Roberth Bravo Pardo · Nº de colegiado **[PENDIENTE]**
-> Centro sanitario Nº de registro **[PENDIENTE]** · Nº de autorización de publicidad sanitaria **[PENDIENTE, si aplica]**
+> Tratamiento médico realizado por el Dr. Roberth Bravo Pardo · N.º de colegiado **[PENDIENTE]**
+> Centro sanitario N.º de registro **[PENDIENTE]** · N.º de autorización de publicidad sanitaria **[PENDIENTE, si aplica]**
 
 - Aparece en la imagen (post, cada diapositiva de carrusel con contenido médico, story, portada de reel y rótulo final del reel) **y** en el texto de la publicación.
 - Contraste ≥ 4,5:1 sobre fondo plano. Tamaño ≥ 26 px.
@@ -181,7 +181,7 @@ Reparto de pilares en la rejilla (orden de publicación para que la rejilla alte
 | 2 | Cuídate | Mano abierta | Pilar |
 | 3 | Conecta | Dos arcos/trazos que se tocan | Pilar |
 | 4 | Siente | Hoja o gota | Pilar |
-| 5 | Medicina estética | Cruz médica de trazo o fonendoscopio | Cada story guardada aquí lleva pie legal; bloqueado hasta tener nº de colegiado y registro |
+| 5 | Medicina estética | Cruz médica de trazo o fonendoscopio | Cada story guardada aquí lleva pie legal; bloqueado hasta tener n.º de colegiado y registro |
 | 6 | Reseñas | Bocadillo con estrella | Solo reseñas de estética y terapias, con permiso; ninguna sobre medicina estética |
 | 7 | El centro | Puerta o fachada | Ubicación, cómo llegar, espacios |
 | 8 | Rosa | Inicial «R» o retrato de línea | Alternativa: «Equipo», para incluir también al médico. Lo decide el cliente |
@@ -200,7 +200,7 @@ Instagram muestra unos 4–5 en pantalla sin desplazar: el orden importa. Orden 
 
 ## 7. Pieza especial de diciembre · Bono / tarjeta regalo
 
-> Solo para **estética y terapias complementarias**. **Excluye la medicina estética** (actividad sanitaria: no se regalan ni promocionan tratamientos médicos). La exclusión figura impresa en el bono.
+> Solo para **estética, masajes, rituales y terapias de bienestar** (fisioterapia, osteopatía y acupuntura quedan fuera hasta que el asesor confirme si son actos sanitarios [PENDIENTE]). **Excluye la medicina estética** (actividad sanitaria: no se regalan ni promocionan tratamientos médicos). La exclusión figura impresa en el bono.
 
 ### 7.1 Formatos
 | Pieza | Medida final | Sangrado | Color | Notas |
@@ -229,7 +229,7 @@ Archivo de imprenta: PDF/X-4 (o PDF/X-1a si la imprenta lo pide), textos trazado
 
 ### 7.3 Comunicación del bono en redes
 - Plantillas POST/STO/GBP «Oferta» con imagen de estética o terapias; **nunca imágenes ni menciones de tratamientos médicos**.
-- Sin urgencia agresiva ni sorteos que incluyan medicina estética. Si se hace un sorteo de bono, bases legales **[PENDIENTE]** y exclusión expresa.
+- Sin urgencia agresiva. **Sin sorteos en esta fase** (recomendación de la estrategia §7). Si el cliente decidiera hacer uno, solo de un bono no médico, con bases legales **[PENDIENTE]** y exclusión expresa de la medicina estética.
 
 ---
 
@@ -266,7 +266,7 @@ Archivo de imprenta: PDF/X-4 (o PDF/X-1a si la imprenta lo pide), textos trazado
 |---|---|---|
 | Imagen fija con foto | JPG | sRGB, calidad 85–90 %, 1× tamaño de lienzo, < 1,5 MB |
 | Imagen fija solo tipografía/vector | PNG-24 | sRGB, sin transparencia |
-| Vídeo | MP4 H.264 | 1080 × 1920, 30 fps, ≈ 8–12 Mbps, audio AAC 48 kHz; subtítulos incrustados + `.srt` |
+| Vídeo | MP4 H.264 | 1080 × 1920, 25 fps (la cadencia del rodaje, shot list §3), ≈ 8–12 Mbps, audio AAC 48 kHz; subtítulos incrustados + `.srt` |
 | Highlights | PNG | 1080 × 1920 |
 | Avatar | PNG | 1080 × 1080 |
 | Bono impreso | PDF/X-4 | CMYK FOGRA39, sangrado 3 mm, marcas de corte |

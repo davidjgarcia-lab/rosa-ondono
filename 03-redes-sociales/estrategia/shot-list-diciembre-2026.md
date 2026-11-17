@@ -3,7 +3,7 @@
 *Fecha: 17/11/2026 · Responsable: fotografo · Consumidores: experto-redes-sociales (calendario), disenador-grafico (plantillas), director-arte (validación), qa*
 *Estado: **BORRADOR**. El manual de marca (`02-imagen-y-manual/`) aún no está aprobado; este documento usa la dirección provisional y lo marca donde corresponde.*
 
-> **Códigos estables.** Los códigos R01–R10, F01–F15, S01–S10 y G01–G05 son fijos: el calendario editorial los cita. Si un plano se cae o se sustituye, **se conserva el código** y se anota el cambio en §12 (registro de cambios). Nunca se renumeran.
+> **Códigos estables.** Los códigos R01–R12, F01–F19, S01–S11 y G01–G06 son fijos (R11, R12, F16–F19, S11 y G06 se añadieron el 17/11/2026; ver §12): el calendario editorial los cita. Si un plano se cae o se sustituye, **se conserva el código** y se anota el cambio en §12 (registro de cambios). Nunca se renumeran.
 
 ---
 
@@ -83,7 +83,7 @@
 | Nombres y número de personas del equipo | PENDIENTE | R07, R10, F10, G04 | Casting en §6 |
 | Disponibilidad del Dr. Bravo | PENDIENTE | F09, F10 | Franja de 20 minutos reservada |
 | Orientación de las ventanas del centro y de la fachada | PENDIENTE (visita técnica o fotos del cliente) | Orden del plan de luz | Plan provisional en §4 |
-| Nº de registro sanitario y nº de colegiado | PENDIENTE | Cualquier pieza que mencione la medicina estética (ninguna en esta producción, pero sí F09 si se usa en enero) | F09 no se publica con texto sobre servicios médicos sin estos datos |
+| N.º de registro sanitario y n.º de colegiado | PENDIENTE | Cualquier pieza que mencione la medicina estética (ninguna en esta producción, pero sí F09 si se usa en enero) | F09 no se publica con texto sobre servicios médicos sin estos datos |
 
 ---
 
@@ -104,7 +104,7 @@
 ### 2.3 Paleta en cámara y color corporativo
 - **El color corporativo no se modifica ni se fabrica en fotografía.** La referencia de trabajo es **#701B78** (RGB 112, 27, 120, medido en el PNG del icono), **pendiente de confirmar frente a #8E1F5C**. Mientras no se resuelva, ningún grafismo final se cierra.
 - En la foto, el morado corporativo **solo aparece como acento real y pequeño** en el atrezo (una cinta, un hilo, una flor seca, una tarjeta), en torno al 5 % de la imagen como máximo. El color exacto lo aporta el diseñador en la capa gráfica con el valor oficial, no la foto.
-- El atrezo morado se elige comparándolo bajo luz neutra (5000 K) con una muestra impresa de referencia. Si no se ajusta a la familia del corporativo, **se descarta**. No se corrige en postproducción para «convertirlo» en el corporativo.
+- El atrezo morado se elige comparándolo bajo luz neutra (5000 K) con una muestra impresa de referencia. Si no se ajusta a la familia del corporativo, **se descarta**. No se corrige en posproducción para «convertirlo» en el corporativo.
 - **Base de la paleta:** blanco roto, lino crudo, arena, madera clara, piedra cálida, verde eucalipto apagado y gris topo. El morado corporativo debe destacar sobre esa base sin competir con otros colores saturados.
 - **Etalonaje:** un único ajuste preestablecido de trabajo, `RO-invierno-v1`: cálido suave, saturación contenida y tonos de piel protegidos. Requiere validación del director-arte. Se prohíbe virar el conjunto hacia el morado o el magenta.
 - Para el control de color se usa la carta ColorChecker al inicio de cada localización y en cada cambio de luz.
@@ -143,12 +143,13 @@ Piedras apiladas, orquídeas, bambú, budas, pétalos de rosa flotando, rodajas 
 
 **Fecha: PENDIENTE de confirmar.** Se recomienda entre el **23 y el 27/11** (antes del 28/11 como fecha límite).
 **Requisito:** el centro debe estar **sin citas** al menos durante los bloques de recepción y cabina, o cerrado toda la jornada. *Decisión del cliente.*
-**Luz de referencia en Alicante a finales de noviembre (aproximada):** amanece hacia las 7:55 y se pone el sol hacia las 17:55. Hay luz útil de ventana entre las 9:30 y las 16:00. El orden de los bloques depende de la orientación de las ventanas, que está **PENDIENTE de visita técnica**. Si la fachada recibe sol directo por la mañana, los exteriores se pasan a la primera hora de la tarde.
+**Luz de referencia en Alicante a finales de noviembre (aproximada):** amanece hacia las 7:55 y se pone el sol hacia las 17:45. Hay luz útil de ventana entre las 9:30 y las 16:00. El orden de los bloques depende de la orientación de las ventanas, que está **PENDIENTE de visita técnica**. Si la fachada recibe sol directo por la mañana, los exteriores se pasan a la primera hora de la tarde.
 
 | Horario | Localización | Planos | Quién | Notas de luz |
 |---|---|---|---|---|
-| 07:45-08:30 | Interior (sala técnica) | Montaje, carta de color, balance de blancos, prueba de piel y vestuario de Rosa | Equipo técnico, Rosa | Se apagan los downlights fríos y se toman lecturas de la ventana |
-| 08:30-09:30 | Exterior: Av. Maisonnave 38, portal y escalera | F11, G01, R04 (tramo de entrada) | Rosa (en R04) | Luz suave de primera hora y menos tráfico. Se evitan transeúntes identificables |
+| 07:45-08:15 | Interior (sala técnica) | Montaje, carta de color, balance de blancos, prueba de piel y vestuario de Rosa | Equipo técnico, Rosa | Se apagan los downlights fríos y se toman lecturas de la ventana |
+| 08:15-09:00 | Exterior: Av. Maisonnave 38, portal y escalera | F11, G01, R04 (tramo de entrada) | Rosa (en R04) | Luz suave de primera hora y menos tráfico. Se evitan transeúntes identificables |
+| 09:00-09:30 | Patio-jardín (§5.5) | F16, S11, G06, R11 | Nadie o una terapeuta de espaldas (R11) | Luz suave de mañana; orientación del patio PENDIENTE |
 | 09:30-10:15 | Recepción vacía | F12, G02, R04 (interior), S05 (planos de recepción) | Rosa, 1 persona del equipo | Ventana y LED de relleno |
 | 10:15-10:45 | Junto a la ventana más luminosa | F07, **F09 (franja reservada para el Dr. Bravo, 20 min)** | Rosa, Dr. Bravo | Retrato con la luz más estable del día |
 | 10:45-13:30 | Cabina principal | F04 y F05 (primero sin modelo), S07, R03, F14, F08, R06, F15, G03 | Rosa, 1 terapeuta, 2 modelos (por turnos) | Cabina con ventana o, si es ciega, LED con difusor grande que simule la ventana. Vapor con humidificador o toalla caliente real |
@@ -158,7 +159,7 @@ Piedras apiladas, orquídeas, bambú, budas, pétalos de rosa flotando, rodajas 
 | 17:00-17:45 | Recepción o espacio amplio | F10, G04, R07, R10 | Todo el equipo (y el Dr. Bravo en F10 si sigue en el centro) | Luz artificial cálida, bien difusa |
 | 17:45-18:30 | Interior y, si procede, exterior | R09, F13 (variante de tarde), fachada nocturna opcional (variante de F11) | Sin personas o con manos | Hora azul y luz cálida interior. Iluminación navideña de la calle: solo si ya está encendida, y **sin ser imprescindible** |
 | 18:30-19:15 | — | Recogida, tercera copia de seguridad y comprobación de la lista | Equipo técnico | — |
-| Toda la jornada | — | S01 (detrás de cámaras con el móvil) | Asistente o community | Rodado en vertical con el móvil, de forma natural |
+| Toda la jornada | — | S01 (detrás de cámaras con el móvil) | Asistente o gestora de la comunidad | Rodado en vertical con el móvil, de forma natural |
 
 **Duración:** es una jornada larga (unas 11 h). Si no hay presupuesto o la agenda no lo permite, se recorta por prioridad: primero se caen los planos C, luego los B que no sean de enero. **Plan de contingencia:** si llueve o está muy nublado, los exteriores se pasan a la tarde o a otro día con un móvil de gama alta (los planos G01 y F11 son sencillos).
 
@@ -239,7 +240,7 @@ Piedras apiladas, orquídeas, bambú, budas, pétalos de rosa flotando, rodajas 
 - Atrezo: uniforme o ropa de trabajo coherente con el manual.
 - Quién: equipo (nombres PENDIENTES); el Dr. Bravo es opcional.
 - Prioridad: **B**.
-- Cumplimiento: hace falta la cesión de derechos de cada persona (§7). Si aparece el Dr. Bravo, se le identifica como médico con su nombre; el nº de colegiado está PENDIENTE. En el montaje navideño **no se relaciona su figura con el regalo**.
+- Cumplimiento: hace falta la cesión de derechos de cada persona (§7). Si aparece el Dr. Bravo, se le identifica como médico con su nombre; el n.º de colegiado está PENDIENTE. En el montaje navideño **no se relaciona su figura con el regalo**.
 
 **R08 · Detalle del envoltorio navideño sobrio**
 - Uso: reel corto de cierre de compra o «así lo entregamos».
@@ -361,7 +362,7 @@ Piedras apiladas, orquídeas, bambú, budas, pétalos de rosa flotando, rodajas 
 - Atrezo: bata limpia y sin logotipos de terceros.
 - Quién: Dr. Bravo.
 - Prioridad: **B**.
-- Cumplimiento: **no se usa en ninguna pieza de bonos regalo**. Cuando se publique, se identifica como médico con su nombre y nº de colegiado (**PENDIENTE**) y, si la pieza habla de medicina estética, con el nº de registro sanitario del centro (**PENDIENTE**). Sin material inyectable en el plano.
+- Cumplimiento: **no se usa en ninguna pieza de bonos regalo**. Cuando se publique, se identifica como médico con su nombre y n.º de colegiado (**PENDIENTE**) y, si la pieza habla de medicina estética, con el n.º de registro sanitario del centro (**PENDIENTE**). Sin material inyectable en el plano.
 
 **F10 · Retrato de grupo del equipo**
 - Uso: post «Quiénes somos», felicitación, web y GBP (G04).
@@ -527,7 +528,7 @@ Ninguna persona entra en cuadro sin haber firmado. Los modelos de documento los 
 
 **Protocolo resumido para producciones futuras** (`cumplimiento-legal.md`):
 1. **Consentimiento informado por escrito** y específico para la publicación de antes/después, separado del consentimiento del tratamiento, y revocable.
-2. **Normativa autonómica:** antes de producir, comprobar los requisitos de la Comunitat Valenciana sobre publicidad sanitaria (posible autorización previa) y, si se trata de medicina estética, incluir el nº de registro sanitario del centro (PENDIENTE) y el nº de colegiado (PENDIENTE). Debe validarlo el asesor legal del cliente.
+2. **Normativa autonómica:** antes de producir, comprobar los requisitos de la Comunitat Valenciana sobre publicidad sanitaria (posible autorización previa) y, si se trata de medicina estética, incluir el n.º de registro sanitario del centro (PENDIENTE) y el n.º de colegiado (PENDIENTE). Debe validarlo el asesor legal del cliente.
 3. **Condiciones idénticas** en el antes y el después: la misma luz (montaje fijo documentado con fotos del set y la misma temperatura), la misma distancia (marca en el suelo y altura de cámara anotada), el mismo ángulo y la misma óptica, misma expresión neutra, sin maquillaje, mismo fondo y mismos ajustes de exposición. Plantilla de posiciones: frontal, ¾ izquierda, ¾ derecha, perfil.
 4. **Sin retoque de ningún tipo**, ni siquiera de color selectivo. Solo un recorte idéntico en ambas imágenes.
 5. **Fecha de cada toma** y número de sesiones indicados; sin promesas («resultados garantizados» está prohibido); con la mención de que los resultados varían según la persona.
@@ -589,7 +590,7 @@ Se usa solo si la sesión no llega a tiempo para el lanzamiento o para cubrir lo
 - Taza de cerámica y una infusión.
 - Pinzas, cinta adhesiva de doble cara, paño de microfibra, limpiacristales, quitapelusas.
 
-**Naming de archivos** (siguiendo `assets/fotografia/LEEME.md`): `codigo-descripcion-variante-NN`, por ejemplo `f04-cabina-preparada-navidad-01.jpg` o `r03-ritual-cabina-neutra-02.mp4`. Se entregan en `assets/fotografia/2026-12-bonos/` con subcarpetas `seleccion/`, `editadas/` y `rodaje-bruto/`. El material bruto pesado se guarda fuera del repositorio.
+**Nomenclatura de archivos** (siguiendo `assets/fotografia/LEEME.md`): `codigo-descripcion-variante-NN`, por ejemplo `f04-cabina-preparada-navidad-01.jpg` o `r03-ritual-cabina-neutra-02.mp4`. Se entregan en `assets/fotografia/2026-12-bonos/` con subcarpetas `seleccion/`, `editadas/` y `rodaje-bruto/`. El material bruto pesado se guarda fuera del repositorio.
 
 **Plazos de entrega propuestos** (contando desde la fecha de la sesión, PENDIENTE):
 - Día +1: preselección de baja resolución para redes y director-arte.
@@ -612,7 +613,7 @@ Se usa solo si la sesión no llega a tiempo para el lanzamiento o para cubrir lo
 ## Qué he hecho, qué falta y qué decisiones necesita el cliente
 
 **Qué he hecho**
-- He creado el shot list de diciembre de 2026 con 40 planos codificados de forma estable (R01-R10, F01-F15, S01-S10, G01-G05). Cada uno indica uso, formato, zona segura, encuadre y óptica, luz, atrezo, personas, prioridad y notas de cumplimiento, y señala cuáles sirven de fondo de armario para enero.
+- He creado el shot list de diciembre de 2026 con 50 planos codificados de forma estable (R01-R12, F01-F19, S01-S11, G01-G06; los 10 últimos, añadidos con el mapa del centro). Cada uno indica uso, formato, zona segura, encuadre y óptica, luz, atrezo, personas, prioridad y notas de cumplimiento, y señala cuáles sirven de fondo de armario para enero.
 - He definido el estilo provisional: luz, piel real, paleta en cámara alrededor de #701B78 sin fabricar ni modificar el color, una Navidad sobria y los clichés que hay que evitar.
 - He preparado el plan de una jornada ordenado por localización y luz, la ficha técnica, la lista de material y atrezo, el casting con criterios de diversidad, la documentación obligatoria, las normas de retoque, la prohibición de antes/después con el protocolo para el futuro y un plan B con stock.
 
@@ -633,4 +634,4 @@ Se usa solo si la sesión no llega a tiempo para el lanzamiento o para cubrir lo
 7. **Presupuesto para modelos** (de 1 a 4 perfiles) y si hay clientes reales dispuestos a participar con consentimiento.
 8. **Duración de la cesión de derechos** (3-5 años) y si se remunera a los modelos.
 9. Permiso de la **comunidad de propietarios** para el portal y la escalera.
-10. Nº de **registro sanitario** del centro y nº de **colegiado** del Dr. Bravo, imprescindibles antes de publicar F09 con cualquier referencia a medicina estética.
+10. N.º de **registro sanitario** del centro y n.º de **colegiado** del Dr. Bravo, imprescindibles antes de publicar F09 con cualquier referencia a medicina estética.

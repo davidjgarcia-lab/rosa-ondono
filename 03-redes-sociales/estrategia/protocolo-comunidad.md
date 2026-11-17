@@ -53,8 +53,8 @@
 │     └─ Sí → URGENCIA (§5.2): responder ya con P09b; avisar al responsable
 │              sanitario; registrar; nivel de crisis 2 o 3.
 │
-├─ ¿Es una pregunta de medicina estética (tratamiento, precio, «bótox»,
-│  labios, rellenos, hilos…)?
+├─ ¿Es una pregunta de medicina estética (tratamiento, precio, nombre
+│  comercial de un medicamento, labios, rellenos, hilos…)?
 │     └─ Sí → P08 o P12: nunca indicación ni precio en público; se ofrece
 │              consulta con el médico por privado. Sin nombrar medicamentos.
 │
@@ -163,7 +163,7 @@ Si alguien describe dolor intenso, hinchazón que aumenta, cambio de color de la
 
 ### P09b · Posible efecto adverso o urgencia
 **Privado (y versión breve en público):**
-> [Nombre], gracias por avisarnos. Si notas [síntoma] y empeora, o tienes fiebre, dificultad para respirar o problemas de visión, llama al **112** o acude a urgencias ahora. Si no es así, llámanos ya al 965 120 300 o al 691 315 622 para que el médico pueda valorarte cuanto antes. Lo estamos avisando en este momento.
+> [Nombre], gracias por avisarnos. Si notas [síntoma] y empeora, o tienes fiebre, dificultad para respirar o problemas de visión, llama al **112** o acude a urgencias ahora. Si no es así, llámanos ya al 965 120 300 o al 691 315 622 para que el médico pueda valorarte cuanto antes. Estamos avisando al médico en este momento.
 
 **Público (si el mensaje es público):**
 > [Nombre], lo sentimos. Te hemos escrito por privado ahora mismo. Si en algún momento te encuentras mal, por favor llama al 112.
@@ -176,7 +176,7 @@ Si alguien describe dolor intenso, hinchazón que aumenta, cambio de color de la
 ### P11 · Solicitud de antes/después
 > Hola, [nombre]. Entendemos que quieras ver resultados. No publicamos fotos de antes/después: cada piel y cada cuerpo responden de forma distinta y no queremos crear expectativas que quizá no se cumplan. En la [consulta con el médico o la valoración en cabina] te explicamos qué es razonable esperar en tu caso. ¿Te buscamos hueco?
 
-### P12 · Pregunta por un medicamento o «bótox» por su marca
+### P12 · Pregunta por un medicamento por su nombre comercial (p. ej. de toxina botulínica)
 **Público:**
 > Hola, [nombre]. Sobre ese tratamiento no damos información por aquí: es un acto médico y lo valora siempre el médico en consulta. Te escribimos por privado.
 
