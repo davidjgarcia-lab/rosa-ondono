@@ -15,3 +15,14 @@
 | 10 | Lanzamiento y seguimiento 30 días | project-manager | — |
 
 **Necesitamos del cliente:** URL actual y accesos, listado de tratamientos y precios, sistema de citas actual, fotos disponibles.
+
+## Punto de partida (investigación 17/11/2026)
+- Ver `../00-nucleo-marca/investigacion/auditoria-web-actual.md` (WordPress + Divi, 25 URLs, más de 60 servicios sin jerarquía, sin reserva online).
+- Prioridades:
+  - Reserva online.
+  - Navegación por necesidad y por técnica.
+  - Una ficha por tratamiento.
+  - Rosa y el médico en primer plano.
+  - Landing de «Valoración integral».
+  - Mapa 301 de las URLs actuales.
+- Retirar los claims de riesgo legal («Resultados garantizados», «poder curativo», flores de Bach para depresión).

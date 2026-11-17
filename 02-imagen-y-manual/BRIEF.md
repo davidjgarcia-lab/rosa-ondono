@@ -23,3 +23,10 @@
 | 6 | Iconografía y estilo fotográfico | disenador-grafico + fotografo | — |
 | 7 | Aplicaciones | disenador-grafico | — |
 | 8 | Manual HTML + PDF, QA y presentación | director-arte + qa + ejecutivo-cuentas | — |
+
+## Punto de partida (investigación 17/11/2026)
+- Icono: figura humana abstracta de trazo continuo (círculo, doble onda, círculo macizo). PNG en `../assets/logo-original/`. **Falta el vector.**
+- Color: el icono mide **#701B78**, pero la web usa **#8E1F5C**. Hay que resolver con el cliente cuál es el oficial (ver la fuente de verdad).
+- La web actual usa 6 tipografías: hay que reducirlas a 2.
+- Territorio propuesto: *bienestar integral con criterio*. Los tres verbos del lema estructuran la oferta (ver `../00-nucleo-marca/investigacion/analisis-competencia.md` §3–4).
+- Referentes de sofisticación: Aesop y Rituals. Contra-referentes: el tono promocional de Dorsia y los clichés de spa.

@@ -8,3 +8,11 @@
 | 5 | Landing pages por campaña | disenador-web + programador | — |
 
 **Necesitamos del cliente:** presupuesto mensual orientativo, servicios prioritarios por rentabilidad, comunidad autónoma (para requisitos de autorización de publicidad sanitaria).
+
+## Punto de partida (investigación 17/11/2026)
+- Campañas candidatas:
+  - Lanzamiento del rebranding.
+  - «Valoración integral».
+  - Bonos regalo de Navidad (urgente por calendario).
+  - Drenaje y recuperación postquirúrgica (alianzas médicas).
+- No replicar el modelo de descuentos de Dorsia: en actos médicos estas promociones están restringidas y diluyen la marca.

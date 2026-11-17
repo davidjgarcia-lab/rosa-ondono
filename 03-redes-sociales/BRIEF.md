@@ -11,3 +11,8 @@
 | 8 | Plantilla de informe mensual con KPIs | experto-redes-sociales | — |
 
 **Necesitamos del cliente:** perfiles actuales y accesos, contenido disponible, frecuencia que puede asumir.
+
+## Punto de partida (investigación 17/11/2026)
+- Instagram (@rosaondono) no se ha podido analizar sin sesión iniciada. Hay que pedir al cliente capturas, estadísticas y acceso.
+- La competencia directa de SoKo está enfrente (Maisonnave 41). Referentes de contenido: Maeli (educativo y médico) y Rituals (emocional).
+- Material ya disponible: más de 15 reseñas de 4,9★ con citas reutilizables (con permiso), la historia de 30 años de Rosa y la especialidad postquirúrgica.

@@ -5,6 +5,7 @@ Idioma de trabajo: **español (España)**. Todos los entregables, comentarios y 
 ## La marca
 - **Nombre:** Rosa Ondoño
 - **Lema:** *Cuídate · Conecta · Siente*
+- **Ubicación:** Av. Maisonnave 38, Alicante · rosaondono.com · @rosaondono
 - **Actividad:** centro de estética, terapias complementarias y medicina estética.
 - **Objetivo del proyecto:** rebranding completo + rediseño integral de la web.
 
@@ -17,7 +18,7 @@ Idioma de trabajo: **español (España)**. Todos los entregables, comentarios y 
 ## Estructura (un apartado por línea de trabajo)
 | Carpeta | Línea de trabajo | Responsable principal |
 |---|---|---|
-| `00-nucleo-marca/` | Fuente de verdad compartida (datos fijos, cumplimiento) | project-manager |
+| `00-nucleo-marca/` | Fuente de verdad, cumplimiento e `investigacion/` (auditoría web y competencia) | project-manager |
 | `01-web/` | Rediseño completo de la web | disenador-web |
 | `02-imagen-y-manual/` | Identidad visual y manual de marca | director-arte |
 | `03-redes-sociales/` | Estrategia y contenido en redes | experto-redes-sociales |
