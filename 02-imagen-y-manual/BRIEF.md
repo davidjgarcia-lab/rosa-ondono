@@ -15,10 +15,10 @@
 
 | # | Entregable | Responsable | Estado |
 |---|---|---|---|
-| 1 | Cuestionario de briefing al cliente | ejecutivo-cuentas | Pendiente |
-| 2 | Plataforma de marca + arquetipo + tono | experto-marketing-comunicacion | Pendiente |
-| 3 | Moodboard y dirección creativa (2 rutas) | director-arte | Pendiente |
-| 4 | Paleta secundaria y tipografías | director-arte + disenador-grafico | Bloqueado por color exacto |
+| 1 | Cuestionario de briefing al cliente | ejecutivo-cuentas | ✅ Ronda 1 lista para enviar (`estrategia/cuestionario-cliente.md`) |
+| 2 | Plataforma de marca + arquetipo + tono | experto-marketing-comunicacion | 🟡 Borrador v1 para validar (`estrategia/plataforma-de-marca.md`) |
+| 3 | Moodboard y dirección creativa (2 rutas) | director-arte | 🟡 Borrador v1: moodboard descrito (`identidad/rutas-creativas.md`, `lamina-presentacion.html`); falta el moodboard con imágenes |
+| 4 | Paleta secundaria y tipografías | director-arte + disenador-grafico | 🟡 Propuesta sobre #701B78 (hipótesis) con contrastes WCAG; definitiva bloqueada por color oficial y Pantone/CMYK |
 | 5 | Sistema de logo y usos incorrectos | disenador-grafico | Bloqueado por logo vectorial |
 | 6 | Iconografía y estilo fotográfico | disenador-grafico + fotografo | — |
 | 7 | Aplicaciones | disenador-grafico | — |
@@ -30,3 +30,6 @@
 - La web actual usa 6 tipografías: hay que reducirlas a 2.
 - Territorio propuesto: *bienestar integral con criterio*. Los tres verbos del lema estructuran la oferta (ver `../00-nucleo-marca/investigacion/analisis-competencia.md` §3–4).
 - Referentes de sofisticación: Aesop y Rituals. Contra-referentes: el tono promocional de Dorsia y los clichés de spa.
+
+## Registro
+- **17/11/2026** · Entregada la ronda 1: plataforma de marca (Cuidador + Sabio), dos rutas creativas («Piel y luz» y «Criterio sereno»), la lámina HTML y el cuestionario al cliente. Bloqueos: logo vectorial, Pantone/CMYK y color oficial (#701B78 o #8E1F5C).

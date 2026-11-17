@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rosa Ondoño · Plataforma de marca y rutas creativas (borrador v1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&family=Manrope:wght@500;700&family=Source+Serif+4:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  /* Lámina de presentación · borrador. El icono se muestra tal cual (PNG original), sin filtros ni efectos. */
+  :root{
+    --morado:#701B78;           /* color corporativo · NO MODIFICABLE */
+    --marfil:#F7F2EB; --arena:#E9DCCB; --lila:#E8DAE6; --arcilla:#B7897A; --tinta:#2E1A2C;
+    --blancoroto:#FAF9F7; --niebla:#ECEAEE; --lavanda:#D9CFE2; --salvia:#A9B7A4; --salviap:#56664F; --grafito:#1E1C21;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Jost,system-ui,sans-serif;color:var(--tinta);background:#fff;line-height:1.55;font-size:17px}
+  .slide{min-height:100vh;padding:7vh 8vw;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid #eee;page-break-after:always}
+  .kicker{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--morado);font-weight:500;margin-bottom:1.2rem}
+  h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.1}
+  h1{font-size:clamp(2.6rem,6vw,4.6rem)} h2{font-size:clamp(2rem,4vw,3.2rem);margin-bottom:1.6rem} h3{font-size:1.6rem;margin-bottom:.6rem}
+  p.lead{font-size:1.25rem;max-width:46rem}
+  .borrador{position:fixed;top:1rem;right:1rem;background:var(--tinta);color:#fff;font-size:.75rem;padding:.35rem .7rem;letter-spacing:.1em;text-transform:uppercase;z-index:9}
+  .grid{display:grid;gap:2rem} .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))} .g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .card{background:var(--marfil);padding:1.8rem;border-radius:2px}
+  .card.arena{background:var(--arena)} .card.lila{background:var(--lila)}
+  .portada{background:var(--marfil);align-items:flex-start}
+  .portada img{height:200px;width:auto;margin-bottom:2.5rem}
+  .lema{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:clamp(1.8rem,3.4vw,2.8rem);color:var(--morado)}
+  table{border-collapse:collapse;width:100%;font-size:.92rem;margin-top:1rem}
+  th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid rgba(0,0,0,.1);vertical-align:top}
+  th{font-weight:500;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+  .verbo{font-family:"Cormorant Garamond",serif;font-size:2.4rem;color:var(--morado);font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:.8rem;margin:1.2rem 0}
+  .chip{width:130px;font-size:.78rem}
+  .chip span{display:block;height:84px;border:1px solid rgba(0,0,0,.08);margin-bottom:.4rem}
+  .ok{color:#1d6b33;font-weight:500} .ko{color:#a3262a;font-weight:500}
+  .rutaA{background:var(--marfil)} .rutaB{background:var(--blancoroto);font-family:"Source Serif 4",Georgia,serif}
+  .rutaB h2,.rutaB h3,.rutaB .kicker,.rutaB th{font-family:Manrope,system-ui,sans-serif;letter-spacing:-.01em}
+  .rutaB .kicker{letter-spacing:.18em}
+  .rutaB .lema{font-family:"Source Serif 4",serif}
+  .muestra{display:flex;gap:1.5rem;align-items:center;margin-top:1rem;flex-wrap:wrap}
+  .muestra .fondo{padding:1.5rem 2rem;display:flex;align-items:center;gap:1.2rem}
+  .muestra img{height:90px;width:auto}
+  .btn{display:inline-block;background:var(--morado);color:#fff;padding:.7rem 1.3rem;font-size:.95rem;text-decoration:none}
+  .aviso{border-left:3px solid var(--morado);padding:.8rem 1.2rem;background:#fff;margin-top:1.5rem;font-size:.95rem;max-width:52rem}
+  ul.lista{padding-left:1.2rem} ul.lista li{margin:.35rem 0}
+  .discrep{display:flex;gap:2rem;flex-wrap:wrap;margin:1.5rem 0}
+  .discrep div{width:220px} .discrep span{display:block;height:120px;margin-bottom:.6rem}
+  @media print{.slide{min-height:auto;padding:12mm}.borrador{position:absolute}}
+</style>
+</head>
+<body>
+<div class="borrador">Borrador v1 · pendiente de aprobación</div>
+
+<!-- 1 · Portada -->
+<section class="slide portada">
+  <img src="../assets/logo-original/LOGO-ROSA-ONDONO-solo.png" alt="Isotipo de Rosa Ondoño: figura humana de trazo continuo en morado">
+  <p class="kicker">Rebranding · Imagen de marca · Ronda 1</p>
+  <h1>Bienestar integral<br>con criterio</h1>
+  <p class="lema" style="margin-top:1.2rem">Cuídate · Conecta · Siente</p>
+  <p style="margin-top:2.5rem;font-size:.9rem">Plataforma de marca y dos rutas de dirección creativa · 17/11/2026</p>
+</section>
+
+<!-- 2 · Esencia -->
+<section class="slide">
+  <p class="kicker">01 · Esencia</p>
+  <h2>Por qué existimos</h2>
+  <p class="lead">Ayudar a cada persona a cuidarse con conocimiento y con calma, para que se sienta bien en su cuerpo en cada etapa de su vida.</p>
+  <div class="grid g3" style="margin-top:2.5rem">
+    <div class="card"><h3>Criterio</h3><p>Recomendamos solo lo que tiene sentido para ti, aunque sea menos.</p></div>
+    <div class="card"><h3>Cuidado</h3><p>Trato cercano, tiempo y atención al detalle.</p></div>
+    <div class="card"><h3>Honestidad</h3><p>Expectativas realistas, sin promesas ni presión.</p></div>
+    <div class="card arena"><h3>Oficio</h3><p>Más de 30 años de formación y práctica.</p></div>
+    <div class="card arena"><h3>Integración</h3><p>Piel, cuerpo y emoción, tratados juntos.</p></div>
+    <div class="card arena"><h3>Serenidad</h3><p>Calma en el espacio y en la palabra.</p></div>
+  </div>
+</section>
+
+<!-- 3 · Posicionamiento -->
+<section class="slide">
+  <p class="kicker">02 · Posicionamiento</p>
+  <h2>El único sitio en Alicante que une estética, terapias y medicina estética, con una persona que te dice la verdad</h2>
+  <table>
+    <tr><th>Eje</th><th>Clínicas médicas</th><th>Holísticos</th><th>Cadenas</th><th>Rosa Ondoño</th></tr>
+    <tr><td>Rigor y respaldo</td><td>Alto</td><td>Bajo</td><td>Medio</td><td><strong>Alto</strong></td></tr>
+    <tr><td>Calidez y persona</td><td>Media</td><td>Alta</td><td>Baja</td><td><strong>Alta</strong></td></tr>
+    <tr><td>Integración cuerpo-emoción</td><td>Baja</td><td>Alta</td><td>Baja</td><td><strong>Alta</strong></td></tr>
+    <tr><td>Presión comercial</td><td>Media</td><td>Baja</td><td>Alta</td><td><strong>Nula</strong></td></tr>
+  </table>
+  <p class="aviso"><strong>Propuesta de valor:</strong> un plan para ti, hecho por manos expertas y con supervisión médica, sin prisas ni promesas.</p>
+</section>
+
+<!-- 4 · Arquetipo -->
+<section class="slide">
+  <p class="kicker">03 · Arquetipo</p>
+  <h2>Cuidador, con la voz del Sabio</h2>
+  <div class="grid g2">
+    <div class="card"><h3>Primario · El Cuidador (≈65 %)</h3><p>Es lo que ya dicen las reseñas: «como en casa», «Rosa en persona». Protege y acompaña, y antepone la persona a la venta. Es <em>Cuídate</em> hecho personaje.</p></div>
+    <div class="card lila"><h3>Secundario · El Sabio (≈35 %)</h3><p>Aporta el <em>con criterio</em>: valora, explica y dice la verdad. Da credibilidad a la medicina estética y responde a lo que más pide el mercado: que te expliquen.</p></div>
+  </div>
+  <p class="aviso"><strong>Descartados:</strong> el Mago (su promesa de transformación choca con la prohibición de garantizar resultados), el Amante (sensualiza y acerca al cliché de spa; lo sensorial queda como rasgo) y el Inocente (resta rigor médico).</p>
+</section>
+
+<!-- 5 · Lema -->
+<section class="slide">
+  <p class="kicker">04 · El lema como estructura</p>
+  <h2>Tres verbos que ordenan toda la oferta</h2>
+  <div class="grid g3">
+    <div class="card"><p class="verbo">Cuídate</p><p><em>Saber qué necesitas es el primer cuidado.</em></p><p style="margin-top:.8rem;font-size:.92rem">Valoración integral, faciales, corporales, láser y medicina estética con supervisión médica.</p></div>
+    <div class="card arena"><p class="verbo">Conecta</p><p><em>Tu cuerpo te habla. Aquí te ayudamos a escucharlo.</em></p><p style="margin-top:.8rem;font-size:.92rem">Masajes, drenaje pre y postquirúrgico, fisioterapia, osteopatía, terapias manuales y complementarias.</p></div>
+    <div class="card lila"><p class="verbo">Siente</p><p><em>Un tiempo solo para ti.</em></p><p style="margin-top:.8rem;font-size:.92rem">Rituales individuales y en pareja, circuito spa y tarjetas regalo.</p></div>
+  </div>
+</section>
+
+<!-- 6 · Tono -->
+<section class="slide">
+  <p class="kicker">05 · Tono de voz</p>
+  <h2>Cercana, experta, honesta, serena</h2>
+  <table>
+    <tr><th>Decimos</th><th>No decimos</th></tr>
+    <tr><td>Valoración, plan para ti</td><td>Oferta, ¡últimas plazas!</td></tr>
+    <tr><td>Puede ayudarte a…</td><td>Resultados garantizados, 100 % seguro</td></tr>
+    <tr><td>Bienestar, alivio</td><td>Curar, poder curativo</td></tr>
+    <tr><td>Naturalidad, que te reconozcas</td><td>Antiedad, corregir defectos</td></tr>
+    <tr><td>Cuidarte, tu piel</td><td>Oasis, experiencia transformadora</td></tr>
+  </table>
+  <div class="grid g2" style="margin-top:2rem">
+    <div class="card"><p class="kicker">Instagram · Conecta</p><p>Esa tensión en los hombros que ya ni notas. En una sesión de terapia miofascial trabajamos con las manos para ayudarte a soltar y a moverte con más libertad.</p></div>
+    <div class="card"><p class="kicker">WhatsApp</p><p>Hola, Marta. Gracias por escribirnos. Para recomendarte bien, lo mejor es una valoración de 20 minutos en el centro. ¿Te viene bien el jueves a las 17:00?</p></div>
+  </div>
+</section>
+
+<!-- 7 · Ruta A -->
+<section class="slide rutaA">
+  <p class="kicker">06 · Ruta A</p>
+  <h2>«Piel y luz»</h2>
+  <p class="lead">Cálida, editorial y sensorial. La luz de Alicante sobre piel, lino y manos. Sofisticación táctil al estilo de Aesop, pero más luminosa. El morado aparece como firma: poco y con intención.</p>
+  <div class="chips">
+    <div class="chip"><span style="background:#701B78"></span><strong>#701B78</strong><br>Corporativo · fijo</div>
+    <div class="chip"><span style="background:#F7F2EB"></span>#F7F2EB<br>Marfil</div>
+    <div class="chip"><span style="background:#E9DCCB"></span>#E9DCCB<br>Arena</div>
+    <div class="chip"><span style="background:#E8DAE6"></span>#E8DAE6<br>Lila empolvado</div>
+    <div class="chip"><span style="background:#B7897A"></span>#B7897A<br>Arcilla (solo decorativo)</div>
+    <div class="chip"><span style="background:#2E1A2C"></span>#2E1A2C<br>Ciruela tinta (texto)</div>
+  </div>
+  <div class="muestra">
+    <div class="fondo" style="background:#fff"><img src="../assets/logo-original/LOGO-ROSA-ONDONO-solo.png" alt="Isotipo sobre blanco"></div>
+    <div class="fondo" style="background:var(--arena)"><img src="../assets/logo-original/LOGO-ROSA-ONDONO-solo.png" alt="Isotipo sobre arena"><div><p style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--morado)">Cormorant Garamond</p><p>Jost para texto e interfaz: su «o» circular repite los círculos del icono.</p></div></div>
+    <a class="btn" href="#">Pide tu valoración</a>
+  </div>
+  <table>
+    <tr><th>Combinación</th><th>Ratio</th><th>AA</th></tr>
+    <tr><td>Morado / Marfil · Arena · Lila</td><td>8,91 · 7,35 · 7,37</td><td class="ok">✔ AAA</td></tr>
+    <tr><td>Blanco / Morado (botón)</td><td>9,92</td><td class="ok">✔ AAA</td></tr>
+    <tr><td>Ciruela tinta / Marfil</td><td>14,50</td><td class="ok">✔ AAA</td></tr>
+    <tr><td>Morado / Arcilla</td><td>3,25</td><td class="ko">Solo gráfico</td></tr>
+    <tr><td>Morado / Ciruela tinta</td><td>1,63</td><td class="ko">✖ Prohibido</td></tr>
+  </table>
+  <p style="margin-top:1rem;font-size:.92rem"><strong>Moodboard:</strong> manos sobre la espalda con luz de ventana · lino crudo con sombra de persiana · retrato de Rosa en luz natural · cerámica artesana con aceite y olivo · piel con gotas de agua · papel de algodón con el isotipo estampado · sombra de una mano sobre pared arena · el centro al atardecer.</p>
+</section>
+
+<!-- 8 · Ruta B -->
+<section class="slide rutaB">
+  <p class="kicker">07 · Ruta B</p>
+  <h2>«Criterio sereno»</h2>
+  <p class="lead">Luminosa, contemporánea y precisa. El rigor de una consulta de referencia, con alma. El verde salvia, complementario del morado, lo hace vibrar sin competir con él. El morado marca los momentos de decisión.</p>
+  <div class="chips">
+    <div class="chip"><span style="background:#701B78"></span><strong>#701B78</strong><br>Corporativo · fijo</div>
+    <div class="chip"><span style="background:#FAF9F7"></span>#FAF9F7<br>Blanco roto</div>
+    <div class="chip"><span style="background:#ECEAEE"></span>#ECEAEE<br>Niebla</div>
+    <div class="chip"><span style="background:#D9CFE2"></span>#D9CFE2<br>Lavanda</div>
+    <div class="chip"><span style="background:#A9B7A4"></span>#A9B7A4<br>Salvia</div>
+    <div class="chip"><span style="background:#56664F"></span>#56664F<br>Salvia profunda</div>
+    <div class="chip"><span style="background:#1E1C21"></span>#1E1C21<br>Grafito (texto)</div>
+  </div>
+  <div class="muestra">
+    <div class="fondo" style="background:var(--niebla)"><img src="../assets/logo-original/LOGO-ROSA-ONDONO-solo.png" alt="Isotipo sobre niebla"><div><p style="font-family:Manrope,sans-serif;font-weight:700;font-size:1.8rem;color:var(--morado);letter-spacing:-.02em">Manrope</p><p>Source Serif 4 para el texto largo, con el tono de quien explica bien.</p></div></div>
+    <div class="fondo" style="background:var(--salvia)"><img src="../assets/logo-original/LOGO-ROSA-ONDONO-solo.png" alt="Isotipo sobre salvia"></div>
+    <a class="btn" href="#" style="font-family:Manrope,sans-serif">Pide tu valoración</a>
+  </div>
+  <table>
+    <tr><th>Combinación</th><th>Ratio</th><th>AA</th></tr>
+    <tr><td>Morado / Blanco roto · Niebla · Lavanda</td><td>9,43 · 8,30 · 6,60</td><td class="ok">✔</td></tr>
+    <tr><td>Morado / Salvia</td><td>4,72</td><td class="ok">✔ AA</td></tr>
+    <tr><td>Grafito / Blanco roto</td><td>16,05</td><td class="ok">✔ AAA</td></tr>
+    <tr><td>Salvia profunda / Lavanda</td><td>4,10</td><td class="ko">Solo texto grande</td></tr>
+    <tr><td>Morado / Grafito · Salvia profunda</td><td>1,70 · 1,61</td><td class="ko">✖ Prohibido</td></tr>
+  </table>
+  <p style="margin-top:1rem;font-size:.92rem"><strong>Moodboard:</strong> Rosa y el Dr. Bravo conversando · consulta de valoración frente al espejo · microcemento y cerámica mate · salvia en un jarrón de vidrio · aparatología como objeto de diseño · piel en macro sobre lavanda · ficha del plan impresa con el isotipo · paseo por la Explanada a primera hora.</p>
+</section>
+
+<!-- 9 · Recomendación -->
+<section class="slide">
+  <p class="kicker">08 · Recomendación</p>
+  <h2>Ruta A como base, con el rigor de la B en medicina estética</h2>
+  <table>
+    <tr><th>Criterio</th><th>A · Piel y luz</th><th>B · Criterio sereno</th></tr>
+    <tr><td>Arquetipo que refuerza</td><td>Cuidador</td><td>Sabio</td></tr>
+    <tr><td>Verbos que más lucen</td><td>Conecta · Siente</td><td>Cuídate</td></tr>
+    <tr><td>Credibilidad médica</td><td>Media (hay que reforzarla)</td><td>Alta</td></tr>
+    <tr><td>Continuidad con las reseñas</td><td>Muy alta</td><td>Alta</td></tr>
+    <tr><td>Riesgo</td><td>Cliché de spa</td><td>Frialdad clínica</td></tr>
+  </table>
+  <p class="aviso">En ambas rutas el icono y el color #701B78 se mantienen intactos. El icono a color va siempre sobre fondos claros, y el morado nunca va sobre fondos oscuros.</p>
+</section>
+
+<!-- 10 · Pendiente -->
+<section class="slide" style="background:var(--marfil)">
+  <p class="kicker">09 · Lo que necesitamos de ti</p>
+  <h2>Antes de fijar el manual</h2>
+  <div class="discrep">
+    <div><span style="background:#701B78"></span><strong>#701B78</strong> · morado<br>Color del icono · <em>hipótesis de trabajo</em></div>
+    <div><span style="background:#8E1F5C"></span><strong>#8E1F5C</strong> · ciruela-magenta<br>Color de la web actual</div>
+  </div>
+  <p style="font-size:.92rem;max-width:44rem">Entre los dos hay un contraste de solo 1,18:1: juntos se confunden. ¿Cuál es tu color?</p>
+  <ul class="lista" style="margin-top:1.2rem">
+    <li><strong>Logo en vectorial</strong> (AI, EPS, SVG o PDF), o autorización para hacer un calco fiel.</li>
+    <li><strong>Pantone y CMYK oficiales</strong> (de tu imprenta), y una pieza impresa de muestra.</li>
+    <li><strong>Color oficial:</strong> #701B78 o #8E1F5C.</li>
+    <li>¿Se autoriza una <strong>versión del icono en blanco</strong> para fondos oscuros?</li>
+    <li>Nº de registro sanitario y nº de colegiado del médico.</li>
+  </ul>
+  <p style="margin-top:1.5rem;font-size:.9rem">Cuestionario completo: <code>02-imagen-y-manual/estrategia/cuestionario-cliente.md</code></p>
+</section>
+</body>
+</html>
