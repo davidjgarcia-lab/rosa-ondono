@@ -40,10 +40,10 @@
 
 ## 4. Pilares de contenido
 
-| Pilar | Qué cuenta | Ejemplos | Mix anual | Mix diciembre (campaña) |
+| Pilar | Qué cuenta | Ejemplos | Mix anual | Mix diciembre (campaña; 15 piezas de feed, ver calendario) |
 |---|---|---|---|---|
-| **Cuídate** | Educación y autocuidado. Criterio experto de Rosa (piel, cuerpo, manos) y del médico (por qué la medicina estética empieza con una consulta). | Piel y frío; qué es un drenaje y para quién; cómo elegir un tratamiento facial; mitos; rutinas de casa | **40 %** | 25 % |
-| **Conecta** | Rosa y el equipo, la comunidad, reseñas reales con permiso y alianzas (cirujanos para el drenaje postquirúrgico). | Rosa en primera persona; un día en el centro; quién es quién; reseña de la semana; cómo coordinamos con tu cirujano | **35 %** | 35 % |
+| **Cuídate** | Educación y autocuidado. Criterio experto de Rosa (piel, cuerpo, manos) y del médico (por qué la medicina estética empieza con una consulta). | Piel y frío; qué es un drenaje y para quién; cómo elegir un tratamiento facial; mitos; rutinas de casa | **40 %** | 20 % |
+| **Conecta** | Rosa y el equipo, la comunidad, reseñas reales con permiso y alianzas (cirujanos para el drenaje postquirúrgico). | Rosa en primera persona; un día en el centro; quién es quién; reseña de la semana; cómo coordinamos con tu cirujano | **35 %** | 40 % |
 | **Siente** | Rituales, ambiente, lo sensorial: texturas, sonido, luz, aroma, el momento de parar. | Ritual de invierno en planos de detalle; la cabina por dentro; bonos regalo como experiencia | **25 %** | 40 % |
 
 **Reglas de los pilares**
@@ -138,7 +138,7 @@ Basadas en `../../00-nucleo-marca/cumplimiento-legal.md`. No es asesoramiento ju
 | Identificar al Dr. Roberth Bravo Pardo como médico, con n.º de colegiado [PENDIENTE], en toda pieza de medicina estética | Que hable de medicina estética alguien no sanitario como si lo fuera |
 | Incluir el n.º de registro sanitario del centro [PENDIENTE] en las piezas de medicina estética | Publicar piezas de medicina estética mientras falten esos dos datos |
 | Hablar de los riesgos con naturalidad: «el médico te explicará beneficios, riesgos y alternativas» | «Sin efectos secundarios», «100 % seguro», «indoloro», minimizar riesgos |
-| Bonos regalo de estética, masajes, rituales y terapias de bienestar | Bonos, regalos, sorteos o descuentos de medicina estética |
+| Bonos regalo de estética, masajes, rituales y terapias de bienestar | Bonos, regalos, sorteos o descuentos de medicina estética. Tampoco de fisioterapia, osteopatía o acupuntura mientras no se confirme con el asesor si se consideran actos sanitarios [PENDIENTE] |
 | Recordar con calma fechas de compra o entrega de bonos | Urgencia o presión en actos médicos («últimas plazas», «solo hoy») |
 | Reseñas reales, con permiso escrito, sobre trato, estética y bienestar | Reseñas o testimonios sobre resultados de tratamientos médicos; reseñas inventadas o editadas |
 | Fotos reales del centro, el equipo y procesos, con consentimiento de quien aparece | Antes/después sin protocolo (consentimiento escrito, sin retoque, misma luz y encuadre, normativa autonómica comprobada). En diciembre: ninguno |

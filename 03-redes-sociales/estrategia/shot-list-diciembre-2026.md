@@ -51,6 +51,14 @@
 | G03 | Cabina | GBP 4:3 | A | Sí |
 | G04 | Equipo | GBP 1:1 | B | Sí |
 | G05 | Bono regalo (producto) | GBP 1:1 | B | Parcial |
+| R11 | Patio-jardín: puerta corredera de la cabina que se abre al jardín (paso de interior a exterior) | Reel 9:16 | A | Sí |
+| R12 | Patio-jardín: infusión después del tratamiento bajo el cenador | Reel 9:16 | A | Sí |
+| F16 | Patio-jardín, plano general sin personas (cenador, plantas, terracota) | Feed 4:5 | A | Sí |
+| F17 | Patio-jardín: taza de infusión y manos, detalle | Feed 4:5 | B | Sí |
+| F18 | Cabina A: pared ciruela y camilla con el cojín bordado con el icono | Feed 4:5 | A | Sí |
+| F19 | Cabina A: detalle del bodegón (alambique de cobre, aceites, lámpara de sal) | Feed 4:5 | B | Sí |
+| S11 | Patio-jardín: plano fijo de calma (plantas, luz) como fondo de story | Story 9:16 | B | Sí |
+| G06 | Patio-jardín (espacio del centro) | GBP 4:3 | A | Sí |
 
 «Parcial» quiere decir que se rueda también una variante sin atrezo navideño (ver §2.4).
 
@@ -444,6 +452,31 @@ Se ruedan con **móvil de gama alta** (más naturales y rápidas de entregar) sa
 
 ---
 
+
+### 5.5 Ampliación del 17/11/2026: patio-jardín y cabina A
+
+Fuente: `02-imagen-y-manual/espacios/mapa-del-centro.md` (rama `main`). El centro tiene un **patio-jardín interior privado**, al que dan las cabinas por puertas correderas de vidrio, y una **cabina A** con pared de acento ciruela y un **cojín con el icono bordado**. El patio es el gran recurso del pilar **Siente**, porque pocos centros del centro de Alicante tienen un jardín propio.
+
+**Reglas que se añaden:**
+- Las fotos de Google Maps del patio y de la cabina son de un tercero: **solo sirven de referencia interna y no se publican**. Todo lo que salga en redes se fotografía en la sesión propia.
+- Las imágenes generadas con IA (prompts del mapa) se usan **solo como moodboard o maqueta interna**. **Nunca se publican en redes como si fueran el centro.**
+- El cojín bordado se fotografía tal cual: el icono no se retoca, no se recolorea y no se le añaden efectos. La pared ciruela **no sirve como referencia de color** y no se corrige en posproducción para acercarla a #701B78 ni a #8E1F5C.
+- Antes de fotografiar el patio se esconden o se dejan fuera de cuadro las máquinas de aire acondicionado, el cartel de alarma, el cableado y las bajantes, las rejas de los vecinos y las fachadas superiores (no deben verse ventanas ni personas de otros pisos).
+- Plantas reales y vivas; nada de flores artificiales añadidas.
+
+| Código | Descripción | Uso | Formato / zona segura | Encuadre y óptica | Luz | Atrezo | Quién | Prioridad | Cumplimiento |
+|---|---|---|---|---|---|---|---|---|---|
+| R11 | Desde dentro de la cabina, la puerta corredera se abre y la cámara sale al jardín, en un solo plano de 6-8 s | Reel «Siente», portada del highlight «El centro» | 9:16 · ZS-R | Gimbal o mano firme, 24-28 mm, a la altura de los ojos | Mañana con el patio en sombra abierta; se expone para el exterior y se rellena el interior con LED | Camilla con sábana blanca, toalla doblada, plantas | Sin personas o con una terapeuta de espaldas | A | La puerta de vidrio no debe reflejar al equipo de rodaje |
+| R12 | Una modelo envuelta en un albornoz bebe una infusión bajo el cenador; manos, vapor de la taza, plano corto de las plantas | Reel «Siente» / guía de regalos (ritual) | 9:16 · ZS-R | 50 mm y 85 mm, planos detalle | Luz suave de mañana o de última hora de la tarde | Taza de cerámica artesanal, tetera, manta de lino | 1 modelo (con cesión de derechos) | A | No se insinúa ningún resultado ni ningún tratamiento médico |
+| F16 | Plano general del patio sin personas: cenador, mesa y sillas, macetas de terracota, geranios | Feed «Siente», carrusel «El centro» | 4:5 · ZS-F | 24-35 mm, cámara nivelada, verticales rectas | Sombra abierta o sol de mañana bajo | Mesa preparada con dos tazas | Nadie | A | Fuera de cuadro los elementos de los vecinos |
+| F17 | Detalle: manos que sujetan la taza de infusión, fondo de plantas desenfocado | Feed / carrusel de bonos «ritual» | 4:5 · ZS-F | 85 mm, f/2-2.8 | Contraluz suave | Taza, manta de lino | Modelo de manos | B | — |
+| F18 | Cabina A: pared ciruela, columna iluminada, camilla con sábana blanca y **cojín con el icono bordado** en primer plano | Feed «Cuídate» / «El centro» | 4:5 · ZS-F | 35 mm, frontal y simétrico | Se apagan los downlights fríos; luz cálida continua difusa | Cojín bordado (sin retocar), toalla doblada | Nadie | A | El icono se ve tal cual es. El aparato corporal queda fuera de cuadro o sin marca legible |
+| F19 | Bodegón de la cabina A: alambique de cobre, aceites esenciales, lámpara de sal, vela | Feed «Siente» / fondo de carrusel | 4:5 · ZS-F | 50-100 mm macro | Luz lateral suave | Sin productos de marca comercial legible | Nadie | B | Sin claims sobre los aceites («curan», «tratan») |
+| S11 | Plano fijo de 10 s del patio (hojas que se mueven, luz) | Fondo de stories: preguntas, horario, «gracias» | 9:16 · ZS-S | Trípode, 35 mm | Mañana | — | Nadie | B | — |
+| G06 | Patio-jardín (horizontal) | Google Business Profile, categoría «Interior» | 4:3 · ZS-G | 24 mm, nivelado | Mañana | Mesa preparada | Nadie | A | — |
+
+**Cambios en el plan de sesión (§4):** se añade el bloque **09:00-09:30 Patio-jardín** (F16, S11, G06, R11) aprovechando la luz suave de la mañana. Los exteriores de la fachada pasan a 08:15-09:00. R12 y F17 se ruedan en el patio entre las 13:00 y las 13:30 si hay sombra abierta, o a las 16:00. **Orientación del patio: PENDIENTE de visita técnica.** F18 y F19 entran en el bloque de cabina; si la cabina principal de la sesión no es la cabina A, se reservan 30 minutos para ella.
+
 ## 6. Casting y diversidad
 
 | Perfil | Planos | Criterio |
@@ -572,6 +605,7 @@ Se usa solo si la sesión no llega a tiempo para el lanzamiento o para cubrir lo
 | Fecha | Código | Cambio | Motivo |
 |---|---|---|---|
 | 17/11/2026 | — | Versión inicial | — |
+| 17/11/2026 | R11, R12, F16-F19, S11, G06 | Altas nuevas (sin renumerar los anteriores) | Mapa del centro: patio-jardín y cabina A |
 
 ---
 
