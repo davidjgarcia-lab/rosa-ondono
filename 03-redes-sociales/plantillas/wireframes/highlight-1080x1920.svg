@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" font-family="Arial, Helvetica, sans-serif">
+<title>Portada de highlight 1080x1920 · wireframe neutro BORRADOR</title>
+<defs><pattern id="h" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="24" height="24" fill="#E6E6E6"/><line x1="0" y1="0" x2="0" y2="24" stroke="#BDBDBD" stroke-width="8"/></pattern></defs>
+<rect width="1080" height="1920" fill="#F2F2F2"/>
+<circle cx="540" cy="960" r="360" fill="#E0E0E0" stroke="#7A7A7A" stroke-width="3" stroke-dasharray="14 10"/>
+<circle cx="540" cy="960" r="200" fill="none" stroke="#9E9E9E" stroke-width="3"/>
+<text x="540" y="970" font-size="30" fill="#444" text-anchor="middle">Pictograma Ø ≤ 400 px</text>
+<text x="540" y="1370" font-size="26" fill="#666" text-anchor="middle">Círculo de seguridad Ø 720 px · fondo plano · sin texto</text>
+</svg>

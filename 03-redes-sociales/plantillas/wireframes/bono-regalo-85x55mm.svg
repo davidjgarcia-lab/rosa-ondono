@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="91mm" height="61mm" viewBox="0 0 910 610" font-family="Arial, Helvetica, sans-serif">
+<title>Bono regalo 85x55 mm + 3 mm sangrado · wireframe neutro BORRADOR (1 unidad = 0,1 mm)</title>
+<rect width="910" height="610" fill="#D6D6D6"/>
+<rect x="30" y="30" width="850" height="550" fill="#F2F2F2" stroke="#444" stroke-width="2"/>
+<rect x="70" y="70" width="770" height="470" fill="none" stroke="#7A7A7A" stroke-width="2" stroke-dasharray="10 8"/>
+<rect x="90" y="90" width="380" height="60" fill="#CFCFCF"/><text x="110" y="130" font-size="26" fill="#444">«Bono regalo»</text>
+<rect x="90" y="170" width="360" height="40" fill="#E0E0E0"/><text x="110" y="204" font-size="20" fill="#444">Para: ____  De: ____</text>
+<rect x="90" y="225" width="360" height="40" fill="#E0E0E0"/><text x="110" y="259" font-size="20" fill="#444">Servicio/importe [PENDIENTE]</text>
+<rect x="90" y="280" width="360" height="40" fill="#E0E0E0"/><text x="110" y="314" font-size="20" fill="#444">Código · Validez [PENDIENTE]</text>
+<rect x="90" y="335" width="740" height="40" fill="#E0E0E0"/><text x="110" y="369" font-size="20" fill="#444">No válido para tratamientos de medicina estética</text>
+<rect x="90" y="390" width="740" height="40" fill="#E0E0E0"/><text x="110" y="424" font-size="20" fill="#444">Condiciones [PENDIENTE] · Emisor [PENDIENTE]</text>
+<rect x="90" y="445" width="740" height="75" fill="#E0E0E0"/><text x="110" y="479" font-size="20" fill="#444">Reserva: tel. · WhatsApp · email · web · dirección</text>
+<rect x="560" y="90" width="270" height="190" fill="#CFCFCF"/><text x="580" y="122" font-size="18" fill="#444">Firma (isotipo original)</text>
+<text x="40" y="600" font-size="16" fill="#555">Gris oscuro: sangrado 3 mm · Línea continua: corte 85×55 mm · Discontinua: seguridad 4 mm</text>
+</svg>

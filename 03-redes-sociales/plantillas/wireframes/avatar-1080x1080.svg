@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" font-family="Arial, Helvetica, sans-serif">
+<title>Avatar 1080x1080 · wireframe neutro BORRADOR</title>
+<defs><pattern id="h" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="24" height="24" fill="#E6E6E6"/><line x1="0" y1="0" x2="0" y2="24" stroke="#BDBDBD" stroke-width="8"/></pattern></defs>
+<rect width="1080" height="1080" fill="#F2F2F2"/>
+<circle cx="540" cy="540" r="540" fill="#E8E8E8"/>
+<rect x="300" y="215" width="480" height="650" fill="none" stroke="#7A7A7A" stroke-width="3" stroke-dasharray="14 10"/>
+<text x="540" y="530" font-size="30" fill="#444" text-anchor="middle">Isotipo ORIGINAL</text>
+<text x="540" y="575" font-size="26" fill="#555" text-anchor="middle">(pendiente del vector)</text>
+<text x="540" y="620" font-size="24" fill="#666" text-anchor="middle">alto ≤ 60 % del diámetro (≈650 px)</text>
+</svg>
