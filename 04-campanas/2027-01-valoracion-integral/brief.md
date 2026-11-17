@@ -58,6 +58,7 @@ Cuídate · Conecta · Siente empieza por entender qué necesitas. En lugar de v
 
 ### Dirección visual · ⚠️ PROVISIONAL
 - Momento de conversación: Rosa escuchando, cuaderno o plan escrito a mano, luz natural, mesa con té.
+- Fotos del centro con derechos disponibles en `assets/fotografia/recorrido-360/` (recepción, patio), aptas para digital; sin asignar uso a cabinas.
 - Sin aparatos en primer plano ni batas clínicas en el visual principal (la tecnología aparece como apoyo).
 - Plan personalizado como objeto gráfico: tres bloques Cuídate / Conecta / Siente (disenador-grafico, según el manual).
 

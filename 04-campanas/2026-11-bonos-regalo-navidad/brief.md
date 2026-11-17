@@ -70,7 +70,7 @@ El mejor regalo no es otra cosa más, sino **tiempo para cuidarse**, en manos de
 - **Navidad discreta:** un lazo, papel kraft, una ramita. Nada de rojo-verde saturado ni de Papá Noel: la Navidad acompaña, pero la protagonista es la marca.
 - **Color:** color corporativo como acento (hipótesis #701B78 hasta que el cliente confirme; ver la discrepancia con #8E1F5C en la fuente de verdad) + neutros cálidos. La paleta secundaria definitiva la fija el manual.
 - **Icono:** se usa el PNG actual solo en borradores (no es apto para producción). Para imprimir la caja o las tarjetas se necesita el **vector original (PENDIENTE)**. Nunca se redibuja, se recolorea ni se le añaden efectos.
-- **Fotografía:** prioridad, imagen propia del centro y de las manos de Rosa (fotografo: sesión exprés de media jornada si es viable antes del 22/11). Alternativa, stock seleccionado por fotografo con criterios de naturalidad (pieles reales, sin retoque excesivo).
+- **Fotografía:** ✅ **ya disponible:** fotos reales del centro con derechos confirmados en `assets/fotografia/recorrido-360/` (rama `main`). Para Meta se usan las `_4x5-redes` y para web y banners las `_16x9-web`. Las que mejor encajan con «Regala sentir» son el patio y jardín con cenador (08), la puerta del patio con el icono (09), las plantas (10) y la recepción con ventana al patio (02). Para los detalles de manos y ritual: sesión exprés (fotografo) o stock seleccionado con criterios de naturalidad (pieles reales, sin retoque excesivo). ⚠️ Estas fotos son aptas para uso digital y provisional; **para imprimir (escaparate o vinilo) se recomienda una sesión nueva**. No se asigna un uso o tratamiento concreto a cada cabina (decisión del cliente): en los copys no se dice «en esta cabina hacemos…».
 - **Personas:** diversidad de edades. Sin cuerpos semidesnudos «ideales».
 
 ## 6. Mensajes y tono
@@ -269,7 +269,7 @@ Pie legal en todos: datos del responsable, baja con un clic, política de privac
 | 6 | Accesos a Meta Business Manager, Google Ads, GBP y GA4 | Cliente | PENDIENTE |
 | 7 | Horario de Navidad | Cliente | PENDIENTE |
 | 8 | Ventas de bonos de 2025 (base para los objetivos) | Cliente | PENDIENTE |
-| 9 | Fotografía | fotografo | Sesión exprés en el centro o stock seleccionado |
+| 9 | Fotografía | fotografo | Fotos del centro disponibles (`assets/fotografia/recorrido-360/`); falta imagen de manos y ritual (sesión exprés o stock) y una sesión nueva para impresión |
 | 10 | Corregir antes los claims de riesgo de la web actual («Resultados garantizados», «poder curativo»…) | ejecutivo-cuentas | Imprescindible: la campaña lleva tráfico a esa web |
 
 ## 12. Calendario de producción

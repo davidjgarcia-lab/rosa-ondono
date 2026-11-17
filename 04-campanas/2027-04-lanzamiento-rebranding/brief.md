@@ -37,6 +37,7 @@ El lema se convierte, por primera vez, en el centro de la comunicación. Cada ve
 
 ### Dirección visual · ⚠️ PROVISIONAL
 - Retrato de Rosa (campaña firmada por ella) + equipo + espacio renovado.
+- Material ya disponible: fotos del recorrido 360° (`assets/fotografia/recorrido-360/`), aptas para teasers digitales. Para la revelación e impresión: sesión nueva.
 - Sesión de fotos propia (fotografo): manos, texturas, luz natural del centro, diversidad de edades.
 - Sistema gráfico, tipografía y paleta: **los define el manual**.
 
