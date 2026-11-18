@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rosa Ondoño · Dirección de arte v3</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
+<style>
+/* Idea: tablero editorial de presentación. Cada bloque del tablero usa el mismo lenguaje que propone para la web. */
+:root{
+  --morado:#7D1F73; --morado-hondo:#5E1656; --marfil:#F7F2EB; --arena:#E9DCCB; --lila:#E8DAE6; --tinta:#2E1A2C;
+  --arcilla:#B7897A; --salvia:#A9B7A4; --blanco:#FFFFFF; --suave:#5C4B59; --linea:#E3D8CC;
+  --f-texto:'Jost','Century Gothic',Arial,sans-serif; --f-lema:'Cormorant Garamond',Georgia,serif;
+  --e-suave:cubic-bezier(.22,.61,.36,1); --e-salida:cubic-bezier(.16,1,.3,1); --e-escena:cubic-bezier(.65,0,.35,1);
+  --t-micro:160ms; --t-ui:260ms; --t-entrada:700ms; --t-escena:1200ms;
+  color-scheme:light;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--marfil);color:var(--tinta);font:300 17px/1.65 var(--f-texto);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+h1,h2,h3{font-weight:300;line-height:1.08;margin:0 0 .4em;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0 0 1em}
+.env{max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
+.eti{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--suave);font-weight:400;display:block;margin-bottom:12px}
+.eti b{color:var(--morado);font-weight:500;margin-right:.6em}
+.lema{font:italic 500 1.4rem/1.2 var(--f-lema);color:var(--morado)}
+.bloque{padding:clamp(64px,8vw,112px) 0;border-top:1px solid var(--linea)}
+.nota{font-size:.9rem;color:var(--suave);max-width:70ch}
+.pend{display:inline-block;background:#F6E4DD;color:#7A2E1E;border-radius:99px;padding:1px 10px;font-size:.78rem;font-weight:400}
+.rej2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px)} @media(max-width:860px){.rej2{grid-template-columns:1fr}}
+.caja{background:var(--blanco);border-radius:18px;padding:clamp(20px,3vw,32px)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Portada del tablero */
+.portada{background:var(--tinta);color:var(--marfil);padding:56px 0 72px;position:relative;overflow:hidden}
+.portada img.logo{width:190px;margin-bottom:56px}
+.portada h1{font-size:clamp(2.6rem,6vw,5.2rem);max-width:14ch}
+.portada h1 em{font:italic 400 1em var(--f-lema);color:var(--lila)}
+.portada p{color:#d9cdd6;max-width:60ch}
+.portada .iso{position:absolute;right:-6%;top:-12%;height:130%;opacity:1;pointer-events:none}
+.fases{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.fases span{border:1px solid rgba(247,242,235,.35);border-radius:99px;padding:6px 14px;font-size:.85rem}
+.fases span.on{background:var(--marfil);color:var(--tinta);border-color:var(--marfil)}
+
+/* Tabla feedback → solución */
+.fb{display:grid;gap:10px}
+.fb div{display:grid;grid-template-columns:1fr 1.3fr;gap:24px;background:var(--blanco);border-radius:14px;padding:16px 20px;font-size:.95rem}
+.fb div p{margin:0} .fb b{font-weight:500}
+@media(max-width:700px){.fb div{grid-template-columns:1fr;gap:6px}}
+
+/* Concepto */
+.concepto h2{font-size:clamp(2.2rem,5vw,4.4rem);max-width:16ch}
+.concepto h2 em{font:italic 400 1em var(--f-lema);color:var(--morado)}
+.principios{list-style:none;padding:0;margin:32px 0 0;display:grid;grid-template-columns:repeat(5,1fr);gap:18px;counter-reset:p}
+.principios li{counter-increment:p;border-top:1px solid var(--tinta);padding-top:14px;font-size:.92rem;color:var(--suave)}
+.principios li::before{content:"0" counter(p);display:block;font:italic 500 1.6rem var(--f-lema);color:var(--morado);margin-bottom:6px}
+.principios b{display:block;color:var(--tinta);font-weight:500;font-size:1rem;margin-bottom:4px}
+@media(max-width:960px){.principios{grid-template-columns:1fr 1fr}} @media(max-width:520px){.principios{grid-template-columns:1fr}}
+.mood{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:200px 200px;gap:12px;margin-top:40px}
+.mood figure{margin:0;border-radius:14px;overflow:hidden;position:relative}
+.mood figure:first-child{grid-row:span 2}
+.mood img{width:100%;height:100%;object-fit:cover}
+.mood figcaption{position:absolute;left:10px;bottom:10px;background:rgba(247,242,235,.92);border-radius:99px;padding:2px 10px;font-size:.78rem}
+@media(max-width:700px){.mood{grid-template-columns:1fr 1fr;grid-template-rows:220px 140px 140px}.mood figure:first-child{grid-column:span 2;grid-row:auto}}
+
+/* DEMO cabecera nueva */
+.cab-demo{border-radius:14px;overflow:hidden;background:var(--marfil);border:1px solid var(--linea)}
+.cab{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding:14px clamp(18px,3vw,40px);background:rgba(247,242,235,.96)}
+.cab .logo{justify-self:start} .cab .logo img{width:160px}
+.cab nav{justify-self:center;display:flex;gap:28px;font-size:.95rem} .cab nav a{color:var(--tinta);text-decoration:none;position:relative;padding:6px 0}
+.cab nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--morado);transform:scaleX(0);transform-origin:left;transition:transform var(--t-ui) var(--e-salida)}
+.cab nav a:hover::after,.cab nav a.on::after{transform:scaleX(1)}
+.cab .acc{justify-self:end;display:flex;gap:10px}
+.guia-cab{display:grid;grid-template-columns:1fr auto 1fr;font-size:.75rem;color:var(--suave);padding:6px clamp(18px,3vw,40px);background:repeating-linear-gradient(90deg,transparent 0 6px,rgba(125,31,115,.06) 6px 7px)}
+.guia-cab span:nth-child(2){text-align:center} .guia-cab span:nth-child(3){text-align:right}
+@media(max-width:900px){.cab nav{display:none}.cab{grid-template-columns:1fr auto}.guia-cab{display:none}}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:0 24px;border-radius:99px;font:400 .95rem var(--f-texto);text-decoration:none;cursor:pointer;border:1.5px solid var(--morado);transition:background var(--t-ui) var(--e-suave),color var(--t-ui) var(--e-suave),transform var(--t-micro) var(--e-suave)}
+.btn:active{transform:scale(.97)}
+.btn-p{background:var(--morado);color:#fff} .btn-p:hover{background:var(--morado-hondo);border-color:var(--morado-hondo)}
+.btn-s{background:transparent;color:var(--morado)} .btn-s:hover{background:var(--morado);color:#fff}
+.btn-c{background:#fff;color:var(--morado);border-color:#fff}
+.btn-flecha span{display:inline-block;transition:transform var(--t-ui) var(--e-salida)} .btn-flecha:hover span{transform:translateX(4px)}
+
+/* DEMO slider de portada */
+.slider{position:relative;height:min(78vh,640px);min-height:480px;border-radius:18px;overflow:hidden;color:#fff;background:var(--tinta);isolation:isolate}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity var(--t-escena) var(--e-escena);display:grid;align-items:end}
+.slide.on{opacity:1}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 7s linear;z-index:-2}
+.slide.on img{transform:scale(1)}
+.slide::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(46,26,44,.78) 0%,rgba(46,26,44,.35) 55%,rgba(46,26,44,0) 80%),linear-gradient(0deg,rgba(46,26,44,.55),transparent 45%)}
+.slide .txt{padding:clamp(24px,5vw,64px);max-width:640px}
+.slide .verbo{font:italic 500 clamp(1.4rem,2.4vw,2rem)/1 var(--f-lema);color:var(--lila);display:block;margin-bottom:14px}
+.slide h3{font-size:clamp(2.2rem,4.6vw,4rem);font-weight:300;margin-bottom:14px}
+.slide p{color:#eadfe8;max-width:44ch}
+.lin{display:block;overflow:hidden} .lin>span{display:block;transform:translateY(105%);transition:transform var(--t-entrada) var(--e-salida)}
+.slide.on .lin>span{transform:none} .slide.on .lin:nth-child(2)>span{transition-delay:90ms} .slide.on .lin:nth-child(3)>span{transition-delay:180ms}
+.slide .fade{opacity:0;transform:translateY(12px);transition:opacity var(--t-entrada) var(--e-salida) 260ms,transform var(--t-entrada) var(--e-salida) 260ms}
+.slide.on .fade{opacity:1;transform:none}
+.mando{position:absolute;right:clamp(16px,3vw,40px);bottom:clamp(16px,3vw,40px);display:flex;gap:10px;z-index:3}
+.mando button{appearance:none;background:none;border:0;color:#fff;cursor:pointer;padding:10px 0;width:clamp(56px,7vw,96px);text-align:left;font:400 .78rem var(--f-texto);letter-spacing:.14em;text-transform:uppercase;opacity:.65}
+.mando button[aria-current="true"]{opacity:1}
+.mando button i{display:block;height:2px;background:rgba(255,255,255,.3);margin-top:8px;overflow:hidden}
+.mando button i::after{content:"";display:block;height:100%;background:#fff;transform:scaleX(0);transform-origin:left}
+.mando button[aria-current="true"] i::after{animation:progreso 6s linear forwards}
+.slider.pausa .mando button i::after{animation-play-state:paused}
+@keyframes progreso{to{transform:scaleX(1)}}
+.iso-hero{position:absolute;right:-4%;top:-10%;height:70%;z-index:1;pointer-events:none;clip-path:inset(0 0 100% 0);animation:revela 1.6s var(--e-salida) .4s forwards}
+@keyframes revela{to{clip-path:inset(0 0 0 0)}}
+.chip-confianza{position:absolute;left:clamp(24px,5vw,64px);top:clamp(20px,3vw,32px);display:flex;gap:18px;font-size:.82rem;z-index:3;color:#f1e8ef}
+.chip-confianza b{font-weight:500;color:#fff}
+@media(max-width:700px){.slider{height:82vh;min-height:520px}.slide::before{background:linear-gradient(0deg,rgba(46,26,44,.85) 10%,rgba(46,26,44,.2) 70%)}.mando{left:24px;right:auto}.chip-confianza{display:none}}
+
+/* DEMO acordeón de áreas */
+.acordeon{display:flex;gap:10px;height:440px}
+.panel{position:relative;flex:1;border-radius:16px;overflow:hidden;color:#fff;text-decoration:none;transition:flex var(--t-entrada) var(--e-salida);min-width:0}
+.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--e-salida)}
+.panel::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(46,26,44,.8),rgba(46,26,44,0) 60%)}
+.panel .c{position:absolute;left:20px;right:20px;bottom:20px;z-index:1}
+.panel h4{font-size:1.5rem;font-weight:300;margin:0;white-space:nowrap}
+.panel p{margin:6px 0 0;font-size:.9rem;opacity:0;max-height:0;transition:opacity var(--t-ui),max-height var(--t-entrada) var(--e-salida)}
+.panel .n{position:absolute;top:16px;left:20px;z-index:1;font:italic 500 1.3rem var(--f-lema)}
+.acordeon:hover .panel{flex:.7} .acordeon .panel:hover{flex:2.4} .panel:hover img{transform:scale(1.05)} .panel:hover p{opacity:1;max-height:80px}
+@media(max-width:800px){.acordeon{height:auto;overflow-x:auto;scroll-snap-type:x mandatory}.panel{flex:0 0 78%;height:380px;scroll-snap-align:start}.panel p{opacity:1;max-height:80px}.acordeon:hover .panel,.acordeon .panel:hover{flex:0 0 78%}}
+
+/* DEMO lista editorial con vista previa */
+.carta{list-style:none;padding:0;margin:0;border-top:1px solid var(--tinta);position:relative}
+.carta li a{display:grid;grid-template-columns:60px 1fr auto auto;gap:20px;align-items:baseline;padding:20px 4px;border-bottom:1px solid var(--linea);color:var(--tinta);text-decoration:none;transition:padding var(--t-ui) var(--e-salida),background var(--t-ui)}
+.carta li a:hover{padding-left:16px;background:rgba(232,218,230,.45)}
+.carta .num{font:italic 500 1.2rem var(--f-lema);color:var(--morado)}
+.carta .nom{font-size:clamp(1.3rem,2.4vw,1.9rem);font-weight:300}
+.carta .cat{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--suave)}
+.carta .ir{color:var(--morado)}
+.vista{position:fixed;width:240px;aspect-ratio:4/5;border-radius:14px;overflow:hidden;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.9);transition:opacity var(--t-ui),transform var(--t-ui) var(--e-salida);z-index:30;box-shadow:0 24px 50px -20px rgba(46,26,44,.5)}
+.vista.on{opacity:1;transform:translate(-50%,-50%) scale(1)} .vista img{width:100%;height:100%;object-fit:cover}
+@media(max-width:700px){.carta li a{grid-template-columns:40px 1fr auto}.carta .cat{display:none}.vista{display:none}}
+
+/* DEMO marquesina */
+.marquesina{overflow:hidden;background:var(--morado);color:var(--marfil);padding:22px 0;border-radius:16px}
+.pista{display:flex;gap:48px;width:max-content;animation:desliza 40s linear infinite}
+.marquesina:hover .pista{animation-play-state:paused}
+.pista span{font:italic 400 clamp(1.6rem,3vw,2.4rem)/1 var(--f-lema);white-space:nowrap}
+.pista span::after{content:"·";margin-left:48px;color:var(--lila)}
+@keyframes desliza{to{transform:translateX(-50%)}}
+
+/* Mapa de secciones */
+.mapa{display:grid;gap:14px}
+.sec{display:grid;grid-template-columns:200px 1fr 220px;gap:24px;align-items:center;background:#fff;border-radius:16px;padding:18px 20px}
+.sec h4{margin:0;font-size:1.05rem;font-weight:500} .sec h4 small{display:block;font-weight:300;color:var(--suave);font-size:.82rem}
+.sec p{margin:0;font-size:.92rem;color:var(--suave)}
+.wf{height:96px;border-radius:10px;position:relative;overflow:hidden;background:var(--marfil)}
+.wf i{position:absolute;background:var(--arena);border-radius:4px} .wf i.m{background:var(--morado)} .wf i.l{background:var(--lila)} .wf i.t{background:var(--tinta)}
+@media(max-width:900px){.sec{grid-template-columns:1fr}.wf{height:110px}}
+
+/* Sistema: color */
+.paleta{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.col{border-radius:14px;overflow:hidden;background:#fff;font-size:.82rem}
+.col .m{height:110px;display:flex;align-items:flex-end;padding:10px;font-weight:500}
+.col .d{padding:10px 12px;color:var(--suave)} .col .d b{display:block;color:var(--tinta);font-weight:500;font-size:.9rem}
+@media(max-width:800px){.paleta{grid-template-columns:1fr 1fr}}
+.proporcion{display:flex;height:22px;border-radius:99px;overflow:hidden;margin:18px 0 6px}
+.contraste{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:16px}
+.contraste td,.contraste th{border-bottom:1px solid var(--linea);padding:8px 6px;text-align:left;font-weight:400}
+.contraste th{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--suave)}
+.ok{color:#1d6b33;font-weight:500}
+
+/* Sistema: tipografía */
+.escala div{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:baseline;border-bottom:1px solid var(--linea);padding:12px 0}
+.escala small{font-size:.76rem;color:var(--suave);letter-spacing:.06em}
+@media(max-width:700px){.escala div{grid-template-columns:1fr;gap:2px}}
+
+/* Sistema: espaciado */
+.espacios{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.espacios div{text-align:center;font-size:.75rem;color:var(--suave)} .espacios i{display:block;background:var(--lila);border:1px solid var(--morado);margin:0 auto 6px}
+
+/* Componentes */
+.comp{display:grid;grid-template-columns:repeat(3,1fr);gap:16px} @media(max-width:900px){.comp{grid-template-columns:1fr}}
+.comp .caja h4{margin:0 0 14px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;color:var(--suave)}
+.wa-demo{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.wa{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;text-decoration:none;position:relative;transition:transform var(--t-ui) var(--e-salida)}
+.wa svg{width:20px;height:20px}
+.wa--tinta{background:var(--tinta)} .wa--tinta svg{fill:var(--marfil)}
+.wa--morado{background:var(--morado)} .wa--morado svg{fill:#fff}
+.wa--claro{background:#fff;box-shadow:0 8px 24px -10px rgba(46,26,44,.45)} .wa--claro svg{fill:var(--morado)}
+.wa:hover{transform:translateY(-2px)}
+.wa::after{content:attr(data-et);position:absolute;right:52px;white-space:nowrap;background:var(--tinta);color:var(--marfil);font-size:.75rem;padding:4px 10px;border-radius:99px;opacity:0;transform:translateX(6px);transition:opacity var(--t-ui),transform var(--t-ui) var(--e-salida);pointer-events:none}
+.wa:hover::after,.wa:focus-visible::after{opacity:1;transform:none}
+.huecos{display:flex;flex-wrap:wrap;gap:8px}
+.hueco{border:1.5px solid #CDBFB0;background:var(--marfil);border-radius:10px;min-height:44px;min-width:72px;font:400 .92rem var(--f-texto);cursor:pointer;transition:all var(--t-micro)}
+.hueco[aria-pressed="true"]{background:var(--morado);border-color:var(--morado);color:#fff}
+.hueco:disabled{opacity:.45;text-decoration:line-through;cursor:not-allowed}
+.toast{display:flex;gap:12px;align-items:flex-start;background:var(--tinta);color:var(--marfil);border-radius:14px;padding:14px 16px;font-size:.9rem}
+.toast i{width:10px;height:10px;border-radius:50%;background:var(--salvia);margin-top:6px;flex:none}
+.tarjeta-tilt{border-radius:18px;background:var(--morado);color:#fff;aspect-ratio:1.6/1;padding:20px;position:relative;overflow:hidden;transition:transform var(--t-ui) var(--e-salida);transform:perspective(800px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+.tarjeta-tilt img.i{position:absolute;right:-12%;top:-20%;height:150%}
+.tarjeta-tilt img.l{width:120px;position:relative}
+.tarjeta-tilt p{position:absolute;left:20px;bottom:14px;margin:0;font:italic 500 1.2rem var(--f-lema)}
+
+/* Motion */
+.motion{display:grid;grid-template-columns:repeat(4,1fr);gap:12px} @media(max-width:800px){.motion{grid-template-columns:1fr 1fr}}
+.mt{background:#fff;border-radius:14px;padding:16px;font-size:.85rem}
+.mt b{display:block;font-weight:500;font-size:.95rem} .mt code{font-size:.78rem;color:var(--morado)}
+.pista-mov{height:6px;background:var(--linea);border-radius:99px;margin-top:14px;position:relative}
+.pista-mov i{position:absolute;left:0;top:-5px;width:16px;height:16px;border-radius:50%;background:var(--morado)}
+.motion.jugar .mt:nth-child(1) i{transition:left var(--t-micro) var(--e-suave);left:calc(100% - 16px)}
+.motion.jugar .mt:nth-child(2) i{transition:left var(--t-ui) var(--e-suave);left:calc(100% - 16px)}
+.motion.jugar .mt:nth-child(3) i{transition:left var(--t-entrada) var(--e-salida);left:calc(100% - 16px)}
+.motion.jugar .mt:nth-child(4) i{transition:left var(--t-escena) var(--e-escena);left:calc(100% - 16px)}
+
+/* Flujo reserva */
+.flujo{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;counter-reset:f}
+.flujo div{background:#fff;border-radius:14px;padding:18px;font-size:.9rem;position:relative;counter-increment:f}
+.flujo div::before{content:counter(f);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--lila);color:var(--morado);font-weight:500;margin-bottom:10px}
+.flujo b{display:block;font-weight:500;margin-bottom:4px}
+@media(max-width:860px){.flujo{grid-template-columns:1fr 1fr}}
+.wa-msg{background:#E7EFE4;border-radius:14px 14px 14px 4px;padding:12px 14px;font-size:.9rem;max-width:330px;box-shadow:0 2px 0 rgba(0,0,0,.05)}
+.opciones-tabla{width:100%;border-collapse:collapse;font-size:.9rem;background:#fff;border-radius:14px;overflow:hidden}
+.opciones-tabla th,.opciones-tabla td{padding:12px 14px;border-bottom:1px solid var(--linea);text-align:left;vertical-align:top}
+.opciones-tabla th{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--suave);font-weight:400}
+.tabla-scroll{overflow-x:auto}
+.decide{list-style:none;padding:0;margin:0;display:grid;gap:10px;counter-reset:d}
+.decide li{background:var(--tinta);color:var(--marfil);border-radius:14px;padding:16px 18px 16px 58px;position:relative;counter-increment:d}
+.decide li::before{content:counter(d);position:absolute;left:18px;top:14px;width:28px;height:28px;border-radius:50%;background:var(--lila);color:var(--morado);display:grid;place-items:center;font-weight:500}
+.decide b{font-weight:500;color:#fff}
+:focus-visible{outline:2px solid var(--morado);outline-offset:3px;border-radius:6px}
+</style>
+</head>
+<body>
+
+<header class="portada">
+  <img class="iso" src="img/isotipo-blanco.svg" alt="" aria-hidden="true">
+  <div class="env">
+    <img class="logo" src="img/logo-horizontal-blanco.svg" alt="Rosa Ondoño">
+    <span class="eti" style="color:var(--lila)">Web v3 · para aprobar antes de programar</span>
+    <h1>Dirección de arte y <em>sistema de diseño</em></h1>
+    <p>Partimos de tus notas sobre la v2: la cabecera mal repartida, una portada sosa, el recuadro de la dirección, el botón de Netlify, secciones que parecían iguales y que la reserva avise de verdad al centro. Aquí está la propuesta, con demos que funcionan.</p>
+    <div class="fases"><span class="on">1 · Dirección de arte</span><span class="on">2 · Sistema de diseño</span><span>3 · Construcción (tras tu aprobación)</span><span>4 · Pruebas a 1440 · 1024 · 768 · 390</span></div>
+  </div>
+</header>
+
+<section class="bloque"><div class="env">
+  <span class="eti"><b>00</b>Lo que nos pediste</span>
+  <h2 style="font-size:clamp(1.8rem,3vw,2.6rem)">Cada nota, con su respuesta</h2>
+  <div class="fb">
+    <div><p><b>Cabecera mal repartida</b></p><p>Rejilla de tres columnas a todo el ancho: logo pegado a la izquierda, menú centrado de verdad y botones a la derecha. <a href="#cabecera">Ver demo</a></p></div>
+    <div><p><b>Portada sosa</b></p><p>Pase de diapositivas a pantalla completa con tres escenas, una por verbo (Cuídate, Conecta, Siente). Cada una tiene su foto, su titular y su botón, y los textos entran línea a línea. <a href="#portada">Ver demo</a></p></div>
+    <div><p><b>Recuadro de la dirección</b></p><p>Fuera. En su lugar, una franja discreta con prueba social (4,9 en Google · +30 años · supervisión médica).</p></div>
+    <div><p><b>Botón «Powered by Netlify»</b></p><p>No es nuestro: Netlify lo inyecta en los sitios del plan gratuito. En la construcción lo desactivo o, si no se puede, publicamos en otro sitio (Cloudflare Pages) sin marca.</p></div>
+    <div><p><b>WhatsApp pequeño y sin verde fosforito</b></p><p>Círculo de 44 px en tinta o en morado, con el icono en marfil y una etiqueta que aparece al pasar el ratón. <a href="#componentes">Ver variantes</a></p></div>
+    <div><p><b>Todas las secciones parecen iguales</b></p><p>Cada sección tiene su propia composición y su propio movimiento: acordeón, escena fija al hacer scroll, carta editorial, marquesina, galería en mosaico… <a href="#mapa">Ver mapa</a></p></div>
+    <div><p><b>Reserva → Google Calendar + WhatsApp enviado por la web</b></p><p>Una función en el servidor crea la petición en el calendario del centro y envía el WhatsApp sin que la clienta toque nada. La clienta elige hora exacta. <a href="#reserva">Ver flujo</a></p></div>
+  </div>
+</div></section>
+
+<section class="bloque concepto"><div class="env">
+  <span class="eti"><b>01</b>Dirección de arte</span>
+  <h2>Concepto: <em>ritmo lento</em>, como una cita que no tiene prisa</h2>
+  <div class="rej2">
+    <p>La web tiene que sentirse como entrar al centro: luz natural, calma y alguien que te explica las cosas. Para un público de 30 a 60 años con poder adquisitivo medio-alto, el lujo no es el brillo, es el tiempo y el criterio. Por eso proponemos una web editorial, más cerca de una revista o de Aesop que de una clínica. Fotografía grande, mucho aire y un movimiento lento y suave que nunca te hace esperar.</p>
+    <p>El isotipo, una figura de trazo continuo, nos da el hilo: cada sección tiene un ritmo distinto, como las fases de un ritual. Primero entras (portada), eliges (áreas), entiendes (método), te decides (tratamientos), confías (Rosa y el centro) y reservas. El morado aparece donde hay que actuar: botones, la escena del método y la reserva.</p>
+  </div>
+  <ol class="principios">
+    <li><b>Editorial, no catálogo</b>Titulares grandes en Jost Light y citas en Cormorant cursiva, como en una revista.</li>
+    <li><b>Cada sección, su forma</b>Ninguna se repite. Cambia la rejilla, el fondo y el movimiento.</li>
+    <li><b>Movimiento con intención</b>Lento al entrar y rápido al responder. Todo se puede usar sin animación.</li>
+    <li><b>La foto manda</b>Luz cálida y piel real. El morado no se fuerza en la foto: lo pone el diseño.</li>
+    <li><b>Reservar, siempre a mano</b>Un clic desde cualquier punto y, en móvil, al alcance del pulgar.</li>
+  </ol>
+  <div class="mood">
+    <figure><img src="img/u-facial-masaje-800.webp" alt="Masaje facial con luz cálida"><figcaption>Manos que cuidan</figcaption></figure>
+    <figure><img src="img/08-patio-jardin-cenador-800.webp" alt="Patio del centro"><figcaption>El patio real</figcaption></figure>
+    <figure><img src="img/u-piedras-flores-800.webp" alt="Ritual con piedras y flores"><figcaption>Ritual</figcaption></figure>
+    <figure><img src="img/u-retrato-natural-800.webp" alt="Retrato natural"><figcaption>Piel real</figcaption></figure>
+    <figure><img src="img/02-recepcion-ventana-patio-800.webp" alt="Recepción con luz natural"><figcaption>Luz de Alicante</figcaption></figure>
+  </div>
+  <p class="nota" style="margin-top:16px">Referentes: Aesop (tono y tipografía editorial), Dra. Garrigós (especialidades como «ateliers»), Maeli (método por pasos) y tu propuesta (AIRE, TACHA, Crear·t). Las fotos de tratamientos siguen siendo provisionales hasta la sesión propia.</p>
+</div></section>
+
+<section class="bloque" id="cabecera"><div class="env">
+  <span class="eti"><b>02</b>Cabecera</span>
+  <h2 style="font-size:clamp(1.8rem,3vw,2.6rem)">Tres columnas, a todo el ancho</h2>
+  <p class="nota">La v2 metía todo en un contenedor de 1240 px y el menú quedaba descolgado. Ahora la cabecera ocupa todo el ancho, con un margen fluido de 18 a 48 px: el logo va pegado a la izquierda, el menú queda centrado en la pantalla y los botones van a la derecha. Sobre la portada es transparente, con el texto en blanco, y al bajar pasa a marfil.</p>
+  <div class="cab-demo">
+    <div class="guia-cab"><span>← logo a la izquierda</span><span>menú centrado</span><span>botones a la derecha →</span></div>
+    <div class="cab">
+      <a class="logo" href="#cabecera"><img src="img/logo-horizontal.svg" alt="Rosa Ondoño"></a>
+      <nav aria-label="Demo"><a class="on" href="#cabecera">Estética</a><a href="#cabecera">Medicina estética</a><a href="#cabecera">Terapias</a><a href="#cabecera">Bienestar</a><a href="#cabecera">Conócenos</a></nav>
+      <div class="acc"><a class="btn btn-s" href="#cabecera">Regalar</a><a class="btn btn-p" href="#cabecera">Reservar</a></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="bloque" id="portada"><div class="env">
+  <span class="eti"><b>03</b>Portada en movimiento</span>
+  <h2 style="font-size:clamp(1.8rem,3vw,2.6rem)">Tres escenas, una por verbo</h2>
+  <p class="nota">Cada escena dura 6 s: la foto se acerca muy despacio y el titular entra línea a línea. La barra de progreso hace de mando. Se pausa al pasar el ratón o al enfocar con el teclado, y con «reducir movimiento» se queda fija. El isotipo aparece con una cortinilla, sin redibujarlo. <strong>Pasa el ratón para pausar.</strong></p>
+  <div class="slider" id="slider" aria-roledescription="carrusel" aria-label="Portada">
+    <img class="iso-hero" src="img/isotipo-blanco.svg" alt="" aria-hidden="true">
+    <div class="chip-confianza"><span><b>4,9 ★</b> en Google</span><span><b>+30 años</b> de oficio</span><span><b>Supervisión</b> médica</span></div>
+    <div class="slide on" aria-roledescription="diapositiva" aria-label="1 de 3">
+      <img src="img/u-facial-masaje-800.webp" alt="">
+      <div class="txt"><span class="verbo">Cuídate</span><h3><span class="lin"><span>Tu bienestar</span></span><span class="lin"><span>empieza por ti.</span></span></h3>
+      <p class="fade">Estética y medicina estética con criterio, en el centro de Alicante.</p><a class="btn btn-c fade" href="#portada">Descubrir tratamientos</a></div>
+    </div>
+    <div class="slide" aria-roledescription="diapositiva" aria-label="2 de 3">
+      <img src="img/u-masaje-espalda-800.webp" alt="">
+      <div class="txt"><span class="verbo">Conecta</span><h3><span class="lin"><span>Manos que saben</span></span><span class="lin"><span>dónde está la tensión.</span></span></h3>
+      <p class="fade">Masajes, drenaje y terapias con más de 30 años de oficio.</p><a class="btn btn-c fade" href="#portada">Ver terapias</a></div>
+    </div>
+    <div class="slide" aria-roledescription="diapositiva" aria-label="3 de 3">
+      <img src="img/u-piedras-flores-800.webp" alt="">
+      <div class="txt"><span class="verbo">Siente</span><h3><span class="lin"><span>Una hora</span></span><span class="lin"><span>solo para ti.</span></span></h3>
+      <p class="fade">Rituales para desconectar, también para regalar.</p><a class="btn btn-c fade" href="#portada">Regalar un ritual</a></div>
+    </div>
+    <div class="mando"><button type="button" aria-current="true">Cuídate<i></i></button><button type="button">Conecta<i></i></button><button type="button">Siente<i></i></button></div>
+  </div>
+</div></section>
+
+<section class="bloque" id="mapa"><div class="env">
+  <span class="eti"><b>04</b>Mapa de la home</span>
+  <h2 style="font-size:clamp(1.8rem,3vw,2.6rem)">Siete secciones, siete formas distintas</h2>
+  <div class="mapa">
+    <div class="sec"><h4>Portada<small>Escenas · fondo foto</small></h4><p>Pase de diapositivas a pantalla completa, cabecera transparente encima y franja de confianza.</p><div class="wf"><i class="t" style="inset:0"></i><i class="l" style="left:10%;top:40%;width:40%;height:10%"></i><i class="l" style="left:10%;top:56%;width:30%;height:8%"></i><i class="m" style="left:10%;top:72%;width:22%;height:12%;border-radius:99px"></i></div></div>
+    <div class="sec"><h4>Nuestro universo<small>Acordeón · marfil</small></h4><p>Cuatro paneles verticales. El que señalas se abre y enseña su descripción. En móvil, se desliza con el dedo.</p><div class="wf"><i style="left:4%;top:10%;width:16%;height:80%"></i><i style="left:22%;top:10%;width:44%;height:80%;background:#d9c6b0"></i><i style="left:68%;top:10%;width:13%;height:80%"></i><i style="left:83%;top:10%;width:13%;height:80%"></i></div></div>
+    <div class="sec"><h4>Método<small>Escena fija con scroll · morado</small></h4><p>La sección se queda quieta mientras haces scroll y pasan los tres verbos, cada uno con su foto. Es el único lugar con GSAP ScrollTrigger.</p><div class="wf"><i class="m" style="inset:0"></i><i class="l" style="left:8%;top:30%;width:30%;height:14%"></i><i style="left:55%;top:12%;width:38%;height:76%;background:#9c4f93"></i></div></div>
+    <div class="sec"><h4>Los más pedidos<small>Carta editorial · blanco</small></h4><p>Lista numerada como la carta de un spa. Al pasar el ratón aparece la foto junto al cursor. En móvil, filas con miniatura.</p><div class="wf" style="background:#fff"><i style="left:6%;top:14%;width:88%;height:3px;background:var(--tinta)"></i><i style="left:6%;top:32%;width:60%;height:10%"></i><i style="left:6%;top:52%;width:50%;height:10%"></i><i style="left:6%;top:72%;width:55%;height:10%"></i><i style="left:70%;top:24%;width:18%;height:60%;background:#d9c6b0"></i></div></div>
+    <div class="sec"><h4>Rosa y el centro<small>Editorial asimétrico · arena</small></h4><p>Foto grande con paralaje suave, una cita en Cormorant a cuerpo grande y contadores animados (30 años, 4,9, 62 tratamientos).</p><div class="wf" style="background:var(--arena)"><i style="left:5%;top:10%;width:40%;height:80%;background:#cdb79d"></i><i class="t" style="left:52%;top:30%;width:42%;height:8%"></i><i class="t" style="left:52%;top:44%;width:32%;height:8%"></i></div></div>
+    <div class="sec"><h4>Tu experiencia<small>Mosaico + marquesina · marfil</small></h4><p>Galería en mosaico del centro real y una marquesina lenta con lo que más se repite en las opiniones.</p><div class="wf"><i style="left:4%;top:8%;width:40%;height:60%"></i><i style="left:46%;top:8%;width:24%;height:28%"></i><i style="left:72%;top:8%;width:24%;height:60%"></i><i style="left:46%;top:40%;width:24%;height:28%"></i><i class="m" style="left:0;top:76%;width:100%;height:24%"></i></div></div>
+    <div class="sec"><h4>Reserva y regalo<small>Panel oscuro · tinta</small></h4><p>Reserva rápida en la propia home (tratamiento, día y hora) y, al lado, la tarjeta regalo que se inclina ligeramente con el ratón.</p><div class="wf"><i class="t" style="inset:0"></i><i style="left:6%;top:15%;width:50%;height:70%;background:#4a3247"></i><i class="m" style="left:62%;top:20%;width:32%;height:60%"></i></div></div>
+  </div>
+</div></section>
+
+<section class="bloque"><div class="env">
+  <span class="eti"><b>05</b>Demos de secciones</span>
+  <h2 style="font-size:clamp(1.8rem,3vw,2.6rem)">Así se mueven</h2>
+  <h3 style="font-size:1.3rem;margin-top:28px">Nuestro universo · acordeón</h3>
+  <div class="acordeon">
+    <a class="panel" href="#mapa"><img src="img/u-facial-mascarilla-800.webp" alt=""><span class="n">01</span><div class="c"><h4>Estética</h4><p>Tu piel y tu cuerpo, en buenas manos.</p></div></a>
+    <a class="panel" href="#mapa"><img src="img/u-retrato-natural-800.webp" alt=""><span class="n">02</span><div class="c"><h4>Medicina estética</h4><p>Resultados naturales, con criterio médico.</p></div></a>
+    <a class="panel" href="#mapa"><img src="img/u-masaje-espalda-800.webp" alt=""><span class="n">03</span><div class="c"><h4>Terapias</h4><p>Manos expertas para el cuerpo y la emoción.</p></div></a>
+    <a class="panel" href="#mapa"><img src="img/u-piedras-flores-800.webp" alt=""><span class="n">04</span><div class="c"><h4>Bienestar</h4><p>Rituales para parar.</p></div></a>
+  </div>
+  <h3 style="font-size:1.3rem;margin-top:48px">Los más pedidos · carta editorial (pasa el ratón)</h3>
+  <ul class="carta" id="carta">
+    <li><a href="#mapa" data-img="img/u-facial-mascarilla-800.webp"><span class="num">01</span><span class="nom">Limpieza facial profunda</span><span class="cat">Faciales</span><span class="ir">→</span></a></li>
+    <li><a href="#mapa" data-img="img/u-masaje-espalda-800.webp"><span class="num">02</span><span class="nom">Drenaje linfático postoperatorio</span><span class="cat">Terapias</span><span class="ir">→</span></a></li>
+    <li><a href="#mapa" data-img="img/u-retrato-natural-800.webp"><span class="num">03</span><span class="nom">Aumento de labios</span><span class="cat">Medicina estética</span><span class="ir">→</span></a></li>
+    <li><a href="#mapa" data-img="img/u-piedras-flores-800.webp"><span class="num">04</span><span class="nom">Ritual en pareja</span><span class="cat">Bienestar</span><span class="ir">→</span></a></li>
+  </ul>
+  <div class="vista" id="vista"><img alt=""></div>
+  <h3 style="font-size:1.3rem;margin-top:48px">Tu experiencia · marquesina (se pausa con el ratón)</h3>
+  <div class="marquesina" aria-label="Lo que más valoran nuestras clientas"><div class="pista">
+    <span>el trato cercano</span><span>la calma</span><span>que te expliquen cada paso</span><span>como en casa</span><span>el trato cercano</span><span>la calma</span><span>que te expliquen cada paso</span><span>como en casa</span>
+  </div></div>
+</div></section>
+
+<section class="bloque"><div class="env">
+  <span class="eti"><b>06</b>Sistema de diseño · color</span>
+  <h2 style="font-size:clamp(1.8rem,3vw,2.6rem)">La paleta del manual, con reglas de uso</h2>
+  <div class="paleta">
+    <div class="col"><div class="m" style="background:var(--morado);color:#fff">Morado</div><div class="d"><b>#7D1F73</b>Corporativo, no se toca. Acción, la escena del método y acentos.</div></div>
+    <div class="col"><div class="m" style="background:var(--tinta);color:var(--marfil)">Tinta</div><div class="d"><b>#2E1A2C</b>Texto, el panel de reserva y el pie.</div></div>
+    <div class="col"><div class="m" style="background:var(--marfil);border-bottom:1px solid var(--linea)">Marfil</div><div class="d"><b>#F7F2EB</b>Fondo base de la web.</div></div>
+    <div class="col"><div class="m" style="background:var(--arena)">Arena</div><div class="d"><b>#E9DCCB</b>Sección de Rosa y el centro.</div></div>
+    <div class="col"><div class="m" style="background:var(--lila)">Lila</div><div class="d"><b>#E8DAE6</b>Avisos, chips y acento sobre morado.</div></div>
+    <div class="col"><div class="m" style="background:var(--arcilla);color:#fff">Arcilla</div><div class="d"><b>#B7897A</b>Detalle cálido. Nunca en texto pequeño.</div></div>
+    <div class="col"><div class="m" style="background:var(--salvia)">Salvia</div><div class="d"><b>#A9B7A4</b>Estados de éxito.</div></div>
+    <div class="col"><div class="m" style="background:var(--morado-hondo);color:#fff">Morado hondo</div><div class="d"><b>#5E1656</b>Solo para el hover del botón. <span class="pend">validar con dirección de arte</span></div></div>
+  </div>
+  <div class="proporcion" aria-label="Proporción de uso"><span style="flex:55;background:var(--marfil);border:1px solid var(--linea)"></span><span style="flex:15;background:var(--blanco)"></span><span style="flex:12;background:var(--tinta)"></span><span style="flex:10;background:var(--morado)"></span><span style="flex:5;background:var(--arena)"></span><span style="flex:3;background:var(--lila)"></span></div>
+  <p class="nota">Proporción orientativa por página: marfil 55 · blanco 15 · tinta 12 · morado 10 · arena 5 · lila 3.</p>
+  <table class="contraste"><thead><tr><th>Combinación</th><th>Contraste</th><th>Uso</th></tr></thead><tbody>
+    <tr><td>Tinta sobre marfil</td><td class="ok">14,9 : 1</td><td>Texto general</td></tr>
+    <tr><td>Morado sobre marfil</td><td class="ok">8,6 : 1</td><td>Enlaces, botón secundario</td></tr>
+    <tr><td>Blanco sobre morado</td><td class="ok">9,6 : 1</td><td>Botón principal, escena del método</td></tr>
+    <tr><td>Marfil sobre tinta</td><td class="ok">14,9 : 1</td><td>Panel de reserva y pie</td></tr>
+    <tr><td>Texto suave #5C4B59 sobre marfil</td><td class="ok">7,6 : 1</td><td>Entradillas y notas</td></tr>
+  </tbody></table>
+</div></section>
+
+<section class="bloque"><div class="env">
+  <span class="eti"><b>07</b>Sistema de diseño · tipografía</span>
+  <h2 style="font-size:clamp(1.8rem,3vw,2.6rem)">Dos familias, las del manual</h2>
+  <p class="nota">Jost (300 · 400 · 500) para titulares, texto e interfaz. Cormorant Garamond cursiva para el lema, los verbos y las citas. Bambino y Biko se quedan solo en el logotipo. En producción, autoalojadas en WOFF2. Escala fluida con <code>clamp()</code> entre 390 y 1440 px.</p>
+  <div class="escala">
+    <div><small>Display · clamp 44–88</small><span style="font-size:clamp(2.75rem,5.5vw,5.5rem);font-weight:300;line-height:1">Tu bienestar</span></div>
+    <div><small>H1 · clamp 36–72</small><span style="font-size:clamp(2.25rem,4.5vw,4.5rem);font-weight:300;line-height:1.05">Estética en Alicante</span></div>
+    <div><small>H2 · clamp 28–48</small><span style="font-size:clamp(1.75rem,3vw,3rem);font-weight:300">Cuatro maneras de cuidarte</span></div>
+    <div><small>Verbo / cita · Cormorant 24–40</small><span style="font:italic 500 clamp(1.5rem,2.5vw,2.5rem)/1.1 var(--f-lema);color:var(--morado)">Cuídate · Conecta · Siente</span></div>
+    <div><small>H3 · 22</small><span style="font-size:1.375rem;font-weight:400">Drenaje linfático postoperatorio</span></div>
+    <div><small>Texto · 17 / 1,65</small><span>Hablamos de lo que te gustaría mejorar y te llevas un plan por escrito.</span></div>
+    <div><small>Etiqueta · 13 · +18 %</small><span class="eti" style="margin:0">01 · Nuestro universo</span></div>
+  </div>
+</div></section>
+
+<section class="bloque"><div class="env">
+  <span class="eti"><b>08</b>Sistema de diseño · espacio y forma</span>
+  <div class="rej2">
+    <div>
+      <h3 style="font-size:1.3rem">Espaciado en base 8</h3>
+      <div class="espacios">
+        <div><i style="width:8px;height:8px"></i>8</div><div><i style="width:16px;height:16px"></i>16</div><div><i style="width:24px;height:24px"></i>24</div><div><i style="width:32px;height:32px"></i>32</div><div><i style="width:48px;height:48px"></i>48</div><div><i style="width:64px;height:64px"></i>64</div><div><i style="width:96px;height:96px"></i>96</div><div><i style="width:128px;height:128px"></i>128</div>
+      </div>
+      <p class="nota" style="margin-top:14px">Margen lateral fluido de 18 a 48 px. Secciones de 64 px en móvil a 128 px en escritorio. Contenido a 1240 px como máximo. La cabecera y las secciones a sangre ocupan todo el ancho.</p>
+    </div>
+    <div>
+      <h3 style="font-size:1.3rem">Forma</h3>
+      <p class="nota">Radio de 18 px en tarjetas, 999 px en botones y chips, y arco (999 px arriba) solo en las fotos de cabecera de página. Sombras solo en lo que flota (WhatsApp, cookies, la vista previa de la carta) y una sola sombra suave por componente. Rejilla de 12 columnas en escritorio, 6 en tableta y 4 en móvil.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="bloque" id="componentes"><div class="env">
+  <span class="eti"><b>09</b>Sistema de diseño · componentes</span>
+  <h2 style="font-size:clamp(1.8rem,3vw,2.6rem)">Piezas que se repiten</h2>
+  <div class="comp">
+    <div class="caja"><h4>Botones</h4><div style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-p" href="#componentes">Reservar</a><a class="btn btn-s" href="#componentes">Regalar</a><a class="btn btn-s btn-flecha" href="#componentes">Ver terapias <span>→</span></a></div><p class="nota" style="margin-top:12px">48 px de alto, 44 px como mínimo táctil. Al pulsar se encogen al 97 % durante 160 ms.</p></div>
+    <div class="caja"><h4>WhatsApp flotante · elige uno</h4><div class="wa-demo">
+      <a class="wa wa--tinta" href="#componentes" data-et="Escríbenos" aria-label="WhatsApp, variante tinta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91A9.85 9.85 0 0 0 12.04 2Zm4.52 11.99c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.29Z"/></svg></a>
+      <a class="wa wa--morado" href="#componentes" data-et="Escríbenos" aria-label="WhatsApp, variante morado"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91A9.85 9.85 0 0 0 12.04 2Zm4.52 11.99c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.29Z"/></svg></a>
+      <a class="wa wa--claro" href="#componentes" data-et="Escríbenos" aria-label="WhatsApp, variante clara"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91A9.85 9.85 0 0 0 12.04 2Zm4.52 11.99c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.29Z"/></svg></a>
+    </div><p class="nota" style="margin-top:12px">44 px, sin verde. Recomiendo <b>tinta</b>: se ve sobre fotos y sobre marfil sin competir con el botón Reservar.</p></div>
+    <div class="caja"><h4>Elegir hora (nuevo)</h4><div class="huecos" id="huecos">
+      <button class="hueco" type="button" aria-pressed="false">9:30</button><button class="hueco" type="button" disabled>10:30</button><button class="hueco" type="button" aria-pressed="true">11:30</button><button class="hueco" type="button" aria-pressed="false">12:30</button><button class="hueco" type="button" disabled>16:00</button><button class="hueco" type="button" aria-pressed="false">17:00</button>
+    </div><p class="nota" style="margin-top:12px">Los huecos tachados están ocupados según el Google Calendar del centro.</p></div>
+    <div class="caja"><h4>Tarjeta regalo (pasa el ratón)</h4><div class="tarjeta-tilt" id="tilt"><img class="i" src="img/isotipo-blanco.svg" alt="" aria-hidden="true"><img class="l" src="img/logo-horizontal-blanco.svg" alt="Rosa Ondoño"><p>Para Lucía · Ritual en pareja</p></div></div>
+    <div class="caja"><h4>Aviso tras enviar</h4><div class="toast" role="status"><i></i><div><b style="font-weight:500">Petición enviada</b><br>Te escribimos para confirmar la hora del lunes 23 a las 11:30.</div></div></div>
+    <div class="caja"><h4>Etiquetas</h4><div style="display:flex;gap:8px;flex-wrap:wrap"><span style="background:var(--tinta);color:var(--marfil);border-radius:99px;padding:3px 12px;font-size:.8rem">Médico</span><span style="background:var(--lila);border-radius:99px;padding:3px 12px;font-size:.8rem">Más pedido</span><span style="background:#E7EFE4;border-radius:99px;padding:3px 12px;font-size:.8rem">Ideal para regalar</span></div></div>
+  </div>
+</div></section>
+
+<section class="bloque"><div class="env">
+  <span class="eti"><b>10</b>Sistema de diseño · movimiento</span>
+  <h2 style="font-size:clamp(1.8rem,3vw,2.6rem)">Cuatro velocidades, tres curvas</h2>
+  <p class="nota">Responder rápido y entrar despacio. Solo se animan <code>transform</code>, <code>opacity</code> y <code>clip-path</code> (sin saltos de maquetación), y cada animación se apaga con «reducir movimiento». <button class="btn btn-s" type="button" id="jugar" style="min-height:36px;padding:0 16px;margin-left:8px">Probar velocidades</button></p>
+  <div class="motion" id="motion">
+    <div class="mt"><b>Micro · 160 ms</b><code>--e-suave</code><br>Pulsar, marcar una casilla<div class="pista-mov"><i></i></div></div>
+    <div class="mt"><b>Interfaz · 260 ms</b><code>--e-suave</code><br>Hover, menú, avisos<div class="pista-mov"><i></i></div></div>
+    <div class="mt"><b>Entrada · 700 ms</b><code>--e-salida</code><br>Textos y bloques al aparecer<div class="pista-mov"><i></i></div></div>
+    <div class="mt"><b>Escena · 1200 ms</b><code>--e-escena</code><br>Cambio de diapositiva<div class="pista-mov"><i></i></div></div>
+  </div>
+  <div class="rej2" style="margin-top:28px">
+    <div class="caja"><h3 style="font-size:1.2rem">Coreografía</h3><p class="nota">Al entrar una sección: etiqueta → titular (línea a línea, 90 ms entre líneas) → texto → botones (+120 ms) → imagen con cortinilla. Una sola vez, al 20 % de visibilidad. Las listas entran en cascada de 60 ms, con un máximo de 6 elementos animados.</p></div>
+    <div class="caja"><h3 style="font-size:1.2rem">Herramientas y 3D</h3><p class="nota"><b>CSS + IntersectionObserver</b> para casi todo (0 KB extra). <b>GSAP + ScrollTrigger</b> solo para la escena fija del método, porque está ligada al scroll (unos 45 KB). <b>Sin Three.js:</b> el 3D no aporta a un centro de bienestar, pesa más de 150 KB y gasta batería en el móvil de tu público. La profundidad la dan la foto, el paralaje suave y la inclinación de la tarjeta regalo.</p></div>
+  </div>
+</div></section>
+
+<section class="bloque" id="reserva"><div class="env">
+  <span class="eti"><b>11</b>Funcionalidad nueva</span>
+  <h2 style="font-size:clamp(1.8rem,3vw,2.6rem)">La reserva avisa sola: Google Calendar y WhatsApp</h2>
+  <div class="flujo">
+    <div><b>La clienta elige</b>Tratamiento, día y <strong>hora exacta</strong>, entre los huecos libres del calendario del centro.</div>
+    <div><b>La web envía</b>Una función de Netlify recibe la petición y la valida en el servidor.</div>
+    <div><b>Google Calendar</b>Crea el evento «Petición de reserva · Presoterapia · Ana» como pendiente de confirmar.</div>
+    <div><b>WhatsApp del centro</b>La web envía el aviso por su cuenta. La clienta no tiene que pulsar nada.</div>
+  </div>
+  <div class="rej2" style="margin-top:24px;align-items:center">
+    <div class="wa-msg">📅 <b>Petición de reserva</b><br>Presoterapia · lunes 23/11 a las 11:30<br>Ana García · 600 000 000<br><span style="color:#5c6b58;font-size:.8rem">Enviado por la web · pendiente de confirmar en el calendario</span></div>
+    <p class="nota">También se mantiene el aviso por email (Netlify Forms) y la copia en Supabase. La clienta recibe en pantalla «Petición enviada, te confirmamos la hora».</p>
+  </div>
+  <h3 style="font-size:1.3rem;margin-top:36px">¿Cómo envía la web el WhatsApp?</h3>
+  <div class="tabla-scroll"><table class="opciones-tabla"><thead><tr><th>Opción</th><th>Ventajas</th><th>Inconvenientes</th><th>Qué necesito</th></tr></thead><tbody>
+    <tr><td><b>WhatsApp Cloud API (Meta)</b> · recomendada para producción</td><td>Oficial y fiable. Mensaje con plantilla aprobada</td><td>Requiere un número emisor propio (no puede ser el que Rosa usa en la app), aprobar la plantilla (1–2 días) y pagar unos céntimos por aviso</td><td>Cuenta de Meta Business verificada, número emisor, token de acceso</td></tr>
+    <tr><td><b>CallMeBot</b> · para el prototipo hoy</td><td>Gratis y listo en 5 minutos</td><td>No oficial y sin garantía. Solo sirve para avisar a un número propio</td><td>Que el número que recibe los avisos mande un mensaje de activación y me pases la clave</td></tr>
+    <tr><td><b>Twilio WhatsApp</b></td><td>Más fácil de montar que Meta directo</td><td>De pago, y también necesita una plantilla aprobada</td><td>Cuenta de Twilio, número y plantilla</td></tr>
+  </tbody></table></div>
+  <p class="nota" style="margin-top:14px"><b>Google Calendar:</b> una cuenta de servicio de Google con acceso a un calendario del centro. Rosa comparte el calendario con el email de esa cuenta y las claves se guardan como secretos en Netlify, nunca en el código. Con eso, la web también consulta qué huecos están libres.</p>
+</div></section>
+
+<section class="bloque"><div class="env">
+  <span class="eti"><b>12</b>Para seguir</span>
+  <h2 style="font-size:clamp(1.8rem,3vw,2.6rem)">Lo que necesito que decidas</h2>
+  <ol class="decide">
+    <li><b>¿Apruebas la dirección de arte y el sistema?</b> Concepto «ritmo lento», paleta y tipos del manual, siete secciones distintas y el movimiento descrito.</li>
+    <li><b>Botón de WhatsApp:</b> tinta (recomendado), morado o claro.</li>
+    <li><b>Envío del WhatsApp:</b> CallMeBot ahora y Meta Cloud API para producción (recomendado), o directamente Meta.</li>
+    <li><b>Calendario y números:</b> qué Google Calendar usar y a qué número llegan los avisos mientras es un prototipo (¿el tuyo?), para no escribir a Rosa con pruebas.</li>
+    <li><b>Horas de reserva:</b> franjas de 60 min de 9:30 a 18:30 de lunes a viernes, salvo que me digas otra cosa.</li>
+  </ol>
+</div></section>
+
+<script>
+(() => {
+  const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Slider de portada
+  const s = document.getElementById('slider'), slides = [...s.querySelectorAll('.slide')], bots = [...s.querySelectorAll('.mando button')];
+  let i = 0, t;
+  const ir = (n) => { slides[i].classList.remove('on'); bots[i].removeAttribute('aria-current'); i = (n + slides.length) % slides.length; slides[i].classList.add('on'); bots[i].setAttribute('aria-current', 'true'); programar(); };
+  const programar = () => { clearTimeout(t); if (!reducido && !s.classList.contains('pausa')) t = setTimeout(() => ir(i + 1), 6000); };
+  bots.forEach((b, n) => b.addEventListener('click', () => ir(n)));
+  ['mouseenter', 'focusin'].forEach(e => s.addEventListener(e, () => { s.classList.add('pausa'); clearTimeout(t); }));
+  ['mouseleave', 'focusout'].forEach(e => s.addEventListener(e, () => { s.classList.remove('pausa'); programar(); }));
+  programar();
+  // Carta con vista previa que sigue al cursor
+  const v = document.getElementById('vista'), vi = v.querySelector('img');
+  document.querySelectorAll('#carta a').forEach(a => {
+    a.addEventListener('mouseenter', () => { vi.src = a.dataset.img; v.classList.add('on'); });
+    a.addEventListener('mouseleave', () => v.classList.remove('on'));
+    a.addEventListener('mousemove', e => { v.style.left = (e.clientX + 150) + 'px'; v.style.top = e.clientY + 'px'; });
+  });
+  // Huecos
+  document.querySelectorAll('#huecos .hueco:not(:disabled)').forEach(h => h.addEventListener('click', () => { document.querySelectorAll('#huecos .hueco').forEach(x => x.setAttribute('aria-pressed', 'false')); h.setAttribute('aria-pressed', 'true'); }));
+  // Tarjeta inclinable
+  const c = document.getElementById('tilt');
+  if (!reducido) { c.addEventListener('mousemove', e => { const r = c.getBoundingClientRect(); c.style.setProperty('--ry', ((e.clientX - r.left) / r.width - .5) * 10 + 'deg'); c.style.setProperty('--rx', -((e.clientY - r.top) / r.height - .5) * 10 + 'deg'); });
+    c.addEventListener('mouseleave', () => { c.style.setProperty('--rx', '0deg'); c.style.setProperty('--ry', '0deg'); }); }
+  // Velocidades
+  const m = document.getElementById('motion');
+  document.getElementById('jugar').addEventListener('click', () => { m.classList.remove('jugar'); void m.offsetWidth; requestAnimationFrame(() => m.classList.add('jugar')); setTimeout(() => m.classList.remove('jugar'), 2600); });
+})();
+</script>
+</body>
+</html>
