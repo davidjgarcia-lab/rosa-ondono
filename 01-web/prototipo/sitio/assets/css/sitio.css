@@ -764,3 +764,5 @@ h1 .h1-pre { font-size: .8rem; }
 .marquesina.parada .marquesina__pista { animation-play-state: paused; }
 .marquesina__parar { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: var(--tinta); color: var(--marfil); border: 0; border-radius: 99px; padding: 8px 14px; font: 400 .8rem var(--f-texto); cursor: pointer; opacity: 0; pointer-events: none; }
 .marquesina__parar:focus-visible { opacity: 1; pointer-events: auto; outline-color: #fff; }
+/* Portada a todo el ancho: el texto se alinea con el logo y la tarjeta con «Reservar» */
+.escenas .envoltura { max-width: none; padding-left: clamp(18px, 3vw, 48px); padding-right: clamp(18px, 3vw, 48px); }

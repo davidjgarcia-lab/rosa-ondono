@@ -133,6 +133,13 @@ def L(ruta, ancla=""):
     if MODO == "vista":
         return "#" + (ancla or pid(ruta))
     return ruta + ("#" + ancla if ancla else "")
+def V(ruta):  # recurso con versión: cambia la URL en cada cambio y ningún navegador usa una copia antigua
+    return A(ruta) + "?v=" + VERSIONES.get(ruta, "1")
+VERSIONES = {}
+def calcular_versiones():
+    import hashlib
+    for ruta, origen in {"css/sitio.css": "fuente/sitio.css", "js/sitio.js": "fuente/sitio.js", "js/config.js": "fuente/config.js"}.items():
+        VERSIONES[ruta] = hashlib.md5((RAIZ / origen).read_bytes()).hexdigest()[:10]
 def A(ruta):  # recursos
     return ("" if MODO == "vista" else "/") + "assets/" + ruta
 def ruta_trat(t):
@@ -754,7 +761,8 @@ def head(p, en_vista=False):
 <link rel="icon" href="{A("img/isotipo-color.svg")}" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=Jost:wght@300;400;500&display=swap">
-<link rel="stylesheet" href="{A("css/sitio.css")}">
+<style>#nl-badge-frame,#nl-hud-frame{{display:none!important}}.logo-blanco{{display:none}}</style>
+<link rel="stylesheet" href="{V("css/sitio.css")}">
 <script>document.documentElement.classList.add("js")</script>'''
 
 def documento(p):
@@ -776,7 +784,7 @@ def documento(p):
 
 def scripts(con_gsap):
     gsap = f'<script src="{A("js/vendor/gsap.min.js")}" defer></script><script src="{A("js/vendor/ScrollTrigger.min.js")}" defer></script>' if con_gsap else ""
-    return f'{gsap}<script src="{A("js/config.js")}" defer></script><script src="{A("js/sitio.js")}" defer></script>'
+    return f'{gsap}<script src="{V("js/config.js")}" defer></script><script src="{V("js/sitio.js")}" defer></script>'
 
 def vista_previa():
     secciones = ""
@@ -826,6 +834,7 @@ def main():
     shutil.copytree(RAIZ / "fuente" / "vendor", SALIDA / "assets" / "js" / "vendor")
     for f in (RAIZ / "img").glob("*.svg"): shutil.copy(f, SALIDA / "assets" / "img" / f.name)
     shutil.copytree(RAIZ / "img" / "iconos", SALIDA / "assets" / "img" / "iconos")
+    calcular_versiones()
     asignar_visuales()
     preparar_imagenes()
     MODO = "estatico"; construir()
