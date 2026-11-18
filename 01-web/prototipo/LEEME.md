@@ -1,6 +1,6 @@
 # Prototipo web v3.1 · Rosa Ondoño
 
-**Enlace para compartir (móvil y escritorio):** https://rosa-ondono-prototipo.netlify.app · Netlify, proyecto `rosa-ondono-prototipo`. Configuración en `netlify.toml`: se publica `sitio/`, con cabeceras de seguridad y `noindex`. Pruebas y funcionamiento de los formularios: `../qa/pruebas-v3-responsive-y-formularios.md`.
+**Enlace para compartir (móvil y escritorio):** https://rosa-ondono-prototipo.vercel.app · Vercel, proyecto `rosa-ondono-prototipo`, publicado desde la rama `web` (`vercel.json`: se publica `sitio/`, funciones en `api/`, cabeceras de seguridad, `noindex` y 301). El enlace anterior de Netlify queda congelado: la cuenta gratuita agotó sus créditos el 18/11/2026. Pruebas y funcionamiento de los formularios: `../qa/pruebas-v3-responsive-y-formularios.md`.
 *01-web · 18/11/2026 · Estado: **PROTOTIPO v3.1** (dirección de arte v3 aprobada; construcción y pruebas en `../qa/pruebas-v3-1-web-nueva.md`). Aplica el manual de marca v2.1; pendiente de QA final y de la validación del director de arte.*
 
 Web estática multipágina generada a partir del catálogo de Supabase:

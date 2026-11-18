@@ -766,3 +766,8 @@ h1 .h1-pre { font-size: .8rem; }
 .marquesina__parar:focus-visible { opacity: 1; pointer-events: auto; outline-color: #fff; }
 /* Portada a todo el ancho: el texto se alinea con el logo y la tarjeta con «Reservar» */
 .escenas .envoltura { max-width: none; padding-left: clamp(18px, 3vw, 48px); padding-right: clamp(18px, 3vw, 48px); }
+/* Método: los pasos no activos siguen siendo legibles (contraste AA); el activo se marca con una línea lila */
+.ritual--escena .ritual__paso { opacity: .82; position: relative; }
+.ritual--escena .ritual__paso.es-activo { opacity: 1; }
+.ritual__paso::before { content: ""; position: absolute; left: 0; top: -1px; height: 2px; width: 100%; background: var(--lila); transform: scaleX(0); transform-origin: left; transition: transform var(--t-entrada) var(--e-salida); }
+.ritual--escena .ritual__paso.es-activo::before { transform: scaleX(1); }

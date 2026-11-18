@@ -1,6 +1,6 @@
 # Web v3.1 · construcción y pruebas
 *01-web · 18/11/2026 · sobre la dirección de arte v3 aprobada (`../diseno/direccion-arte-v3/`)*
-**Enlace:** https://rosa-ondono-prototipo.netlify.app
+**Enlace:** https://rosa-ondono-prototipo.vercel.app (Vercel; Netlify sin créditos desde el 18/11/2026)
 
 ## Qué cambia
 - **Cabecera:**
