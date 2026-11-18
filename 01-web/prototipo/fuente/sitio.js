@@ -106,8 +106,10 @@
     const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), ms || CFG.tiempoMaximoMs || 8000);
     try { return await fetch(url, { ...opciones, signal: ctl.signal }); } finally { clearTimeout(t); }
   }
+  const EN_NETLIFY = /netlify\.app$/.test(location.hostname) || !!CFG.netlifyForms; // Netlify Forms solo existe en Netlify
   async function aNetlify(form) {
     if (!HAY_SERVIDOR) return "no-disponible";
+    if (!EN_NETLIFY) return "omitido";
     try {
       const r = await conTiempo("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(new FormData(form)).toString() });
       return r.ok ? "ok" : "error";
@@ -156,7 +158,7 @@
     const caja = $(".resultado", form.parentElement);
     caja.innerHTML = `<div class="estado ${llegó ? "estado--ok" : "estado--aviso"}" role="status" tabindex="-1">
       <h2>${llegó ? titulo : "No hemos podido enviarla"}</h2><p>${llegó ? texto : "Escríbenos por WhatsApp y te atendemos enseguida. Tu mensaje ya está redactado."}</p>
-      <details class="detalle-envio"${llegó ? "" : " open"}><summary>Estado de los avisos (prototipo)</summary><ul class="lista-envios">${lineas.map(([estado, t]) => `<li>${ESTADOS[estado] || "…"} ${t}</li>`).join("")}</ul></details>
+      <details class="detalle-envio"${llegó ? "" : " open"}><summary>Estado de los avisos (prototipo)</summary><ul class="lista-envios">${lineas.filter(([estado]) => estado !== "omitido").map(([estado, t]) => `<li>${ESTADOS[estado] || "…"} ${t}</li>`).join("")}</ul></details>
       <div class="botonera">${llegó ? "" : `<a class="boton boton--primario" href="${wa}" target="_blank" rel="noopener">Enviar por WhatsApp</a>`}
       <button class="boton boton--secundario" type="button" data-otra>Hacer otra solicitud</button>
       ${llegó ? `<a class="enlace-flecha" href="${wa}" target="_blank" rel="noopener">¿Quieres añadir algo? Escríbenos</a>` : ""}</div></div>`;

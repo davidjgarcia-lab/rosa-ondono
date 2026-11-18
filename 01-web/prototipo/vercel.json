@@ -1,0 +1,176 @@
+{
+ "$schema": "https://openapi.vercel.sh/vercel.json",
+ "buildCommand": "",
+ "installCommand": "",
+ "outputDirectory": "sitio",
+ "framework": null,
+ "trailingSlash": true,
+ "redirects": [
+  {
+   "source": "/tratamientos-faciales/",
+   "destination": "/estetica/",
+   "permanent": true
+  },
+  {
+   "source": "/tratamientos-corporales/",
+   "destination": "/estetica/",
+   "permanent": true
+  },
+  {
+   "source": "/centro-belleza-alicante/",
+   "destination": "/estetica/",
+   "permanent": true
+  },
+  {
+   "source": "/depilacion-en-alicante/",
+   "destination": "/tratamientos/depilacion-laser/",
+   "permanent": true
+  },
+  {
+   "source": "/clinica-estetica/",
+   "destination": "/medicina-estetica/",
+   "permanent": true
+  },
+  {
+   "source": "/masajes-alicante/",
+   "destination": "/terapias/",
+   "permanent": true
+  },
+  {
+   "source": "/terapias-complementarias/",
+   "destination": "/terapias/",
+   "permanent": true
+  },
+  {
+   "source": "/sobre-mi/",
+   "destination": "/conocenos/",
+   "permanent": true
+  },
+  {
+   "source": "/mejores-tratamientos-corporales-alicante/",
+   "destination": "/estetica/",
+   "permanent": true
+  },
+  {
+   "source": "/tratamientos-rejuvenecimiento-facial/",
+   "destination": "/tratamientos/tratamiento-facial-antiedad/",
+   "permanent": true
+  },
+  {
+   "source": "/tratamientos-faciales-alicante/",
+   "destination": "/estetica/",
+   "permanent": true
+  },
+  {
+   "source": "/depilacion-laser-alejandrita/",
+   "destination": "/tratamientos/depilacion-laser/",
+   "permanent": true
+  },
+  {
+   "source": "/masaje-terapeutico-beneficios-bienestar/",
+   "destination": "/blog/masaje-terapeutico-beneficios-bienestar/",
+   "permanent": true
+  },
+  {
+   "source": "/las-7-emociones-medicina-china/",
+   "destination": "/blog/las-7-emociones-medicina-china/",
+   "permanent": true
+  },
+  {
+   "source": "/terapias-naturales-salud-integral-alicante/",
+   "destination": "/blog/terapias-naturales-salud-integral-alicante/",
+   "permanent": true
+  },
+  {
+   "source": "/combinacion-estetica-bienestar/",
+   "destination": "/blog/combinacion-estetica-bienestar/",
+   "permanent": true
+  },
+  {
+   "source": "/tendencias-en-tratamientos-esteticos/",
+   "destination": "/blog/tendencias-en-tratamientos-esteticos/",
+   "permanent": true
+  },
+  {
+   "source": "/category/tratamientos-faciales/",
+   "destination": "/blog/tema/piel/",
+   "permanent": true
+  },
+  {
+   "source": "/category/tratamientos-corporales/",
+   "destination": "/blog/tema/cuerpo/",
+   "permanent": true
+  },
+  {
+   "source": "/category/masajes/",
+   "destination": "/blog/tema/bienestar/",
+   "permanent": true
+  },
+  {
+   "source": "/category/depilacion/",
+   "destination": "/blog/tema/piel/",
+   "permanent": true
+  },
+  {
+   "source": "/category/tendencias/",
+   "destination": "/blog/",
+   "permanent": true
+  },
+  {
+   "source": "/page/2/",
+   "destination": "/blog/",
+   "permanent": true
+  },
+  {
+   "source": "/blog/page/2/",
+   "destination": "/blog/",
+   "permanent": true
+  },
+  {
+   "source": "/feed/",
+   "destination": "/blog/rss.xml",
+   "permanent": true
+  },
+  {
+   "source": "/author/admin/",
+   "destination": "/conocenos/",
+   "permanent": true
+  }
+ ],
+ "headers": [
+  {
+   "source": "/(.*)",
+   "headers": [
+    {
+     "key": "X-Robots-Tag",
+     "value": "noindex, nofollow"
+    },
+    {
+     "key": "X-Content-Type-Options",
+     "value": "nosniff"
+    },
+    {
+     "key": "Referrer-Policy",
+     "value": "strict-origin-when-cross-origin"
+    },
+    {
+     "key": "Permissions-Policy",
+     "value": "camera=(), microphone=(), geolocation=()"
+    },
+    {
+     "key": "X-Frame-Options",
+     "value": "SAMEORIGIN"
+    }
+   ]
+  },
+  {
+   "source": "/assets/(.*)",
+   "headers": [
+    {
+     "key": "Cache-Control",
+     "value": "public, max-age=86400"
+    }
+   ]
+  }
+ ]
+}

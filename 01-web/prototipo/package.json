@@ -1,0 +1,7 @@
+{
+  "name": "rosa-ondono-prototipo",
+  "private": true,
+  "type": "module",
+  "description": "Prototipo web Rosa Ondoño: sitio estático pregenerado en sitio/ + funciones en api/ (Vercel) y netlify/functions/ (Netlify)",
+  "engines": { "node": ">=20" }
+}
