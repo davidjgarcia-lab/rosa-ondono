@@ -198,8 +198,8 @@ def cabecera(activa):
     items_m = "".join(f'<li><a href="{L(r)}" data-menu="{m}">{n}</a></li>' for n, r, m in MENU)
     return f'''<div class="barra-prototipo" role="note"><span class="largo">Prototipo con el manual de marca v2.1 · fotos de tratamientos provisionales (Unsplash) · </span><span class="corto">Prototipo · </span>no introduzcas datos reales</div>
 <header class="cabecera">
-  <div class="envoltura cabecera__fila">
-    <a class="cabecera__logo" href="{L("/")}" aria-label="Rosa Ondoño, ir al inicio"><img src="{A("img/logo-horizontal.svg")}" alt="Rosa Ondoño" width="172" height="57"></a>
+  <div class="cabecera__fila">
+    <a class="cabecera__logo" href="{L("/")}" aria-label="Rosa Ondoño, ir al inicio"><img class="logo-color" src="{A("img/logo-horizontal.svg")}" alt="Rosa Ondoño" width="172" height="57"><img class="logo-blanco" src="{A("img/logo-horizontal-blanco.svg")}" alt="" width="172" height="57"></a>
     <nav aria-label="Principal"><ul class="menu">{items}</ul></nav>
     <div class="cabecera__acciones">
       <a class="boton boton--secundario boton--regalar" href="{ruta_regalo()}">Regalar</a>
@@ -234,7 +234,7 @@ def pie():
         <h2 class="pie__titulo">Visítanos</h2>
         <p>Av. Maisonnave 38, Entlo. Izq.<br>03003 Alicante</p>
         <p><a href="{MAPS}" rel="noopener">Cómo llegar en Google Maps →</a></p>
-        <p>Lunes a viernes, 9:30–19:00 (verano)<br><span class="pendiente">Horario de invierno: pendiente</span></p>
+        <p>Lunes a viernes, 9:00–19:00<br><span class="pendiente">Horario de invierno: pendiente</span></p>
       </div>
       <div>
         <h2 class="pie__titulo">Contacto</h2>
@@ -255,7 +255,7 @@ def pie():
 </footer>'''
 
 def flotantes():
-    return f'''<a class="whatsapp" href="{WA}" rel="noopener" aria-label="Escríbenos por WhatsApp">{SVG_WA}<span>WhatsApp</span></a>
+    return f'''<a class="whatsapp" href="{WA}" rel="noopener" aria-label="Escríbenos por WhatsApp">{SVG_WA}<span class="whatsapp__et" aria-hidden="true">Escríbenos</span></a>
 <section class="cookies" id="cookies" hidden aria-labelledby="cookies-titulo">
   <h2 id="cookies-titulo" tabindex="-1">Tu privacidad</h2>
   <p>Usamos cookies técnicas, necesarias para que la web funcione. Con tu permiso usaríamos también cookies de analítica para mejorarla. Puedes cambiar tu elección cuando quieras. <a href="{L("/cookies/")}">Política de cookies</a></p>
@@ -281,7 +281,7 @@ NEGOCIO = {
     "logo": DOMINIO + "/assets/img/logo-horizontal.svg", "image": DOMINIO + "/assets/img/02-recepcion-ventana-patio.jpg",
     "telephone": "+34965120300", "email": "info@rosaondono.com",
     "address": {"@type": "PostalAddress", "streetAddress": "Av. Maisonnave 38, Entlo. Izq.", "postalCode": "03003", "addressLocality": "Alicante", "addressRegion": "Alicante", "addressCountry": "ES"},
-    "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:30", "closes": "19:00"}],
+    "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "19:00"}],
     "hasMap": MAPS, "sameAs": [INSTAGRAM, FACEBOOK], "areaServed": "Alicante", "priceRange": "€€",
     "founder": {"@type": "Person", "name": "Rosa Ondoño"},
 }
@@ -308,107 +308,168 @@ def construir():
     PAGINAS = []
     destacados = [t for t in TRAT if t["destacado"] and t["slug"] != "valoracion-integral"][:6]
     # ---------- Inicio
-    universo = "".join(f'''<a class="area-tarjeta" href="{L("/" + a["slug"] + "/")}">
-  {foto(FOTO_AREA[a["slug"]], sizes="(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 300px", alt="")}
-  <span class="area-tarjeta__num">0{i + 1}</span>
-  <h3>{e(a["nombre"])}</h3><p>{e(a["titular"])}</p><span class="enlace-flecha">Descubrir</span>
-</a>''' for i, a in enumerate(AREAS))
     rosa = I["p"]["rosa-ondono"]
+    escenas = [
+        ("Cuídate", "u-retrato-natural", True, "Tu bienestar empieza por ti.",
+         "Estética y medicina estética con criterio, en el centro de Alicante.", ("Ver tratamientos", L("/", "universo"))),
+        ("Conecta", "u-masaje-espalda", False, "Manos que saben dónde está la tensión.",
+         "Masajes, drenaje y terapias con más de 30 años de oficio.", ("Ver terapias", L("/terapias/"))),
+        ("Siente", "u-piedras-flores", False, "Una hora solo para ti.",
+         "Rituales para parar, también para regalar.", ("Regalar un ritual", ruta_regalo("ritual-en-pareja"))),
+    ]
+    html_escenas = ""
+    for n, (verbo, img, es_h1, titulo, texto, cta) in enumerate(escenas):
+        palabras = titulo.split(" ")
+        mitad = (len(palabras) + 1) // 2
+        lineas = "".join(f'<span class="linea"><span>{e(" ".join(p))}</span></span>' for p in (palabras[:mitad], palabras[mitad:]))
+        cabeza = (f'<h1 class="escena__titulo"><span class="oculto-visual">Centro de estética y bienestar en Alicante: </span>{lineas}</h1>'
+                  if es_h1 else f'<p class="escena__titulo" aria-hidden="false">{lineas}</p>')
+        html_escenas += f'''<div class="escena{" es-activa" if n == 0 else ""}" role="group" aria-roledescription="diapositiva" aria-label="{n + 1} de {len(escenas)}: {verbo}"{"" if n == 0 else ' aria-hidden="true"'}>
+    <div class="escena__foto">{foto(img, sizes="100vw", carga="eager" if n == 0 else "lazy", alt="")}</div>
+    <div class="envoltura escena__texto">
+      <span class="escena__verbo">{verbo}</span>
+      {cabeza}
+      <p class="escena__entrada">{e(texto)}</p>
+      <div class="botonera escena__botones"><a class="boton boton--claro" href="{cta[1]}"{"" if n == 0 else ' tabindex="-1"'}>{cta[0]}</a><a class="boton boton--borde-claro" href="{ruta_reserva()}"{"" if n == 0 else ' tabindex="-1"'}>Reservar cita</a></div>
+    </div>
+  </div>'''
+    mandos = "".join(f'<button type="button" class="escenas__mando"{" aria-current=" + chr(34) + "true" + chr(34) if n == 0 else ""} aria-label="Ver {v}"><span>{v}</span><i></i></button>' for n, (v, *_r) in enumerate(escenas))
+
+    abanico = "".join(f'''<a class="abanico__panel" href="{L("/" + a["slug"] + "/")}">
+  {foto(FOTO_AREA[a["slug"]], sizes="(max-width: 800px) 80vw, 50vw", alt="")}
+  <span class="abanico__num">0{i + 1}</span>
+  <span class="abanico__pie"><span class="abanico__nombre">{e(a["nombre"])}</span><span class="abanico__lema">{e(a["titular"])}</span><span class="abanico__ir">Descubrir</span></span>
+</a>''' for i, a in enumerate(AREAS))
+
+    pasos = [("Cuídate", "Piel y cuerpo, con diagnóstico. Y medicina estética solo cuando de verdad hace falta.", "u-facial-mascarilla"),
+             ("Conecta", "Manos expertas y terapias para soltar tensión y volver a escucharte.", "u-terapia-agujas"),
+             ("Siente", "Rituales para parar, a solas o en compañía. También para regalar.", "08-patio-jardin-cenador")]
+    lista_pasos = "".join(f'<li class="ritual__paso{" es-activo" if i == 0 else ""}"><span class="ritual__n">0{i + 1}</span><h3>{v}</h3><p>{t}</p></li>' for i, (v, t, _f) in enumerate(pasos))
+    fotos_pasos = "".join(f'<figure class="ritual__foto">{foto(f, sizes="(max-width: 900px) 90vw, 40vw", alt="")}</figure>' for (_v, _t, f) in pasos)
+
+    carta = ""
+    for i, t in enumerate(destacados):
+        stem = foto_principal(t)
+        cat = I["c"][t["categoria_slug"]]["nombre"]
+        dur = f'{t["duracion_min"]} min' if t.get("duracion_min") else ""
+        carta += f'''<li><a class="carta__fila" href="{L(ruta_trat(t))}" data-vista="{A(f"img/{stem}-800.webp")}">
+  <span class="carta__num">{i + 1:02d}</span>
+  <span class="carta__mini">{foto(stem, sizes="72px", alt="")}</span>
+  <span class="carta__nombre">{e(t["nombre"])}<small>{e(t["resumen"][:96].rsplit(" ", 1)[0])}…</small></span>
+  <span class="carta__dato">{e(cat)}{(" · " + dur) if dur else ""}</span>
+  <span class="carta__precio">{e(precio(t))}</span>
+  <span class="carta__ir" aria-hidden="true">→</span>
+</a></li>'''
+
+    opciones_rapidas = "".join(f'<option value="{t["slug"]}" data-duracion="{t.get("duracion_min") or 60}">{e(t["nombre"])}</option>'
+                               for t in sorted([t for t in TRAT if t["reservable"]], key=lambda t: (t["slug"] != "valoracion-integral", t["nombre"])))
+    temas = ["el trato cercano", "la calma nada más entrar", "que te expliquen cada paso", "el patio", "salir sintiéndote otra", "sin prisas"]
+    marquesina = "".join(f"<span>{t}</span>" for t in temas * 2)
     cuerpo = f'''
-<section class="portada"><div class="envoltura portada__rejilla">
-  <div>
-    <h1><span class="h1-pre">Centro de estética y bienestar en Alicante</span>Tu bienestar empieza por ti.</h1>
-    <p class="entrada">Un espacio para cuidarte, reconectar contigo y sentirte bien por dentro y por fuera.</p>
-    <div class="botonera" style="margin-top:28px"><a class="boton boton--primario" href="{L("/", "universo")}">Descubre nuestros tratamientos</a><a class="boton boton--secundario" href="{ruta_reserva()}">Reservar cita</a></div>
-    <div class="portada__datos"><span><b>+30 años</b>de oficio</span><span><b>4,9 ★</b>en Google</span><span><b>Supervisión</b>médica</span></div>
+<section class="escenas" aria-roledescription="carrusel" aria-label="Presentación de Rosa Ondoño">
+  {html_escenas}
+  <img class="escenas__iso" src="{A("img/isotipo-blanco.svg")}" alt="" aria-hidden="true" width="171" height="238">
+  <div class="envoltura escenas__pie">
+    <div class="escenas__mandos">{mandos}<button type="button" class="escenas__pausa" aria-label="Pausar la presentación" aria-pressed="false"><span aria-hidden="true"></span></button></div>
+    <a class="escenas__tarjeta" href="{L("/valoracion-integral/")}">
+      <span class="escenas__tarjeta-et">¿Por dónde empiezo?</span>
+      <strong>Valoración integral</strong>
+      <span>Hablamos de lo que quieres mejorar y te llevas un plan por escrito.</span>
+      <span class="enlace-flecha">Cómo es</span>
+    </a>
   </div>
-  <div class="portada__visual">
-    {iso("portada__super")}
-    <div class="portada__arco">{foto("u-facial-masaje", sizes="(max-width: 900px) 90vw, 520px", carga="eager")}</div>
-    <p class="portada__sello"><b>Av. Maisonnave 38</b>En pleno centro de Alicante</p>
+</section>
+
+<div class="confianza" aria-label="Por qué elegirnos"><div class="envoltura confianza__fila">
+  <span><b>+30 años</b> de oficio</span><span><b>4,9 ★</b> en Google</span><span><b>Supervisión</b> médica</span><span><b>{len(TRAT)}</b> tratamientos</span>
+</div></div>
+
+<section class="seccion universo-v3" id="universo"><div class="envoltura">
+  <div class="cabeza-v3" data-revela>
+    <span class="antetitulo"><b>01</b>Nuestro universo</span>
+    <h2>Cuatro maneras de <em>cuidarte</em></h2>
+    <p>Estética, medicina estética, terapias y bienestar bajo un mismo techo. No tienes que elegir entre verte bien y sentirte bien.</p>
   </div>
+  <div class="abanico" data-revela>{abanico}</div>
 </div></section>
 
-<section class="seccion seccion--blanca" id="universo"><div class="envoltura">
-  <div class="cabeza-seccion"><div><span class="antetitulo"><b>01</b>Nuestro universo</span><h2>Cuatro maneras de cuidarte</h2></div>
-  <p>Estética, medicina estética, terapias y bienestar bajo un mismo techo, para que no tengas que elegir entre cuidarte por fuera y sentirte bien por dentro.</p></div>
-  <p class="pista-desliza" aria-hidden="true">Desliza para ver las cuatro</p>
-  <div class="universo">{universo}</div>
-</div></section>
-
-<section class="seccion seccion--morada metodo"><div class="envoltura">
-  {iso("metodo__super", "blanco")}
-  <div class="metodo__contenido">
+<section class="ritual" id="metodo" aria-labelledby="ritual-titulo"><div class="ritual__pista"><div class="ritual__fijo"><div class="envoltura ritual__rejilla">
+  <div class="ritual__texto">
     <span class="antetitulo">Nuestro método</span>
-    <h2>Tres verbos que ordenan todo lo que hacemos</h2>
-    <ul class="verbos">
-      <li><h3>Cuídate</h3><p>Piel y cuerpo, con diagnóstico y medicina estética cuando de verdad hace falta.</p></li>
-      <li><h3>Conecta</h3><p>Manos expertas y terapias para soltar tensión y volver a escucharte.</p></li>
-      <li><h3>Siente</h3><p>Rituales para parar, solo o en compañía. También para regalar.</p></li>
-    </ul>
-    <div class="botonera"><a class="boton boton--claro" href="{ruta_reserva("valoracion-integral")}">Empieza con una valoración integral</a><a class="enlace-flecha" href="{L("/valoracion-integral/")}">Qué incluye</a></div>
+    <h2 id="ritual-titulo">Tres verbos que ordenan todo lo que hacemos</h2>
+    <ol class="ritual__pasos">{lista_pasos}</ol>
+    <div class="botonera"><a class="boton boton--claro" href="{ruta_reserva("valoracion-integral")}">Empieza con una valoración</a></div>
   </div>
+  <div class="ritual__fotos">{iso("ritual__iso", "blanco")}<div class="ritual__marco">{fotos_pasos}</div></div>
+  <div class="ritual__progreso" aria-hidden="true"><i></i></div>
+</div></div></div></section>
+
+<section class="seccion seccion--blanca carta-v3"><div class="envoltura">
+  <div class="cabeza-v3 cabeza-v3--fila" data-revela>
+    <div><span class="antetitulo"><b>02</b>Experiencias y tratamientos</span><h2>Los más <em>pedidos</em></h2></div>
+    <p>Lo que más nos piden quienes ya nos conocen. Cada uno tiene su ficha con qué incluye, para quién es y cuánto dura.</p>
+  </div>
+  <ol class="carta" data-revela>{carta}</ol>
+  <div class="vista-carta" aria-hidden="true"><img alt=""></div>
+  <div class="botonera carta__mas"><a class="boton boton--primario" href="{ruta_reserva()}">Reservar cita</a><a class="enlace-flecha" href="{L("/estetica/")}">Ver todos los tratamientos</a></div>
 </div></section>
 
-<section class="seccion"><div class="envoltura">
-  <div class="cabeza-seccion"><div><span class="antetitulo"><b>02</b>Experiencias y tratamientos</span><h2>Los más pedidos</h2></div>
-  <p>Cada tratamiento tiene su ficha con lo que incluye, para quién es y cómo reservarlo.</p></div>
-  <p class="pista-desliza" aria-hidden="true">Desliza para ver más</p>
-  <div class="rejilla rejilla--carrusel">{"".join(tarjeta(t) for t in destacados)}</div>
-</div></section>
-
-<section class="seccion seccion--blanca"><div class="envoltura dos">
-  <div class="dos__foto">{foto("02-recepcion-ventana-patio")}</div>
-  <div>
+<section class="seccion seccion--arena historia"><div class="envoltura historia__rejilla">
+  <figure class="historia__foto" data-paralaje>{foto("02-recepcion-ventana-patio", sizes="(max-width: 900px) 100vw, 45vw")}</figure>
+  <div class="historia__texto" data-revela>
     <span class="antetitulo"><b>03</b>Conócenos</span>
-    <h2>Más de 30 años cuidando a personas</h2>
-    <p class="texto">Rosa empezó en el Hotel Sidi San Juan y se formó en Llongueras, en naturopatía y en terapias manuales. Durante años, médicos de Alicante, Madrid y Barcelona le han confiado a sus pacientes para el drenaje postquirúrgico. Esa forma de trabajar, escuchando, explicando y cuidando, da forma hoy a todo el centro.</p>
-    <ul class="valores">
-      <li><b>Criterio</b>Te recomendamos solo lo que tiene sentido para ti.</li>
-      <li><b>Cuidado</b>Citas sin prisas y seguimiento después.</li>
-      <li><b>Honestidad</b>Expectativas realistas, sin promesas ni presión.</li>
-      <li><b>Oficio</b>Profesionales con nombre y formación visibles.</li>
-    </ul>
+    <blockquote class="historia__cita">«Te recomendamos solo lo que tiene sentido para ti.»<cite>Rosa Ondoño</cite></blockquote>
+    <p class="texto">Rosa empezó en el Hotel Sidi San Juan y se formó en Llongueras, en naturopatía y en terapias manuales. Durante años, médicos de Alicante, Madrid y Barcelona le han enviado a sus pacientes para el drenaje después de una cirugía. Hoy todo el centro trabaja así: escuchando primero.</p>
+    <dl class="cifras">
+      <div><dt><span data-cuenta="30">30</span>+</dt><dd>años de oficio</dd></div>
+      <div><dt><span data-cuenta="4.9" data-decimales="1">4,9</span></dt><dd>en Google</dd></div>
+      <div><dt><span data-cuenta="{len(TRAT)}">{len(TRAT)}</span></dt><dd>tratamientos</dd></div>
+    </dl>
     <a class="enlace-flecha" href="{L("/conocenos/")}">Conoce a Rosa y al equipo</a>
   </div>
 </div></section>
 
-<section class="seccion"><div class="envoltura">
-  <div class="cabeza-seccion"><div><span class="antetitulo"><b>04</b>Tu experiencia</span><h2>Un espacio tranquilo en pleno centro</h2></div>
-  <p>Un entresuelo luminoso en Av. Maisonnave con un patio ajardinado interior: la calma empieza al entrar.</p></div>
-  <div class="galeria">
-    <figure>{foto("08-patio-jardin-cenador", sizes="(max-width: 760px) 100vw, 50vw")}<figcaption>Patio</figcaption></figure>
-    <figure>{foto("01-recepcion", sizes="(max-width: 760px) 50vw, 25vw")}<figcaption>Recepción</figcaption></figure>
-    <figure>{foto("03-pasillo-cabinas", sizes="(max-width: 760px) 50vw, 25vw")}<figcaption>Pasillo</figcaption></figure>
-    <figure>{foto("06-cabina-hornacina-lavabo", sizes="(max-width: 760px) 50vw, 25vw")}<figcaption>Una de nuestras cabinas</figcaption></figure>
-    <figure>{foto("10-patio-plantas", sizes="(max-width: 760px) 50vw, 25vw")}<figcaption>Patio</figcaption></figure>
+<section class="seccion experiencia"><div class="envoltura">
+  <div class="cabeza-v3" data-revela>
+    <span class="antetitulo"><b>04</b>Tu experiencia</span>
+    <h2>Un patio en <em>pleno centro</em></h2>
+    <p>Un entresuelo luminoso con un patio ajardinado dentro. La calma empieza en la puerta.</p>
   </div>
-  <div class="opinion">
-    <p class="opinion__nota">4,9<small>★★★★★ · OPINIONES EN GOOGLE</small></p>
-    <div><blockquote>Lo que más repiten quienes nos visitan: el trato cercano, la calma y que les expliquemos cada paso.</blockquote>
-    <p style="margin:14px 0 0"><a class="enlace-flecha" href="{MAPS}" rel="noopener">Leer las opiniones en Google</a></p></div>
+  <div class="mosaico" data-revela>
+    <figure class="mosaico__a">{foto("08-patio-jardin-cenador", sizes="(max-width: 760px) 100vw, 50vw")}<figcaption>El patio</figcaption></figure>
+    <figure class="mosaico__b">{foto("01-recepcion", sizes="(max-width: 760px) 50vw, 25vw")}<figcaption>Recepción</figcaption></figure>
+    <figure class="mosaico__c">{foto("03-pasillo-cabinas", sizes="(max-width: 760px) 50vw, 25vw")}<figcaption>El pasillo</figcaption></figure>
+    <figure class="mosaico__d">{foto("06-cabina-hornacina-lavabo", sizes="(max-width: 760px) 50vw, 25vw")}<figcaption>Una de las cabinas</figcaption></figure>
+    <figure class="mosaico__e">{foto("10-patio-plantas", sizes="(max-width: 760px) 50vw, 25vw")}<figcaption>Plantas del patio</figcaption></figure>
   </div>
-</div></section>
+</div>
+<div class="marquesina" role="group" aria-label="Lo que más repiten en las opiniones de Google: {", ".join(temas)}"><div class="marquesina__pista" aria-hidden="true">{marquesina}</div><button type="button" class="marquesina__parar" aria-pressed="false">Detener el movimiento</button></div>
+<div class="envoltura nota-google"><p><b>4,9 ★</b> de media en las opiniones de Google</p><a class="enlace-flecha" href="{MAPS}" rel="noopener">Leer las opiniones</a></div>
+</section>
 
-<section class="seccion seccion--arena" id="reserva"><div class="envoltura">
-  <div class="cabeza-seccion"><div><span class="antetitulo"><b>05</b>Reserva tu cita</span><h2>Como te resulte más cómodo</h2></div>
-  <p>Lunes a viernes de 9:30 a 19:00 en Av. Maisonnave 38. <a href="{MAPS}" rel="noopener">Ver en Google Maps</a>.</p></div>
-  <div class="vias">
-    <a class="via via--destacada" href="{ruta_reserva()}"><h3>Reserva online</h3><p>Elige tratamiento, día y franja. Te confirmamos la hora.</p><span class="enlace-flecha">Reservar</span></a>
-    <a class="via" href="{WA}" rel="noopener"><h3>WhatsApp</h3><p>Escríbenos al 691 315 622 y te respondemos en horario de centro.</p><span class="enlace-flecha">Escribir</span></a>
-    <a class="via" href="tel:+34965120300"><h3>Teléfono</h3><p>Llámanos al 965 120 300 si prefieres hablar con nosotras.</p><span class="enlace-flecha">Llamar</span></a>
+<section class="reserva-v3" id="reserva"><div class="envoltura reserva-v3__rejilla">
+  <div class="reserva-v3__form" data-revela>
+    <span class="antetitulo"><b>05</b>Reserva tu cita</span>
+    <h2>Elige día y hora</h2>
+    <p>Te escribimos para confirmarla. Lunes a viernes, de 9:00 a 19:00.</p>
+    <form class="reserva-rapida" action="{ruta_reserva()}" method="get" data-reserva-rapida>
+      <div data-campo><label for="rr-servicio">Tratamiento</label>
+        <select class="campo" id="rr-servicio" name="servicio" data-selector-servicio>{opciones_rapidas}</select></div>
+      <div data-campo><label for="rr-fecha">Día</label><input class="campo" type="date" id="rr-fecha" name="fecha" data-min-dias="1" data-max-dias="120" data-selector-fecha></div>
+      <div class="huecos" data-huecos aria-live="polite"><p class="huecos__vacio">Elige un día para ver las horas libres.</p></div>
+      <input type="hidden" name="hora" data-hora>
+      <button class="boton boton--claro" type="submit">Continuar con mis datos</button>
+    </form>
+    <p class="reserva-v3__otras">¿Prefieres hablar? <a href="{WA}" rel="noopener">WhatsApp 691 315 622</a> · <a href="tel:+34965120300">965 120 300</a></p>
   </div>
-</div></section>
-
-<section class="seccion"><div class="envoltura dos">
-  <div>
-    <span class="antetitulo">Tarjeta regalo</span>
-    <h2>Regala un momento para cuidarse</h2>
-    <p class="texto">Elige una experiencia, como un ritual en pareja o un masaje, o un importe para que la otra persona decida. La enviamos por email, lista para imprimir o reenviar.</p>
-    <a class="boton boton--primario" href="{ruta_regalo()}">Regalar</a>
+  <div class="reserva-v3__regalo" data-revela>
+    <div class="inclina">{tarjeta_regalo("Alguien especial", "Un ritual en pareja", "")}</div>
+    <h3>¿Es para regalar?</h3>
+    <p>Un ritual, un masaje o un importe para que elija. Te la mandamos por email, lista para imprimir o reenviar.</p>
+    <a class="boton boton--borde-claro" href="{ruta_regalo()}">Preparar tarjeta regalo</a>
   </div>
-  {tarjeta_regalo("Alguien especial", "Un ritual en pareja", "")}
 </div></section>'''
+
     pagina("/", "Centro de estética y bienestar en Alicante · Rosa Ondoño",
            "Estética, medicina estética, terapias y rituales de bienestar en Av. Maisonnave 38, Alicante. Más de 30 años de oficio y supervisión médica. Reserva online.",
            cuerpo, "", ld(NEGOCIO, {"@context": "https://schema.org", "@type": "WebSite", "name": "Rosa Ondoño", "url": DOMINIO + "/", "inLanguage": "es-ES"}), "u-facial-masaje")
@@ -564,28 +625,27 @@ def construir():
     opciones = ""
     for c in CATS:
         ops = sorted([t for t in TRAT if t["reservable"] and t["categoria_slug"] == c["slug"]], key=lambda t: t["nombre"])
-        if ops: opciones += f'<optgroup label="{e(c["nombre"])}">' + "".join(f'<option value="{t["slug"]}">{e(t["nombre"])}</option>' for t in ops) + "</optgroup>"
+        if ops: opciones += f'<optgroup label="{e(c["nombre"])}">' + "".join(f'<option value="{t["slug"]}" data-duracion="{t.get("duracion_min") or 60}">{e(t["nombre"])}</option>' for t in ops) + "</optgroup>"
     cuerpo = f'''<section class="cabecera-pagina" style="padding-bottom:clamp(64px,8vw,112px)"><div class="envoltura">
   {migas([("Inicio", "/"), ("Reservar", None)])}
   <div class="columnas-form">
     <div>
       <span class="antetitulo">Reserva tu cita</span><h1>Reservar cita</h1>
-      <p class="entrada" style="margin-bottom:32px">Elige tratamiento, día y franja, y te llamamos para confirmar la hora exacta.</p>
+      <p class="entrada" style="margin-bottom:32px">Elige tratamiento, día y hora. Te escribimos para confirmarla.</p>
       <form class="formulario" id="form-reserva" name="reserva" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
         <input type="hidden" name="form-name" value="reserva"><input type="hidden" name="subject" value="Nueva solicitud de cita · web Rosa Ondoño"><input type="hidden" name="servicio_nombre" value="">
         <p class="oculto-visual" aria-hidden="true"><label>No rellenar: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
         <fieldset class="bloque-form"><legend><span>1</span>Tratamiento</legend>
           <div data-campo><label for="r-servicio">¿Qué quieres reservar?</label>
-          <select class="campo" id="r-servicio" name="servicio" data-preseleccion><option value="">Elige un tratamiento</option>{opciones}</select>
+          <select class="campo" id="r-servicio" name="servicio" data-preseleccion data-selector-servicio><option value="">Elige un tratamiento</option>{opciones}</select>
           <p class="ayuda">Los tratamientos médicos empiezan con la <strong>consulta de medicina estética</strong>. Si dudas, elige <strong>valoración integral</strong>.</p></div>
         </fieldset>
-        <fieldset class="bloque-form"><legend><span>2</span>Día y franja</legend>
-          <div class="campo-grupo">
-            <div data-campo><label for="r-fecha">Día preferido</label><input class="campo" type="date" id="r-fecha" name="fecha" data-min-dias="1" data-max-dias="120"></div>
-            <div data-campo><span id="r-franja-et" style="display:block;font-weight:400;margin-bottom:6px;font-size:.95rem">Franja</span>
-              <div class="opciones" role="radiogroup" aria-labelledby="r-franja-et"><label class="opcion"><input type="radio" name="franja" value="manana"><span>Mañana</span></label><label class="opcion"><input type="radio" name="franja" value="tarde"><span>Tarde</span></label></div></div>
-          </div>
-          <p class="ayuda">En la web definitiva aquí verás los huecos libres del sistema de reservas.</p>
+        <fieldset class="bloque-form"><legend><span>2</span>Día y hora</legend>
+          <div data-campo><label for="r-fecha">Día</label><input class="campo campo--fecha" type="date" id="r-fecha" name="fecha" data-min-dias="1" data-max-dias="120" data-selector-fecha></div>
+          <div data-campo data-campo-hora><span class="etiqueta-campo" id="r-hora-et">Hora</span>
+            <div class="huecos" data-huecos role="group" aria-labelledby="r-hora-et" aria-live="polite"><p class="huecos__vacio">Elige tratamiento y día para ver las horas libres.</p></div>
+            <input type="hidden" name="hora" data-hora><input type="hidden" name="franja"><input type="hidden" name="duracion" value="60"></div>
+          <p class="ayuda">De lunes a viernes, de 9:00 a 19:00. Las horas tachadas ya están ocupadas en nuestra agenda.</p>
         </fieldset>
         <fieldset class="bloque-form"><legend><span>3</span>Tus datos</legend>
           <div class="campo-grupo">
@@ -597,7 +657,7 @@ def construir():
           </div>
           <p class="ayuda">No te pedimos datos de salud en el formulario: los hablamos en persona.</p>
         </fieldset>
-        <div class="envio"><button class="boton boton--primario boton--ancho" type="submit">Enviar solicitud</button><p class="ayuda">Al enviar, avisamos al centro por email y se abre WhatsApp con tu mensaje ya escrito para que solo tengas que pulsar «Enviar».</p></div>
+        <div class="envio"><button class="boton boton--primario boton--ancho" type="submit">Enviar solicitud</button><p class="ayuda">Al enviar, la petición entra en la agenda del centro y nos llega un aviso por WhatsApp. No tienes que hacer nada más.</p></div>
       </form>
       <div class="resultado" hidden></div>
     </div>
@@ -607,7 +667,7 @@ def construir():
     </aside>
   </div>
 </div></section>'''
-    pagina("/reservar/", "Reservar cita · Rosa Ondoño Alicante", "Reserva tu cita en Rosa Ondoño, Av. Maisonnave 38, Alicante: elige tratamiento, día y franja y te confirmamos la hora.", cuerpo, "", "", "01-recepcion")
+    pagina("/reservar/", "Reservar cita · Rosa Ondoño Alicante", "Reserva tu cita en Rosa Ondoño, Av. Maisonnave 38, Alicante: elige tratamiento, día y hora libre en la agenda y te la confirmamos.", cuerpo, "", "", "01-recepcion")
 
     # ---------- Regalar
     regalables = sorted([t for t in TRAT if t["reservable"] and t["tipo"] != "medico" and t["slug"] != "valoracion-integral"], key=lambda t: (t["categoria_slug"] != "rituales", t["nombre"]))
@@ -644,7 +704,7 @@ def construir():
           </div>
           <p class="ayuda">El pago se gestiona cuando te contactamos, hasta que el sistema de reservas permita pagar online.</p>
         </fieldset>
-        <div class="envio"><button class="boton boton--primario boton--ancho" type="submit">Enviar solicitud</button><p class="ayuda">Al enviar, avisamos al centro por email y se abre WhatsApp con tu mensaje ya escrito para que solo tengas que pulsar «Enviar».</p></div>
+        <div class="envio"><button class="boton boton--primario boton--ancho" type="submit">Enviar solicitud</button><p class="ayuda">Al enviar, nos llega un aviso por WhatsApp y por email. Te contactamos para el pago y te enviamos la tarjeta.</p></div>
       </form>
       <div class="resultado" hidden></div>
     </div>
@@ -694,7 +754,8 @@ def head(p, en_vista=False):
 <link rel="icon" href="{A("img/isotipo-color.svg")}" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=Jost:wght@300;400;500&display=swap">
-<link rel="stylesheet" href="{A("css/sitio.css")}">'''
+<link rel="stylesheet" href="{A("css/sitio.css")}">
+<script>document.documentElement.classList.add("js")</script>'''
 
 def documento(p):
     return f'''<!DOCTYPE html>
@@ -703,16 +764,19 @@ def documento(p):
 {head(p)}
 {p["ld"]}
 </head>
-<body>
+<body{' class="con-portada"' if p["ruta"] == "/" else ""}>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 {cabecera(p["menu"])}
 <main id="contenido">{p["cuerpo"]}</main>
 {pie()}
 {flotantes()}
-<script src="{A("js/config.js")}" defer></script>
-<script src="{A("js/sitio.js")}" defer></script>
+{scripts(p["ruta"] == "/")}
 </body>
 </html>'''
+
+def scripts(con_gsap):
+    gsap = f'<script src="{A("js/vendor/gsap.min.js")}" defer></script><script src="{A("js/vendor/ScrollTrigger.min.js")}" defer></script>' if con_gsap else ""
+    return f'{gsap}<script src="{A("js/config.js")}" defer></script><script src="{A("js/sitio.js")}" defer></script>'
 
 def vista_previa():
     secciones = ""
@@ -725,15 +789,14 @@ def vista_previa():
 <head>
 {head(inicio, en_vista=True)}
 </head>
-<body data-modo="vista">
+<body data-modo="vista" class="con-portada">
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 {cabecera("")}
 <main id="contenido">
 {secciones}</main>
 {pie()}
 {flotantes()}
-<script src="{A("js/config.js")}" defer></script>
-<script src="{A("js/sitio.js")}" defer></script>
+{scripts(True)}
 </body>
 </html>'''
 
@@ -760,6 +823,7 @@ def main():
     shutil.copy(RAIZ / "fuente" / "sitio.css", SALIDA / "assets" / "css" / "sitio.css")
     shutil.copy(RAIZ / "fuente" / "sitio.js", SALIDA / "assets" / "js" / "sitio.js")
     shutil.copy(RAIZ / "fuente" / "config.js", SALIDA / "assets" / "js" / "config.js")
+    shutil.copytree(RAIZ / "fuente" / "vendor", SALIDA / "assets" / "js" / "vendor")
     for f in (RAIZ / "img").glob("*.svg"): shutil.copy(f, SALIDA / "assets" / "img" / f.name)
     shutil.copytree(RAIZ / "img" / "iconos", SALIDA / "assets" / "img" / "iconos")
     asignar_visuales()

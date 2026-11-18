@@ -1,7 +1,7 @@
-# Prototipo web v3 · Rosa Ondoño
+# Prototipo web v3.1 · Rosa Ondoño
 
 **Enlace para compartir (móvil y escritorio):** https://rosa-ondono-prototipo.netlify.app · Netlify, proyecto `rosa-ondono-prototipo`. Configuración en `netlify.toml`: se publica `sitio/`, con cabeceras de seguridad y `noindex`. Pruebas y funcionamiento de los formularios: `../qa/pruebas-v3-responsive-y-formularios.md`.
-*01-web · 17/11/2026 · Estado: **PROTOTIPO v2**. Aplica el manual de marca v2.1; pendiente de QA final y de la validación del director de arte.*
+*01-web · 18/11/2026 · Estado: **PROTOTIPO v3.1** (dirección de arte v3 aprobada; construcción y pruebas en `../qa/pruebas-v3-1-web-nueva.md`). Aplica el manual de marca v2.1; pendiente de QA final y de la validación del director de arte.*
 
 Web estática multipágina generada a partir del catálogo de Supabase:
 - con URLs limpias y SEO completo;
@@ -13,6 +13,8 @@ Web estática multipágina generada a partir del catálogo de Supabase:
 | `generar_sitio.py` | Generador. Lee Supabase (o la copia `datos/catalogo.json` si no hay conexión) y escribe `sitio/` |
 | `fuente/` | `sitio.css` (tokens del manual), `sitio.js` (menú, cookies, formularios) y `config.js` (Supabase) |
 | `img/` | Logotipos e isotipo del manual v2.1, iconos del manual y fotos (`fotos/`) |
+| `netlify/` | Funciones de servidor: `/api/huecos`, `/api/reserva` (Google Calendar + aviso de WhatsApp con CallMeBot) y `/api/regalo`. Claves solo en variables de entorno de Netlify |
+| `fuente/vendor/` | GSAP 3 + ScrollTrigger (solo en la home, para la escena fija del método) |
 | `supabase/` | `001_esquema.sql`, `002_semilla.sql` (con `generar_semilla.py`) y `003_areas_y_regalos.sql` |
 | `sitio/` | **Salida generada** (no editar a mano): 75 páginas, `sitemap.xml`, `robots.txt`, `_redirects` y `404.html` |
 
@@ -85,5 +87,5 @@ cd sitio && python3 -m http.server 8000  # http://localhost:8000
 
 ## Límites del prototipo
 - **Vista previa en Claude:** no puede conectar con Supabase. Los formularios lo indican y **no** dan la solicitud por enviada. Los datos salen de `datos/catalogo.json`, copia de la misma base.
-- **Disponibilidad:** la reserva pide día y franja (mañana o tarde). Los huecos reales llegarán del sistema de reservas.
+- **Disponibilidad:** la reserva pide día y hora (lunes a viernes, 9:00–19:00). Las horas ocupadas salen del Google Calendar del centro cuando estén configuradas las variables `GOOGLE_*`.
 - **Tarjeta regalo:** el pago se gestiona por contacto hasta tener pasarela.

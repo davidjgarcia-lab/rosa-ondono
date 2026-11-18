@@ -4,6 +4,12 @@
   publish = "sitio"
   command = "echo 'Sitio pregenerado con generar_sitio.py'"
 
+# Funciones de servidor (web v3): /api/huecos, /api/reserva y /api/regalo
+# Google Calendar y aviso de WhatsApp (CallMeBot). Claves solo en variables de entorno de Netlify.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Prototipo: fuera de Google mientras no sea la web oficial (el HTML ya trae canonical a rosaondono.com)
 [[headers]]
   for = "/*"
