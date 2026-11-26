@@ -98,7 +98,7 @@ El lema deja de ser una firma decorativa y pasa a ser **la estructura de la marc
 ## 6. Tono de voz
 
 ### Principios
-1. **Cercana, no confianzuda.** Tuteamos; hablamos como Rosa en cabina. Sin diminutivos ni «guapa/cari».
+1. **Cercana, no confianzuda.** Tuteamos; hablamos como Rosa en cabina. Sin diminutivos ni «guapa/cari». En medicina estética, **tuteo sutil** (decisión del cliente, 26/11/2026): frases completas y serenas, sin coloquialismos ni imperativos de venta. Serio y cercano a la vez.
 2. **Experta, no técnica.** Explicamos el porqué con palabras sencillas; el término técnico va acompañado de su explicación.
 3. **Honesta, no promocional.** Expectativas realistas, sin superlativos ni urgencias. Preferimos «puede ayudarte a» a «conseguirás».
 4. **Serena, no fría.** Frases cortas, ritmo pausado, mucho aire. Sin exclamaciones en cadena ni emojis de cohete.

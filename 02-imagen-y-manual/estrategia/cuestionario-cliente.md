@@ -82,3 +82,6 @@ Pantone: ________ · CMYK: ________ · Imprenta: ________
 - ✅ Descriptor: tilde añadida.
 - ✅ Nº de registro sanitario: no se incluye, por decisión del cliente.
 - ✅ Fotos del recorrido 360°: se añaden al manual sin sustituir las de referencia.
+
+## Respuestas del cliente · 26/11/2026
+- ✅ **P13 · Tratamiento:** tuteo en toda la marca. En medicina estética, «tuteo sutil»: precisa seriedad, pero también cercanía.

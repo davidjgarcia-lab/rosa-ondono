@@ -216,7 +216,7 @@ pagina(f'''{cab("02 · Voz", "Personalidad y tono", "Si Rosa Ondoño fuera una p
 <div class="g2 mt"><div><h4>Dimensiones del tono</h4>{sliders}</div>
 <div><h4>El tono según la línea</h4><ul class="lista">
 <li><strong>Siente:</strong> cercano y evocador.</li><li><strong>Conecta:</strong> equilibrado y sensorial.</li>
-<li><strong>Cuídate, estética:</strong> explicativo.</li><li><strong>Medicina estética:</strong> sobrio, experto, con el profesional sanitario identificado.</li></ul></div></div>''', "Arquetipo y voz")
+<li><strong>Cuídate, estética:</strong> explicativo.</li><li><strong>Medicina estética:</strong> sobrio y experto, con tuteo sutil: serio y cercano a la vez. El profesional sanitario, siempre identificado.</li></ul></div></div>''', "Arquetipo y voz")
 
 asi = [("Pide tu valoración. Te explicamos qué puedes esperar.", "¡Resultados garantizados en una sesión!"),
        ("El drenaje puede ayudarte a sentir las piernas más ligeras.", "Elimina la retención para siempre."),
@@ -240,7 +240,7 @@ cc = "".join(f'<div class="card blanco canal"><p class="cl">{a}</p><p>{b}</p></d
 pagina(f'''{cab("02 · Voz", "La voz en cada canal", "La personalidad no cambia; el registro se adapta al momento.")}<div class="g3 canales">{cc}</div>''', "Arquetipo y voz")
 
 reglas = [("Frases", "Cortas: unas 20 palabras como máximo, una idea por frase y párrafos de 2 o 3 frases."),
-          ("Tratamiento", "Tuteo cercano y respetuoso. Nunca «guapa», «cari» ni diminutivos."),
+          ("Tratamiento", "Tuteo en toda la marca. En medicina estética, <b>tuteo sutil</b>: frases completas y serenas, sin coloquialismos ni imperativos de venta. Nunca «guapa», «cari» ni diminutivos."),
           ("Mayúsculas", "Titulares en minúscula, como una frase. Sin textos enteros en mayúsculas, salvo los antetítulos. Los verbos del lema, siempre con mayúscula inicial."),
           ("Puntuación", "Sin exclamaciones dobles ni puntos suspensivos. Comillas latinas «». Punto medio ( · ) como separador."),
           ("Números", "En cifra para datos: 30 años, 20 minutos, 9:30. Precios con espacio: «desde 45 €». Fechas: «17 de noviembre»."),
@@ -249,10 +249,11 @@ reglas = [("Frases", "Cortas: unas 20 palabras como máximo, una idea por frase 
           ("Nombres", "«Rosa Ondoño», siempre completo y con ñ. «Dr. Roberth Bravo Pardo», completo la primera vez.")]
 rw = [("¡¡Resultados garantizados!! Descubre tu oasis de belleza", "Te explicamos qué puedes esperar, antes de empezar."),
       ("5 Tratamientos Faciales que Transformarán tu Piel 🚀", "Cinco tratamientos faciales y para quién es cada uno."),
-      ("El poder curativo de las terapias alternativas", "Terapias que pueden ayudarte a sentirte mejor.")]
+      ("El poder curativo de las terapias alternativas", "Terapias que pueden ayudarte a sentirte mejor."),
+      ("¡Ven a por tus labios perfectos! Te los dejamos de 10", "En la valoración, el Dr. Bravo te explica qué resultado es realista para ti.")]
 pagina(f'''<div class="g-esc"><div>{cab("02 · Voz", "Reglas de escritura")}<div class="g2 reglas">{"".join(f'<div class="regla"><h4>{a}</h4><p>{b}</p></div>' for a, b in reglas)}</div></div>
 <div><p class="dl" style="margin-top:12mm">Antes → después</p>{"".join(f'<div class="rw"><p class="rw-a">{a}</p><p class="rw-d">{d}</p></div>' for a, d in rw)}
-<p class="pie-nota">Los ejemplos «antes» son titulares de la web actual.</p></div></div>''', "Arquetipo y voz")
+<p class="pie-nota">Los tres primeros «antes» son titulares de la web actual. El último muestra el tuteo sutil de medicina estética.</p></div></div>''', "Arquetipo y voz")
 
 si12 = ["cuidar", "valorar", "escuchar", "explicar", "acompañar", "un plan para ti", "criterio", "oficio", "manos", "calma", "natural", "puede ayudarte a"]
 no12 = ["garantizado", "milagro", "curar · curativo", "eliminar para siempre", "sin riesgo", "100 % seguro", "antiedad", "defectos", "oasis", "transformación radical", "chollo", "¡últimas plazas!"]
