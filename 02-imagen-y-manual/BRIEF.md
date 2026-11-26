@@ -22,7 +22,7 @@
 | 5 | Sistema de logo y usos incorrectos | disenador-grafico | 🟡 Sistema A–G en SVG (color, negro y negativo); logotipo reconstruido en vector, pendiente de validar |
 | 6 | Iconografía y estilo fotográfico | disenador-grafico + fotografo | 🟡 Set de 14 iconos SVG + capítulo de fotografía |
 | 7 | Aplicaciones | disenador-grafico | 🟡 Maquetas en el manual (tarjeta, vale, firma, redes, WhatsApp, placa, uniformes, packaging) |
-| 8 | Manual HTML + PDF, QA y presentación | director-arte + qa + ejecutivo-cuentas | 🟡 v2.2 (47 págs.): Pantone, tilde y fotos del centro; falta QA |
+| 8 | Manual HTML + PDF, QA y presentación | director-arte + qa + ejecutivo-cuentas | 🟡 v3.0 (53 págs.): manifiesto, mensajes, escritura, vocabulario, presentaciones y contacto; falta QA |
 
 ## Punto de partida (investigación 17/11/2026)
 - Icono: figura humana abstracta de trazo continuo (círculo, doble onda, círculo macizo). PNG en `../assets/logo-original/`. **Falta el vector.**
@@ -37,3 +37,4 @@
 - **17/11/2026** · Manual v2.0 rediseñado en A4 horizontal, siguiendo las referencias del cliente. Recibidos el PSD de 2023 y el SVG del isotipo. Propuesto #7D1F73 (PSD maestro) como color oficial: pendiente de confirmar.
 - **17/11/2026** · El cliente confirma #7D1F73 y las licencias, y autoriza el negativo y el supergráfico. No hay vector del logotipo: se reconstruye (isotipo original + texto calcado del PSD). Manual v2.1.
 - **17/11/2026** · Manual v2.2: PANTONE 255 C y CMYK 53/96/10/24, tilde en el descriptor, nuevo apartado «El centro» con las fotos del recorrido 360° (sin asignar uso a las cabinas) y sin el nº de registro sanitario, por decisión del cliente.
+- **26/11/2026** · Manual v3.0: revisión completa con las skills de manual de marca, mensajes, manifiesto, voz y calidad visual. 6 páginas nuevas y pulido.

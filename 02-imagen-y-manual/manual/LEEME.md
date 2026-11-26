@@ -1,4 +1,4 @@
-# Manual de marca · Rosa Ondoño · v2.2
+# Manual de marca · Rosa Ondoño · v3.0
 *Departamento de Imagen y Manual · 17/11/2026 · A4 horizontal, 44 páginas*
 
 | Archivo | Qué es |
@@ -21,6 +21,12 @@ Originales del cliente en `assets/logo-original/2023/`: el PSD maestro, el SVG d
   - el isotipo es el SVG original del cliente, sin tocar;
   - el texto está calcado del PSD maestro con `herramientas/vectorizar.py` (coincidencia del 97,6 % en el horizontal).
   - Antes de imprenta o rotulación, conviene revisarlo a gran tamaño.
+
+## v3.0 (26/11/2026) · 53 páginas
+Revisado con las skills de manual de marca, mensajes, manifiesto, voz e «impeccable» (calidad visual).
+- **Nuevas páginas:** Manifiesto · Mensajes (mensaje central, propuesta de valor, 4 mensajes clave con pruebas reales y banco de pruebas) · Reglas de escritura (con ejemplos antes/después sacados de la web actual) · Vocabulario 12 + 12 y cómo nombramos las cosas · Presentaciones y email · Contacto y archivos (con historial de versiones).
+- **«Antes de publicar»:** añadidos el tamaño mínimo, el Pantone, el negativo y la regla de emojis.
+- **Pulido visual:** iconos SVG en lugar de los caracteres ✔/✖, fuera las barras de color en un solo lado de las tarjetas, e índice al día.
 
 ## v2.2 (17/11/2026)
 - **Morado en imprenta:** PANTONE 255 C (ΔE00 1,9) y CMYK 53/96/10/24 (Color Bridge, ΔE 3,7). Calculado contra las bibliotecas PANTONE+ en Lab.

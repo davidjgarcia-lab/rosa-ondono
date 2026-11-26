@@ -75,7 +75,7 @@ nombres = dict(morado="Morado", marfil="Marfil", arena="Arena", lila="Lila", sal
 # ======================= PORTADA =======================
 pagina(f'''<div class="portada">
 <div class="pt-izq">
-  <p class="kicker">Manual de marca · v2.2 · Noviembre 2026</p>
+  <p class="kicker">Manual de marca · v3.0 · Noviembre 2026</p>
   {img(H_LOGO, "Logotipo de Rosa Ondoño", "width:118mm")}
   <p class="lema-xl">Cuídate · Conecta · Siente</p>
   <p class="pt-meta">Estrategia · Identidad · Color · Tipografía<br>Fotografía · Aplicaciones · Accesibilidad</p>
@@ -84,14 +84,14 @@ pagina(f'''<div class="portada">
 </div>''', "Portada", "marfil", clase="sin-pie")
 
 # ======================= ÍNDICE =======================
-cap = [("01", "Estrategia", "Propósito, valores, posicionamiento y lema"),
-       ("02", "Arquetipo y voz", "Personalidad y forma de hablar"),
+cap = [("01", "Estrategia", "Manifiesto, propósito, posicionamiento y mensajes"),
+       ("02", "Arquetipo y voz", "Personalidad, tono, escritura y vocabulario"),
        ("03", "Logotipo", "Sistema, construcción, versiones y usos"),
        ("04", "Color", "Paleta, procedencia, parejas y proporción"),
        ("05", "Tipografía", "Lettering del logo, familias y jerarquía"),
        ("06", "Elementos gráficos", "Supergráfico, iconos y fotografía"),
-       ("07", "Aplicaciones", "Papelería, redes, web y espacio"),
-       ("08", "Accesibilidad y archivos", "Contraste, formatos y checklist")]
+       ("07", "Aplicaciones", "Papelería, redes, web, espacio y presentaciones"),
+       ("08", "Accesibilidad y archivos", "Contraste, formatos, reglas y contacto")]
 filas = "".join(f'<div class="ix"><span class="ixn">{n}</span><div><p class="ixt">{t}</p><p class="ixs">{s}</p></div></div>' for n, t, s in cap)
 pagina(f'''<div class="g-indice"><div><p class="kicker">Índice</p><h2 class="h-xl">Contenido</h2>
 <p class="intro">Todo lo necesario para que Rosa Ondoño se vea, suene y se comporte igual en cualquier lugar: en cabina, en la web, en las redes, en un vale regalo o en la placa del portal.</p>
@@ -115,6 +115,17 @@ pagina(f'''{cab("Introducción", "Cómo está hecho este manual", "Reúne el tra
 
 # ======================= 01 · ESTRATEGIA =======================
 portadilla("01", "Estrategia", C["morado"], iso("#fff", "position:absolute;right:-24mm;top:-44mm;height:240mm;transform:rotate(-8deg)"), oscuro=True, sub="Bienestar integral con criterio")
+
+pagina(f'''{iso("#fff", "position:absolute;right:-60mm;bottom:-90mm;height:250mm;opacity:1;transform:rotate(-14deg)")}
+<div class="mani"><p class="kicker" style="color:var(--lila)">01 · Manifiesto</p>
+<p class="mani-a">Cuidarse no debería ser una carrera.</p>
+<div class="mani-c"><p>Ni una promesa imposible, ni una oferta que caduca el viernes.</p>
+<p>Nos negamos a vender milagros. A tratar la piel como un defecto que corregir. A medir el bienestar en descuentos.</p>
+<p>Creemos que cuidarse empieza por escuchar. Que unas manos expertas saben cosas que ninguna máquina sabe. Que la piel, el cuerpo y la emoción van juntos, y así hay que tratarlos.</p>
+<p>Creemos en decir la verdad, aunque a veces sea «esto no lo necesitas».</p>
+<p>Esto es para quien quiere verse bien sin dejar de reconocerse. Para quien busca a alguien de confianza, no un catálogo.</p>
+<p>Llevamos más de treinta años haciéndolo así. Y así seguiremos.</p></div>
+<p class="mani-z">Cuídate · Conecta · Siente</p></div>''', "Manifiesto", "morado", oscuro=True)
 
 pagina(f'''<div class="g-2col"><div>{cab("01 · Estrategia", "Qué es Rosa Ondoño")}
 <p class="cuerpo">Un centro de estética, terapias manuales y complementarias y medicina estética en la Av. Maisonnave de Alicante, fundado por Rosa Ondoño: más de 30 años de oficio, formación en estética, naturopatía y terapias manuales, y médicos que le confían el drenaje postquirúrgico de sus pacientes.</p>
@@ -162,6 +173,18 @@ pagina(f'''{cab("01 · Estrategia", "El lema como estructura", "Cuídate · Cone
 <p class="pie-nota">Siempre en este orden, con punto medio ( · ) y mayúscula inicial. No se añaden verbos ni se traduce.</p>''', "Estrategia")
 
 # ======================= 02 · ARQUETIPO Y VOZ =======================
+claves = [("Te decimos lo que necesitas, y lo que no.", "Antes de cualquier tratamiento hay una valoración. Si algo no es para ti, te lo decimos.", "Las reseñas de Google (4,9★) destacan la sinceridad y el trato."),
+          ("Más de 30 años de manos expertas.", "El oficio se nota en cómo se escucha, se explica y se trabaja.", "Formación en estética, naturopatía y terapias manuales. Médicos de Alicante, Madrid y Barcelona derivan a Rosa el drenaje postquirúrgico."),
+          ("Piel, cuerpo y emoción, en un solo lugar.", "Estética, terapias y medicina estética se piensan juntas, en un plan para ti.", "Medicina estética con supervisión del Dr. Roberth Bravo Pardo."),
+          ("Un refugio en pleno centro.", "Un tiempo de calma a dos pasos de Maisonnave.", "Patio-jardín interior en la Av. Maisonnave 38, Alicante.")]
+pruebas = ["4,9★ en Google", "Más de 30 años de oficio", "Supervisión médica", "Drenaje postquirúrgico con derivaciones médicas", "Patio-jardín interior", "Más de 60 tratamientos", "Av. Maisonnave 38"]
+pagina(f'''{cab("01 · Estrategia", "Mensajes")}
+<div class="g-msg"><div><p class="dl">Mensaje central</p><p class="msg-c">Rosa Ondoño ayuda a las personas de Alicante a cuidarse con naturalidad y confianza, uniendo estética, terapias y medicina estética supervisada bajo el criterio de una profesional con más de 30 años de oficio.</p>
+<p class="dl mt">Propuesta de valor</p><p class="cuerpo">Un plan para ti, hecho por manos expertas y con supervisión médica, sin prisas ni promesas.</p>
+<p class="dl mt">Banco de pruebas</p><div class="chips">{"".join(f"<span>{x}</span>" for x in pruebas)}</div></div>
+<div class="claves">{"".join(f'<div class="card blanco clave"><p class="cnum">{i+1:02d}</p><h3>{m}</h3><p>{c}</p><p class="prueba"><b>Prueba:</b> {pr}</p></div>' for i, (m, c, pr) in enumerate(claves))}</div></div>
+<p class="pie-nota">Cada afirmación tiene una prueba real. No se usan testimonios inventados ni cifras sin fuente.</p>''', "Estrategia")
+
 portadilla("02", "Arquetipo y voz", C["lila"], iso(style="position:absolute;right:-10mm;top:-34mm;height:215mm"))
 
 arq = ["Inocente", "Explorador", "Sabio", "Héroe", "Forajido", "Mago", "Persona corriente", "Amante", "Bufón", "Cuidador", "Creador", "Gobernante"]
@@ -215,6 +238,29 @@ canales = [("Web · portada", "<strong>Cuídate · Conecta · Siente.</strong> E
            ("Campaña · Navidad", "<strong>Regala tiempo.</strong> Tarjetas regalo para rituales y masajes en Maisonnave.")]
 cc = "".join(f'<div class="card blanco canal"><p class="cl">{a}</p><p>{b}</p></div>' for a, b in canales)
 pagina(f'''{cab("02 · Voz", "La voz en cada canal", "La personalidad no cambia; el registro se adapta al momento.")}<div class="g3 canales">{cc}</div>''', "Arquetipo y voz")
+
+reglas = [("Frases", "Cortas: unas 20 palabras como máximo, una idea por frase y párrafos de 2 o 3 frases."),
+          ("Tratamiento", "Tuteo cercano y respetuoso. Nunca «guapa», «cari» ni diminutivos."),
+          ("Mayúsculas", "Titulares en minúscula, como una frase. Sin textos enteros en mayúsculas, salvo los antetítulos. Los verbos del lema, siempre con mayúscula inicial."),
+          ("Puntuación", "Sin exclamaciones dobles ni puntos suspensivos. Comillas latinas «». Punto medio ( · ) como separador."),
+          ("Números", "En cifra para datos: 30 años, 20 minutos, 9:30. Precios con espacio: «desde 45 €». Fechas: «17 de noviembre»."),
+          ("Emojis", "Nunca en web, email ni medicina estética. En redes, como mucho uno y al final, nunca 🚀 ni 🔥."),
+          ("Voz activa", "«Te valoramos», no «serás valorada». Quien hace la acción, delante."),
+          ("Nombres", "«Rosa Ondoño», siempre completo y con ñ. «Dr. Roberth Bravo Pardo», completo la primera vez.")]
+rw = [("¡¡Resultados garantizados!! Descubre tu oasis de belleza", "Te explicamos qué puedes esperar, antes de empezar."),
+      ("5 Tratamientos Faciales que Transformarán tu Piel 🚀", "Cinco tratamientos faciales y para quién es cada uno."),
+      ("El poder curativo de las terapias alternativas", "Terapias que pueden ayudarte a sentirte mejor.")]
+pagina(f'''<div class="g-esc"><div>{cab("02 · Voz", "Reglas de escritura")}<div class="g2 reglas">{"".join(f'<div class="regla"><h4>{a}</h4><p>{b}</p></div>' for a, b in reglas)}</div></div>
+<div><p class="dl" style="margin-top:12mm">Antes → después</p>{"".join(f'<div class="rw"><p class="rw-a">{a}</p><p class="rw-d">{d}</p></div>' for a, d in rw)}
+<p class="pie-nota">Los ejemplos «antes» son titulares de la web actual.</p></div></div>''', "Arquetipo y voz")
+
+si12 = ["cuidar", "valorar", "escuchar", "explicar", "acompañar", "un plan para ti", "criterio", "oficio", "manos", "calma", "natural", "puede ayudarte a"]
+no12 = ["garantizado", "milagro", "curar · curativo", "eliminar para siempre", "sin riesgo", "100 % seguro", "antiedad", "defectos", "oasis", "transformación radical", "chollo", "¡últimas plazas!"]
+nombrar = [("Valoración integral", "Con mayúsculas: es el nombre de un servicio."), ("Tarjeta regalo", "No «bono» ni «vale descuento»."), ("Clientas y clientes", "En medicina estética, «pacientes»."), ("El centro", "No «la clínica», salvo en medicina estética.")]
+pagina(f'''{cab("02 · Voz", "Vocabulario")}
+<div class="g-voc"><div class="card blanco"><h4 class="si">✔ Decimos</h4><div class="chips si-c">{"".join(f"<span>{w}</span>" for w in si12)}</div></div>
+<div class="card blanco"><h4 class="no">✖ No decimos</h4><div class="chips no-c">{"".join(f"<span>{w}</span>" for w in no12)}</div></div></div>
+<h4 class="mt">Cómo nombramos las cosas</h4><div class="g4">{"".join(f'<div class="card blanco"><h4>{a}</h4><p>{b}</p></div>' for a, b in nombrar)}</div>''', "Arquetipo y voz")
 
 # ======================= 03 · LOGOTIPO =======================
 portadilla("03", "Logotipo", C["blanco"], img(V_LOGO, "", "position:absolute;right:22mm;top:24mm;height:116mm"))
@@ -461,6 +507,17 @@ pagina(f'''{cab("07 · Aplicaciones", "El espacio")}
 <div class="card blanco"><h4>Uniformes</h4><p>Cabina: túnica arena o marfil. Medicina estética: bata blanca con nombre, titulación y nº de colegiado {pend()}.</p></div>
 <div class="card blanco"><h4>Packaging</h4><p>Kraft o arena, una sola tinta y sin plastificados brillantes. Cajas en marfil con relieve en seco.</p></div></div>''', "Aplicaciones")
 
+pagina(f'''{cab("07 · Aplicaciones", "Presentaciones y email")}
+<div class="g-pres"><div><div class="slide s1">{img(H_LOGO, "", "width:46%")}<p class="sl-t">Valoración integral</p><p class="sl-s">Un plan para ti · Noviembre 2026</p>{iso(style="position:absolute;right:-16mm;bottom:-30mm;height:44mm")}</div>
+<div class="slide s2"><p class="kicker">Cuídate</p><p class="sl-t" style="font-size:16pt">Primero, escuchar</p><div class="sl-cols"><p>Hablamos de lo que quieres cuidar y de tus hábitos.</p><p>Valoramos piel y cuerpo, con calma.</p><p>Te proponemos un plan, sin compromiso.</p></div>{img(H_LOGO, "", "position:absolute;right:5mm;top:5mm;width:22mm")}</div>
+<p class="pap-l">Presentación 16:9 · portada y diapositiva de contenido</p></div>
+<div class="mail"><div class="mail-h">{img(H_LOGO, "", "height:7mm")}</div><div class="mail-f" style="background-image:url({F360}/08-patio-jardin-cenador_16x9-web.jpg)"></div>
+<div class="mail-b"><p class="kicker">Siente</p><p class="mail-t">Regala tiempo esta Navidad</p><p class="peq">Tarjetas regalo para rituales y masajes en Maisonnave.</p><span class="btn">Ver tarjetas regalo</span></div>
+<div class="mail-p">Rosa Ondoño · Av. Maisonnave 38, Alicante · <u>Darse de baja</u></div><p class="pap-l" style="margin-top:3mm">Newsletter · 600 px</p></div></div>
+<div class="g3 mt"><div class="card blanco"><h4>Presentaciones</h4><p>Fondo marfil o blanco, titulares en Jost Light de 40 pt, texto de 18 pt como mínimo y una idea por diapositiva. El logotipo, pequeño, en la portada y en el pie.</p></div>
+<div class="card blanco"><h4>Newsletter</h4><p>600 px de ancho, una foto, un mensaje y un solo botón. Asunto de 45 caracteres como máximo y sin emojis. Enlace de baja visible (RGPD).</p></div>
+<div class="card blanco"><h4>Documentos</h4><p>Presupuestos y consentimientos en A4 vertical, con la cabecera de la hoja de carta. Si no hay fuentes de marca: Century Gothic y Georgia.</p></div></div>''', "Aplicaciones")
+
 # ======================= 08 · ACCESIBILIDAD Y ARCHIVOS =======================
 pares = [("marfil", "tinta"), ("marfil", "morado"), ("morado", "blanco"), ("arena", "morado"), ("lila", "tinta"), ("salvia", "tinta"), ("salvia", "morado"), ("arcilla", "morado"), ("tinta", "morado")]
 filas_c = ""
@@ -482,9 +539,9 @@ pagina(f'''<div class="g-2col"><div>{cab("08 · Archivos", "Formatos válidos")}
 <p class="cuerpo"><b>RGB/HEX</b> para todo lo que se ve en pantalla; <b>CMYK o Pantone</b> para todo lo que se imprime. En tarjetas, placa y vales, tinta directa Pantone.</p>
 <p class="pie-nota">Archivos en <code>identidad/logo/</code>: isotipo, logo-horizontal, logo-vertical y logo-vertical-sin-descriptor, cada uno en .svg (color), -negro.svg y -blanco.svg.</p></div>
 <div>{cab("08 · Archivos", "Antes de publicar")}<ul class="check">
-<li>Logotipo original, sin modificar, sobre fondo claro y con su área de respeto.</li><li>Un único morado: #7D1F73.</li>
+<li>Logotipo original, sin modificar, con su área de respeto: a color sobre claro, en negativo sobre oscuro.</li><li>Isotipo de 10 mm o 32 px como mínimo.</li><li>Un único morado: #7D1F73 · PANTONE 255 C.</li>
 <li>Solo Jost y Cormorant en los textos.</li><li>Todo el texto con contraste AA.</li>
-<li>Sin garantías, «curar», «seguro», urgencias ni palabras vetadas.</li><li>Medicina estética: profesional sanitario identificado.</li>
+<li>Sin garantías, «curar», «seguro», urgencias ni palabras vetadas. Sin emojis en web ni en medicina estética.</li><li>Medicina estética: profesional sanitario identificado.</li>
 <li>Consentimiento escrito de cada persona fotografiada.</li><li>Revisión de QA según la guía de cumplimiento legal.</li></ul></div></div>''', "Archivos")
 
 res_l = [("Color oficial", "#7D1F73, el del PSD maestro."), ("Licencias", "Bambino Light y Biko, con licencia comercial."),
@@ -497,6 +554,17 @@ pend_l = [("Prueba de color", "Validar PANTONE 255 C y el CMYK con una prueba so
 pagina(f'''{cab("Siguientes pasos", "Decidido y pendiente", "Decisiones del cliente del 17/11/2026 y lo que falta para cerrar los archivos finales.")}
 <div class="g2"><div><h4 class="si">✔ Resuelto</h4>{"".join(f'<div class="card blanco fila"><b>{a}</b><span>{b}</span></div>' for a, b in res_l)}</div>
 <div><h4 style="color:#8A1C1C">Pendiente</h4>{"".join(f'<div class="card blanco fila"><b>{a}</b><span>{b}</span></div>' for a, b in pend_l)}</div></div>''', "Pendientes")
+
+archivos = [("Logotipos", "identidad/logo/", "SVG y PNG · color, negro y blanco"), ("Iconos", "identidad/iconos/", "14 iconos SVG"),
+            ("Color y tipografía", "identidad/tokens/", "tokens.css · color.json"), ("Fotografía del centro", "assets/fotografia/recorrido-360/", "3:2 · 16:9 · 4:5"),
+            ("Originales del cliente", "assets/logo-original/2023/", "PSD maestro e isotipo SVG"), ("Este manual", "02-imagen-y-manual/manual/", "PDF y HTML")]
+versiones = [("v1", "17/11/2026", "Primer borrador vertical"), ("v2.0", "17/11/2026", "Rediseño horizontal con logos originales"), ("v2.1", "17/11/2026", "Color oficial, negativo y supergráfico"),
+             ("v2.2", "17/11/2026", "Pantone, tilde y fotos del centro"), ("v3.0", "26/11/2026", "Manifiesto, mensajes, escritura, vocabulario, presentaciones y pulido")]
+pagina(f'''<div class="g-2col"><div>{cab("08 · Archivos", "Contacto y archivos")}
+<div class="card oscuro"><h4 style="color:var(--lila)">Quién decide</h4><p>Las decisiones de marca las aprueba <b>Rosa Ondoño</b>. Cualquier pieza nueva que no esté en este manual se consulta antes de publicarla.</p>
+<p class="mt">info@rosaondono.com · 965 120 300</p></div>
+<h4 class="mt">Historial de versiones</h4><table class="tform">{"".join(f"<tr><td><b>{v}</b></td><td>{f}</td><td>{c}</td></tr>" for v, f, c in versiones)}</table></div>
+<div><h4 style="margin-top:20mm">Dónde están los archivos</h4>{"".join(f'<div class="card blanco fila2"><b>{a}</b><code>{r}</code><span>{d}</span></div>' for a, r, d in archivos)}</div></div>''', "Contacto")
 
 pagina(f'''<div class="contra">{iso("#fff", "position:absolute;right:-70mm;top:-56mm;height:300mm;transform:rotate(-10deg)")}
 <div class="contra-t">{img(V_BL, "Logotipo de Rosa Ondoño", "height:62mm")}
@@ -553,7 +621,7 @@ code{font-size:8pt;background:rgba(125,31,115,.08);padding:0 1.5mm;border-radius
 .ix-col{display:grid;grid-template-columns:1fr 1fr;column-gap:10mm;align-content:start;padding-top:8mm}
 .ix{display:flex;gap:5mm;border-top:1px solid #e3d8cc;padding:4mm 0}
 .ixn{font-size:18pt;font-weight:300;color:var(--morado);width:12mm}.ixt{font-size:13pt;font-weight:500}.ixs{font-size:9pt;color:#6b5b68}
-.borde-sup{border-top:1.6mm solid var(--c);background:#fff}.cnum{color:var(--morado);font-weight:500;font-size:9pt}
+.borde-sup{background:#fff}.borde-sup .cnum::before{content:"";display:inline-block;width:2.6mm;height:2.6mm;border-radius:50%;background:var(--c);margin-right:2mm;vertical-align:-.2mm}.cnum{color:var(--morado);font-weight:500;font-size:9pt}
 .ficha{display:grid;grid-template-columns:repeat(6,1fr);gap:4mm;border-top:1px solid #e3d8cc;margin-top:7mm;padding-top:4mm}
 .fl{font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:#7a6a78}.fv{font-weight:500;font-size:10pt}
 .decl .dl{color:var(--morado);font-weight:500;font-size:9pt}.decl .dt{font-weight:300;font-size:17pt;line-height:1.18;letter-spacing:-.01em}
@@ -679,6 +747,32 @@ code{font-size:8pt;background:rgba(125,31,115,.08);padding:0 1.5mm;border-radius
 .check{list-style:none}.check li{padding:2.4mm 0 2.4mm 8mm;border-bottom:1px solid #e3d8cc;position:relative;font-size:10pt}.check li::before{content:'';position:absolute;left:0;top:3mm;width:4mm;height:4mm;border:1.2px solid var(--morado);border-radius:1mm}
 .contra{position:absolute;inset:0}.contra-t{position:absolute;left:22mm;top:50%;transform:translateY(-50%)}
 .sin-pie .pie{display:none}
+.ico-ok,.ico-ko{display:inline-block;width:1em;height:1em;vertical-align:-.14em}
+.mani{position:absolute;left:22mm;top:18mm;width:150mm;color:var(--marfil)}
+.mani-a{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:30pt;line-height:1.1;margin:2mm 0 7mm;color:#fff}
+.mani-c p{font-weight:300;font-size:12.5pt;line-height:1.5;margin-bottom:2.6mm}
+.mani-z{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17pt;color:var(--lila);margin-top:6mm}
+.g-msg{display:grid;grid-template-columns:1fr 1.15fr;gap:10mm}
+.dl{color:var(--morado);font-weight:500;font-size:9pt;letter-spacing:.04em}
+.msg-c{font-weight:300;font-size:16pt;line-height:1.3}
+.chips{display:flex;flex-wrap:wrap;gap:2mm}.chips span{background:#fff;border:1px solid #e3d8cc;border-radius:10mm;padding:1mm 3.5mm;font-size:8.5pt}
+.claves{display:grid;grid-template-columns:1fr 1fr;gap:4mm}.clave h3{font-size:12pt;line-height:1.25}.clave .prueba{margin-top:2mm;color:#5a4a57;font-size:8.5pt}
+.g-esc{display:grid;grid-template-columns:1.35fr 1fr;gap:10mm}
+.reglas{gap:3mm 6mm}.regla{border-top:1px solid #e3d8cc;padding-top:2.5mm}.regla p{font-size:9.5pt}
+.rw{background:#fff;border-radius:4mm;padding:4mm 5mm;margin-bottom:3mm}.rw-a{text-decoration:line-through;color:#8a5a5a;font-size:9.5pt}.rw-d{font-weight:500;font-size:11pt;color:var(--tinta)}.rw-d::before{content:"→ ";color:var(--morado)}
+.g-voc{display:grid;grid-template-columns:1fr 1fr;gap:5mm}.g-voc .chips span{font-size:10.5pt;padding:1.2mm 4mm}
+.si-c span{background:var(--lila);border-color:var(--lila)}.no-c span{background:#F4E1E4;border-color:#F4E1E4;text-decoration:line-through;color:#6b2a2a}
+.g-pres{display:grid;grid-template-columns:1.6fr 1fr;gap:9mm;align-items:start}
+.slide{width:100%;aspect-ratio:16/9;border-radius:2mm;box-shadow:0 2px 10px rgba(0,0,0,.12);position:relative;overflow:hidden;margin-bottom:4mm;padding:7mm 8mm}
+.s1{background:var(--marfil);flex-direction:column;justify-content:center;align-items:flex-start;gap:2mm;width:48%;display:inline-flex;margin-right:3%;vertical-align:top}
+.s2{background:#fff;width:48%;display:inline-block;vertical-align:top}
+.sl-t{font-weight:300;font-size:18pt;line-height:1.05;letter-spacing:-.01em}.sl-s{font-size:7pt;color:#6b5b68}
+.sl-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3mm;margin-top:3mm}.sl-cols p{font-size:6.5pt;border-top:1px solid var(--morado);padding-top:1.5mm}
+.mail{width:82mm;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.12);border-radius:2mm;overflow:hidden}
+.mail-h{padding:4mm;text-align:center;border-bottom:1px solid #eee}.mail-f{height:34mm;background-size:cover;background-position:center}
+.mail-b{padding:5mm 6mm;text-align:center}.mail-t{font-weight:300;font-size:15pt;line-height:1.1;margin:1mm 0 2mm}.mail-b .btn{margin-top:3mm}
+.mail-p{background:var(--marfil);font-size:6pt;color:#6b5b68;text-align:center;padding:2.5mm}
+.fila2{display:grid;grid-template-columns:40mm 1fr;gap:1mm 4mm;padding:3mm 5mm;margin-bottom:2.5mm;font-size:9pt}.fila2 span{grid-column:2;color:#6b5b68;font-size:8.5pt}.fila2 code{justify-self:start}
 .imp-s{height:52mm;border-radius:4mm;margin-bottom:3mm;border:1px solid rgba(0,0,0,.06)}.imp p{font-size:9pt}.imp .mh{font-size:12pt}
 .centro-g{position:absolute;inset:0;display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:3mm;padding:3mm}
 .centro-g>div{background-size:cover;background-position:center;border-radius:3mm;position:relative}
@@ -695,9 +789,12 @@ def render():
     for i, (cuerpo, seccion, fondo, oscuro, clase) in enumerate(PAGINAS, 1):
         bg = C.get(fondo, fondo)
         out.append(f'<section class="page {clase}{" oscuro-p" if oscuro else ""}" style="background:{bg}">{cuerpo}'
-                   f'<div class="pie"><span>Rosa Ondoño · Manual de marca · v2.2 · Noviembre 2026</span><span>{seccion}</span><span>{i:02d}</span></div></section>')
+                   f'<div class="pie"><span>Rosa Ondoño · Manual de marca · v3.0 · Noviembre 2026</span><span>{seccion}</span><span>{i:02d}</span></div></section>')
+    OK = '<svg class="ico-ok" viewBox="0 0 16 16" aria-label="Sí"><circle cx="8" cy="8" r="7.2" fill="#1d6b33"/><path d="M4.6 8.3l2.2 2.2 4.6-4.8" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    KO = '<svg class="ico-ko" viewBox="0 0 16 16" aria-label="No"><circle cx="8" cy="8" r="7.2" fill="#a3262a"/><path d="M5.4 5.4l5.2 5.2M10.6 5.4l-5.2 5.2" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg>'
+    out = [o.replace("✔", OK).replace("✖", KO) for o in out]
     return f"""<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Manual de marca · Rosa Ondoño · v2.2</title>
+<title>Manual de marca · Rosa Ondoño · v3.0</title>
 <!-- Generado por manual/construir_manual.py · no editar a mano -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
