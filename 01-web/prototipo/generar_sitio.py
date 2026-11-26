@@ -259,7 +259,7 @@ def pie():
       </div>
       <div>
         <h2 class="pie__titulo">Contacto</h2>
-        <ul><li><a href="tel:+34965120300">965 120 300</a></li><li><a href="{WA}">WhatsApp 691 315 622</a></li><li><a href="mailto:info@rosaondono.com">info@rosaondono.com</a></li></ul>
+        <ul><li><a href="tel:+34965120300">965 120 300</a></li><li><a href="{WA}">WhatsApp 691 315 622</a></li><li><a href="mailto:info@rosaondono.com">info@rosaondono.com</a></li></ul>
         <h2 class="pie__titulo" style="margin-top:26px">Tu cita</h2>
         <ul><li><a href="{ruta_reserva()}">Reservar</a></li><li><a href="{ruta_regalo()}">Tarjeta regalo</a></li><li><a href="{L("/valoracion-integral/")}">Valoración integral</a></li></ul>
       </div>
@@ -323,7 +323,7 @@ def faq_area(cats):
     cuerpo = "".join((f'<h3 class="faq-grupo">{e(c["nombre"])}</h3>' if len(grupos) > 1 else "") +
                      "".join(f'<details class="faq"><summary>{e(f["pregunta"])}</summary><p>{e(f["respuesta"])}</p></details>' for f in l) for c, l in grupos)
     return f'''<section class="seccion faq-area"><div class="envoltura faq-area__rejilla">
-  <div><h2>Lo que más nos <em>preguntan</em></h2><p class="texto">Y si no encuentras tu duda, escríbenos: <a href="{WA}" rel="noopener">WhatsApp 691 315 622</a>.</p></div>
+  <div><h2>Lo que más nos <em>preguntan</em></h2><p class="texto">Y si no encuentras tu duda, escríbenos: <a href="{WA}" rel="noopener">WhatsApp 691 315 622</a>.</p></div>
   <div>{cuerpo}</div>
 </div></section>'''
 
@@ -495,7 +495,7 @@ def construir():
       <input type="hidden" name="hora" data-hora>
       <button class="boton boton--claro" type="submit">Continuar con mis datos</button>
     </form>
-    <p class="reserva-v3__otras">¿Prefieres hablar? <a href="{WA}" rel="noopener">WhatsApp 691 315 622</a> · <a href="tel:+34965120300">965 120 300</a></p>
+    <p class="reserva-v3__otras">¿Prefieres hablar? <a href="{WA}" rel="noopener">WhatsApp 691 315 622</a> · <a href="tel:+34965120300">965 120 300</a></p>
   </div>
   <div class="reserva-v3__regalo" data-revela>
     <div class="inclina">{tarjeta_regalo("Alguien especial", "Un ritual en pareja", "")}</div>
@@ -701,7 +701,7 @@ def construir():
       <div class="resultado" hidden></div>
     </div>
     <aside class="lado-form">
-      <div class="via via--destacada"><h2 style="font-size:1.5rem">¿Prefieres hablar con nosotras?</h2><p>WhatsApp 691 315 622 · Teléfono 965 120 300</p><a class="boton boton--claro" href="{WA}" rel="noopener" style="align-self:flex-start;margin-top:10px">Escribir por WhatsApp</a></div>
+      <div class="via via--destacada"><h2 style="font-size:1.5rem">¿Prefieres hablar con nosotras?</h2><p>WhatsApp 691 315 622 · Teléfono 965 120 300</p><a class="boton boton--claro" href="{WA}" rel="noopener" style="align-self:flex-start;margin-top:10px">Escribir por WhatsApp</a></div>
       <div class="via" style="margin-top:16px"><h2 style="font-size:1.5rem">¿Es para regalar?</h2><p>Prepara una tarjeta regalo con una experiencia o un importe.</p><a class="enlace-flecha" href="{ruta_regalo()}">Regalar</a></div>
     </aside>
   </div>
