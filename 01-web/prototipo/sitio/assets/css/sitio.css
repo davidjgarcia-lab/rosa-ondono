@@ -771,3 +771,74 @@ h1 .h1-pre { font-size: .8rem; }
 .ritual--escena .ritual__paso.es-activo { opacity: 1; }
 .ritual__paso::before { content: ""; position: absolute; left: 0; top: -1px; height: 2px; width: 100%; background: var(--lila); transform: scaleX(0); transform-origin: left; transition: transform var(--t-entrada) var(--e-salida); }
 .ritual--escena .ritual__paso.es-activo::before { transform: scaleX(1); }
+
+/* =====================================================================
+   v3.2 · catálogo de la web actual + pulido (skill impeccable: suelo de calidad)
+   ===================================================================== */
+/* Superficies del navegador con la paleta de la marca */
+::selection { background: var(--lila); color: var(--tinta); }
+.ritual ::selection, .reserva-v3 ::selection, .pie ::selection, .escenas ::selection { background: var(--marfil); color: var(--morado); }
+input, textarea, select { caret-color: var(--morado); accent-color: var(--morado); }
+html { scrollbar-color: #C9B3C4 var(--marfil); scrollbar-width: thin; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--marfil); }
+::-webkit-scrollbar-thumb { background: #C9B3C4; border-radius: 99px; border: 2px solid var(--marfil); }
+.cifras dt, .hueco, .confianza b, .opiniones__nota b { font-variant-numeric: tabular-nums lining-nums; }
+
+/* Flecha: icono SVG con el mismo trazo en toda la web (sustituye al carácter «→») */
+:root { --flecha: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E"); }
+.enlace-flecha::after, .abanico__ir::after { content: ""; width: 1.05em; height: 1.05em; background: currentColor; -webkit-mask: var(--flecha) center / contain no-repeat; mask: var(--flecha) center / contain no-repeat; flex: none; }
+.carta__ir { font-size: 0; width: 24px; height: 24px; background: currentColor; -webkit-mask: var(--flecha) center / contain no-repeat; mask: var(--flecha) center / contain no-repeat; }
+
+/* Preguntas frecuentes por área */
+.faq-area { background: var(--marfil); }
+.faq-area__rejilla { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(28px, 6vw, 96px); align-items: start; }
+.faq-area h2 { font-size: clamp(2rem, 3.8vw, 3.2rem); }
+.faq-area h2 em { font: italic 500 1.06em/1 var(--f-lema); color: var(--morado); }
+.faq-area__rejilla > div:first-child { position: sticky; top: calc(var(--cab) + 24px); }
+.faq-grupo { font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 400; color: var(--texto-suave); margin: 28px 0 6px; }
+.faq-grupo:first-child { margin-top: 0; }
+.faq-area .faq { border-bottom: 1px solid var(--linea); }
+.faq-area .faq summary { min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; list-style: none; font-size: 1.08rem; font-weight: 400; }
+.faq-area .faq summary::-webkit-details-marker { display: none; }
+.faq-area .faq summary::after { content: ""; width: 14px; height: 14px; flex: none; background: linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat, linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat; color: var(--morado); transition: transform var(--t-ui) var(--e-salida); }
+.faq-area .faq[open] summary::after { transform: rotate(45deg); }
+.faq-area .faq p { margin: 0 0 20px; color: var(--texto-suave); max-width: 62ch; }
+@media (max-width: 860px) { .faq-area__rejilla { grid-template-columns: 1fr; } .faq-area__rejilla > div:first-child { position: static; } }
+
+/* Opiniones reales de Google */
+.opiniones { padding-top: clamp(40px, 5vw, 64px); }
+.opiniones__cabeza { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 24px; }
+.opiniones__nota { display: flex; align-items: center; gap: 12px; margin: 0; color: var(--texto-suave); }
+.opiniones__nota b { font-size: 2.2rem; font-weight: 300; color: var(--tinta); line-height: 1; }
+.estrellas { display: inline-flex; gap: 2px; }
+.estrellas svg { width: 16px; height: 16px; fill: var(--morado); }
+.opiniones__lista { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+.opiniones__lista li { background: var(--blanco); border-radius: var(--r); padding: 22px; display: flex; }
+.opiniones__lista blockquote { margin: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; }
+.opiniones__lista p { margin: 0; font: italic 500 1.2rem/1.35 var(--f-lema); color: var(--tinta); }
+.opiniones__lista footer { font-size: .82rem; color: var(--texto-suave); }
+@media (max-width: 1100px) { .opiniones__lista { grid-template-columns: repeat(5, min(78%, 300px)); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 calc(-1 * clamp(18px, 4vw, 48px)); padding: 0 clamp(18px, 4vw, 48px) 6px; scroll-padding: 0 clamp(18px, 4vw, 48px); } .opiniones__lista li { scroll-snap-align: start; } }
+/* Directrices web: sin transition:all, menú sin arrastre de scroll */
+.opcion span { transition: background-color var(--t-micro) var(--e-suave), border-color var(--t-micro), color var(--t-micro); }
+.panel-menu { overscroll-behavior: contain; }
+/* Skill emil-design-eng: pulsación, hover solo con ratón y entrada del menú */
+:root { --e-ui: cubic-bezier(.23, 1, .32, 1); }
+.boton, .hueco, .escenas__mando, .escenas__pausa, .boton-menu { transition-property: background-color, color, border-color, transform, opacity; transition-duration: var(--t-micro); transition-timing-function: var(--e-ui); }
+.boton:active, .boton-menu:active, .escenas__pausa:active { transform: scale(.97); }
+@media (hover: none), (pointer: coarse) {
+  .whatsapp:hover, .escenas__tarjeta:hover, .mosaico figure:hover img, .abanico__panel:hover img { transform: none; }
+  .carta__fila:hover > :not(.carta__ir), .carta__fila:hover .carta__ir { transform: none; }
+}
+.panel-menu.abierto { animation: menu-entra 240ms var(--e-ui); }
+@keyframes menu-entra { from { opacity: 0; transform: translateY(8px); } }
+/* Titulares sin guiones de corte: solo se parte una palabra si de verdad no cabe (móvil estrecho) */
+h1, h2, h3 { hyphens: manual; -webkit-hyphens: manual; }
+@media (max-width: 360px) { h1 { hyphens: auto; -webkit-hyphens: auto; } }
+/* Skill review-animations */
+.vista-carta { transition: opacity var(--t-ui) var(--e-ui), transform 300ms var(--e-ui); }
+@media (hover: none) { .menu a:hover::after { transform: scaleX(0); } .menu a[aria-current="page"]::after { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .js [data-revela] { opacity: 0; transform: none; transition: opacity 200ms ease !important; }
+  .js [data-revela].visible { opacity: 1; }
+}

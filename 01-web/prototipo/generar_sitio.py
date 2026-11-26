@@ -47,9 +47,21 @@ CATS = sorted(D["categorias"], key=lambda c: c["orden"])
 TRAT = sorted(D["tratamientos"], key=lambda t: (t["prioridad"], t["nombre"]))
 I = {"t": {t["slug"]: t for t in TRAT}, "c": {c["slug"]: c for c in CATS}, "a": {a["slug"]: a for a in AREAS},
      "p": {p["slug"]: p for p in D["profesionales"]}}
-FAQS = {}
+FAQS, FAQS_CAT = {}, {}
 for f in sorted(D["faqs"], key=lambda f: f["orden"]):
-    FAQS.setdefault(f["tratamiento_slug"], []).append(f)
+    if f.get("tratamiento_slug"): FAQS.setdefault(f["tratamiento_slug"], []).append(f)
+    elif f.get("categoria_slug"): FAQS_CAT.setdefault(f["categoria_slug"], []).append(f)
+
+# Opiniones reales de Google (rosaondono.com, 26/11/2026). Solo sobre trato y ambiente: ninguna habla
+# de resultados ni de tratamientos médicos (cumplimiento-legal.md). Nombre e inicial, como en Google.
+OPINIONES = [
+    ("Silvia B.", "Rosa sabe muy bien lo que hace, siempre pendiente de tus necesidades. El centro, súper bonito como siempre: se respira paz y tranquilidad."),
+    ("Eva R.", "Me encantó el lugar. Era la primera vez que iba, pero me hicieron sentir como en casa."),
+    ("L. P.", "El trato es impecable desde el primer momento. Rosa siempre te asesora con sinceridad y te recomienda lo que mejor te va según tus necesidades."),
+    ("Lola M.", "Sobre todo es valorable la amabilidad, pero si va unida a una gran profesionalidad, se valora todavía más."),
+    ("Gema M.", "Un centro estupendo para cuidarse y mimarse. Un oasis en Maisonnave."),
+]
+CITA_ROSA = "Mi gran satisfacción es la expresión de mis clientes: su alegría y su felicidad."  # «Sobre mí», rosaondono.com
 area_de = lambda t: I["c"][t["categoria_slug"]].get("area_slug")
 
 # ---------------------------------------------------------------- imágenes
@@ -198,6 +210,8 @@ MENU = [("Estética", "/estetica/", "estetica"), ("Medicina estética", "/medici
 SVG_WA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91A9.85 9.85 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.29Z"/></svg>'
 SVG_IG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1C2.6 9.9 2.6 10.3 2.6 12s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4C15.5 4 15.1 4 12 4Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 8.1a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Zm6.2-8.3a1.1 1.1 0 1 1-2.3 0 1.1 1.1 0 0 1 2.3 0Z"/></svg>'
 SVG_FB = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21.9v-7.7h2.6l.4-3h-3V9.3c0-.9.3-1.5 1.5-1.5h1.6V5.1c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6v7.7h3.1Z"/></svg>'
+ESTRELLA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.6 2.9 6 6.5.9-4.7 4.6 1.1 6.5L12 17.5l-5.8 3.1 1.1-6.5L2.6 9.5l6.5-.9z"/></svg>'
+ESTRELLAS = ESTRELLA * 5
 SVG_MAPA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>'
 
 def cabecera(activa):
@@ -301,6 +315,17 @@ def ld_migas(items):
 PAGINAS = []  # (ruta, titulo, descripcion, cuerpo, menu, jsonld, imagen_og)
 def pagina(ruta, titulo, descripcion, cuerpo, menu="", jsonld="", og="02-recepcion-ventana-patio", indexar=True):
     PAGINAS.append(dict(ruta=ruta, titulo=titulo, desc=descripcion, cuerpo=cuerpo, menu=menu, ld=jsonld, og=og, indexar=indexar))
+
+def faq_area(cats):
+    grupos = [(c, FAQS_CAT.get(c["slug"], [])) for c in cats]
+    grupos = [(c, l) for c, l in grupos if l]
+    if not grupos: return ""
+    cuerpo = "".join((f'<h3 class="faq-grupo">{e(c["nombre"])}</h3>' if len(grupos) > 1 else "") +
+                     "".join(f'<details class="faq"><summary>{e(f["pregunta"])}</summary><p>{e(f["respuesta"])}</p></details>' for f in l) for c, l in grupos)
+    return f'''<section class="seccion faq-area"><div class="envoltura faq-area__rejilla">
+  <div><h2>Lo que más nos <em>preguntan</em></h2><p class="texto">Y si no encuentras tu duda, escríbenos: <a href="{WA}" rel="noopener">WhatsApp 691 315 622</a>.</p></div>
+  <div>{cuerpo}</div>
+</div></section>'''
 
 def bloque_valoracion():
     return f'''<section class="seccion seccion--lila"><div class="envoltura dos">
@@ -417,7 +442,7 @@ def construir():
     <p>Lo que más nos piden quienes ya nos conocen. Cada uno tiene su ficha con qué incluye, para quién es y cuánto dura.</p>
   </div>
   <ol class="carta" data-revela>{carta}</ol>
-  <div class="vista-carta" aria-hidden="true"><img alt=""></div>
+  <div class="vista-carta" aria-hidden="true"><img alt="" width="240" height="300"></div>
   <div class="botonera carta__mas"><a class="boton boton--primario" href="{ruta_reserva()}">Reservar cita</a><a class="enlace-flecha" href="{L("/estetica/")}">Ver todos los tratamientos</a></div>
 </div></section>
 
@@ -425,7 +450,7 @@ def construir():
   <figure class="historia__foto" data-paralaje>{foto("02-recepcion-ventana-patio", sizes="(max-width: 900px) 100vw, 45vw")}</figure>
   <div class="historia__texto" data-revela>
     <span class="antetitulo"><b>03</b>Conócenos</span>
-    <blockquote class="historia__cita">«Te recomendamos solo lo que tiene sentido para ti.»<cite>Rosa Ondoño</cite></blockquote>
+    <blockquote class="historia__cita">«{e(CITA_ROSA)}»<cite>Rosa Ondoño, fundadora</cite></blockquote>
     <p class="texto">Rosa empezó en el Hotel Sidi San Juan y se formó en Llongueras, en naturopatía y en terapias manuales. Durante años, médicos de Alicante, Madrid y Barcelona le han enviado a sus pacientes para el drenaje después de una cirugía. Hoy todo el centro trabaja así: escuchando primero.</p>
     <dl class="cifras">
       <div><dt><span data-cuenta="30">30</span>+</dt><dd>años de oficio</dd></div>
@@ -451,7 +476,10 @@ def construir():
   </div>
 </div>
 <div class="marquesina" role="group" aria-label="Lo que más repiten en las opiniones de Google: {", ".join(temas)}"><div class="marquesina__pista" aria-hidden="true">{marquesina}</div><button type="button" class="marquesina__parar" aria-pressed="false">Detener el movimiento</button></div>
-<div class="envoltura nota-google"><p><b>4,9 ★</b> de media en las opiniones de Google</p><a class="enlace-flecha" href="{MAPS}" rel="noopener">Leer las opiniones</a></div>
+<div class="envoltura opiniones">
+  <div class="opiniones__cabeza"><p class="opiniones__nota"><b>4,9</b><span class="estrellas" aria-hidden="true">{ESTRELLAS}</span><span>de media en Google</span></p><a class="enlace-flecha" href="{MAPS}" rel="noopener">Leer todas las opiniones</a></div>
+  <ul class="opiniones__lista" data-revela>{"".join(f'<li><blockquote><p>{e(t)}</p><footer>{e(n)} · opinión en Google</footer></blockquote></li>' for n, t in OPINIONES)}</ul>
+</div>
 </section>
 
 <section class="reserva-v3" id="reserva"><div class="envoltura reserva-v3__rejilla">
@@ -511,12 +539,15 @@ def construir():
   <div class="cabecera-pagina__foto cabecera-pagina__foto--arco">{foto(FOTO_AREA[a["slug"]], carga="eager")}</div>
 </div></section>
 <section class="seccion seccion--blanca" style="padding-top:clamp(48px,6vw,80px)"><div class="envoltura">{bloques}</div></section>
+{faq_area(cats)}
 {bloque_valoracion()}'''
         desc = {"estetica": "Tratamientos faciales y corporales, depilación láser, micropigmentación y belleza en el centro de Alicante. Te recomendamos solo lo que necesitas.",
                 "medicina-estetica": "Medicina estética en Alicante con valoración médica previa: labios, hilos tensores, bioestimulación de colágeno y más, buscando resultados naturales.",
                 "terapias": "Masajes, drenaje linfático postoperatorio, acupuntura y terapias manuales en Alicante, con más de 30 años de oficio.",
                 "bienestar": "Rituales individuales y en pareja, circuito spa y masaje relajante en el centro de Alicante. También como tarjeta regalo."}[a["slug"]]
-        pagina(f'/{a["slug"]}/', f'{a["nombre"]} en Alicante · Rosa Ondoño', desc, cuerpo, a["slug"], ld(ld_migas([("Inicio", "/"), (a["nombre"], f'/{a["slug"]}/')])), FOTO_AREA[a["slug"]])
+        faqs_a = [f for c in cats for f in FAQS_CAT.get(c["slug"], [])]
+        ld_faq = [{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": f["pregunta"], "acceptedAnswer": {"@type": "Answer", "text": f["respuesta"]}} for f in faqs_a]}] if faqs_a else []
+        pagina(f'/{a["slug"]}/', f'{a["nombre"]} en Alicante · Rosa Ondoño', desc, cuerpo, a["slug"], ld(ld_migas([("Inicio", "/"), (a["nombre"], f'/{a["slug"]}/')]), *ld_faq), FOTO_AREA[a["slug"]])
 
     # ---------- Fichas
     for t in TRAT:
@@ -535,7 +566,8 @@ def construir():
             botones = f'<a class="boton boton--primario" href="{WA}" rel="noopener">Consultar por WhatsApp</a>'
         datos = ""
         if t.get("duracion_min"): datos += f'<div><dt>Duración</dt><dd>{t["duracion_min"]} min</dd></div>'
-        datos += f'<div><dt>Sesiones</dt><dd>{e(t["sesiones"])}</dd></div><div><dt>Precio</dt><dd>{e(precio(t))}</dd></div>'
+        if t.get("sesiones"): datos += f'<div><dt>Sesiones</dt><dd>{e(t["sesiones"])}</dd></div>'
+        datos += f'<div><dt>Precio</dt><dd>{e(precio(t))}</dd></div>'
         datos += f'<div><dt>Lo realiza</dt><dd>{e(prof["nombre"]) if prof else "Se confirma al reservar"}</dd></div>'
         aviso = ""
         if medico:
@@ -659,7 +691,7 @@ def construir():
             <div data-campo class="ancho-completo"><label for="r-nombre">Nombre y apellidos</label><input class="campo" id="r-nombre" name="nombre" autocomplete="name"></div>
             <p class="ayuda ancho-completo" id="r-contacto-ayuda" style="margin:0">Déjanos un <strong>teléfono o un email</strong>: con uno basta.</p>
             <div data-campo><label for="r-telefono">Teléfono</label><input class="campo" id="r-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="r-contacto-ayuda"></div>
-            <div data-campo><label for="r-email">Email</label><input class="campo" id="r-email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="r-contacto-ayuda"></div>
+            <div data-campo><label for="r-email">Email</label><input class="campo" id="r-email" name="email" type="email" autocomplete="email" spellcheck="false" inputmode="email" aria-describedby="r-contacto-ayuda"></div>
             <div data-campo class="ancho-completo"><label class="casilla"><input type="checkbox" name="privacidad"><span>He leído la <a href="{L("/privacidad/")}">política de privacidad</a> y acepto que se usen mis datos para gestionar esta cita.</span></label></div>
           </div>
           <p class="ayuda">No te pedimos datos de salud en el formulario: los hablamos en persona.</p>
@@ -697,7 +729,7 @@ def construir():
         </fieldset>
         <fieldset class="bloque-form"><legend><span>2</span>Para quién</legend>
           <div class="campo-grupo">
-            <div data-campo class="ancho-completo"><label for="g-para">Nombre de quien la recibe</label><input class="campo" id="g-para" name="para_nombre" maxlength="80"></div>
+            <div data-campo class="ancho-completo"><label for="g-para">Nombre de quien la recibe</label><input class="campo" id="g-para" name="para_nombre" maxlength="80" autocomplete="off"></div>
             <div data-campo class="ancho-completo"><label for="g-msg">Mensaje <span style="color:var(--texto-suave)">(opcional)</span></label><textarea class="campo" id="g-msg" name="mensaje" maxlength="280"></textarea></div>
           </div>
         </fieldset>
@@ -706,7 +738,7 @@ def construir():
             <div data-campo class="ancho-completo"><label for="g-nombre">Nombre y apellidos</label><input class="campo" id="g-nombre" name="nombre" autocomplete="name"></div>
             <p class="ayuda ancho-completo" id="g-contacto-ayuda" style="margin:0">Déjanos un <strong>teléfono o un email</strong>: con uno basta.</p>
             <div data-campo><label for="g-telefono">Teléfono</label><input class="campo" id="g-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="g-contacto-ayuda"></div>
-            <div data-campo><label for="g-email">Email</label><input class="campo" id="g-email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="g-contacto-ayuda"></div>
+            <div data-campo><label for="g-email">Email</label><input class="campo" id="g-email" name="email" type="email" autocomplete="email" spellcheck="false" inputmode="email" aria-describedby="g-contacto-ayuda"></div>
             <div data-campo class="ancho-completo"><label class="casilla"><input type="checkbox" name="privacidad"><span>He leído la <a href="{L("/privacidad/")}">política de privacidad</a> y acepto que se usen mis datos para preparar la tarjeta.</span></label></div>
           </div>
           <p class="ayuda">El pago se gestiona cuando te contactamos, hasta que el sistema de reservas permita pagar online.</p>
@@ -757,7 +789,7 @@ def head(p, en_vista=False):
 <meta property="og:type" content="website"><meta property="og:locale" content="es_ES"><meta property="og:site_name" content="Rosa Ondoño">
 <meta property="og:title" content="{e(p["titulo"])}"><meta property="og:description" content="{e(p["desc"])}"><meta property="og:url" content="{url}"><meta property="og:image" content="{og}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#7D1F73">
+<meta name="theme-color" content="#2E1A2C">
 <link rel="icon" href="{A("img/isotipo-color.svg")}" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=Jost:wght@300;400;500&display=swap">

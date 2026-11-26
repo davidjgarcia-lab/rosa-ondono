@@ -227,24 +227,6 @@
    "revision_pendiente": null
   },
   {
-   "slug": "tratamiento-facial-antiedad",
-   "nombre": "Tratamiento facial antiedad",
-   "categoria_slug": "faciales",
-   "pilar_slug": "cuidate",
-   "programa_slug": "rejuvenecimiento-facial",
-   "tipo": "estetica",
-   "resumen": "Protocolo de cabina para una piel más luminosa y con mejor aspecto, combinando activos y técnicas según tu piel.",
-   "para_quien": null,
-   "duracion_min": null,
-   "sesiones": "Orientativo: se concreta en tu valoración",
-   "precio_desde": null,
-   "profesional_slug": "rosa-ondono",
-   "reservable": true,
-   "destacado": false,
-   "prioridad": 2,
-   "revision_pendiente": null
-  },
-  {
    "slug": "hidratacion-facial",
    "nombre": "Hidratación facial",
    "categoria_slug": "faciales",
@@ -515,24 +497,6 @@
    "revision_pendiente": "Confirmar técnica: si es esclerosis o láser vascular, pasa a medicina estética"
   },
   {
-   "slug": "masaje-relajante",
-   "nombre": "Masaje relajante",
-   "categoria_slug": "masajes",
-   "pilar_slug": "siente",
-   "programa_slug": "rituales-y-desconexion",
-   "tipo": "terapia",
-   "resumen": "Masaje de ritmo lento para soltar tensión y desconectar.",
-   "para_quien": null,
-   "duracion_min": null,
-   "sesiones": "Orientativo: se concreta en tu valoración",
-   "precio_desde": null,
-   "profesional_slug": "rosa-ondono",
-   "reservable": true,
-   "destacado": false,
-   "prioridad": 2,
-   "revision_pendiente": null
-  },
-  {
    "slug": "masaje-terapeutico",
    "nombre": "Masaje terapéutico",
    "categoria_slug": "masajes",
@@ -630,24 +594,6 @@
    "programa_slug": "equilibrio-emocional",
    "tipo": "terapia",
    "resumen": "Drenaje suave con un enfoque de relajación profunda.",
-   "para_quien": null,
-   "duracion_min": null,
-   "sesiones": "Orientativo: se concreta en tu valoración",
-   "precio_desde": null,
-   "profesional_slug": "rosa-ondono",
-   "reservable": true,
-   "destacado": false,
-   "prioridad": 3,
-   "revision_pendiente": null
-  },
-  {
-   "slug": "reflexologia",
-   "nombre": "Reflexología podal y craneofacial",
-   "categoria_slug": "masajes",
-   "pilar_slug": "conecta",
-   "programa_slug": "equilibrio-emocional",
-   "tipo": "terapia",
-   "resumen": "Presiones en pies o rostro para una sesión de relajación profunda.",
    "para_quien": null,
    "duracion_min": null,
    "sesiones": "Orientativo: se concreta en tu valoración",
@@ -893,24 +839,6 @@
    "revision_pendiente": "Retirar el claim sobre ansiedad y depresión de la web actual"
   },
   {
-   "slug": "depilacion-laser",
-   "nombre": "Depilación láser",
-   "categoria_slug": "depilacion",
-   "pilar_slug": "cuidate",
-   "programa_slug": "belleza-esencial",
-   "tipo": "estetica",
-   "resumen": "Láser de alejandrita y diodo según tu tipo de piel y vello. Valoramos tu caso antes de la primera sesión.",
-   "para_quien": null,
-   "duracion_min": null,
-   "sesiones": "Orientativo: se concreta en tu valoración",
-   "precio_desde": null,
-   "profesional_slug": "rosa-ondono",
-   "reservable": true,
-   "destacado": true,
-   "prioridad": 1,
-   "revision_pendiente": null
-  },
-  {
    "slug": "depilacion-skins-brazilian",
    "nombre": "Depilación Skin's Brazilian",
    "categoria_slug": "depilacion",
@@ -1016,24 +944,6 @@
    "reservable": true,
    "destacado": true,
    "prioridad": 1,
-   "revision_pendiente": null
-  },
-  {
-   "slug": "armonizacion-facial",
-   "nombre": "Armonización facial",
-   "categoria_slug": "medicina-estetica",
-   "pilar_slug": "cuidate",
-   "programa_slug": "rejuvenecimiento-facial",
-   "tipo": "medico",
-   "resumen": "Abordaje global del rostro con varias técnicas médicas, planificado tras la consulta.",
-   "para_quien": null,
-   "duracion_min": null,
-   "sesiones": "Tras la consulta médica",
-   "precio_desde": null,
-   "profesional_slug": "dr-roberth-bravo-pardo",
-   "reservable": false,
-   "destacado": false,
-   "prioridad": 2,
    "revision_pendiente": null
   },
   {
@@ -1305,6 +1215,240 @@
    "destacado": false,
    "prioridad": 3,
    "revision_pendiente": null
+  },
+  {
+   "slug": "reafirmacion-facial",
+   "nombre": "Reafirmación facial",
+   "categoria_slug": "faciales",
+   "pilar_slug": "cuidate",
+   "programa_slug": "rejuvenecimiento-facial",
+   "tipo": "estetica",
+   "resumen": "Un tratamiento de cabina para trabajar la firmeza y el tono de la piel del rostro. La piel se nota más suave y flexible, y lo combinamos con la rutina que necesites en casa.",
+   "para_quien": "Si notas la piel del rostro menos firme o con menos tono.",
+   "duracion_min": null,
+   "sesiones": null,
+   "precio_desde": null,
+   "profesional_slug": "rosa-ondono",
+   "reservable": true,
+   "destacado": false,
+   "prioridad": 3,
+   "revision_pendiente": null
+  },
+  {
+   "slug": "piel-sensible",
+   "nombre": "Tratamiento para piel sensible",
+   "categoria_slug": "faciales",
+   "pilar_slug": "cuidate",
+   "programa_slug": "rejuvenecimiento-facial",
+   "tipo": "estetica",
+   "resumen": "Un facial suave y sin prisas para pieles que se enrojecen o se irritan con facilidad. Buscamos calmarla y cuidar su barrera protectora con productos elegidos para ella.",
+   "para_quien": "Pieles reactivas, con rojeces o que toleran mal los cosméticos.",
+   "duracion_min": null,
+   "sesiones": null,
+   "precio_desde": null,
+   "profesional_slug": "rosa-ondono",
+   "reservable": true,
+   "destacado": false,
+   "prioridad": 3,
+   "revision_pendiente": null
+  },
+  {
+   "slug": "higiene-facial-detox",
+   "nombre": "Higiene facial detox",
+   "categoria_slug": "faciales",
+   "pilar_slug": "cuidate",
+   "programa_slug": "rejuvenecimiento-facial",
+   "tipo": "estetica",
+   "resumen": "Una limpieza a fondo que purifica la piel y le devuelve un aspecto fresco y luminoso. Ideal para empezar a cuidarte o para recuperar la piel tras una temporada de estrés.",
+   "para_quien": "Pieles apagadas, con poros obstruidos o que piden una limpieza a fondo.",
+   "duracion_min": null,
+   "sesiones": null,
+   "precio_desde": null,
+   "profesional_slug": "rosa-ondono",
+   "reservable": true,
+   "destacado": false,
+   "prioridad": 3,
+   "revision_pendiente": null
+  },
+  {
+   "slug": "ojeras-y-parpados",
+   "nombre": "Ojeras y párpados",
+   "categoria_slug": "faciales",
+   "pilar_slug": "cuidate",
+   "programa_slug": "rejuvenecimiento-facial",
+   "tipo": "estetica",
+   "resumen": "Un tratamiento específico para el contorno de los ojos, la zona más fina del rostro. Ayuda a que la mirada se vea más descansada.",
+   "para_quien": "Si las ojeras, las bolsas o el párpado cansado te preocupan.",
+   "duracion_min": null,
+   "sesiones": null,
+   "precio_desde": null,
+   "profesional_slug": "rosa-ondono",
+   "reservable": true,
+   "destacado": false,
+   "prioridad": 3,
+   "revision_pendiente": null
+  },
+  {
+   "slug": "tratamiento-acne",
+   "nombre": "Pieles con tendencia acneica",
+   "categoria_slug": "faciales",
+   "pilar_slug": "cuidate",
+   "programa_slug": "rejuvenecimiento-facial",
+   "tipo": "estetica",
+   "resumen": "Limpiamos, calmamos y equilibramos la piel con tendencia acneica, y te enseñamos a cuidarla en casa para que esté más limpia y uniforme. Si hace falta, te recomendamos ver a un dermatólogo.",
+   "para_quien": "Pieles grasas o con granitos frecuentes.",
+   "duracion_min": null,
+   "sesiones": null,
+   "precio_desde": null,
+   "profesional_slug": "rosa-ondono",
+   "reservable": true,
+   "destacado": false,
+   "prioridad": 3,
+   "revision_pendiente": null
+  },
+  {
+   "slug": "remodelacion-corporal",
+   "nombre": "Remodelación corporal",
+   "categoria_slug": "corporales",
+   "pilar_slug": "cuidate",
+   "programa_slug": "silueta-y-piernas-ligeras",
+   "tipo": "estetica",
+   "resumen": "Un plan corporal a medida que combina aparatología y técnicas manuales para trabajar el contorno de tu cuerpo. Antes de empezar valoramos contigo qué es realista y cuántas sesiones tiene sentido hacer.",
+   "para_quien": "Si quieres trabajar zonas concretas del contorno corporal sin cirugía.",
+   "duracion_min": null,
+   "sesiones": null,
+   "precio_desde": null,
+   "profesional_slug": "rosa-ondono",
+   "reservable": true,
+   "destacado": false,
+   "prioridad": 3,
+   "revision_pendiente": null
+  },
+  {
+   "slug": "masaje-deportivo",
+   "nombre": "Masaje deportivo",
+   "categoria_slug": "masajes",
+   "pilar_slug": "conecta",
+   "programa_slug": "dolor-y-tension",
+   "tipo": "terapia",
+   "resumen": "Un masaje intenso para preparar los músculos antes del esfuerzo o ayudarles a recuperarse después. Adaptamos la presión a tu deporte y a cómo llegas ese día.",
+   "para_quien": "Personas que entrenan o hacen deporte con regularidad.",
+   "duracion_min": null,
+   "sesiones": null,
+   "precio_desde": null,
+   "profesional_slug": "rosa-ondono",
+   "reservable": true,
+   "destacado": false,
+   "prioridad": 3,
+   "revision_pendiente": null
+  },
+  {
+   "slug": "reflexologia-craneofacial",
+   "nombre": "Reflexología craneofacial",
+   "categoria_slug": "masajes",
+   "pilar_slug": "conecta",
+   "programa_slug": "equilibrio-emocional",
+   "tipo": "terapia",
+   "resumen": "Una técnica suave sobre la cabeza y el rostro para soltar la tensión acumulada. Muy relajante, ideal al final de una semana intensa.",
+   "para_quien": "Si acumulas tensión en la cara, la mandíbula o la cabeza.",
+   "duracion_min": null,
+   "sesiones": null,
+   "precio_desde": null,
+   "profesional_slug": "rosa-ondono",
+   "reservable": true,
+   "destacado": false,
+   "prioridad": 3,
+   "revision_pendiente": null
+  },
+  {
+   "slug": "tratamiento-facial-antiedad",
+   "nombre": "Rejuvenecimiento facial",
+   "categoria_slug": "faciales",
+   "pilar_slug": "cuidate",
+   "programa_slug": "rejuvenecimiento-facial",
+   "tipo": "estetica",
+   "resumen": "Protocolo de cabina para una piel más luminosa y con mejor aspecto, combinando activos y técnicas según tu piel.",
+   "para_quien": null,
+   "duracion_min": null,
+   "sesiones": "Orientativo: se concreta en tu valoración",
+   "precio_desde": null,
+   "profesional_slug": "rosa-ondono",
+   "reservable": true,
+   "destacado": false,
+   "prioridad": 2,
+   "revision_pendiente": null
+  },
+  {
+   "slug": "masaje-relajante",
+   "nombre": "Masaje relajante sedativo",
+   "categoria_slug": "masajes",
+   "pilar_slug": "siente",
+   "programa_slug": "rituales-y-desconexion",
+   "tipo": "terapia",
+   "resumen": "Masaje de ritmo lento para soltar tensión y desconectar.",
+   "para_quien": null,
+   "duracion_min": null,
+   "sesiones": "Orientativo: se concreta en tu valoración",
+   "precio_desde": null,
+   "profesional_slug": "rosa-ondono",
+   "reservable": true,
+   "destacado": false,
+   "prioridad": 2,
+   "revision_pendiente": null
+  },
+  {
+   "slug": "reflexologia",
+   "nombre": "Reflexología podal",
+   "categoria_slug": "masajes",
+   "pilar_slug": "conecta",
+   "programa_slug": "equilibrio-emocional",
+   "tipo": "terapia",
+   "resumen": "Presión en puntos concretos de los pies, una técnica tradicional para relajar todo el cuerpo. Sales con las piernas ligeras y la cabeza más tranquila.",
+   "para_quien": null,
+   "duracion_min": null,
+   "sesiones": "Orientativo: se concreta en tu valoración",
+   "precio_desde": null,
+   "profesional_slug": "rosa-ondono",
+   "reservable": true,
+   "destacado": false,
+   "prioridad": 3,
+   "revision_pendiente": null
+  },
+  {
+   "slug": "armonizacion-facial",
+   "nombre": "Full face",
+   "categoria_slug": "medicina-estetica",
+   "pilar_slug": "cuidate",
+   "programa_slug": "rejuvenecimiento-facial",
+   "tipo": "medico",
+   "resumen": "Abordaje global del rostro con varias técnicas médicas, planificado tras la consulta.",
+   "para_quien": null,
+   "duracion_min": null,
+   "sesiones": "Tras la consulta médica",
+   "precio_desde": null,
+   "profesional_slug": "dr-roberth-bravo-pardo",
+   "reservable": false,
+   "destacado": false,
+   "prioridad": 2,
+   "revision_pendiente": null
+  },
+  {
+   "slug": "depilacion-laser",
+   "nombre": "Depilación láser diodo y alejandrita",
+   "categoria_slug": "depilacion",
+   "pilar_slug": "cuidate",
+   "programa_slug": "belleza-esencial",
+   "tipo": "estetica",
+   "resumen": "Trabajamos con láser de diodo y de alejandrita y elegimos el más adecuado según tu tipo de piel y de vello. Te explicamos cuántas sesiones calculamos para tu caso antes de empezar.",
+   "para_quien": null,
+   "duracion_min": null,
+   "sesiones": "Orientativo: entre 6 y 8 sesiones, cada 4 a 6 semanas, según piel, vello y zona",
+   "precio_desde": null,
+   "profesional_slug": "rosa-ondono",
+   "reservable": true,
+   "destacado": true,
+   "prioridad": 1,
+   "revision_pendiente": null
   }
  ],
  "faqs": [
@@ -1313,86 +1457,266 @@
    "tratamiento_slug": "drenaje-linfatico-postoperatorio",
    "pregunta": "¿Cuándo puedo empezar después de la operación?",
    "respuesta": "Cuando lo indique tu cirujano. Tráenos su pauta y organizamos las sesiones con ella.",
-   "orden": 1
+   "orden": 1,
+   "categoria_slug": null
   },
   {
    "id": 2,
    "tratamiento_slug": "drenaje-linfatico-postoperatorio",
    "pregunta": "¿Cuántas sesiones voy a necesitar?",
    "respuesta": "Depende de la cirugía y de cómo evoluciones. Te damos una pauta orientativa en la primera sesión y la revisamos contigo.",
-   "orden": 2
+   "orden": 2,
+   "categoria_slug": null
   },
   {
    "id": 3,
    "tratamiento_slug": "drenaje-linfatico-postoperatorio",
    "pregunta": "¿Es doloroso?",
    "respuesta": "Es una técnica manual suave. Si alguna zona está sensible, adaptamos la presión.",
-   "orden": 3
+   "orden": 3,
+   "categoria_slug": null
   },
   {
    "id": 4,
    "tratamiento_slug": "depilacion-laser",
    "pregunta": "¿Cuántas sesiones se necesitan?",
    "respuesta": "Varía según la zona, el tipo de vello y la piel. Lo valoramos antes de empezar y te damos una estimación orientativa.",
-   "orden": 1
+   "orden": 1,
+   "categoria_slug": null
   },
   {
    "id": 5,
    "tratamiento_slug": "depilacion-laser",
    "pregunta": "¿Sirve para todo tipo de piel?",
    "respuesta": "Trabajamos con alejandrita y diodo para adaptarnos a distintos fototipos. En la valoración vemos cuál conviene en tu caso.",
-   "orden": 2
+   "orden": 2,
+   "categoria_slug": null
   },
   {
    "id": 6,
    "tratamiento_slug": "depilacion-laser",
    "pregunta": "¿Duele?",
    "respuesta": "Se nota una sensación de calor breve. Depende de la zona y de cada persona.",
-   "orden": 3
+   "orden": 3,
+   "categoria_slug": null
   },
   {
    "id": 7,
    "tratamiento_slug": "aumento-de-labios",
    "pregunta": "¿Puedo reservar el tratamiento directamente?",
    "respuesta": "No. Como todo acto médico, empieza con una consulta en la que el médico valora si está indicado y te explica riesgos y alternativas.",
-   "orden": 1
+   "orden": 1,
+   "categoria_slug": null
   },
   {
    "id": 8,
    "tratamiento_slug": "aumento-de-labios",
    "pregunta": "¿Se va a notar?",
    "respuesta": "El objetivo es un resultado natural y proporcionado. Lo hablaréis en la consulta antes de decidir nada.",
-   "orden": 2
+   "orden": 2,
+   "categoria_slug": null
   },
   {
    "id": 9,
    "tratamiento_slug": "aumento-de-labios",
    "pregunta": "¿Tiene riesgos?",
    "respuesta": "Sí, como cualquier tratamiento médico. El médico te los explica en consulta y firmarás un consentimiento informado.",
-   "orden": 3
+   "orden": 3,
+   "categoria_slug": null
   },
   {
    "id": 10,
    "tratamiento_slug": "valoracion-integral",
    "pregunta": "¿Qué incluye?",
    "respuesta": "Una conversación sobre lo que te gustaría mejorar, un análisis de piel, cuerpo y hábitos, y un plan por escrito.",
-   "orden": 1
+   "orden": 1,
+   "categoria_slug": null
   },
   {
    "id": 11,
    "tratamiento_slug": "valoracion-integral",
    "pregunta": "¿Tengo que contratar algo después?",
    "respuesta": "No. Es sin compromiso: te explicamos lo que te conviene y lo que no.",
-   "orden": 2
+   "orden": 2,
+   "categoria_slug": null
   },
   {
    "id": 12,
    "tratamiento_slug": "valoracion-integral",
    "pregunta": "¿Cuánto cuesta?",
    "respuesta": "Las condiciones están pendientes de confirmar por el centro.",
-   "orden": 3
+   "orden": 3,
+   "categoria_slug": null
+  },
+  {
+   "id": 13,
+   "tratamiento_slug": null,
+   "pregunta": "¿Cuánto dura un tratamiento facial?",
+   "respuesta": "Entre 60 y 90 minutos, según el tratamiento.",
+   "orden": 1,
+   "categoria_slug": "faciales"
+  },
+  {
+   "id": 14,
+   "tratamiento_slug": null,
+   "pregunta": "¿Cuándo se notan los resultados?",
+   "respuesta": "Algunos tratamientos se notan al salir de cabina y otros necesitan varias sesiones. Depende de tu piel y del objetivo, y te lo explicamos antes de empezar.",
+   "orden": 2,
+   "categoria_slug": "faciales"
+  },
+  {
+   "id": 15,
+   "tratamiento_slug": null,
+   "pregunta": "¿Cómo sé qué tratamiento es el mío?",
+   "respuesta": "Lo mejor es empezar con una valoración. Miramos tu piel, hablamos de lo que te gustaría mejorar y te recomendamos solo lo que tiene sentido para ti.",
+   "orden": 3,
+   "categoria_slug": "faciales"
+  },
+  {
+   "id": 16,
+   "tratamiento_slug": null,
+   "pregunta": "¿Cuánto dura un tratamiento corporal?",
+   "respuesta": "Depende del tratamiento: entre 30 minutos y 2 horas.",
+   "orden": 1,
+   "categoria_slug": "corporales"
+  },
+  {
+   "id": 17,
+   "tratamiento_slug": null,
+   "pregunta": "¿Son molestos?",
+   "respuesta": "Buscamos que sean cómodos. Algunos pueden dar una sensación leve de calor o presión, y siempre puedes pedirnos que paremos o ajustemos.",
+   "orden": 2,
+   "categoria_slug": "corporales"
+  },
+  {
+   "id": 18,
+   "tratamiento_slug": null,
+   "pregunta": "¿Cuándo empezaré a notar cambios?",
+   "respuesta": "Cada persona es distinta. Hay quien nota la diferencia en las primeras sesiones y tratamientos que necesitan más tiempo. Te lo contamos con honestidad en la valoración.",
+   "orden": 3,
+   "categoria_slug": "corporales"
+  },
+  {
+   "id": 19,
+   "tratamiento_slug": null,
+   "pregunta": "¿Hay cuidados después?",
+   "respuesta": "Sí. Según el tratamiento, te damos unas pautas sencillas para casa.",
+   "orden": 4,
+   "categoria_slug": "corporales"
+  },
+  {
+   "id": 20,
+   "tratamiento_slug": null,
+   "pregunta": "¿Cuánto dura una sesión de masaje?",
+   "respuesta": "Entre 60 y 90 minutos, según el masaje.",
+   "orden": 1,
+   "categoria_slug": "masajes"
+  },
+  {
+   "id": 21,
+   "tratamiento_slug": null,
+   "pregunta": "¿Puedo elegir el aceite o el aroma?",
+   "respuesta": "Sí. Tenemos varios aceites y aromas y eliges el que más te apetezca.",
+   "orden": 2,
+   "categoria_slug": "masajes"
+  },
+  {
+   "id": 22,
+   "tratamiento_slug": null,
+   "pregunta": "¿Y si tengo alguna condición médica?",
+   "respuesta": "Cuéntanoslo antes de la sesión. Adaptamos el masaje o, si no es buena idea, te lo diremos.",
+   "orden": 3,
+   "categoria_slug": "masajes"
+  },
+  {
+   "id": 23,
+   "tratamiento_slug": null,
+   "pregunta": "¿Hace falta reservar con antelación?",
+   "respuesta": "Te lo recomendamos, sobre todo si quieres una hora concreta.",
+   "orden": 4,
+   "categoria_slug": "masajes"
+  },
+  {
+   "id": 24,
+   "tratamiento_slug": null,
+   "pregunta": "¿Qué es la acupuntura?",
+   "respuesta": "Es una técnica de la medicina tradicional china que estimula puntos concretos del cuerpo con agujas muy finas. La usamos como apoyo a tu bienestar y no sustituye la atención médica.",
+   "orden": 1,
+   "categoria_slug": "terapias-complementarias"
+  },
+  {
+   "id": 25,
+   "tratamiento_slug": null,
+   "pregunta": "¿En qué consisten las flores de Bach?",
+   "respuesta": "Son esencias florales que se usan como acompañamiento emocional. Si estás pasando por un momento difícil, consulta también con un profesional de la salud.",
+   "orden": 2,
+   "categoria_slug": "terapias-complementarias"
+  },
+  {
+   "id": 26,
+   "tratamiento_slug": null,
+   "pregunta": "¿Qué es la electroestimulación?",
+   "respuesta": "Aplica corrientes de baja intensidad sobre los músculos para trabajarlos y ayudar a su recuperación.",
+   "orden": 3,
+   "categoria_slug": "terapias-complementarias"
+  },
+  {
+   "id": 27,
+   "tratamiento_slug": null,
+   "pregunta": "¿Qué es la terapia manual?",
+   "respuesta": "Técnicas con las manos sobre músculos y tejidos blandos para soltar tensión y ganar movilidad.",
+   "orden": 4,
+   "categoria_slug": "terapias-complementarias"
+  },
+  {
+   "id": 28,
+   "tratamiento_slug": null,
+   "pregunta": "¿Cómo funciona la depilación láser?",
+   "respuesta": "La luz del láser la absorbe el pigmento del vello y actúa sobre el folículo para reducir su crecimiento. Trabajamos con láser de diodo y de alejandrita.",
+   "orden": 1,
+   "categoria_slug": "depilacion"
+  },
+  {
+   "id": 29,
+   "tratamiento_slug": null,
+   "pregunta": "¿Duele?",
+   "respuesta": "Se nota algo de calor o un pequeño pinchazo, y la mayoría de personas lo tolera bien. Los equipos tienen sistemas de frío para que sea más cómodo.",
+   "orden": 2,
+   "categoria_slug": "depilacion"
+  },
+  {
+   "id": 30,
+   "tratamiento_slug": null,
+   "pregunta": "¿Cuántas sesiones hacen falta?",
+   "respuesta": "Depende de tu piel, del vello y de la zona. Como orientación, entre 6 y 8 sesiones cada 4 a 6 semanas.",
+   "orden": 3,
+   "categoria_slug": "depilacion"
+  },
+  {
+   "id": 31,
+   "tratamiento_slug": null,
+   "pregunta": "¿Qué zonas se pueden tratar?",
+   "respuesta": "Casi todas: piernas, axilas, ingles, espalda, pecho, brazos y rostro, entre otras.",
+   "orden": 4,
+   "categoria_slug": "depilacion"
+  },
+  {
+   "id": 32,
+   "tratamiento_slug": null,
+   "pregunta": "¿Por qué empezar con una consulta médica?",
+   "respuesta": "Porque son actos médicos. El Dr. Roberth Bravo Pardo valora tu caso, te explica opciones, riesgos y alternativas, y decide contigo si el tratamiento está indicado.",
+   "orden": 1,
+   "categoria_slug": "medicina-estetica"
+  },
+  {
+   "id": 33,
+   "tratamiento_slug": null,
+   "pregunta": "¿Los resultados son iguales para todo el mundo?",
+   "respuesta": "No. Cada persona responde de forma distinta y buscamos siempre un resultado natural. Ningún resultado se puede garantizar.",
+   "orden": 2,
+   "categoria_slug": "medicina-estetica"
   }
  ],
  "origen": "Supabase (en vivo)",
- "exportado": "2026-11-18"
+ "exportado": "2026-11-26"
 }
